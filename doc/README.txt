@@ -8,6 +8,16 @@ S%%%S       SSSSS S%%%S SSSSS S%%%S    SSSSS S%%%S SSSSS       S%%%S       S%%%S
 SSSSS       SSSSS SSSSSsSSSSS SSSSS    SSSSS SSSSSsSSSSS       SSSSS       SSSSSsSSSSS 
 
 
+							  _        
+                             | |       
+  _ __ ___   ___  _ __   ___ | |_ ___  
+ | '_ ` _ \ / _ \| '_ \ / _ \| __/ _ \ 
+ | | | | | | (_) | | | | (_) | || (_) |
+ |_| |_| |_|\___/|_| |_|\___/ \__\___/ 
+                                       
+                                       
+
+
 Welcome to the official monoto readme.
 
 
