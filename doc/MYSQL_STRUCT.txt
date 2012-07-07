@@ -1,0 +1,77 @@
+// 1 - create database monoto
+// 2 - create table m_log
+// 3 - create table m_notes
+
+
+
+1. create DB
+--
+-- Database: `monoto`
+--
+
+CREATE DATABASE `monoto` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `monoto`;
+
+
+
+
+
+
+2. create log table
+--
+-- Table structure for table `m_log`
+--
+
+DROP TABLE IF EXISTS `m_log`;
+CREATE TABLE IF NOT EXISTS `m_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event` text NOT NULL,
+  `details` text NOT NULL,
+  `activity_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='stores every edit, create, save etc' AUTO_INCREMENT=1 ;
+
+
+
+
+
+
+
+3. create notes table
+--
+-- Table structure for table `m_notes`
+--
+
+DROP TABLE IF EXISTS `m_notes`;
+CREATE TABLE IF NOT EXISTS `m_notes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `content` text NOT NULL,
+  `tags` text NOT NULL,
+  `date_mod` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `date_create` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `save_count` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+
+
+
+
+4. create user table
+--
+-- Table structure for table `m_users`
+--
+
+DROP TABLE IF EXISTS `m_users`;
+CREATE TABLE IF NOT EXISTS `m_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(3) NOT NULL,
+  `login_counter` int(11) NOT NULL,
+  `logout_counter` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+

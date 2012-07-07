@@ -1,0 +1,24 @@
+INSTALL:
+########
+
+Step 01: 	Download the latest monoto version from:
+
+Step 02: 	Extract the archive on disk
+
+Step 03: 	Check conf/config.php and modify it to your needs
+
+Step 04: 	Prepare your mysql server
+			- create databases (using the informations from doc/MYSQL_STRUCT.txt)
+			- create at least 1 user account using the following script: scripts/createUser.php (edit the file before you run it)
+
+Step 05: 	upload the extracted files to your webserver target url
+
+Step 06: 	visit index.php in your browser and login
+
+Step 07: 	Secure your monoto install
+			- conf/config.php (only webserver should be allowoed to read this file)
+			- remove scripts/createUser.php
+			- add .htaccess protection to your monoto installation - as it isnt designed for security aspects right now. Sorry.
+
+
+Enjoy!

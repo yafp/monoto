@@ -1,0 +1,236 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * General page setup
+ */
+
+
+/* core-colors 
+#2b3a42 			dunkles blau
+#3f5765 			helleres blau
+#bdd4de 			helles blau
+#efefef 			weiss quasi
+#ff530d 			orange
+*/
+
+body
+{
+	background-image:url('../images/patterns/pattern02.png');	
+	background-repeat:repeat;
+} 
+
+
+/* main background */
+#dt_example 
+{
+	/* font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; */
+	font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+
+	margin: 0;
+	padding: 0;
+	color: #333;
+	background-color: #bdd4de;
+}
+
+
+/* content block */
+#dt_example #container 
+{
+	width: 95%;
+	margin: 20px auto;
+	padding: 0;
+	background-color: #efefef ;
+
+	/* round corners */
+	-webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+
+	border-color: #ff530d;
+	border-style:solid;
+	border-width:3px;
+
+	background-color:rgba(239,239,239,0.95);
+
+
+
+}
+
+
+/* header */
+#dt_example #header 
+{
+	margin-left: 1em;
+	margin-right:1em;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-weight: bold;
+	font-size: 0.9em;
+	color: silver;
+}
+
+
+/* navigation */
+#dt_example #navi 
+{
+	margin-top: 0em;
+	text-align: right;
+	margin-right:1em;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+
+
+/* footer */
+#dt_example #footer 
+{
+	margin: 50px auto 0 auto;
+	padding: 0;
+	color: silver;
+}
+
+
+
+#dt_example #demo 
+{
+	margin-left: 1em;
+	margin-right:1em;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+
+#dt_example #noteContentCo 
+{
+	margin-left: 1em;
+	margin-right:1em;
+}
+
+
+#dt_example .demo_jui 
+{
+	margin: 30px auto 0 auto;
+}
+
+
+#dt_example .spacer 
+{
+	height: 20px;
+	clear: both;
+}
+
+#dt_example .clear 
+{
+	clear: both;
+}
+
+#dt_example pre 
+{
+	padding: 15px;
+	background-color: #F5F5F5;
+	border: 1px solid #CCCCCC;
+}
+
+#dt_example #myform 
+{
+margin:0 auto;
+width:400px;
+padding:14px;
+background-color: #C0C0C0;
+}
+
+
+
+
+
+
+
+/* H1-Hx */
+#dt_example h1 
+{
+	margin-top: 0.0em;
+	font-size: 1.3em;
+	font-weight: normal;
+	line-height: 1.6em;
+	color: #4E6CA3;
+
+	clear: both;
+}
+
+
+#dt_example h2 
+{
+	margin-top: 1em;
+	font-size: 1.2em;
+	font-weight: normal;
+	line-height: 1.6em;
+	color: #ff530d ;
+	border-bottom: 1px solid silver;
+	clear: both;
+	text-align: left;
+}
+
+
+
+
+
+/* A HREF */
+#dt_example a 
+{
+	color: #ff530d;	
+	text-decoration: none;
+}
+
+#dt_example a:hover 
+{
+	text-decoration: underline;
+	background-color: white;
+
+}
+
+
+/* LISTS */
+#dt_example ul 
+{
+	color: #4A4344;	/* gray34 */
+}
+
+
+
+
+.css_right 
+{
+	float: right;
+}
+
+.css_left 
+{
+	float: left;
+}
+
+.demo_links 
+{
+	float: left;
+	width: 50%;
+	margin-bottom: 1em;
+}
+
+#demo_info 
+{
+	padding: 5px;
+	border: 1px solid #B0BED9;
+	height: 100px;
+	width: 100%;
+	overflow: auto;
+}
+
+
+
+.slidingDiv {
+    height:500px;
+    background-color: #99CCFF;
+    padding:20px;
+    margin-top:10px;
+    border-bottom:5px solid #3399FF;
+}
+ 
+.show_hide {
+    display:none;
+}

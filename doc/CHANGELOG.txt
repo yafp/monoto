@@ -1,0 +1,24 @@
+PREVIEW - NOT YET RELEASED.
+
+
+
+Welcome to the official monoto changelog.
+
+
+Milestone 1 - The Hello World Thing - Build 2012xxyy.01
+#######################################################
+First public monoto version ... featuring:
+- login/logout (far away from being secure)
+- basic user-profile
+- creating notes
+- editing notes
+- renaming notes
+- deleting notes
+- activity logging
+- basic importer for textfiles
+- basic exporter for mysql
+- basic keyboard focused navigation
+- some pretty basic user-settings
+- info page with some stats
+- version information
+- update-check
