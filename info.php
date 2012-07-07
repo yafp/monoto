@@ -531,7 +531,7 @@ if ( isset($_POST["doUpdateCheck"]) )
    				var r=confirm("There is a critical update available. Should i download the latest version?")
 				if (r==true)
   				{
-  					window.location = "http://localhost/monoto/monoto_latest.zip","_blank"; 
+  					window.location = "https://github.com/macfidelity/monoto/blob/master/versionCheck.csv","_blank"; 
   				}
    			</script>';
 
