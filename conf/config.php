@@ -51,6 +51,6 @@
 	//
 	$m_milestone				= "0";
 	$m_milestone_title			= "The getting started story";
-	$m_build				= "20120707.02";
+	$m_build					= "20120707.03";
 
 ?>
