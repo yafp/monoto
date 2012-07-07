@@ -1,7 +1,8 @@
 INSTALL:
 ########
 
-Step 01: 	Download the latest monoto version from:
+Step 01: 	Download the latest monoto version from github
+			Stable: https://github.com/downloads/macfidelity/monoto/monoto_20120707.04_milestone01.zip
 
 Step 02: 	Extract the archive on disk
 
