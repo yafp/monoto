@@ -72,6 +72,9 @@ if ( isset($_POST["doLogin"]) )
 
 	// get data
 	$username = $_POST['username'];
+
+	$_SESSION['username'] = $username;
+
 	$password = $_POST['password'];
 	$username = mysql_real_escape_string($username);
 
@@ -101,27 +104,30 @@ if ( isset($_POST["doLogin"]) )
 		session_regenerate_id (); //this is a security measure
     	$_SESSION['valid'] = 1;
     	$_SESSION['userid'] = $userid;
+    	echo $_SESSION['username'];
 
-		// login+counter +1
-		//$old_login_counter = 10;
-		$new_login_counter = 2;
-		echo $username;
-		echo $new_login_counter;
+    	include 'conf/config.php';
 
-		include 'conf/config.php';
-
-		// connect to mysql
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+    	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
 		if (!$con)
 		{
 			die('Could not connect: ' . mysql_error());
 		}
-		mysql_select_db($mysql_db, $con);									// select db
+		mysql_select_db($mysql_db, $con);
 
-		$sql="UPDATE m_users SET login_counter='2' WHERE username = '$username';";
+    	// get current login-count
+    	$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
+		$result = mysql_query($sql);
+		while($row = mysql_fetch_array($result)) 					
+		{
+			$loginCounter = $row[0];
+		}
+		$loginCounter = $loginCounter +1;
+
+		// update logincounter
+		$sql="UPDATE m_users SET login_counter='".$loginCounter."' WHERE username='".$_SESSION['username']."' ";
 		echo $sql;
-		$result = mysql_query($query);
-
+		$result = mysql_query($sql);
 
     	// record to log - that we had a successfull user login
     	// update m_log

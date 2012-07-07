@@ -11,7 +11,19 @@
 
 	mysql_select_db($mysql_db, $con);				// select db
 
-    // record to log - that we had a successfull user login
+    // record to log - that we had a successfull user logout
+	// get current logout count-value
+    $sql="SELECT logout_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
+	$result = mysql_query($sql);
+	while($row = mysql_fetch_array($result)) 					
+	{
+		$logoutCounter = $row[0];
+	}
+	$logoutCounter = $logoutCounter +1;
+
+	// update logoutcounter
+	$sql="UPDATE m_users SET logout_counter='".$logoutCounter."' WHERE username='".$_SESSION['username']."' ";
+	$result = mysql_query($sql);
 
     // update m_log
     $username = "dummy";
@@ -19,6 +31,8 @@
 	$details = "User: <b>".$username."</b> logged out successfully.";
 	$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
 	$result = mysql_query($sql);
+
+	mysql_close($con);													// close sql connection
 
 	$_SESSION = array(); //destroy all of the session variables
     session_destroy();

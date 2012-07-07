@@ -23,12 +23,11 @@
 	{
 		echo $_SESSION['userid'];
 
-		echo "Welcome to monoto... ";
+		echo "Welcome ".$_SESSION['username']." to monoto... ";
 
 		$var=explode('?',$_SERVER['REQUEST_URI']);
 		$page=preg_replace('/.*\/([^\/])/','$1',$var[0]);
 		unset($var);
-
 
 		// we should fix that with proper css usage
 		// home

@@ -57,40 +57,30 @@
 				<table width="100%" border="0">
 				<tbody>
 					<tr>
-						<td width="55%"><b>General</b></td>
+						<td colspan="2" width="50%"><b>General</b></td>
+						<td colspan="2" width="50%"><b>Page specific</b></td>
 					</tr>
 					<tr>
-						<td width="55%">- enable toc:</td>
-						<td><?php if($s_enable_toc == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+						<td width="30%">- enable toc:</td>
+						<td width="20%"><?php if($s_enable_toc == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+						<td width="30%">- enable about section on info page:</td>
+						<td width="20%"><?php if($enable_info_about_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 					</tr>
 					<tr>
 						<td>- show tagline in header:</td>
 						<td><?php if($s_enable_header_tagline == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
-					<tr>
-						<td>- ask really delete question:</td>
-						<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
-					<tr>
-						<td>- enable user icon:</td>
-						<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
-					<tr>
-						<td width="55%"><b>Page specific</b></td>
-					</tr>
-					<tr>
-						<td>- enable about section on info page:</td>
-						<td><?php if($enable_info_about_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
-					<tr>
 						<td>- enable changelog on info page:</td>
 						<td><?php if($enable_info_version_changelog_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 					</tr>
 					<tr>
+						<td>- ask really delete question:</td>
+						<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						<td>- enable stats section on info page:</td>
 						<td><?php if($enable_info_stats_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 					</tr>
 					<tr>
+						<td>- enable user icon:</td>
+						<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						<td>- enable keyboard section on info page:</td>
 						<td><?php if($enable_info_keyboard_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 					</tr>
@@ -103,7 +93,29 @@
 
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
-				Username, UserIcon and some other stuff
+
+
+				<!-- Login & logout counter-->
+				<?php
+				// connect to mysql
+				$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+				if (!$con)
+				{
+					die('Could not connect: ' . mysql_error());
+				}	
+				mysql_select_db($mysql_db, $con);
+
+				$sql="SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
+				$result = mysql_query($sql);
+				while($row = mysql_fetch_array($result)) 					
+				{
+					echo "User: ".$_SESSION['username']."<br>";
+					echo "logins: ".$row[0]."<br>logouts: ".$row[1]."<br>";
+				}
+
+				?>
+
+
 
 
 				<!-- SPACER -->

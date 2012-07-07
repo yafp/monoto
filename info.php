@@ -86,7 +86,7 @@
 					echo "<b>".$m_name."</b>"; 
 				?>
 				is an open-source web-based notes-keeper. You can create, edit, rename, delete text-based notes - but the most important function is for sure the search.				
-				The basic workflow is inspired by <a href="http://notational.net/" target="_new">Notational Velocity</a>.
+				The basic workflow is somehow inspired by <a href="http://notational.net/" target="_new">Notational Velocity</a>.
 				Wanna know <a href="https://github.com/macfidelity/monoto/wiki/About-the-monoto-history">more</a>?
 
 			<!-- SPACER -->
@@ -113,7 +113,15 @@
 				</tr>
 				<tr>
 					<td>build:</td>
-					<td><?php echo $m_build; ?></td>
+					<td>
+						<?php 
+							echo $m_build; 
+							if($m_stable == false)
+							{
+								echo " - <font color='red'>Development Version</font>";
+							}
+						?>
+					</td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -383,28 +391,199 @@
 					<tr>
 						<td bgcolor=#84FF00>create</td>
 						<td>Note was created, version counter = 0, date created and modified set</td>
-						<td></td>
+						<td>
+						<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'"); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+
+						?>
+						</td>
 					</tr>
 					<tr>
 						<td bgcolor=#00CDCD>import</td>
 						<td>Note was imported using the importer, version counter = 0, date created and modified set</td>
-						<td></td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import'"); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
 					</tr>
 					<tr>
 						<td bgcolor=#FFB914>change</td>
 						<td>Content was changed, version counter +1, date modified set</td>
-						<td></td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'change'"); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
 					</tr>
 					<tr>
 						<td bgcolor=#D77D00>rename</td>
 						<td>Title (and maybe content) was changed, version counter +1, date modified set</td>
-						<td></td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'rename'"); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
 					</tr>
-					
 					<tr>
 						<td bgcolor=#CD0000>delete</td>
 						<td>Note was deleted, id/number is doomed forever.</td>
-						<td></td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'delete'"); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
+					</tr>
+					<tr>
+						<td bgcolor=#666666>login</td>
+						<td>User login - logincounter +1</td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login'"); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
+					</tr>
+					<tr>
+						<td bgcolor=#CCCCCC>logout</td>
+						<td>User logout - logoutcounter +1</td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'logout'"); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
 					</tr>
 				</tbody>
 				</table>
@@ -447,6 +626,7 @@
 								echo '</tr>';
 							}
 						}
+						mysql_close($con);													// close sql connection
 					?>
 
 					</tbody>
