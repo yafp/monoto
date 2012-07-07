@@ -531,7 +531,7 @@ if ( isset($_POST["doUpdateCheck"]) )
    				var r=confirm("There is a critical update available. Should i download the latest version?")
 				if (r==true)
   				{
-  					window.location = "https://github.com/macfidelity/monoto/blob/master/versionCheck.csv","_blank"; 
+  					window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; 
   				}
    			</script>';
 
