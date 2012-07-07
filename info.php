@@ -502,7 +502,7 @@ if ( isset($_POST["doUpdateCheck"]) )
 
 	if (!$_SESSION['updateCheck']) 
 	{
-		$url = "http://localhost/monoto/versionCheck.csv";
+		$url = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);
 		fclose ($fp); //always a good idea to close the file connection
