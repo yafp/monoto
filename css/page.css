@@ -78,6 +78,22 @@ body
 }
 
 
+#dt_example #usericon 
+{
+
+	background-image:url('../images/myUser.jpg');
+	background-size:50px 50px; */
+	background-repeat:no-repeat;
+	align: right;
+	/* round corners */
+	-webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	opacity:0.6;
+}
+
+
 
 /* footer */
 #dt_example #footer 

@@ -29,6 +29,7 @@
 		$page=preg_replace('/.*\/([^\/])/','$1',$var[0]);
 		unset($var);
 
+
 		// we should fix that with proper css usage
 		// home
 		if ($page == 'home.php')
@@ -47,10 +48,16 @@
 
 		echo '| <a accesskey="x" href="logout.php" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
 
+
 		// manual user-icon-hack
 		if($s_enable_user_icon == true)
 		{
-			echo '<img src='.$s_user_icon_path.' align="right" width="50px" style="filter:alpha(opacity=60); opacity: 0.6;">';
+			//echo '<img src='.$s_user_icon_path.' align="right" border="1" border-color:#000000 width="40px" style="filter:alpha(opacity=60); opacity: 0.6;">';
+			?>
+			<div id="usericon" style="float:right; width: 40px;">
+				&nbsp;<br>&nbsp;
+			</div>
+			<?php
 		}
 	}
 	else // not logged in - so other menu
