@@ -49,8 +49,8 @@
 	// #################################################################################
 	//
 	//
-	$m_milestone				= "0";
-	$m_milestone_title			= "The getting started story";
-	$m_build					= "20120707.03";
+	$m_milestone				= "1";
+	$m_milestone_title			= "the hello world thing";
+	$m_build					= "20120707.04";
 
 ?>

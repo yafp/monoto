@@ -1,11 +1,7 @@
-PREVIEW - NOT YET RELEASED.
-
-
-
 Welcome to the official monoto changelog.
 
 
-Milestone 1 - The Hello World Thing - Build 2012xxyy.01
+Milestone 1 - The Hello World Thing - Build 20120707.04
 #######################################################
 First public monoto version ... featuring:
 - login/logout (far away from being secure)
