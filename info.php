@@ -378,7 +378,6 @@
 			
 			<!-- LOG -->
 			<h2><a name="log">log</a></h2>
-				The log offers a full list of all relevant events, see the following table for details.
 				<table width="100%" border="0">
 				<thead>
 					<tr>
@@ -587,6 +586,7 @@
 					</tr>
 				</tbody>
 				</table>
+				<br>
 
 				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
 					<thead>

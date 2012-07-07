@@ -192,12 +192,21 @@ background-color: #C0C0C0;
 {
 	color: #ff530d;	
 	text-decoration: none;
+
+	padding-right: 1px;
+	padding-left: 1px;
 }
 
 #dt_example a:hover 
 {
 	text-decoration: underline;
 	background-color: white;
+	padding-right: 1px;
+	padding-left: 1px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+
+
 
 }
 
@@ -241,10 +250,10 @@ background-color: #C0C0C0;
 
 .slidingDiv {
     height:500px;
-    background-color: #99CCFF;
+    background-color: #FFFFFF;
     padding:20px;
     margin-top:10px;
-    border-bottom:5px solid #3399FF;
+    border-bottom:5px solid #ff530d;
 }
  
 .show_hide {
