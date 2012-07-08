@@ -118,23 +118,36 @@
 				}	
 				mysql_select_db($mysql_db, $con);
 
+
+
+				// display user image - hardcoded dummy image
+				//
+				echo "<a href=''>";
+				echo "<img src='images/default_user_icon_trans.png' align='right' border='1'>";
+				echo "</a>";
+
+
+
+
+
+
 				$sql="SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
 				$result = mysql_query($sql);
 				while($row = mysql_fetch_array($result)) 					
 				{
-					echo "User: ".$_SESSION['username']."<br>";
-					echo "logins: ".$row[0]."<br>logouts: ".$row[1]."<br>";
+					echo "<b>User</b><br> ".$_SESSION['username']."<br>";
+					echo "<small>(".$row[0]." logins and ".$row[1]." logouts)</small><br><br>";
 				}
 
 
-
+				echo "<b>Changing password</b><br>";
 				?>
 
 
 
 				<!-- CHANGE USER PASSWORD BUTTON -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-						<tr>Please enter your new password:
+						<tr>Please enter your new password twice and press the UPDATE button.<br>
 							<input type="password" name="newPassword1" placeholder="Password" />
 							<input type="password" name="newPassword2" placeholder="Please enter the new password again" />
 

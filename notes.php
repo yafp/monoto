@@ -53,8 +53,9 @@ first step via http://datatables.net/examples/api/select_single_row.html
  		http://premiumsoftware.net/cleditor/docs/GettingStarted.html
  		-->
  		<script type="text/javascript">
+ 		/*
       $(document).ready(function() {
-        $("#input").cleditor({
+        $("#input2").cleditor({
           width:        800, // width not including margins, borders or padding
           height:       100, // height not including margins, borders or padding
           controls:     // controls to add to the toolbar
@@ -88,6 +89,19 @@ first step via http://datatables.net/examples/api/select_single_row.html
                         "margin:4px; font:10pt Arial,Verdana; cursor:text"
         });
       });
+*/
+
+	$(document).ready(function() {
+        editor = $("#input2").cleditor({width:"100%", height:"100%"})[0].focus();
+        $(window).resize();
+      });
+      $(window).resize(function() {
+        var $win = $(window);
+        $("#container").width($win.width() - 32).height($win.height() - 33).offset({left:15, top:15});
+        editor.refresh();
+      });
+
+
     </script>
 
 
@@ -169,6 +183,23 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				//this.innerHTML = 'cli_cked';				
 				document.myform.outputtext.value = "";			// reset note content
 				document.myform.outputtext.value += sData[2]	// add data of current selected row to textarea
+
+
+
+
+				// BAUSTELLE - cleditor
+				// add note text to cleditor as well - we sare using both as for awhile now
+				//$('#input2').val('new text data').blur();
+				$('#input2').val(sData[2]).blur();
+
+
+
+
+
+
+
+
+
 				// we need the note id
 				document.myform.noteID.value = "";	
 				document.myform.noteID.value += sData[0]
@@ -208,12 +239,19 @@ first step via http://datatables.net/examples/api/select_single_row.html
 			var modifiedNoteTitle = document.myform.noteTitle.value;			// get the note title 
 			var modifiedNoteContent = document.myform.outputtext.value;			// get the NEW note content
 			var modifiedNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
+
+			// get text of cleditor
+			var html = $("#input2").val();
+			//alert(html);
+			modifiedNoteContent = html;
+
+
 			
 			// if we have a note-id - save the change to db
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))
 			{
 				$.post("scripts/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-				//reloadNote();
+				reloadNote();
 			}
 			else
 			{
@@ -249,8 +287,17 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		//
 		function createNote() 
 		{
+			//alert("createNote");
+
 			var newNoteTitle = document.myform.newNoteTitle.value;
 			var newNoteContent = document.myform.outputtext.value;
+
+			// get text of cleditor
+			var html = $("#input2").val();
+			//alert(html);
+			newNoteContent = html;
+
+
 
 			// if we have a note title - create the new note (content is not needed so far)
 			if ((newNoteTitle.length > 0) && (newNoteContent.length != 0 ))
@@ -274,6 +321,12 @@ first step via http://datatables.net/examples/api/select_single_row.html
 			var renameNoteTitle = document.myform.newNoteTitle.value;			// get the NEW note title 
 			var renameNoteContent = document.myform.outputtext.value;			// get the NEW note content
 			var renameNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
+
+			// get text of cleditor
+			var html = $("#input2").val();
+			//alert(html);
+			renameNoteContent = html;
+
 			
 			// if we have a note-id - save the change to db
 			if( (renameNoteID.length > 0) && (renameNoteID != 'ID') && (renameNoteTitle.length >0) )
@@ -314,58 +367,42 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				<!-- SHOW SELECTED NOTE -->
 				<h2>create/view/edit/rename/delete notes</h2>	
 				<form name="myform">
-					<!-- show id, title and version of current selected note -->
 					
-
-
-
-
-
-
-
-					<!-- CLEditor - Textarea -->
-					<textarea id="input" name="input">CLEditor - insidemainform</textarea>
-
-
-
-
-
-
-
-
-
 					<table border="0" width="100%" cellspacing="0" cellpadding="5">
+						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td width="5%"><input type="input" name="noteID" disabled placeholder="ID" style="width:50%; height:15px;" /></td>
 							<td colspan="1"><input type="input" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; height:15px;" /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." value="save" onClick="saveNote();"></td>
 							<input type="hidden" style="width:50%; height:15px;"   name="noteVersion" />
-						</tr>
-						<!-- note content -->
+						
+						<!-- NEW NOTE CONTENT using clEditor -->
 						<tr>
-							<td colspan="2" width="95%"><textarea id="outputtext" onDblClick="SelectAll('outputtext');" style="width:100%" name="outputtext" cols="110" rows="20" placeholder="Either select a note from table or create a new one using the create button. Doubleclicking this field will select the entire note text."></textarea></td>
+							<td colspan="2" width="95%" height="400px">
+								<textarea id="input2" name="input2" cols="110" ></textarea>
+							</td>
 							<td>
 								<input type="button"  style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
 								<input type="button"  style="width:90px" title="Deletes the current note from the db" value="rename" onClick="renameNote();" >
-								<br><br>
-
 								<?php
 									if($s_enable_really_delete == true)
 									{
-										echo '<input type="button"  javascript:void(0) style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="reallyLogout();">';
+										echo '<input type="button"  javascript:void(0) style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="reallyDelete();">';
 									}
 									else
 									{
 										echo '<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">';
 									}
 								?>
-
-
-
-
-
-								<br><br><br><br><br><br><br><br><br><br><br><br><br>
 							</td>
+						</tr>
+					
+						<!-- OLD note content -->
+						<tr>
+							<td colspan="2" width="95%" height="0px">
+								<textarea class="database" disabled="disabled" id="outputtext" onDblClick="SelectAll('outputtext');" style="width:100%" name="outputtext" cols="110" rows="1" placeholder="IGNORE ME - I am old and not cleaned up."></textarea>
+							</td>
+							
 						</tr>
 						<!-- newTitle & create buttons -->
 						<tr>
