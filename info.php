@@ -771,28 +771,10 @@ if ( isset($_POST["doUpdateCheck"]) )
 	$critical = FALSE;
 	$update = FALSE;
 
-	$url = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv";
+	$url = "https://raw.github.com/macfidelity/monoto/master/vStable.csv";
 	$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 	$read = fgetcsv ($fp);
 	fclose ($fp); //always a good idea to close the file connection
-
-
-
-
-
-
-
-	if (($read[4] > $m_build)) 
-	{ 
-		echo "dev release available"; 
-	}
-
-
-
-
-
-
-
 
 	// its critical
 	if (($read[0] > $m_build) && ($read[2] == "1")) 
@@ -828,6 +810,63 @@ if ( isset($_POST["doUpdateCheck"]) )
 	else // uptodate
 	{
 		echo '<script type="text/javascript">alert("You are using the latest version. Well done.");</script>';
+	}
+
+	
+
+
+	//
+	// check for unstable versions as well
+	//
+	include 'config.php';
+
+	if($s_enable_UnstableSources == true)
+	{
+		// assume everything is good
+		$critical = FALSE;
+		$update = FALSE;
+
+		$url = "https://raw.github.com/macfidelity/monoto/master/vDev.csv";
+		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
+		$read = fgetcsv ($fp);
+		fclose ($fp); //always a good idea to close the file connection
+
+		// its critical
+		if (($read[0] > $m_build) && ($read[2] == "1")) 
+		{ 
+			$critical = TRUE; 
+		}
+			
+		// normal update
+		if ($read[0] > $m_build) 
+		{ 
+			$update = TRUE; 
+		}
+
+		if ($critical) 
+		{ 
+				// print '<p>'.$read[1].'</p>';   													// aka buildbeschreibung
+				// print '<p>You can get it at <a href="'.$read[3].'">'.$read[3].'</a></p>';		// aka DL-url
+
+	   		echo '<script type="text/javascript">
+	   				var r=confirm("There is a critical dev update available. Should i download the latest version?")
+					if (r==true)
+	  				{
+	  					window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; 
+	  				}
+	   		</script>';
+
+			die(); //terminate the script
+		}
+		else if ($update)
+		{
+			echo '<script type="text/javascript">alert("There is an dev update available.");</script>';
+		}
+		else // uptodate
+		{
+			echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>';
+		}
+	
 	}
 
 }

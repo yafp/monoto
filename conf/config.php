@@ -19,6 +19,8 @@
 	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
 	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
 
+	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
+
 	$s_enable_user_icon			= true;				// enable user-icon in nav
 	$s_user_icon_path			= "images/myUser.jpg";
 
@@ -46,7 +48,7 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120708.05";
+	$m_build					= "20120708.06";
 	$m_stable					= false;
 
 ?>
