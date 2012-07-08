@@ -21,11 +21,11 @@
 	$salt = createSalt();
 	$hash = hash('sha256', $salt . $hash);
 
-	echo "DEBUG OUTPUT<br>";
-	echo "username: ".$username."<br>";
-	echo "password: ".$password."<br>";
-	echo "hash: ".$hash."<br>";
-	echo "salt: ".$salt."<br>";
+	//echo "DEBUG OUTPUT<br>";
+	//echo "username: ".$username."<br>";
+	//echo "password: ".$password."<br>";
+	//echo "hash: ".$hash."<br>";
+	//echo "salt: ".$salt."<br>";
 
     // connect to mysql
 	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		

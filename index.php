@@ -90,8 +90,6 @@ if ( isset($_POST["doLogin"]) )
 	}
 	mysql_select_db($mysql_db, $con);									// select db
 
-	
-
 	// get data
 	$username = $_POST['username'];
 	$password = $_POST['password'];

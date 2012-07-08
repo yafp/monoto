@@ -49,18 +49,13 @@
 		// logout
 		if ($s_enable_really_logout == true)
 		{
-			echo '| <a accesskey="x" href="javascript:void(0)" onclick="reallyLogout();" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
+			echo '| <a href="javascript:void(0)" onclick="reallyLogout();" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
 		}
 		else
 		{
-			echo '| <a accesskey="x" href="logout.php" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
+			echo '| <a href="logout.php" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
 		}
 	
-
-		
-
-
-
 
 
 		// manual user-icon-hack

@@ -1,4 +1,4 @@
-function reallyLogout()
+function reallyDelete()
 {
 	var answer = confirm("Do you really want to delete this note?")
 	if (answer)

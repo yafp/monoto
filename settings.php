@@ -126,7 +126,29 @@
 					echo "logins: ".$row[0]."<br>logouts: ".$row[1]."<br>";
 				}
 
+
+
 				?>
+
+
+
+				<!-- CHANGE USER PASSWORD BUTTON -->
+				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+						<tr>Please enter your new password:
+							<input type="password" name="newPassword1" placeholder="Password" />
+							<input type="password" name="newPassword2" placeholder="Please enter the new password again" />
+
+
+							<td><input type="submit" name="doChangeUserPW" value="Update" /></td>
+						</tr>					
+				</form>
+
+
+
+
+
+
+
 
 
 
@@ -316,8 +338,73 @@
 // - Do Delete all Events
 // - Do Export
 // - Do Import
+// - Do Change USerpassword
 
 include 'conf/config.php';
+
+
+
+if ( isset($_POST["doChangeUserPW"]) ) 
+{
+	$owner = $_SESSION['username'];
+
+	echo "change pw.................";
+
+	$newPassword1 = $_POST['newPassword1'];
+	$newPassword2 = $_POST['newPassword2'];
+
+
+
+
+	$password = $newPassword1;
+	$username = $owner;
+
+
+
+	echo $newPassword1;
+
+	// Check if user entered two times the same new password
+	if($newPassword1 == $newPassword2)
+	{
+		echo "lets change the pw";
+
+		// playing with hash
+		$hash = hash('sha256', $password);
+		// playing with salt - creates a 3 character sequence
+		function createSalt()
+		{
+    		$string = md5(uniqid(rand(), true));
+    		return substr($string, 0, 3);
+		}
+		$salt = createSalt();
+		$hash = hash('sha256', $salt . $hash);
+
+    	// connect to mysql
+		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+		if (!$con)
+		{
+			die('Could not connect: ' . mysql_error());
+		}
+
+		mysql_select_db($mysql_db, $con);				// select db
+
+		// change pw
+		$query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";
+		mysql_query($query);
+
+		mysql_close($con); 								// close sql connection
+	}
+	else // User entered 2 different password - cant change pw like that.
+	{
+		echo "cant change";
+	}
+}
+
+
+
+
+
+
 
 
 //
