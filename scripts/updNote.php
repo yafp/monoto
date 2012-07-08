@@ -34,7 +34,7 @@
 		{
 			// update m_log
 			$modifiedNoteContentSummary = substr($modifiedNoteContent, 0, 10);
-			$event = "change";
+			$event = "save";
 			$details = "Note: <b>".$modifiedNoteTitle."</b> with content: <b>".$modifiedNoteContentSummary."...</b>";
 			$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
 			$result = mysql_query($sql);

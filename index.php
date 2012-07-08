@@ -1,4 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<?php
+
+	session_start();
+
+	// check if the user-session is valid or not
+	if($_SESSION['valid'] == 1)
+	{
+		header('Location: notes.php');
+	}
+	else
+	{
+	?>
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -52,6 +64,14 @@
 
 
 
+	<?php
+	}
+
+
+?>
+
+
+
 
 
 <?php
@@ -70,20 +90,17 @@ if ( isset($_POST["doLogin"]) )
 	}
 	mysql_select_db($mysql_db, $con);									// select db
 
+	$_SESSION['username'] = $username;									// add session-info
+
 	// get data
 	$username = $_POST['username'];
-
-	$_SESSION['username'] = $username;
-
 	$password = $_POST['password'];
 	$username = mysql_real_escape_string($username);
 
 	// check if there is a user with matching data
 	$query = "SELECT password, salt FROM m_users WHERE username = '$username';";
 	$result = mysql_query($query);
-
-	//no such user exists
-	if(mysql_num_rows($result) < 1) 
+	if(mysql_num_rows($result) < 1)  //no such user exists
 	{
 	    mysql_close($con);													// close sql connection
 	    header('Location: redirect.php');
@@ -104,16 +121,6 @@ if ( isset($_POST["doLogin"]) )
 		session_regenerate_id (); //this is a security measure
     	$_SESSION['valid'] = 1;
     	$_SESSION['userid'] = $userid;
-    	echo $_SESSION['username'];
-
-    	include 'conf/config.php';
-
-    	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-		if (!$con)
-		{
-			die('Could not connect: ' . mysql_error());
-		}
-		mysql_select_db($mysql_db, $con);
 
     	// get current login-count
     	$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
@@ -126,12 +133,10 @@ if ( isset($_POST["doLogin"]) )
 
 		// update logincounter
 		$sql="UPDATE m_users SET login_counter='".$loginCounter."' WHERE username='".$_SESSION['username']."' ";
-		echo $sql;
 		$result = mysql_query($sql);
 
     	// record to log - that we had a successfull user login
     	// update m_log
-    	//$username = "dummy";
 		$event = "login";
 		$details = "User: <b>".$username."</b> logged in successfully.";
 		$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
@@ -139,7 +144,7 @@ if ( isset($_POST["doLogin"]) )
 
 		mysql_close($con);													// close sql connection
 
-    	header('Location: home.php');
+    	header('Location: notes.php');
 	}
 }
 

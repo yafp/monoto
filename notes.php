@@ -14,10 +14,10 @@ first step via http://datatables.net/examples/api/select_single_row.html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
+		<title>monoto - your webbased notes-keeper</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
 		
-		<title>monoto - your webbased notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
@@ -25,15 +25,93 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 		<!-- jquery -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
-
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
-
 		<!--  m_doubleClick-->
 		<script type="text/javascript" language="javascript" src="js/m_doubleClick.js"></script>
+
+
+
+
+
+
+
+
+
+
+		<!--  CLEditor -->
+		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
+		<script type="text/javascript" src="jquery.cleditor.min.js"></script>
+		
+
+
+
+		<!-- simple v1
+		<script type="text/javascript">
+      		$(document).ready(function() {
+        	$("#input").cleditor()[0].focus();
+      		});
+ 		</script>
+ 	-->
+
+
+
+ 		<!-- moe config - 2
+ 		http://premiumsoftware.net/cleditor/docs/GettingStarted.html
+ 		-->
+ 		<script type="text/javascript">
+      $(document).ready(function() {
+        $("#input").cleditor({
+          width:        800, // width not including margins, borders or padding
+          height:       100, // height not including margins, borders or padding
+          controls:     // controls to add to the toolbar
+                        "bold italic underline strikethrough subscript superscript | font size " +
+                        "style | color highlight removeformat | bullets numbering | outdent " +
+                        "indent | alignleft center alignright justify | undo redo | " +
+                        "rule image link unlink | cut copy paste pastetext | print source",
+          colors:       // colors in the color popup
+                        "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
+                        "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
+                        "BBB F00 F90 FC6 FF0 3F3 6CC 3CF 66C C6C " +
+                        "999 C00 F60 FC3 FC0 3C0 0CC 36F 63F C3C " +
+                        "666 900 C60 C93 990 090 399 33F 60C 939 " +
+                        "333 600 930 963 660 060 366 009 339 636 " +
+                        "000 300 630 633 330 030 033 006 309 303",    
+          fonts:        // font names in the font popup
+                        "Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
+                        "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
+          sizes:        // sizes in the font size popup
+                        "1,2,3,4,5,6,7",
+          styles:       // styles in the style popup
+                        [["Paragraph", "<p>"], ["Header 1", "<h1>"], ["Header 2", "<h2>"],
+                        ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"],
+                        ["Header 6","<h6>"]],
+          useCSS:       false, // use CSS to style HTML when possible (not supported in ie)
+          docType:      // Document type contained within the editor
+                        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
+          docCSSFile:   // CSS file used to style the document contained within the editor
+                        "", 
+          bodyStyle:    // style to assign to document body contained within the editor
+                        "margin:4px; font:10pt Arial,Verdana; cursor:text"
+        });
+      });
+    </script>
+
+
+
+		
+
+		
+
+
+
+
+     
+
+
+
 
 		<!-- main js for table etc -->
 		<script type="text/javascript" charset="utf-8">
@@ -42,7 +120,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 			$(document).ready(function() 
 			{
-				
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
 				{
@@ -60,9 +137,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 					var anSelected = fnGetSelected( oTable );
 					oTable.fnDeleteRow( anSelected[0] );
 				} );
-
-
-	
 
 				/* Init the table */
 				oTable = $('#example').dataTable( 
@@ -82,20 +156,16 @@ first step via http://datatables.net/examples/api/select_single_row.html
 							{ "bSearchable": true, "bVisible": true },	/* created */
 							{ "bSearchable": true, "bVisible": true }	/* save_counter */
 						],
-				}
-				);
+				} );
 
 				$('.dataTables_filter input').attr("placeholder", "enter seach term here");			// define placeholder for search field
-
 				$('table tr').click(function () 
 				{
 				//alert("clicked ...");
 				/* Get the position of the current data from the node */
 				var sData = oTable.fnGetData( this );
-
 				// show selected note-data as alert
 				//alert("========= "+sData[1]);
-
 				var aPos = oTable.fnGetPosition(this);
 				//alert("aPos ..."+aPos);
 				/* Get the data array for this row */
@@ -105,24 +175,16 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				aData[ aPos[1] ] = 'clicked';
 
 				// change content of current note ..dont know right now what for ;)
-				//this.innerHTML = 'cli_cked';
-
-				//var newtext = document.myform.inputtext.value;
-				// reset note content
-				document.myform.outputtext.value = "";
-
-				// add data of current selected row to textarea
-				document.myform.outputtext.value += sData[2]
-
+				//this.innerHTML = 'cli_cked';				
+				document.myform.outputtext.value = "";			// reset note content
+				document.myform.outputtext.value += sData[2]	// add data of current selected row to textarea
 				// we need the note id
-				document.myform.noteID.value = "";
+				document.myform.noteID.value = "";	
 				document.myform.noteID.value += sData[0]
-
 				// we need the note Title
 				document.myform.noteTitle.value = "";
 				document.myform.noteTitle.value += sData[1]
-
-				// 
+				// we need the version
 				document.myform.noteVersion.value = "";
 				document.myform.noteVersion.value += sData[6]
 			});
@@ -250,6 +312,8 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 
 	<body id="dt_example">
+
+	
 		<div id="container">
 			
 			<!-- HEADER & NAV -->
@@ -259,9 +323,27 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 				<!-- SHOW SELECTED NOTE -->
 				<h2>create/view/edit/rename/delete notes</h2>	
-
 				<form name="myform">
 					<!-- show id, title and version of current selected note -->
+					
+
+
+
+
+
+
+
+					<!-- CLEditor - Textarea -->
+					<textarea id="input" name="input">CLEditor - insidemainform</textarea>
+
+
+
+
+
+
+
+
+
 					<table border="0" width="100%" cellspacing="0" cellpadding="5">
 						<tr>
 							<td width="5%"><input type="input" name="noteID" disabled placeholder="ID" style="width:50%; height:15px;" /></td>
@@ -271,7 +353,7 @@ first step via http://datatables.net/examples/api/select_single_row.html
 						</tr>
 						<!-- note content -->
 						<tr>
-							<td colspan="2" width="95%"><textarea  id="txtarea" onDblClick="SelectAll('txtarea');" style="width:100%" name="outputtext" cols="110" rows="20" placeholder="Either select a note from table or create a new one using the create button. Doubleclicking this field will select the entire note text."></textarea></td>
+							<td colspan="2" width="95%"><textarea id="outputtext" onDblClick="SelectAll('outputtext');" style="width:100%" name="outputtext" cols="110" rows="20" placeholder="Either select a note from table or create a new one using the create button. Doubleclicking this field will select the entire note text."></textarea></td>
 							<td>
 								<input type="button"  style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
 								<input type="button"  style="width:90px" title="Deletes the current note from the db" value="rename" onClick="renameNote();" >

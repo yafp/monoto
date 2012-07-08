@@ -31,9 +31,9 @@
 
 		// we should fix that with proper css usage
 		// home
-		if ($page == 'home.php')
-		{ echo '| <a accesskey="y" href="home.php" title="jump to the main monoto page" style="text-decoration: underline;">&nbsp;notes&nbsp;</a>'; }
-		else { echo '| <a accesskey="y" href="home.php" title="jump to the main monoto page">&nbsp;notes&nbsp;</a>'; }
+		if ($page == 'notes.php')
+		{ echo '| <a accesskey="y" href="notes.php" title="jump to the main monoto page" style="text-decoration: underline;">&nbsp;notes&nbsp;</a>'; }
+		else { echo '| <a accesskey="y" href="notes.php" title="jump to the main monoto page">&nbsp;notes&nbsp;</a>'; }
 
 		// settings
 		if ($page == 'settings.php')

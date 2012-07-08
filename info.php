@@ -200,10 +200,10 @@
 								}
 
 								// amount of edits-events
-								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='change'"); 
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save'"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									echo " ".$row[0]." modifings,"; // amount of notes
+									echo " ".$row[0]." times saving changes,"; // amount of notes
 								}
 
 								// amount of renames-events
@@ -445,8 +445,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#FFB914>change</td>
-						<td>Content was changed, version counter +1, date modified set</td>
+						<td bgcolor=#FFB914>save</td>
+						<td>Content was changed, note saved, version counter +1, date modified set</td>
 						<td>
 							<?php
 							// connect to mysql db and fetch all notes  
@@ -461,7 +461,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'change'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save'"); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
