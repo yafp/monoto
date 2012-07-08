@@ -51,8 +51,9 @@ CREATE TABLE IF NOT EXISTS `m_notes` (
   `date_mod` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `date_create` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `save_count` int(11) NOT NULL,
+  `owner` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 
 

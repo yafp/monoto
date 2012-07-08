@@ -90,12 +90,14 @@ if ( isset($_POST["doLogin"]) )
 	}
 	mysql_select_db($mysql_db, $con);									// select db
 
-	$_SESSION['username'] = $username;									// add session-info
+	
 
 	// get data
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$username = mysql_real_escape_string($username);
+
+	$_SESSION['username'] = $username;									// add session-info
 
 	// check if there is a user with matching data
 	$query = "SELECT password, salt FROM m_users WHERE username = '$username';";

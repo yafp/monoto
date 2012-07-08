@@ -1,8 +1,7 @@
 <?php
 	session_start();
 
-	// check if the user-session is valid or not
-	if($_SESSION['valid'] == 1)
+	if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 	{
 		// get data for rename note
 		$renameNoteID = $_POST['renameNoteID'];
@@ -14,32 +13,37 @@
 
 		include '../conf/config.php';
 
-	    // connect to mysql
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);	// connect to mysql
 		if (!$con)
 		{
 			die('Could not connect: ' . mysql_error());
 		}
-
 		mysql_select_db($mysql_db, $con);									// select db
 
-		// update m_notes
-		$sql="UPDATE m_notes SET title='$renameNoteTitle', content='$renameNoteContent', save_count='$renameNoteCounter' WHERE id='$renameNoteID'"; 
-		$result = mysql_query($sql);																
-		if (!$result) 
+		$owner = $_SESSION['username'];
+
+		// check if the new title is in use already by this user
+		$sql = "SELECT title from m_notes where owner='".$owner."' AND  title='".$renameNoteTitle."' ";
+		$result = mysql_query($sql);
+		if(mysql_num_rows($result)>0) 
 		{
-	    	die('Error: ' . mysql_error());
+			
 		}
-		else /* d.h. es gab keine Fehler beim insert - daher protokollieren wir auch*/
+		else // do  rename note and do log it
 		{
+			// update m_notes
+			$sql="UPDATE m_notes SET title='$renameNoteTitle', content='$renameNoteContent', save_count='$renameNoteCounter' WHERE id='$renameNoteID'"; 
+			$result = mysql_query($sql);																
+			
 			// update m_log
 			$renameNoteContentSummary = substr($renameNoteContent, 0, 10);
 			$event = "rename";
 			$details = "Note: <b>".$renameNoteTitle."</b> with content: <b>".$renameNoteContentSummary."...</b>";
 			$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
 			$result = mysql_query($sql);
-		}
-		mysql_close($con);													// close sql connection
+
+			mysql_close($con);		// close sql connection
+		}		
 	}
 	else
 	{

@@ -412,11 +412,11 @@ first step via http://datatables.net/examples/api/select_single_row.html
 					  	}
 						else
 						{
-							// do the mysql connect
-							mysql_select_db("monoto", $con);
+							mysql_select_db("monoto", $con);				// do the mysql connect
+							$owner = $_SESSION['username'];					// only select notes of this user
 
 							// run the mysql query
-							$result = mysql_query("SELECT * FROM m_notes");
+							$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
 
 							// fetch data and file table as a second step later on
 							while($row = mysql_fetch_array($result))
