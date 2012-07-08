@@ -38,15 +38,7 @@ KeyPress Codes: http://www.cambiaresearch.com/articles/15/javascript-char-codes-
 				var KeyID = (window.event) ? event.keyCode : e.keyCode;
 				switch(KeyID)
    				{
-   					
-					case 16:
-						//document.Form1.KeyName.value = "Shift";
-					break; 
-
-      				case 17:
-						//document.Form1.KeyName.value = "Ctrl";
-      				break;
-
+      				// ESC
       				case 27:
 						// quick test
 						//alert(document.activeElement.name);
@@ -76,8 +68,6 @@ KeyPress Codes: http://www.cambiaresearch.com/articles/15/javascript-char-codes-
 						// reset search - showing all records
 						$('.dataTables_filter input').val('').keyup();
 
-						
-
 						// reload page - aktualisiert die seite inkl daten - eigen taste?
 						//window.location = 'http://localhost/monoto/index.php';
 
@@ -86,50 +76,34 @@ KeyPress Codes: http://www.cambiaresearch.com/articles/15/javascript-char-codes-
       				break;
 
 
-      				// Arrow Left
-				   	case 37:
-				    	//document.Form1.KeyName.value = "Arrow Left";
-				   	break;
-
-
 				   	// Arrow Up
 				    case 38:
 				    	// jump tp previous row
-				  		alert("Dummy Arrow Up - Jump to previous note - current row?");
-				    break;
-
-
-				    // Arrow Right
-				    case 39:
-				      	//document.Form1.KeyName.value = "Arrow Right";
+				  		//alert("Dummy Arrow Up - Jump to previous note - current row?");
 				    break;
 
 
 				    // Arrow Down
 				    case 40:
 				      	// jump to next note
-				      	alert("Dummy Arrow Down - Jump to next note - current row?");
+				      	//alert("Dummy Arrow Down - Jump to next note - current row?");
 				   	break;
 
 
-				   	// DEL - delete selected note
+				   	// DEL - delete selected note & reloads page
 				   	case 46:
-				      	// jump to next note
-				      	// alert("Dummy Del - Delete selected note - current row?");
 				      	deleteNote();
 				   	break;
 
 
-				   	// F1 - Open online Help
+				   	// F1 - Open online help/docs
 				   	case 112:
-						window.location = 'http://google.com','_blank';
-
+						window.location = 'https://github.com/macfidelity/monoto/wiki','_blank';
 					break;
 
 
 					// F2 - Rename selected note
 				   	case 113:
-						//alert("F2 - rename? we dont have that so far");
 						renameNote();
 					break;
 
@@ -139,9 +113,9 @@ KeyPress Codes: http://www.cambiaresearch.com/articles/15/javascript-char-codes-
 						reloadNote();
 					break;
 
+
 					// F9 - save
 					case 120:
-						//alert("save via f10");
 						saveNote();
 					break;
    				}

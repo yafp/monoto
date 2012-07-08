@@ -46,6 +46,7 @@
 							echo '<li><a href="#profile">profile</a></li>';
 							echo '<li><a href="#importer">importer</a></li>';
 							echo '<li><a href="#exporter">exporter</a></li>';
+							echo '<li><a href="#eraser">eraser</a></li>';
 							echo '<li><a href="#brainstorm">brainstorm</a></li>';
 						echo '</ul>';
 						echo '</small>';
@@ -77,7 +78,7 @@
 						<td><?php if($enable_info_version_changelog_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 					</tr>
 					<tr>
-						<td>- ask really delete question:</td>
+						<td>- enable really delete question:</td>
 						<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						<td>- enable stats section on info page:</td>
 						<td><?php if($enable_info_stats_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
@@ -217,6 +218,25 @@
 					</form>
 				</table>
 
+				<!-- SPACER -->
+				<div id="spacer">&nbsp;</div>
+
+				<!-- ERASER -->
+				<h2><a name="eraser">eraser</a></h2>
+				<table width="100%" border="0">
+				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+				<tbody>
+					<tr>
+						<td width="30%"><input type="submit" name="doDelAllNotes" value="Delete Notes" /></td>
+						<td>Delete all your notes. There is no way back.</td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="doDelAllEvents" value="Delete Events" /></td>
+						<td>Delete all your log events. There is no way back.</td>
+					</tr>
+				</tbody>
+				</form>
+				</table>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
@@ -289,11 +309,74 @@
 
 
 
-
 <?php
+// CASES
+//
+// - Do Delete all Notes
+// - Do Delete all Events
+// - Do Export
+// - Do Import
 
-// whatever we do - import or export notes - we need a db-connection - means - we need the credentials
 include 'conf/config.php';
+
+
+//
+// delAllNotes - button was pressed
+//                 
+if ( isset($_POST["doDelAllNotes"]) ) 
+{	
+	// connect to mysql
+	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+	if (!$con)
+	{
+		die('Could not connect: ' . mysql_error());
+	}	
+	mysql_select_db($mysql_db, $con);				// select db
+
+	$owner = $_SESSION['username'];
+
+	// update m_notes
+	$sql="DELETE FROM m_notes WHERE owner='$owner'";
+	$result = mysql_query($sql);
+
+	// update m_log
+	$event = "notes eraser";
+	$details = "All user notes deleted with eraser.";
+	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+	$result = mysql_query($sql);
+
+	mysql_close($con); 								// close sql connection
+}
+
+
+
+//
+// delAllEvents - button was pressed
+//                 
+if ( isset($_POST["doDelAllEvents"]) ) 
+{	
+	// connect to mysql
+	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+	if (!$con)
+	{
+		die('Could not connect: ' . mysql_error());
+	}	
+	mysql_select_db($mysql_db, $con);				// select db
+
+	$owner = $_SESSION['username'];
+
+	// update m_notes
+	$sql="DELETE FROM m_log WHERE owner='$owner'";
+	$result = mysql_query($sql);
+
+	// update m_log
+	$event = "events eraser";
+	$details = "All user events deleted with eraser.";
+	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+	$result = mysql_query($sql);
+
+	mysql_close($con); 								// close sql connection
+}
 
 
 

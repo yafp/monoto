@@ -14,26 +14,19 @@
 	$mysql_pw				= "monoto";				// define the mysql user pw here
 
 	// should there be a toc on info.php & settings.php?
-	$s_enable_toc 				= true;					// true or false
+	$s_enable_toc 				= true;				// true or false
+	$s_enable_header_tagline 	= false;			// should the tagline be displayed in the header?
+	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
+	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
 
-	// should the tagline be displayed in the header?
-	$s_enable_header_tagline 	= false;					// true or false
-
-	// should there be a really logout question before doing it
-	$s_enable_really_logout		= true;
-	// should there be a 'really delete' question before deleting notes?
-	$s_enable_really_delete		= false;				// true or false
-
-	// enable user-icon in nav
-	$s_enable_user_icon			= true;
+	$s_enable_user_icon			= true;				// enable user-icon in nav
 	$s_user_icon_path			= "images/myUser.jpg";
 
-
 	// info.php:
-	$enable_info_about_section	= true;
-	$enable_info_version_changelog_section	= true;		// should the changelog be displayed 
-	$enable_info_stats_section	= true;
-	$enable_info_keyboard_section	= true;
+	$enable_info_about_section	= false;				// show about oninfo page
+	$enable_info_version_changelog_section	= false;	// should the changelog be displayed 
+	$enable_info_stats_section	= true;				// show stats on info page
+	$enable_info_keyboard_section	= false;			// show keyboard on info page
 	
 
 
@@ -53,7 +46,7 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120708.04";
+	$m_build					= "20120708.05";
 	$m_stable					= false;
 
 ?>

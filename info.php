@@ -99,7 +99,7 @@
 				}
 				else
 				{
-					echo "NOTICE: <i>About section was disabled in the settings.</i>";
+					echo "<font color='silver'><i>The About section was disabled in the settings.</i></font>";
 				} 
 			?>
 
@@ -142,7 +142,7 @@
 				}
 				else
 				{
-					echo "NOTICE: <i>Changelog section was disabled in the settings.</i>";
+					echo "<font color='silver'><br><i>The Changelog section was disabled in the settings.</i></font>";
 				} 
 			?>
 
@@ -289,7 +289,7 @@
 								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = 'monoto'"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									echo "- The entire monoto mysql db has the size of ".$row[0]." MB. Hell yeah thats small. This contains notes, the activity log and your user table.<br>";
+									echo "- The entire monoto mysql db has the size of ".$row[0]." MB. Hell yeah thats small. This contains notes, the activity log and the user table.<br>";
 								}
 							}
 						}
@@ -300,7 +300,7 @@
 				}
 				else
 				{
-					echo "NOTICE: <i>Stats section was disabled in the settings.</i>";
+					echo "<font color='silver'><i>The Stats section was disabled in the settings.</i></font>";
 				}    			
 			?>
 
@@ -398,7 +398,7 @@
 				}
 				else
 				{
-					echo "NOTICE: <i>Keyboard section was disabled in the settings.</i>";
+					echo "<font color='silver'><i>The Keyboard section was disabled in the settings.</i></font>";
 				} 
 			?>
 
@@ -616,6 +616,62 @@
 						?>
 						</td>
 					</tr>
+					<tr>
+						<td bgcolor=#CCCCCC>notes eraser</td>
+						<td>All user notes deleted</td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'notes eraser' and owner='".$owner."' "); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
+					</tr>
+					<tr>
+						<td bgcolor=#CCCCCC>events eraser</td>
+						<td>All user events deleted</td>
+						<td>
+							<?php
+							// connect to mysql db and fetch all notes  
+							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+							if (!$con)
+					  		{
+					  			die('Could not connect: ' . mysql_error());
+								echo "Unable to connect to defined database - please check your credentials.";	
+					  		}
+							else
+							{
+								// do the mysql connect
+								mysql_select_db($mysql_db, $con);
+								// run the mysql query
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'events eraser' and owner='".$owner."' "); 
+								// fetch data and file table as a second step later on
+								while($row = mysql_fetch_array($result))
+								{
+									echo $row[0];
+								}
+							}
+							mysql_close($con);													// close sql connection
+						?>
+						</td>
+					</tr>
 				</tbody>
 				</table>
 				<br>
@@ -644,8 +700,11 @@
 							// do the mysql connect
 							mysql_select_db($mysql_db, $con);
 
+							$owner= $_SESSION['username'];
+
 							// run the mysql query
-							$result = mysql_query("SELECT * FROM m_log"); // m_log
+							//$result = mysql_query("SELECT * FROM m_log"); // m_log
+							$result = mysql_query("SELECT * FROM m_log WHERE owner='$owner' "); // m_log
 
 							// fetch data and file table as a second step later on
 							while($row = mysql_fetch_array($result))
@@ -716,6 +775,24 @@ if ( isset($_POST["doUpdateCheck"]) )
 	$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 	$read = fgetcsv ($fp);
 	fclose ($fp); //always a good idea to close the file connection
+
+
+
+
+
+
+
+	if (($read[4] > $m_build)) 
+	{ 
+		echo "dev release available"; 
+	}
+
+
+
+
+
+
+
 
 	// its critical
 	if (($read[0] > $m_build) && ($read[2] == "1")) 
