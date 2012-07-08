@@ -9,6 +9,8 @@
 		die('Could not connect: ' . mysql_error());
 	}
 
+	$owner = $_SESSION['username'];
+
 	mysql_select_db($mysql_db, $con);				// select db
 
     // record to log - that we had a successfull user logout
@@ -25,11 +27,13 @@
 	$sql="UPDATE m_users SET logout_counter='".$logoutCounter."' WHERE username='".$_SESSION['username']."' ";
 	$result = mysql_query($sql);
 
+
     // update m_log
     $username = "dummy";
 	$event = "logout";
 	$details = "User: <b>".$username."</b> logged out successfully.";
-	$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
+	//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
+	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
 
 	mysql_close($con);													// close sql connection

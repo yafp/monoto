@@ -21,6 +21,10 @@
 		<!-- SHOW/HIDE DIV -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/m_showHide.js"></script>
+
+		<!--  m_reallyLogout-->
+		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+
 	</head>
 	
 	
@@ -83,6 +87,14 @@
 						<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						<td>- enable keyboard section on info page:</td>
 						<td><?php if($enable_info_keyboard_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+					</tr>
+
+
+					<tr>
+						<td>- enable really logout question:</td>
+						<td><?php if($s_enable_really_logout == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 				</table>
@@ -317,6 +329,8 @@ if ( isset($_POST["doImport"]) )
 	}	
 	mysql_select_db($mysql_db, $con);				// select db
 
+	$owner = $_SESSION['username'];
+
 	// loop it for each note
 	foreach($_FILES['file']['name'] as $key => $value)
 	{
@@ -350,8 +364,10 @@ if ( isset($_POST["doImport"]) )
 			else
 			{
 				// we can create it
-				// update m_notes
-				$sql="INSERT INTO m_notes (title, content, date_create, date_mod) VALUES ('$newNoteTitle', '$newNoteContent', now(), now() )";
+				// update notes: m_notes
+				//$sql="INSERT INTO m_notes (title, content, date_create, date_mod) VALUES ('$newNoteTitle', '$newNoteContent', now(), now() )";
+				$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner' )";
+
 				$result = mysql_query($sql);
 				if (!$result) 
 				{
@@ -359,11 +375,13 @@ if ( isset($_POST["doImport"]) )
 				}
 				else 
 				{
-					// update m_notes
+					// update event-log: m_log
 					$newNoteContentSummary = substr($newNoteContent, 0, 10);
 					$event = "import";
 					$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
-					$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event','$details', now() )";
+					//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event','$details', now() )";
+					$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
+
 					$result = mysql_query($sql);
 
 					echo "Note: ".$newNoteTitle = $_FILES["file"]["name"][$key]." imported.<br><br>";

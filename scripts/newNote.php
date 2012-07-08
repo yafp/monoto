@@ -42,7 +42,8 @@
 				$newNoteContentSummary = substr($newNoteContent, 0, 10);
 				$event = "create";
 				$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
-				$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event','$details', now() )";
+				//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event','$details', now() )";
+				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
 				$result = mysql_query($sql);
 			}
 			mysql_close($con);									// close sql connection

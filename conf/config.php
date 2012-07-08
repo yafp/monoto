@@ -19,6 +19,8 @@
 	// should the tagline be displayed in the header?
 	$s_enable_header_tagline 	= false;					// true or false
 
+	// should there be a really logout question before doing it
+	$s_enable_really_logout		= true;
 	// should there be a 'really delete' question before deleting notes?
 	$s_enable_really_delete		= false;				// true or false
 
@@ -51,7 +53,7 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120708.03";
+	$m_build					= "20120708.04";
 	$m_stable					= false;
 
 ?>

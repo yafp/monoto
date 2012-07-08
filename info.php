@@ -21,6 +21,9 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 
+		<!--  m_reallyLogout-->
+		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+
 		<!-- main js for table etc -->
 		<script type="text/javascript" charset="utf-8">
 			var oTable;
@@ -163,14 +166,33 @@
 					{
 						mysql_select_db($mysql_db, $con);						// do the mysql connect
 
+
+						$owner = $_SESSION['username'];
+						//$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
+
 						// amount of notes
-						$result = mysql_query("SELECT count(*) FROM m_notes"); 					// run the mysql query
+						//$result = mysql_query("SELECT count(*) FROM m_notes"); 					// run the mysql query
+						$result = mysql_query("SELECT count(*) FROM m_notes WHERE owner='".$owner."' "); 					// run the mysql query
 						while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
 						{
 							// is it worth displayin g the stats at all?
 							if($row[0] == 0)
 							{
-								echo "Lazy ass award goes to you as you havent created a single note .....erm yes ... ".$row[0]." notes in your monoto database i am not willing to display any note-stats here. Do your work first my friend.<br>"; 	// output amount of notes
+								echo "Lazy ass award goes to you as you havent created a single note .....erm yes ... ".$row[0]." notes in your monoto database."; 	// output amount of notes
+
+								// is someone else storing notes?
+								$result = mysql_query("SELECT count(*) FROM m_notes");
+								while($row = mysql_fetch_array($result)) 
+								{
+									if($row[0] == 0)
+									{
+										echo " Even worse ... there is not a single note by any other user.<br>";
+									}
+									else
+									{
+										echo " But at least other users seem to save notes to the database. Give it some love dude.<br>";
+									}
+								}
 							}
 							else
 							{
@@ -179,70 +201,78 @@
 								// run other sqml commands
 								//
 								// amount of activity-events
-								$result = mysql_query("SELECT count(*) FROM m_log"); 
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo "- According to your log you fired already ".$row[0]." event(s) to your database.<br>"; 
 								}
 
 								// amount of create-events
-								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create'"); 
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo "- Those can be separated into ".$row[0]." note-creations,"; 
 								}
 
 								// amount of import-events
-								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import'"); 
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo " ".$row[0]." note imports,"; 
 								}
 
 								// amount of edits-events
-								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save'"); 
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo " ".$row[0]." times saving changes,"; // amount of notes
 								}
 
 								// amount of renames-events
-								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='rename'"); 
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='rename' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo " ".$row[0]." renamings"; // amount of notes
 								}
 
 								// amount of delete-events
-								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete'"); 
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo " and last but not least ".$row[0]." note-deletions.<br>"; 
 								}
 
 								//  highest note-version (most used note)
-								$result = mysql_query("SELECT id, title, save_count FROM m_notes ORDER BY save_count DESC LIMIT 1"); 
+								$result = mysql_query("SELECT id, title, save_count FROM m_notes WHERE owner='".$owner."'ORDER BY save_count DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo "- You seem to use note ".$row[0]." with title <i>".$row[1]."</i> a lot - it has ".$row[2]." versions, which means it is the most edited note.<br>";
 								}
 
+
 								//  shortest and longest note-content
-								$result = mysql_query("SELECT MIN( LENGTH( content ) ) AS shortest, MAX( LENGTH( title ) ) AS longest FROM m_notes"); 
+								$result = mysql_query("SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$owner."'"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									echo "- Shortest note content is ".$row[0]." chars small - while longest is using ".$row[1]." characters. Well thats some kind of difference.<br>";
+									echo "- Need more? Note number: ".$row[1]." is your shortest note. It is using ".$row[0]." chars for its entire note-content.<br>";
+								}
+
+								//  longest note-content
+								$result = mysql_query("SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$owner."' ORDER BY longest DESC LIMIT 1"); 
+								while($row = mysql_fetch_array($result)) 					
+								{
+									echo "- While your longest (number ".$row[1]." ) is using ".$row[0]." characters. Well thats some kind of difference.<br>";
 								}
 
 								//  oldest created note
-								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes ORDER BY date_create ASC LIMIT 1"); 
+								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$owner."' ORDER BY date_create ASC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									echo "- The oldest and still existing note has an age of ".$row[0]." days. It was created <i>".$row[1]."</i> with number ".$row[2].". Wow that means you are using monoto since ".$row[0]." days - hope you love it.<br>";
+									echo "- The oldest existing note has an age of ".$row[0]." days. It was created <i>".$row[1]."</i> with number ".$row[2].". Wow that means you are using monoto since ".$row[0]." days - hope you love it.<br>";
 								}
 
 								//  newest/latest created note
-								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '0' ORDER BY date_create DESC LIMIT 1"); 
+								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '0' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									echo "- The latest created and still unedited note has an age of ".$row[0]." days. It was created <i>".$row[1]."</i> with number ".$row[4]." and the title <i>".$row[3]."</i>.<br>";
@@ -392,6 +422,8 @@
 						<td>Note was created, version counter = 0, date created and modified set</td>
 						<td>
 						<?php
+							$owner = $_SESSION['username'];
+
 							// connect to mysql db and fetch all notes  
 							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
 							if (!$con)
@@ -404,7 +436,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'  and owner='".$owner."'   "); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
@@ -433,7 +465,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
@@ -461,7 +493,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
@@ -489,7 +521,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'rename'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'rename' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
@@ -517,7 +549,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'delete'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'delete' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
@@ -545,7 +577,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
@@ -573,7 +605,7 @@
 								// do the mysql connect
 								mysql_select_db($mysql_db, $con);
 								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'logout'"); 
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'logout' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{

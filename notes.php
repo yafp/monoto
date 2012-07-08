@@ -31,23 +31,16 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!--  m_doubleClick-->
 		<script type="text/javascript" language="javascript" src="js/m_doubleClick.js"></script>
-
-
-
-
-
-
-
+		<!--  m_reallyLogout-->
+		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+		<!--  m_reallyDelete-->
+		<script type="text/javascript" language="javascript" src="js/m_reallyDelete.js"></script>
 
 
 
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
 		<script type="text/javascript" src="jquery.cleditor.min.js"></script>
-		
-
-
-
 		<!-- simple v1
 		<script type="text/javascript">
       		$(document).ready(function() {
@@ -55,9 +48,7 @@ first step via http://datatables.net/examples/api/select_single_row.html
       		});
  		</script>
  	-->
-
-
-
+ 	
  		<!-- moe config - 2
  		http://premiumsoftware.net/cleditor/docs/GettingStarted.html
  		-->
@@ -222,6 +213,7 @@ first step via http://datatables.net/examples/api/select_single_row.html
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))
 			{
 				$.post("scripts/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
+				//reloadNote();
 			}
 			else
 			{
@@ -241,13 +233,10 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 			// if we have a note id to delete - do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
-		  	{	
-
-		  		// add really delete question here
-
-		  		// delete
+		  	{		
+		  		// just delete it
 				$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-				
+				reloadNote();				
 		  	}
 			else
 			{
@@ -290,6 +279,7 @@ first step via http://datatables.net/examples/api/select_single_row.html
 			if( (renameNoteID.length > 0) && (renameNoteID != 'ID') && (renameNoteTitle.length >0) )
 			{
 				$.post("scripts/renNote.php", { renameNoteID: renameNoteID, renameNoteTitle: renameNoteTitle, renameNoteContent: renameNoteContent, renameNoteCounter: renameNoteCounter  } );
+				reloadNote();
 			}
 			else
 			{
@@ -358,7 +348,22 @@ first step via http://datatables.net/examples/api/select_single_row.html
 								<input type="button"  style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
 								<input type="button"  style="width:90px" title="Deletes the current note from the db" value="rename" onClick="renameNote();" >
 								<br><br>
-								<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">
+
+								<?php
+									if($s_enable_really_delete == true)
+									{
+										echo '<input type="button"  javascript:void(0) style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="reallyLogout();">';
+									}
+									else
+									{
+										echo '<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">';
+									}
+								?>
+
+
+
+
+
 								<br><br><br><br><br><br><br><br><br><br><br><br><br>
 							</td>
 						</tr>

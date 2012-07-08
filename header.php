@@ -3,7 +3,7 @@
 <?php 
 	include 'conf/config.php';
 
-	echo '<a href="home.php"><img src="images/logo.png" width="140px" align="left"></a>';
+	echo '<a href="notes.php"><img src="images/logo.png" width="140px" align="left"></a>';
 
 	if($s_enable_header_tagline == true)
 	{
@@ -19,7 +19,7 @@
 	session_start();
 
 	// check if the user-session is valid or not
-	if($_SESSION['valid'] == 1)
+	if($_SESSION['valid'] == 1) // is valid
 	{
 		echo $_SESSION['userid'];
 
@@ -45,7 +45,22 @@
 		{ echo '| <a accesskey="c" href="info.php" title="jumps to the monoto info page" style="text-decoration: underline;">&nbsp;info&nbsp;</a>'; }
 		else { echo '| <a accesskey="c" href="info.php" title="jumps to the monoto info page">&nbsp;info&nbsp;</a>'; }
 
-		echo '| <a accesskey="x" href="logout.php" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
+
+		// logout
+		if ($s_enable_really_logout == true)
+		{
+			echo '| <a accesskey="x" href="javascript:void(0)" onclick="reallyLogout();" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
+		}
+		else
+		{
+			echo '| <a accesskey="x" href="logout.php" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
+		}
+	
+
+		
+
+
+
 
 
 		// manual user-icon-hack
@@ -59,7 +74,7 @@
 			<?php
 		}
 	}
-	else // not logged in - so other menu
+	else // not logged in / non valid session - so just show him the login menu
 	{
 		echo '| <a accesskey="x" href="index.php" title="jumps to the monoto login page">&nbsp;login&nbsp;</a> |' ;
 	}

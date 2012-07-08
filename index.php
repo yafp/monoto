@@ -98,6 +98,7 @@ if ( isset($_POST["doLogin"]) )
 	$username = mysql_real_escape_string($username);
 
 	$_SESSION['username'] = $username;									// add session-info
+	$owner = $_SESSION['username'];
 
 	// check if there is a user with matching data
 	$query = "SELECT password, salt FROM m_users WHERE username = '$username';";
@@ -141,7 +142,8 @@ if ( isset($_POST["doLogin"]) )
     	// update m_log
 		$event = "login";
 		$details = "User: <b>".$username."</b> logged in successfully.";
-		$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
+		//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
+		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 		$result = mysql_query($sql);
 
 		mysql_close($con);													// close sql connection

@@ -26,12 +26,13 @@
 		{
 	    	die('Error: ' . mysql_error());
 		}
-		else /* d.h. es gab keine Fehler beim insert - daher protokollieren wir auch*/
+		else 
 		{
 			// update m_log
 			$event = "delete";
 			$details = "Note: <b>".$deleteTitle."</b> with content: <b>: ".$deleteContent."...</b>. ID: <b>".$deleteID." </b>is now gone.";
-			$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
+			//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
+			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 			$result = mysql_query($sql);
 		}
 

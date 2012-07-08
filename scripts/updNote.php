@@ -31,7 +31,7 @@
 			$modifiedNoteContentSummary = substr($modifiedNoteContent, 0, 10);
 			$event = "save";
 			$details = "Note: <b>".$modifiedNoteTitle."</b> with content: <b>".$modifiedNoteContentSummary."...</b>";
-			$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
+			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now() , '$owner')";
 			$result = mysql_query($sql);
 		}
 		mysql_close($con);													// close sql connection
