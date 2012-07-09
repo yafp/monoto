@@ -59,6 +59,11 @@
 					{ echo '| <a accesskey="c" href="info.php" title="jumps to the monoto info page" style="text-decoration: underline;">&nbsp;info&nbsp;</a>'; }
 					else { echo '| <a accesskey="c" href="info.php" title="jumps to the monoto info page">&nbsp;info&nbsp;</a>'; }
 
+					// admin
+					if ($page == 'admin.php')
+					{ echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page" style="text-decoration: underline;">&nbsp;admin&nbsp;</a>'; }
+					else { echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page">&nbsp;admin&nbsp;</a>'; }
+
 					// logout
 					if ($s_enable_really_logout == true)
 					{

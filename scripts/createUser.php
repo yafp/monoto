@@ -4,7 +4,12 @@
 	// - please edit username & password and run the file once
 	// - then delete it right away ;)
 
-	include '../conf/config.php';
+	//include '../conf/config.php';
+
+	$mysql_server 			= "localhost";			// define your mysql server here
+	$mysql_db 				= "monoto";				// define your mysql db here	
+	$mysql_user				= "root";				// define your mysql user here
+	$mysql_pw				= "root";				// define the mysql user pw here
 
 	// define user data
 	$username	= "test";

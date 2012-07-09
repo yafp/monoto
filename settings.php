@@ -361,26 +361,14 @@ if ( isset($_POST["doChangeUserPW"]) )
 {
 	$owner = $_SESSION['username'];
 
-	echo "change pw.................";
-
 	$newPassword1 = $_POST['newPassword1'];
 	$newPassword2 = $_POST['newPassword2'];
-
-
-
-
 	$password = $newPassword1;
 	$username = $owner;
-
-
-
-	echo $newPassword1;
 
 	// Check if user entered two times the same new password
 	if($newPassword1 == $newPassword2)
 	{
-		echo "lets change the pw";
-
 		// playing with hash
 		$hash = hash('sha256', $password);
 		// playing with salt - creates a 3 character sequence
@@ -409,7 +397,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 	}
 	else // User entered 2 different password - cant change pw like that.
 	{
-		echo "cant change";
+		//echo "cant change";
 	}
 }
 
