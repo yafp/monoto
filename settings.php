@@ -108,7 +108,7 @@
 				<h2><a name="profile">profile</a></h2>
 
 
-				<!-- Login & logout counter-->
+				
 				<?php
 				// connect to mysql
 				$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
@@ -118,19 +118,26 @@
 				}	
 				mysql_select_db($mysql_db, $con);
 
-
-
 				// display user image - hardcoded dummy image
 				//
 				echo "<a href=''>";
 				echo "<img src='images/default_user_icon_trans.png' align='right' border='1'>";
 				echo "</a>";
 
+				// display user icon from db
+				$sql="SELECT user_icon FROM m_users WHERE username='".$_SESSION['username']."' ";
+				$row = mysql_fetch_array($sql);
+				$content = $row['user_icon'];
+
+				/*
+				header('Content-type: image/jpg');
+         			echo $content;
+				*/
+				
 
 
 
-
-
+				// Login & logout counter
 				$sql="SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
 				$result = mysql_query($sql);
 				while($row = mysql_fetch_array($result)) 					
@@ -155,6 +162,18 @@
 							<td><input type="submit" name="doChangeUserPW" value="Update" /></td>
 						</tr>					
 				</form>
+
+
+
+				<!-- CHANGE USER ICON BUTTON -->
+				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+						<tr>
+							<input name="MAX_FILE_SIZE" value="102400" type="hidden">
+							<input name="image" accept="image/jpeg" type="file">
+							<input value="Change Icon" type="submit" name="doChangeUserIcon" >Dummy	
+						</tr>					
+				</form>
+				
 
 
 
@@ -566,6 +585,55 @@ if ( isset($_POST["doImport"]) )
 	
 	mysql_close($con);									// close sql connection
 } 
+
+
+
+
+
+
+//
+// Changing User icon
+//
+if ( isset($_POST["doChangeUserIcon"]) ) 
+{
+	echo "trying to change the user icon";
+
+	// connect to mysql
+	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+	if (!$con)
+	{
+		die('Could not connect: ' . mysql_error());
+	}	
+	mysql_select_db($mysql_db, $con);				// select db
+
+	$owner = $_SESSION['username'];
+
+	// is there a new file at all?
+	if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) 
+	{ 
+		// Temporary file name stored on the server
+        $tmpName  = $_FILES['image']['tmp_name'];  
+           
+        // Read the file 
+        $fp     = fopen($tmpName, 'r');
+        $data = fread($fp, filesize($tmpName));
+        $data = addslashes($data);
+        fclose($fp);
+          
+		// update user record     
+        $query = "UPDATE m_users SET  user_icon='$data' WHERE username='$owner'";
+		mysql_query($query);
+
+		// Print results
+        //print "Thanks, the new user icon has been uploaded.";
+	}
+	else 
+	{
+   		print "No image selected/uploaded";
+	}
+}
+
+
 
 
 mysql_close($con);									// close sql connection
