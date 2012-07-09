@@ -15,28 +15,30 @@
 
 
 	// NAVI
-	// manual user-icon-hack
+	// 
 	echo '<div id="navi">';
 		echo "<table border='0' align='right'>";
-			// USER ICON
+			
 			echo "<tr>";
-				if($s_enable_user_icon == true)
-				{
-					echo "<td>";
-						echo  '<img src='.$s_user_icon_path.' align="right" border="1" border-color:#000000 width="25px" style="filter:alpha(opacity=60); opacity: 0.6;">';
-					echo "</td>";
-				}
-				// WELCOME TEXT
-				echo "<td>";
-					echo  "Welcome ".$_SESSION['username']." to monoto... ";
-				echo "</td>";
-				// NAVI
-				echo "<td>";
-				session_start();
-
+				
 				// check if the user-session is valid or not
 				if($_SESSION['valid'] == 1) // is valid
 				{
+					// USER ICON manual user-icon-hack
+					if($s_enable_user_icon == true)
+					{
+					echo "<td>";
+						echo  '<img src='.$s_user_icon_path.' align="right" border="1" border-color:#000000 width="25px" style="filter:alpha(opacity=60); opacity: 0.6;">';
+					echo "</td>";
+					}
+					// WELCOME TEXT
+					echo "<td>";
+					echo  "Welcome ".$_SESSION['username']." ... ";
+					echo "</td>";
+					echo "<td>";
+					
+					session_start();
+
 					echo $_SESSION['userid'];
 
 					$var=explode('?',$_SERVER['REQUEST_URI']);

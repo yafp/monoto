@@ -229,7 +229,7 @@
 								while($row = mysql_fetch_array($result)) 					
 								{
 									//echo " ".$row[0]." times saving changes,"; // amount of notes
-									$stats_amount_of_canges = $row[0];
+									$stats_amount_of_changes = $row[0];
 								}
 
 								// amount of renames-events
@@ -246,6 +246,16 @@
 								{
 									//echo " and last but not least ".$row[0]." note-deletions.<br>"; 
 									$stats_amount_of_deletes = $row[0];
+								}
+
+
+								// amount of logins and logouts
+								$result = mysql_query("SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' "); 
+								while($row = mysql_fetch_array($result)) 					
+								{ 
+									$stats_amount_of_logins = $row[0];
+									$stats_amount_of_logouts = $row[1];
+
 								}
 
 								//  version: highest note-version (most used note)
@@ -332,9 +342,12 @@
 								// - $stats_events_of_current_user
 								// 		- $stats_amount_of_creates
 								//		- $stats_amount_of_imports
-								//		- $stats_amount_of_canges
+								//		- $stats_amount_of_changes
 								//		- $stats_amount_of_renames
 								//		- $stats_amount_of_deletes
+								//		- $stats_amount_of_logins
+								//		- $stats_amount_of_logouts
+								//
 								//
 								// HIGHEST NOTE per VERSION:
 								// - $stats_highest_note_version_id 
@@ -369,13 +382,19 @@
 								// DB-SIZE
 								// - $stats_entire_monoto_db_size
 
-
-
-
-
 								// Use our variables to create some kind of LOG text - should be informative but still funny if possible.
-
-								
+								echo "- The personal event log has recorded ".$stats_events_of_current_user." events for this account.<br>";
+								echo "- Those can be devided into ".$stats_amount_of_creates." notes creations, ".$stats_amount_of_changes." times editing existing notes, ".$stats_amount_of_renames." rename-events and ".$stats_amount_of_deletes." notes-deletions.<br>";
+								echo "- In addition to those numbers your account has ".$stats_amount_of_imports." note-import events logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
+								echo "- Your highest note id is currently ".$stats_highest_note_version_id.", with the title ".$stats_highest_note_version_title.". This specific note has revision number ".$stats_highest_note_version_versions.".<br>";
+								echo "- Well in case numbers still dont match up - add ".$stats_amount_of_logins." logins and ".$stats_amount_of_logouts." logouts.<br>";
+								echo "- Your shortest note so far is note number ".$stats_note_with_shortest_content_id.", it is using ".$stats_note_with_shortest_content_chars." chars for its entire content.<br>";
+								echo "- Lets compare that with your longest note which has the id ".$stats_note_with_longest_content_id." and is ".$stats_note_with_longest_content_chars." long.<br>";
+								echo "- Looking for dates? Let's face it: your oldest note has an age of ".$stats_oldest_created_note_age." days. It was created ".$stats_oldest_created_note_date." with the id ".$stats_oldest_created_note_id.".<br>";
+								echo "- In comparison - your latest created note has the age of ".$stats_latest_created_note_age." days, has the id ".$stats_latest_created_note_id.", the title ".$stats_latest_created_note_title." and a creation date of ".$stats_latest_created_note_date.".<br>";
+								echo "- The last note you actually edited was note ".$stats_last_edited_note_id." with the title ".$stats_last_edited_note_title.". This edit is ".$stats_last_edited_note_age." days old - from ".$stats_last_edited_note_date." in case you bother.<br>";
+								echo "- Lets come to the end - the entire monoto db has a size of ".$stats_entire_monoto_db_size."  MB.<br>";
+							
 							}
 						}
 					}

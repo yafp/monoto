@@ -65,9 +65,9 @@
 								<td><b>Name</b></td>
 								<td><b>Logins</b></td>
 								<td><b>Logouts</b></td>
-								<td><b>Notes</b></td>
-								<td><b>First Login</b></td>
-								<td><b>Last Login</b></td>
+								<td><b>Date invite</b></td>
+								<td><b>Date first login</b></td>
+								<td><b>Date last login</b></td>
 							</tr>
 
 							<!-- get user data & display it -->
@@ -84,7 +84,7 @@
 								mysql_select_db($mysql_db, $con);				// select db
 
 								// query user-data and display it
-								$result = mysql_query("SELECT id, username, login_counter, logout_counter  FROM m_users ORDER by id "); 					// run the mysql query
+								$result = mysql_query("SELECT id, username, login_counter, logout_counter, date_invite, date_first_login, date_last_login  FROM m_users ORDER by id "); 					// run the mysql query
 								while($row = mysql_fetch_array($result)) 																					// fetch data and file table as a second step later on
 								{
 									echo "<tr>";
@@ -101,13 +101,13 @@
 											echo $row[3];
 										echo "</td>";
 										echo "<td>";
-											echo $row[3];
+											echo $row[4];
 										echo "</td>";
 										echo "<td>";
-											echo $row[3];
+											echo $row[5];
 										echo "</td>";
 										echo "<td>";
-											echo $row[3];
+											echo $row[6];
 										echo "</td>";
 									echo "</tr>";
 									
@@ -125,7 +125,7 @@
 						You can create new user accounts here - newly created users will get a notification regarding the newly created monoto-account including login instructions and all relevant informations.<br><br>
 						<table width="100%" border="0">
 							<tr>
-								<td>Username:</td> 
+								<td width='30%'>Username:</td> 
 								<td><input type="input" name="newUsername" placeholder="Insert new username" /></td>
 							</tr>
 							<tr>
@@ -141,7 +141,7 @@
 								<td><input type="password" name="newPassword2" placeholder="Please enter the new password again" /></td>
 							</tr>
 							<tr>
-								<td>Optional:</td> 
+								<td>Send notification mail to new user (optional)</td> 
 								<td><input type="checkbox" name="sendNotification" value="sendNotification" /></td>
 							</tr>
 							<tr>
@@ -150,7 +150,7 @@
 							</tr>
 						</table>					
 					</form>
-					checkbox: send email to new user (optional)<br>
+					<br>
 					Hint: account will be created with a creation-timestamp. Admin-interface will list pending invites and offer an option to delete them.
 
 				
@@ -204,26 +204,18 @@ include 'conf/config.php';
 // 1. Create new user account and send invite
 
 
-
-// connect to mysql
-$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-if (!$con)
-{
-	die('Could not connect: ' . mysql_error());
-}
-mysql_select_db($mysql_db, $con);				// select db
-
-
-
-
-
-
 // 
 // CREATE NEW USER
 //
 if ( isset($_POST["doCreateNewUserAccount"]) ) 
 {
-	echo "Create user account dummy:<br>";
+	// connect to mysql
+	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+	if (!$con)
+	{
+		die('Could not connect: ' . mysql_error());
+	}
+	mysql_select_db($mysql_db, $con);				// select db
 
 	// store values on vars
 	$newPassword1 	= $_POST['newPassword1'];
@@ -256,7 +248,7 @@ if ( isset($_POST["doCreateNewUserAccount"]) )
 				$salt = createSalt();
 				$hash = hash('sha256', $salt . $hash);
 
-				$query = "INSERT INTO m_users ( username, password, salt ) VALUES ( '$username' , '$hash' , '$salt' );";
+				$query = "INSERT INTO m_users ( username, password, salt, date_invite ) VALUES ( '$username' , '$hash' , '$salt' , now() );";
 				mysql_query($query);
 				echo "Account created.<br><br>Checking if we should send an invite letter as well.";
 				// user created - well done
@@ -305,14 +297,12 @@ if ( isset($_POST["doCreateNewUserAccount"]) )
 	{
 		echo "CANCEL - You need to submit a password twice - not 2 different passwords.<br>";
 	}
+
+	// disconnect from mysql
+	mysql_close($con);									// close sql connection
+
+	// reload page
 }
 
-
-
-
-
-
-// disconnect from mysql
-mysql_close($con);									// close sql connection
 
 ?>

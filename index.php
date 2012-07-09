@@ -1,5 +1,4 @@
 <?php
-
 	session_start();
 
 	// check if the user-session is valid or not
@@ -9,8 +8,10 @@
 	}
 	else
 	{
-	?>
-	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+?>
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -101,12 +102,13 @@ if ( isset($_POST["doLogin"]) )
 	// check if there is a user with matching data
 	$query = "SELECT password, salt FROM m_users WHERE username = '$username';";
 	$result = mysql_query($query);
-	if(mysql_num_rows($result) < 1)  //no such user exists
+	if(mysql_num_rows($result) < 1)  										//no such user exists
 	{
 	    mysql_close($con);													// close sql connection
 	    header('Location: redirect.php');
 	}
 
+	// user exists
 	$userData = mysql_fetch_array($result, MYSQL_ASSOC);
 	$hash = hash('sha256', $userData['salt'] . hash('sha256', $password) );
 
@@ -131,6 +133,27 @@ if ( isset($_POST["doLogin"]) )
 			$loginCounter = $row[0];
 		}
 		$loginCounter = $loginCounter +1;
+
+		// check if its first login - if so save date to db
+		if($loginCounter == 1) // = first login
+		{
+			// set first login date
+			$sql="UPDATE m_users SET date_first_login= now() WHERE username='".$_SESSION['username']."' ";
+			$result = mysql_query($sql);
+		}
+
+
+
+
+		// update last login date
+		$sql="UPDATE m_users SET date_last_login= now()  WHERE username='".$_SESSION['username']."' ";
+		echo "fuck ....was soll das";
+		echo $sql;
+		$result = mysql_query($sql);
+
+
+
+
 
 		// update logincounter
 		$sql="UPDATE m_users SET login_counter='".$loginCounter."' WHERE username='".$_SESSION['username']."' ";

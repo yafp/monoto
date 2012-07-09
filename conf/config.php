@@ -10,8 +10,8 @@
 	//
 	$mysql_server 			= "localhost";			// define your mysql server here
 	$mysql_db 				= "monoto";				// define your mysql db here	
-	$mysql_user				= "root";				// define your mysql user here
-	$mysql_pw				= "root";				// define the mysql user pw here
+	$mysql_user				= "monoto";				// define your mysql user here
+	$mysql_pw				= "monoto";				// define the mysql user pw here
 
 	// should there be a toc on info.php & settings.php?
 	$s_enable_toc 				= true;				// true or false
@@ -28,7 +28,7 @@
 	$enable_info_about_section	= false;				// show about oninfo page
 	$enable_info_version_changelog_section	= false;	// should the changelog be displayed 
 	$enable_info_stats_section	= true;				// show stats on info page
-	$enable_info_keyboard_section	= false;			// show keyboard on info page
+	$enable_info_keyboard_section	= true;			// show keyboard on info page
 	
 
 
@@ -48,7 +48,7 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120709.01";
+	$m_build					= "20120709.02";
 	$m_stable					= false;
 
 ?>
