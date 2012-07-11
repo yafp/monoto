@@ -3,19 +3,16 @@
 
 	include 'conf/config.php';
 
-	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}
-
+	// connect to db
+	include ('scripts/db.php');
+	connectToDB();
+	
 	$owner = $_SESSION['username'];
 
-	mysql_select_db($mysql_db, $con);				// select db
+	mysql_select_db($mysql_db, $con);				// select get
 
-    // record to log - that we had a successfull user logout
-	// get current logout count-value
-    $sql="SELECT logout_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
+	// db current logout count-value
+    $sql="SELECT logout_counter FROM m_users WHERE username='".$owner."'  ";
 	$result = mysql_query($sql);
 	while($row = mysql_fetch_array($result)) 					
 	{
@@ -27,16 +24,13 @@
 	$sql="UPDATE m_users SET logout_counter='".$logoutCounter."' WHERE username='".$_SESSION['username']."' ";
 	$result = mysql_query($sql);
 
-
     // update m_log
-    $username = "dummy";
 	$event = "logout";
-	$details = "User: <b>".$username."</b> logged out successfully.";
-	//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
-	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+	$details = "User: <b>".$_SESSION['username']."</b> logged out successfully.";
+	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '".$_SESSION['username']."' )";
 	$result = mysql_query($sql);
 
-	mysql_close($con);													// close sql connection
+	disconnectFromDB();
 
 	$_SESSION = array(); //destroy all of the session variables
     session_destroy();

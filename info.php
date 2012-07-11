@@ -51,7 +51,6 @@
 		</script>
 </head>
 	
-
 <body id="dt_example">
 	<div id="container">
 		<!-- HEADER & NAV -->
@@ -189,7 +188,6 @@
 
 								echo "- You have ".$row[0]." notes in your monoto database<br>"; 	// output amount of notes
 
-
 								//
 								// SQL-SECTION
 								//
@@ -197,7 +195,6 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- According to your log you fired already ".$row[0]." event(s) to your database.<br>"; 
 									$stats_events_of_current_user = $row[0];
 								}
 
@@ -205,7 +202,6 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- Those can be separated into ".$row[0]." note-creations,"; 
 									$stats_amount_of_creates = $row[0];
 								}
 
@@ -213,7 +209,6 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo " ".$row[0]." note imports,"; 
 									$stats_amount_of_imports = $row[0];
 								}
 
@@ -221,7 +216,6 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo " ".$row[0]." times saving changes,"; // amount of notes
 									$stats_amount_of_changes = $row[0];
 								}
 
@@ -229,7 +223,6 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='rename' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo " ".$row[0]." renamings"; // amount of notes
 									$stats_amount_of_renames = $row[0];
 								}
 
@@ -237,7 +230,6 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo " and last but not least ".$row[0]." note-deletions.<br>"; 
 									$stats_amount_of_deletes = $row[0];
 								}
 
@@ -255,7 +247,6 @@
 								$result = mysql_query("SELECT id, title, save_count FROM m_notes WHERE owner='".$owner."'ORDER BY save_count DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- You seem to use note ".$row[0]." with title <i>".$row[1]."</i> a lot - it has ".$row[2]." versions, which means it is the most edited note.<br>";
 									$stats_highest_note_version_id = $row[0];
 									$stats_highest_note_version_title = $row[1];
 									$stats_highest_note_version_versions = $row[2];
@@ -267,7 +258,6 @@
 								$result = mysql_query("SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$owner."'"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- Need more? Note number: ".$row[1]." is your shortest note. It is using ".$row[0]." chars for its entire note-content.<br>";
 									$stats_note_with_shortest_content_id = $row[1];
 									$stats_note_with_shortest_content_chars = $row[0];
 								}
@@ -277,7 +267,6 @@
 								$result = mysql_query("SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$owner."' ORDER BY longest DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- While your longest (number ".$row[1]." ) is using ".$row[0]." characters. Well thats some kind of difference.<br>";
 									$stats_note_with_longest_content_id = $row[1];
 									$stats_note_with_longest_content_chars = $row[0];
 								}
@@ -287,7 +276,6 @@
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$owner."' ORDER BY date_create ASC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- The oldest existing note has an age of ".$row[0]." days. It was created <i>".$row[1]."</i> with number ".$row[2].". Wow that means you are using monoto since ".$row[0]." days - hope you love it.<br>";
 									$stats_oldest_created_note_age = $row[0];
 									$stats_oldest_created_note_date = $row[1];
 									$stats_oldest_created_note_id = $row[2];
@@ -298,7 +286,6 @@
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '0' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- The latest created and still unedited note has an age of ".$row[0]." days. It was created <i>".$row[1]."</i> with number ".$row[4]." and the title <i>".$row[3]."</i>.<br>";
 									$stats_latest_created_note_age = $row[0];
 									$stats_latest_created_note_date =  $row[1];
 									$stats_latest_created_note_id = $row[4];
@@ -309,7 +296,6 @@
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_mod, save_count, title, id FROM m_notes ORDER BY date_create DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- The latest edited note has an age of ".$row[0]." days. It is note number ".$row[4].", title <i>".$row[3]."</i> and was edited at ".$row[1].".<br>";
 									$stats_last_edited_note_age = $row[0];
 									$stats_last_edited_note_id = $row[4];
 									$stats_last_edited_note_title = $row[3];
@@ -320,11 +306,8 @@
 								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = 'monoto'"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
-									//echo "- The entire monoto mysql db has the size of ".$row[0]." MB. Hell yeah thats small. This contains notes, the activity log and the user table.<br>";
 									$stats_entire_monoto_db_size = $row[0];
 								}
-
-
 
 								//
 								// DISPLAY  stats
@@ -387,10 +370,8 @@
 								echo "- In comparison - your latest created note has the age of ".$stats_latest_created_note_age." days, has the id ".$stats_latest_created_note_id.", the title ".$stats_latest_created_note_title." and a creation date of ".$stats_latest_created_note_date.".<br>";
 								echo "- The last note you actually edited was note ".$stats_last_edited_note_id." with the title ".$stats_last_edited_note_title.". This edit is ".$stats_last_edited_note_age." days old - from ".$stats_last_edited_note_date." in case you bother.<br>";
 								echo "- Lets come to the end - the entire monoto db has a size of ".$stats_entire_monoto_db_size."  MB.<br>";
-							
 							}
 					}
-					
 					echo "<br><small>Missing something? Please feel free to send me your sql-queries per mail</small>";
 				}
 				else
@@ -398,7 +379,6 @@
 					echo "<font color='silver'><i>The Stats section was disabled in the settings.</i></font>";
 				}    			
 			?>
-
 
 			<!-- SPACER -->
 			<div id="spacer">&nbsp;</div>
@@ -652,6 +632,8 @@
 				</table>
 				<br>
 
+
+				<!-- ACTIVITY/EVENT LOG -->
 				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
 					<thead>
 						<tr>
@@ -664,14 +646,11 @@
 					<tbody>
 
 					<?php
-							$owner= $_SESSION['username'];
-
-							// run the mysql query
-							$result = mysql_query("SELECT * FROM m_log WHERE owner='$owner' "); // m_log
-
-							// fetch data and file table as a second step later on
+							//$owner= $_SESSION['username'];
+							$result = mysql_query("SELECT * FROM m_log WHERE owner='".$owner."' "); // m_log
 							while($row = mysql_fetch_array($result))
 							{
+								// fill datatable
 								echo '<tr class="odd gradeU">';
 									echo '<td>'.$row[0].'</td>';
 									echo '<td>'.$row[1].'</td>';		// event - colorize?
@@ -694,7 +673,6 @@
 
 			<!-- SPACER -->
 			<div id="spacer">&nbsp;</div>
-			
 		</div>
 				
 	<!--  FOOTER -->
