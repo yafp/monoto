@@ -1,15 +1,13 @@
 <?php
 	session_start();
-
-	// check if the user-session is valid or not
-	if($_SESSION['valid'] == 1)
+	
+	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
 	{
 		header('Location: notes.php');
 	}
 	else
 	{
 ?>
-
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -27,7 +25,6 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/m_showHide.js"></script>
 	</head>
-	
 	
 	<body id="dt_example">
 		<div id="container">
@@ -63,11 +60,8 @@
 	</body>
 </html>
 
-
-
 	<?php
 	}
-
 
 ?>
 
@@ -123,6 +117,18 @@ if ( isset($_POST["doLogin"]) )
 		session_start();
 		session_regenerate_id (); //this is a security measure
     	$_SESSION['valid'] = 1;
+
+    	// if user is admin - add the info to our session 
+		$query = "SELECT is_admin FROM m_users WHERE username = '$username';";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result))
+		{
+			if($row[0] == 1)
+			{
+				$_SESSION['admin'] = 1;
+			}						
+		}
+
     	$_SESSION['userid'] = $userid;
 
     	// get current login-count
@@ -142,18 +148,11 @@ if ( isset($_POST["doLogin"]) )
 			$result = mysql_query($sql);
 		}
 
-
-
-
 		// update last login date
 		$sql="UPDATE m_users SET date_last_login= now()  WHERE username='".$_SESSION['username']."' ";
 		echo "fuck ....was soll das";
 		echo $sql;
 		$result = mysql_query($sql);
-
-
-
-
 
 		// update logincounter
 		$sql="UPDATE m_users SET login_counter='".$loginCounter."' WHERE username='".$_SESSION['username']."' ";

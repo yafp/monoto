@@ -13,7 +13,6 @@
 		}	
 	echo '</div>';
 
-
 	// NAVI
 	// 
 	echo '<div id="navi">';
@@ -39,7 +38,7 @@
 					
 					session_start();
 
-					echo $_SESSION['userid'];
+					//echo $_SESSION['userid'];
 
 					$var=explode('?',$_SERVER['REQUEST_URI']);
 					$page=preg_replace('/.*\/([^\/])/','$1',$var[0]);
@@ -62,9 +61,12 @@
 					else { echo '| <a accesskey="c" href="info.php" title="jumps to the monoto info page">&nbsp;info&nbsp;</a>'; }
 
 					// admin
-					if ($page == 'admin.php')
-					{ echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page" style="text-decoration: underline;">&nbsp;admin&nbsp;</a>'; }
-					else { echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page">&nbsp;admin&nbsp;</a>'; }
+					if($_SESSION['admin'] == 1)
+					{
+						if ($page == 'admin.php')
+						{ echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page" style="text-decoration: underline;">&nbsp;admin&nbsp;</a>'; }
+						else { echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page">&nbsp;admin&nbsp;</a>'; }
+					}
 
 					// logout
 					if ($s_enable_really_logout == true)

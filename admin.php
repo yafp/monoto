@@ -91,6 +91,12 @@
 						<td></td>
 						<td></td>
 					</tr>
+					<tr>
+						<td>- enable welcome message:</td>
+						<td><?php if($enable_welcome_message == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+						<td></td>
+						<td></td>
+					</tr>
 				</tbody>
 				</table>
 
