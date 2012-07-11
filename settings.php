@@ -18,10 +18,6 @@
 			@import "css/table.css";
 		</style>
 
-		<!-- SHOW/HIDE DIV -->
-		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" language="javascript" src="js/m_showHide.js"></script>
-
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 
@@ -42,12 +38,11 @@
 						echo '<h2>settings toc</h2>';
 						echo '<small>';
 						echo '<ul>';
-							echo '<li><a href="#basic">basic-settings</a></li>';
+							echo '<li><a href="#welcome">welcome</a></li>';
 							echo '<li><a href="#profile">profile</a></li>';
 							echo '<li><a href="#importer">importer</a></li>';
 							echo '<li><a href="#exporter">exporter</a></li>';
 							echo '<li><a href="#eraser">eraser</a></li>';
-							echo '<li><a href="#brainstorm">brainstorm</a></li>';
 						echo '</ul>';
 						echo '</small>';
 						
@@ -57,100 +52,57 @@
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 
-				<!-- CORE SETTINGS -->
-				<h2><a name="basic">basic settings</a></h2>
-				<table width="100%" border="0">
-				<tbody>
-					<tr>
-						<td colspan="2" width="50%"><b>General</b></td>
-						<td colspan="2" width="50%"><b>Page specific</b></td>
-					</tr>
-					<tr>
-						<td width="30%">- enable toc:</td>
-						<td width="20%"><?php if($s_enable_toc == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-						<td width="30%">- enable about section on info page:</td>
-						<td width="20%"><?php if($enable_info_about_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
-					<tr>
-						<td>- show tagline in header:</td>
-						<td><?php if($s_enable_header_tagline == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-						<td>- enable changelog on info page:</td>
-						<td><?php if($enable_info_version_changelog_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
-					<tr>
-						<td>- enable really delete question:</td>
-						<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-						<td>- enable stats section on info page:</td>
-						<td><?php if($enable_info_stats_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
-					<tr>
-						<td>- enable user icon:</td>
-						<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-						<td>- enable keyboard section on info page:</td>
-						<td><?php if($enable_info_keyboard_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-					</tr>
+				<!-- WELCOME MESSAGE -->
+				<h2><a name="welcome">welcome</a></h2>
+				<?php 
+					if($enable_welcome_message == true)
+					{
+						// check if welcome message is configured or just empty
+						if (strlen($welcome_message_to_all_users) > 0)
+						{
+							echo $welcome_message_to_all_users;
+						}
+						else
+						{
+							echo "Welcome message is enabled but not defined by admin. Shame on him.";
+						}
+					}
 
-
-					<tr>
-						<td>- enable really logout question:</td>
-						<td><?php if($s_enable_really_logout == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-				</table>
-
+				?>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 
+
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
-
-
-				
 				<?php
-				// connect to mysql
-				$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-				if (!$con)
-				{
-					die('Could not connect: ' . mysql_error());
-				}	
-				mysql_select_db($mysql_db, $con);
+					// connect to db
+					include ('scripts/db.php');
+					connectToDB();
 
-				// display user image - hardcoded dummy image
-				//
-				echo "<a href=''>";
-				echo "<img src='images/default_user_icon_trans.png' align='right' border='1'>";
-				echo "</a>";
+					// display user image - hardcoded dummy image
+					//
+					echo "<a href=''>";
+					echo "<img src='images/default_user_icon_trans.png' align='right' border='1'>";
+					echo "</a>";
 
-				// display user icon from db
-				$sql="SELECT user_icon FROM m_users WHERE username='".$_SESSION['username']."' ";
-				$row = mysql_fetch_array($sql);
-				$content = $row['user_icon'];
+					// display user icon from db
+					$sql="SELECT user_icon FROM m_users WHERE username='".$_SESSION['username']."' ";
+					$row = mysql_fetch_array($sql);
+					$content = $row['user_icon'];
 
-				/*
-				header('Content-type: image/jpg');
-         			echo $content;
-				*/
-				
+					// Login & logout counter
+					$sql="SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
+					$result = mysql_query($sql);
+					while($row = mysql_fetch_array($result)) 					
+					{
+						echo "<b>User</b><br> ".$_SESSION['username']."<br>";
+						echo "<small>(".$row[0]." logins and ".$row[1]." logouts)</small><br><br>";
+					}
 
-
-
-				// Login & logout counter
-				$sql="SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
-				$result = mysql_query($sql);
-				while($row = mysql_fetch_array($result)) 					
-				{
-					echo "<b>User</b><br> ".$_SESSION['username']."<br>";
-					echo "<small>(".$row[0]." logins and ".$row[1]." logouts)</small><br><br>";
-				}
-
-
-				echo "<b>Changing password</b><br>";
+					echo "<b>Changing password</b><br>";
 				?>
-
-
 
 				<!-- CHANGE USER PASSWORD BUTTON -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
@@ -163,8 +115,6 @@
 						</tr>					
 				</form>
 
-
-
 				<!-- CHANGE USER ICON BUTTON -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 						<tr>
@@ -174,16 +124,6 @@
 						</tr>					
 				</form>
 				
-
-
-
-
-
-
-
-
-
-
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
@@ -295,46 +235,6 @@
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 
-
-				<!-- OTHER -->
-				<h2><a name="brainstorm">brainstorm</a></h2>
-				<a href="#" class="show_hide">show</a>
-				<div class="slidingDiv">
-					<b>possible settings for this page:</b><br >
-					<ul>
-						<li>searchable columns (als checkboxen?)</li>
-						<li>visible columns (als checkboxen?)</li>
-							<ul>
-								<li>ID</li>
-								<li>Title</li>
-								<li>Content</li>
-								<li>Tags</li>
-								<li>Date modified</li>
-								<li>Date created</li>
-								<li>Version</li>
-							</ul>
-						<li>pagination</li>
-						<li>default rows per page</li>
-						<li>default search text?</li>
-					</ul>
-
-					<!-- BRAINSTORM -->
-					<b>OTHER GENERAL FUNCTIONS:</b><br >
-					<b>almost sure to come:</b><br >
-					- enable and disable buttons based on field-status
-					- ...<br><br>
-
-					<b>maybe:</b><br>
-					- regexp search?<br>
-					- check if new note title exists already (maybe via sync to search field)?<br>
-					- tags? <br>
-					- tagcloud?<br>
-					- generate graph for log?<br>
-					- colorize log (create = green, edit = yellow, delete = red)
-					- activate and deactive buttons: create, edit, delete and rename
-					<br>
-					<a href="#" class="show_hide">hide</a>
-				</div>
 			</div>
 
 
@@ -422,23 +322,14 @@ if ( isset($_POST["doChangeUserPW"]) )
 
 
 
-
-
-
-
-
 //
 // delAllNotes - button was pressed
 //                 
 if ( isset($_POST["doDelAllNotes"]) ) 
 {	
-	// connect to mysql
-	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}	
-	mysql_select_db($mysql_db, $con);				// select db
+	// connect to db
+	include ('scripts/db.php');
+	connectToDB();
 
 	$owner = $_SESSION['username'];
 
@@ -452,9 +343,8 @@ if ( isset($_POST["doDelAllNotes"]) )
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
 
-	mysql_close($con); 								// close sql connection
+	disconnectFromDB();
 }
-
 
 
 //
@@ -462,13 +352,9 @@ if ( isset($_POST["doDelAllNotes"]) )
 //                 
 if ( isset($_POST["doDelAllEvents"]) ) 
 {	
-	// connect to mysql
-	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}	
-	mysql_select_db($mysql_db, $con);				// select db
+	// connect to db
+	include ('scripts/db.php');
+	connectToDB();
 
 	$owner = $_SESSION['username'];
 
@@ -482,9 +368,8 @@ if ( isset($_POST["doDelAllEvents"]) )
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
 
-	mysql_close($con); 								// close sql connection
+	disconnectFromDB();
 }
-
 
 
 //
@@ -497,9 +382,7 @@ if ( isset($_POST["doExport"]) )
 	echo '<script type="text/javascript" language="javascript">
 	window.open("scripts/dump.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");
 	</script>';
-
 }
-
 
 
 //
@@ -511,13 +394,9 @@ if ( isset($_POST["doImport"]) )
 	//print_r($_FILES['file']['name']);
 	// means: we got an array of files
 
-    // connect to mysql
-	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}	
-	mysql_select_db($mysql_db, $con);				// select db
+	// connect to db
+	include ('scripts/db.php');
+	connectToDB();
 
 	$owner = $_SESSION['username'];
 
@@ -571,9 +450,7 @@ if ( isset($_POST["doImport"]) )
 					$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
 					//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event','$details', now() )";
 					$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
-
 					$result = mysql_query($sql);
-
 					echo "Note: ".$newNoteTitle = $_FILES["file"]["name"][$key]." imported.<br><br>";
 				}					
 			} 	
@@ -583,11 +460,8 @@ if ( isset($_POST["doImport"]) )
 	$amount_of_import_files = $key +1;
 	echo "Finished import - handling ".$amount_of_import_files." files";
 	
-	mysql_close($con);									// close sql connection
+	disconnectFromDB();
 } 
-
-
-
 
 
 
@@ -596,15 +470,11 @@ if ( isset($_POST["doImport"]) )
 //
 if ( isset($_POST["doChangeUserIcon"]) ) 
 {
-	echo "trying to change the user icon";
+	//echo "trying to change the user icon";
 
-	// connect to mysql
-	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}	
-	mysql_select_db($mysql_db, $con);				// select db
+	// connect to db
+	include ('scripts/db.php');
+	connectToDB();
 
 	$owner = $_SESSION['username'];
 
@@ -624,7 +494,6 @@ if ( isset($_POST["doChangeUserIcon"]) )
         $query = "UPDATE m_users SET  user_icon='$data' WHERE username='$owner'";
 		mysql_query($query);
 
-		// Print results
         //print "Thanks, the new user icon has been uploaded.";
 	}
 	else 
@@ -632,10 +501,5 @@ if ( isset($_POST["doChangeUserIcon"]) )
    		print "No image selected/uploaded";
 	}
 }
-
-
-
-
-mysql_close($con);									// close sql connection
 
 ?>

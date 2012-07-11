@@ -13,7 +13,9 @@
 
 body
 {
-	background-image:url('../images/patterns/pattern02.png');	
+	/* background-image:url('../images/patterns/pattern02.png'); */
+	background-image:url('../images/patterns/low_contrast_linen.png');		
+	
 	background-repeat:repeat;
 } 
 

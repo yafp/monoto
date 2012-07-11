@@ -155,23 +155,16 @@
 				{
 					echo '<h2><a name="stats">stats</a></h2>';
 
-					// connect to mysql
-					$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-					if (!$con)
-					{
-						die('Could not connect: ' . mysql_error());
-						echo "Unable to connect to defined database - please check your credentials.";	
-					}
-					else
-					{
-						mysql_select_db($mysql_db, $con);						// do the mysql connect
+					// connect to db
+					include ('scripts/db.php');
+					connectToDB();
+
+					$owner = $_SESSION['username'];
 						
-						$owner = $_SESSION['username'];
-						
-						// User: amount of notes 
-						$result = mysql_query("SELECT count(*) FROM m_notes WHERE owner='".$owner."' "); 					// run the mysql query
-						while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
-						{
+					// User: amount of notes 
+					$result = mysql_query("SELECT count(*) FROM m_notes WHERE owner='".$owner."' "); 					// run the mysql query
+					while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
+					{
 							// If current User < 1 note - is it worth displaying the stats at all?
 							if($row[0] == 0)
 							{
@@ -396,10 +389,8 @@
 								echo "- Lets come to the end - the entire monoto db has a size of ".$stats_entire_monoto_db_size."  MB.<br>";
 							
 							}
-						}
 					}
-					mysql_close($con);													// close sql connection
-
+					
 					echo "<br><small>Missing something? Please feel free to send me your sql-queries per mail</small>";
 				}
 				else
@@ -416,9 +407,9 @@
 			<?php
 				if($enable_info_keyboard_section == true)
 				{
-					?>
+			?>
 
-					<h2><a name="keyboard">keyboard shortcuts</a></h2>
+			<h2><a name="keyboard">keyboard shortcuts</a></h2>
 			<table width="100%" border="0">
 				<thead>
 					<tr>
@@ -506,7 +497,6 @@
 				} 
 			?>
 
-
 			<!-- SPACER -->
 			<div id="spacer">&nbsp;</div>
 			
@@ -528,27 +518,13 @@
 						<?php
 							$owner = $_SESSION['username'];
 
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
+							// run the mysql query
+							$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'  and owner='".$owner."'   "); 
+							// fetch data and file table as a second step later on
+							while($row = mysql_fetch_array($result))
 							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
-								// run the mysql query
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'  and owner='".$owner."'   "); 
-								// fetch data and file table as a second step later on
-								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								echo $row[0];
 							}
-							mysql_close($con);													// close sql connection
-
 						?>
 						</td>
 					</tr>
@@ -557,17 +533,6 @@
 						<td>Note was imported using the importer, version counter = 0, date created and modified set</td>
 						<td>
 							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -575,8 +540,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -585,17 +548,6 @@
 						<td>Content was changed, note saved, version counter +1, date modified set</td>
 						<td>
 							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -603,8 +555,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -613,17 +563,6 @@
 						<td>Title (and maybe content) was changed, version counter +1, date modified set</td>
 						<td>
 							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'rename' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -631,8 +570,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -641,17 +578,6 @@
 						<td>Note was deleted, id/number is doomed forever.</td>
 						<td>
 							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'delete' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -659,8 +585,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -668,18 +592,7 @@
 						<td bgcolor=#666666>login</td>
 						<td>User login - logincounter +1</td>
 						<td>
-							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
+							<?php							
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -687,8 +600,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -696,18 +607,7 @@
 						<td bgcolor=#CCCCCC>logout</td>
 						<td>User logout - logoutcounter +1</td>
 						<td>
-							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
+							<?php							
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'logout' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -715,8 +615,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -724,18 +622,7 @@
 						<td bgcolor=#CCCCCC>notes eraser</td>
 						<td>All user notes deleted</td>
 						<td>
-							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
+							<?php							
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'notes eraser' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -743,8 +630,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -752,18 +637,7 @@
 						<td bgcolor=#CCCCCC>events eraser</td>
 						<td>All user events deleted</td>
 						<td>
-							<?php
-							// connect to mysql db and fetch all notes  
-							$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-							if (!$con)
-					  		{
-					  			die('Could not connect: ' . mysql_error());
-								echo "Unable to connect to defined database - please check your credentials.";	
-					  		}
-							else
-							{
-								// do the mysql connect
-								mysql_select_db($mysql_db, $con);
+							<?php							
 								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'events eraser' and owner='".$owner."' "); 
 								// fetch data and file table as a second step later on
@@ -771,8 +645,6 @@
 								{
 									echo $row[0];
 								}
-							}
-							mysql_close($con);													// close sql connection
 						?>
 						</td>
 					</tr>
@@ -792,22 +664,9 @@
 					<tbody>
 
 					<?php
-						// connect to mysql db and fetch all notes  
-						$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-						if (!$con)
-					  	{
-					  		die('Could not connect: ' . mysql_error());
-							echo "Unable to connect to defined database - please check your credentials.";	
-					  	}
-						else
-						{
-							// do the mysql connect
-							mysql_select_db($mysql_db, $con);
-
 							$owner= $_SESSION['username'];
 
 							// run the mysql query
-							//$result = mysql_query("SELECT * FROM m_log"); // m_log
 							$result = mysql_query("SELECT * FROM m_log WHERE owner='$owner' "); // m_log
 
 							// fetch data and file table as a second step later on
@@ -820,8 +679,6 @@
 									echo '<td>'.$row[3].'</td>';
 								echo '</tr>';
 							}
-						}
-						mysql_close($con);													// close sql connection
 					?>
 
 					</tbody>
@@ -861,7 +718,6 @@
 ?>
 
 
-
 <?php
 //
 // UpdateCheck
@@ -894,9 +750,8 @@ if ( isset($_POST["doUpdateCheck"]) )
 
 	if ($critical) 
 	{ 
-			// print '<p>'.$read[1].'</p>';   													// aka buildbeschreibung
-			// print '<p>You can get it at <a href="'.$read[3].'">'.$read[3].'</a></p>';		// aka DL-url
-
+		// print '<p>'.$read[1].'</p>';   													// aka buildbeschreibung
+		// print '<p>You can get it at <a href="'.$read[3].'">'.$read[3].'</a></p>';		// aka DL-url
    		echo '<script type="text/javascript">
    				var r=confirm("There is a critical update available. Should i download the latest version?")
 				if (r==true)
@@ -917,7 +772,6 @@ if ( isset($_POST["doUpdateCheck"]) )
 	}
 
 	
-
 
 	//
 	// check for unstable versions as well
@@ -949,9 +803,8 @@ if ( isset($_POST["doUpdateCheck"]) )
 
 		if ($critical) 
 		{ 
-				// print '<p>'.$read[1].'</p>';   													// aka buildbeschreibung
-				// print '<p>You can get it at <a href="'.$read[3].'">'.$read[3].'</a></p>';		// aka DL-url
-
+			// print '<p>'.$read[1].'</p>';   													// aka buildbeschreibung
+			// print '<p>You can get it at <a href="'.$read[3].'">'.$read[3].'</a></p>';		// aka DL-url
 	   		echo '<script type="text/javascript">
 	   				var r=confirm("There is a critical dev update available. Should i download the latest version?")
 					if (r==true)
@@ -970,8 +823,6 @@ if ( isset($_POST["doUpdateCheck"]) )
 		{
 			echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>';
 		}
-	
 	}
-
 }
 ?>

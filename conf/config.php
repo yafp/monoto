@@ -21,6 +21,9 @@
 
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
 
+	$enable_welcome_message = true;
+	$welcome_message_to_all_users = "Hi - feel free to use monoto .... pseudo welcome message adjustable by monoto-admin.";
+
 	$s_enable_user_icon			= true;				// enable user-icon in nav
 	$s_user_icon_path			= "images/myUser.jpg";
 
@@ -48,7 +51,7 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120709.03";
+	$m_build					= "20120711.01";
 	$m_stable					= false;
 
 ?>
