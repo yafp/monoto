@@ -406,12 +406,9 @@ if ( isset($_POST["doImport"]) )
 			{
 				echo "Error - there is already a note with the title:" .$newNoteTitle."<br>";
 			}
-			else
+			else // we can create it - update notes: m_notes
 			{
-				// we can create it - update notes: m_notes
-				//$sql="INSERT INTO m_notes (title, content, date_create, date_mod) VALUES ('$newNoteTitle', '$newNoteContent', now(), now() )";
 				$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner' )";
-
 				$result = mysql_query($sql);
 				if (!$result) 
 				{
@@ -423,14 +420,12 @@ if ( isset($_POST["doImport"]) )
 					$newNoteContentSummary = substr($newNoteContent, 0, 10);
 					$event = "import";
 					$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
-					//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event','$details', now() )";
 					$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
 					$result = mysql_query($sql);
 					echo "Note: ".$newNoteTitle = $_FILES["file"]["name"][$key]." imported.<br><br>";
 				}					
 			} 	
       	}
-
 	}
 	$amount_of_import_files = $key +1;
 	echo "Finished import - handling ".$amount_of_import_files." files";
@@ -445,7 +440,6 @@ if ( isset($_POST["doImport"]) )
 //
 if ( isset($_POST["doChangeUserIcon"]) ) 
 {
-	// connect to db
 	//include ('scripts/db.php');
 	connectToDB();
 
@@ -454,8 +448,7 @@ if ( isset($_POST["doChangeUserIcon"]) )
 	// is there a new file at all?
 	if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) 
 	{ 
-		// Temporary file name stored on the server
-        $tmpName  = $_FILES['image']['tmp_name'];  
+        $tmpName  = $_FILES['image']['tmp_name'];  		// Temporary file name stored on the server
            
         // Read the file 
         $fp     = fopen($tmpName, 'r');
@@ -467,11 +460,11 @@ if ( isset($_POST["doChangeUserIcon"]) )
         $query = "UPDATE m_users SET  user_icon='$data' WHERE username='$owner'";
 		mysql_query($query);
 
-        //print "Thanks, the new user icon has been uploaded.";
+        //echo "Thanks, the new user icon has been uploaded.";
 	}
 	else 
 	{
-   		print "No image selected/uploaded";
+   		echo "No image selected/uploaded";
 	}
 }
 

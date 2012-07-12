@@ -102,9 +102,9 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				{ 
 				"oSearch": {"sSearch": ""}, 
 				"sPaginationType": "full_numbers",
-				"iDisplayLength": 10000,					/* default rows */
+				"iDisplayLength": 100000,					/* default rows */
 				"bLengthChange": false,
-				"bPaginate": true , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
+				"bPaginate": false , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
 				"aaSorting": [[ 4, "desc" ]],				/* sorting */
 				"aoColumns"   : [					/* visible columns */
 							{ "bSearchable": true, "bVisible": true }, 	/* note-id */

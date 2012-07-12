@@ -3,18 +3,15 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		
 		<title>monoto - your webbased notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
 	</head>
-	
 	<body id="dt_example">
 		<div id="container">
 			<div id="noteContentCo">
-				
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 
@@ -22,7 +19,6 @@
 				<h2><a name="core">create your monoto admin-user-account</a></h2>
 				This script is supposed to be used to create your first monoto-user account.<br>Please delete this file after having setup your monoto-server.<br><br><br>
 
-			
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 					<table border="0">
 						<tr>
@@ -117,8 +113,4 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 		echo "<font color=red>Password mismatch.<br>Canceling the setup script at this point.</font>";
 	}
 }
-
 ?>
-	
-
-

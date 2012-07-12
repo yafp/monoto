@@ -3,18 +3,12 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		
 		<title>monoto - your webbased notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
-
-		<!-- SHOW/HIDE DIV -->
-		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" language="javascript" src="js/m_showHide.js"></script>
 	</head>
-	
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
@@ -42,7 +36,6 @@
 
 			<!--  FOOTER -->
 			<?php include 'footer.php'; ?>
-
 				</span>
 			</div>
 		</div>

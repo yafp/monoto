@@ -44,6 +44,6 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120712.01";
+	$m_build					= "20120712.02";
 	$m_stable					= false;
 ?>

@@ -116,8 +116,7 @@
 								<td><b>Date first login</b></td>
 								<td><b>Date last login</b></td>
 							</tr>
-
-							<!-- get user data & display it -->
+							<!-- get users data & display it -->
 							<?php
 								$result = mysql_query("SELECT id, username, login_counter, logout_counter, date_invite, date_first_login, date_last_login  FROM m_users ORDER by id "); 					// run the mysql query
 								while($row = mysql_fetch_array($result)) 																					// fetch data and file table as a second step later on
@@ -197,7 +196,6 @@
 ?>
 
 
-
 <?php
 	include 'conf/config.php';
 
@@ -242,7 +240,6 @@
 					$query = "INSERT INTO m_users ( username, password, salt, date_invite ) VALUES ( '$username' , '$hash' , '$salt' , now() );";
 					mysql_query($query);
 					echo "Account created.<br><br>Checking if we should send an invite letter as well.";
-					// user created - well done
 
 					// we should log that to m_notes -> admin only.
 

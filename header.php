@@ -37,7 +37,6 @@
 					echo "<td>";
 					
 					session_start();
-
 					//echo $_SESSION['userid'];
 
 					$var=explode('?',$_SERVER['REQUEST_URI']);
@@ -49,17 +48,14 @@
 					if ($page == 'notes.php')
 					{ echo '| <a accesskey="y" href="notes.php" title="jump to the main monoto page" style="text-decoration: underline;">&nbsp;notes&nbsp;</a>'; }
 					else { echo '| <a accesskey="y" href="notes.php" title="jump to the main monoto page">&nbsp;notes&nbsp;</a>'; }
-
 					// settings
 					if ($page == 'settings.php')
 					{ echo '| <a accesskey="x" href="settings.php" title="jumps to the monoto settings page" style="text-decoration: underline;">&nbsp;settings&nbsp;</a>'; }
 					else { echo '| <a accesskey="x" href="settings.php" title="jumps to the monoto settings page">&nbsp;settings&nbsp;</a>'; }
-
 					// info
 					if ($page == 'info.php')
 					{ echo '| <a accesskey="c" href="info.php" title="jumps to the monoto info page" style="text-decoration: underline;">&nbsp;info&nbsp;</a>'; }
 					else { echo '| <a accesskey="c" href="info.php" title="jumps to the monoto info page">&nbsp;info&nbsp;</a>'; }
-
 					// admin
 					if($_SESSION['admin'] == 1)
 					{
@@ -67,7 +63,6 @@
 						{ echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page" style="text-decoration: underline;">&nbsp;admin&nbsp;</a>'; }
 						else { echo '| <a accesskey="v" href="admin.php" title="jumps to the monoto admin page">&nbsp;admin&nbsp;</a>'; }
 					}
-
 					// logout
 					if ($s_enable_really_logout == true)
 					{

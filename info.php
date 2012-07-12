@@ -1,6 +1,5 @@
 <?php
 	session_start();
-
 	// check if the user-session is valid or not
 	if($_SESSION['valid'] == 1)
 	{
@@ -11,19 +10,16 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		
 		<title>monoto - your webbased notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
-
+		<!-- data tables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-
 		<!-- main js for table etc -->
 		<script type="text/javascript" charset="utf-8">
 			var oTable;
@@ -81,12 +77,12 @@
 			<?php
 				if($enable_info_about_section == true)
 				{
-					?>
+			?>
 					<h2><a name="about">about</a></h2>
-				<?php 
+			<?php 
 					include 'conf/config.php';
 					echo "<b>".$m_name."</b>"; 
-				?>
+			?>
 				is an open-source web-based notes-keeper. You can create, edit, rename, delete text-based notes - but the most important function is for sure the search.				
 				The basic workflow is somehow inspired by <a href="http://notational.net/" target="_new">Notational Velocity</a>.
 				Wanna know <a href="https://github.com/macfidelity/monoto/wiki/About-the-monoto-history">more</a>?
@@ -233,7 +229,6 @@
 									$stats_amount_of_deletes = $row[0];
 								}
 
-
 								// amount of logins and logouts
 								$result = mysql_query("SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' "); 
 								while($row = mysql_fetch_array($result)) 					
@@ -252,8 +247,6 @@
 									$stats_highest_note_version_versions = $row[2];
 								}
 
-
-
 								//  shortest and longest note-content
 								$result = mysql_query("SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$owner."'"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -261,7 +254,6 @@
 									$stats_note_with_shortest_content_id = $row[1];
 									$stats_note_with_shortest_content_chars = $row[0];
 								}
-
 
 								//  longest note-content
 								$result = mysql_query("SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$owner."' ORDER BY longest DESC LIMIT 1"); 
@@ -271,7 +263,6 @@
 									$stats_note_with_longest_content_chars = $row[0];
 								}
 
-
 								//  oldest created note
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$owner."' ORDER BY date_create ASC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -280,7 +271,6 @@
 									$stats_oldest_created_note_date = $row[1];
 									$stats_oldest_created_note_id = $row[2];
 								}
-
 
 								//  newest/latest created note
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '0' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1"); 
@@ -498,9 +488,7 @@
 						<?php
 							$owner = $_SESSION['username'];
 
-							// run the mysql query
 							$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'  and owner='".$owner."'   "); 
-							// fetch data and file table as a second step later on
 							while($row = mysql_fetch_array($result))
 							{
 								echo $row[0];
@@ -513,9 +501,7 @@
 						<td>Note was imported using the importer, version counter = 0, date created and modified set</td>
 						<td>
 							<?php
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -528,9 +514,7 @@
 						<td>Content was changed, note saved, version counter +1, date modified set</td>
 						<td>
 							<?php
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -543,9 +527,7 @@
 						<td>Title (and maybe content) was changed, version counter +1, date modified set</td>
 						<td>
 							<?php
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'rename' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -558,9 +540,7 @@
 						<td>Note was deleted, id/number is doomed forever.</td>
 						<td>
 							<?php
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'delete' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -573,9 +553,7 @@
 						<td>User login - logincounter +1</td>
 						<td>
 							<?php							
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -588,9 +566,7 @@
 						<td>User logout - logoutcounter +1</td>
 						<td>
 							<?php							
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'logout' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -603,9 +579,7 @@
 						<td>All user notes deleted</td>
 						<td>
 							<?php							
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'notes eraser' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -618,9 +592,7 @@
 						<td>All user events deleted</td>
 						<td>
 							<?php							
-								// run the mysql query
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'events eraser' and owner='".$owner."' "); 
-								// fetch data and file table as a second step later on
 								while($row = mysql_fetch_array($result))
 								{
 									echo $row[0];
@@ -631,7 +603,6 @@
 				</tbody>
 				</table>
 				<br>
-
 
 				<!-- ACTIVITY/EVENT LOG -->
 				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
@@ -677,22 +648,18 @@
 				
 	<!--  FOOTER -->
 	<?php include 'footer.php'; ?>
-
 </span>
 </div>
 </div>
 </body>
 </html>
 
-
 <?php
 	}
-	else
+	else //session is NOT valid
 	{
-		//session is NOT valid
 		header('Location: redirect.php');
 	}
-   
 ?>
 
 
@@ -750,7 +717,6 @@ if ( isset($_POST["doUpdateCheck"]) )
 	}
 
 	
-
 	//
 	// check for unstable versions as well
 	//
