@@ -39,12 +39,12 @@
 			$renameNoteContentSummary = substr($renameNoteContent, 0, 10);
 			$event = "rename";
 			$details = "Note: <b>".$renameNoteTitle."</b> with content: <b>".$renameNoteContentSummary."...</b>";
-			//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
 			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 			$result = mysql_query($sql);
 
-			mysql_close($con);		// close sql connection
-		}		
+			
+		}
+		mysql_close($con);		// close sql connection		
 	}
 	else
 	{

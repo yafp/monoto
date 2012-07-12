@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include 'conf/config.php';
 
 	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
 	{
@@ -27,16 +28,12 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
-		<!--  m_doubleClick-->
-		<script type="text/javascript" language="javascript" src="js/m_doubleClick.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-		<!--  m_reallyDelete-->
-		<script type="text/javascript" language="javascript" src="js/m_reallyDelete.js"></script>
 
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
-		<script type="text/javascript" src="jquery.cleditor.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>
  		<script type="text/javascript">
  		
       $(document).ready(function() {
@@ -186,11 +183,8 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 			// get text of cleditor
 			var html = $("#input2").val();
-			//alert(html);
 			modifiedNoteContent = html;
 
-
-			
 			// if we have a note-id - save the change to db
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))
 			{
@@ -202,6 +196,9 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				alert("Error while trying to save a note. Please select a record first and try again.");
 			}
 		}
+
+
+
 
 		//
 		// DELETE A NEW NOTE
@@ -215,33 +212,110 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 			// if we have a note id to delete - do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
-		  	{		
-		  		// just delete it
-				$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-				reloadNote();				
-		  	}
+			{	
+				<?php
+					include 'conf/config.php';
+					if($s_enable_really_delete	== true)
+					{
+
+					?>
+						var answer = confirm("Do you really want to delete this note?")
+						if (answer)
+						{
+							$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
+							reloadNote();	
+						}
+				<?php
+					}
+					else
+					{
+				?>
+						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
+						reloadNote();	
+				<?php
+					}
+				?>
+			}
 			else
 			{
-		  		alert("Error while trying to delete a note. Please select a record first and try again.");
-		  	}	
+				alert("Error while trying to delete a note. Please select a record first and try again.");
+			}	
 		}
+
+
+		//
+		// DELETE A NEW NOTE
+		//
+		/*
+		function deleteNote() 
+		{
+
+			<?php
+				include 'conf/config.php';
+				if($s_enable_really_delete	== true)
+				{
+					// ask javascript question
+					?>
+
+					var answer = confirm("Do you really want to delete this note?")
+					if (answer)
+					{
+					// get the note id
+					var deleteID = document.myform.noteID.value;
+					var deleteTitle = document.myform.noteTitle.value;
+					var deleteContent = document.myform.outputtext.value;
+
+					// if we have a note id to delete - do it
+					if ((deleteID.length > 0) && (deleteID != 'ID' ))
+				  	{	
+						// just delete it
+						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
+						reloadNote();				
+				  	}
+					else
+					{
+				  		alert("Error while trying to delete a note. Please select a record first and try again.");
+				  	}	
+					}
+					<?php
+				}
+				else
+				{
+					// just delete right away
+					?>
+					// get the note id
+					var deleteID = document.myform.noteID.value;
+					var deleteTitle = document.myform.noteTitle.value;
+					var deleteContent = document.myform.outputtext.value;
+
+					// if we have a note id to delete - do it
+					if ((deleteID.length > 0) && (deleteID != 'ID' ))
+				  	{	
+						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
+						reloadNote();				
+				  	}
+					else
+					{
+				  		alert("Error while trying to delete a note. Please select a record first and try again.");
+				  	}	
+					<?php
+				}
+			?>	
+		}
+		*/
+
 
 		//
 		// CREATE NEW NOTE
 		//
 		function createNote() 
 		{
-			//alert("createNote");
-
 			var newNoteTitle = document.myform.newNoteTitle.value;
 			var newNoteContent = document.myform.outputtext.value;
 
 			// get text of cleditor
 			var html = $("#input2").val();
-			//alert(html);
 			newNoteContent = html;
-
-
 
 			// if we have a note title - create the new note (content is not needed so far)
 			if ((newNoteTitle.length > 0) && (newNoteContent.length != 0 ))
@@ -253,6 +327,7 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		  		alert("Error while trying to create a new note. Please enter a note title plus content and try again.");
 		  	}
 		}
+
 
 
 		//
@@ -299,19 +374,14 @@ first step via http://datatables.net/examples/api/select_single_row.html
 
 
 	<body id="dt_example">
-
-	
 		<div id="container">
-			
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
 
 			<div id="demo">
-
 				<!-- SHOW SELECTED NOTE -->
 				<h2>create/view/edit/rename/delete notes</h2>	
 				<form name="myform">
-					
 					<table border="0" width="100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
@@ -327,17 +397,8 @@ first step via http://datatables.net/examples/api/select_single_row.html
 							</td>
 							<td>
 								<input type="button"  style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
-								<input type="button"  style="width:90px" title="Deletes the current note from the db" value="rename" onClick="renameNote();" >
-								<?php
-									if($s_enable_really_delete == true)
-									{
-										echo '<input type="button"  javascript:void(0) style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="reallyDelete();">';
-									}
-									else
-									{
-										echo '<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">';
-									}
-								?>
+								<input type="button"  style="width:90px" title="Renames the current note" value="rename" onClick="renameNote();" >
+								<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">
 							</td>
 						</tr>
 					
@@ -363,12 +424,10 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				<a href="">#dummyA</a> 
 				<a href="">#dummyB</a>
 				<a href="">#dummyC</a>
-			-->
+				-->
 		
-
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
-
 
 				<h2>search notes</h2>
 				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
@@ -384,7 +443,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 						</tr>
 					</thead>
 					<tbody>
-
 
 					<?php
 						// connect to mysql db and fetch all notes  

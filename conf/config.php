@@ -14,7 +14,7 @@
 	$s_enable_toc 				= true;				// should there be a toc on info.php & settings.php?
 	$s_enable_header_tagline 	= false;			// should the tagline be displayed in the header?
 	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
-	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
+	$s_enable_really_delete		= false;				// should there be a 'really delete' question before deleting notes?
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
 	$enable_welcome_message 	= true;				// should all users see a welcome message defined by you? 
 	$welcome_message_to_all_users = "Hi - feel free to use monoto .... pseudo welcome message adjustable by monoto-admin.";
@@ -44,6 +44,6 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120711.03";
+	$m_build					= "20120712.01";
 	$m_stable					= false;
 ?>

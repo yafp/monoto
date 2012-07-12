@@ -10,7 +10,7 @@
 
 		include '../conf/config.php';
 
-	    // connect to mysql
+	    // connect to mysql	   
 		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
 		if (!$con)
 		{
@@ -18,7 +18,7 @@
 		}
 
 		mysql_select_db($mysql_db, $con);				// select db
-
+		
 		// update m_notes
 		$sql="DELETE FROM m_notes WHERE id='$deleteID'";
 		$result = mysql_query($sql);
@@ -26,12 +26,10 @@
 		{
 	    	die('Error: ' . mysql_error());
 		}
-		else 
+		else  // update m_log
 		{
-			// update m_log
 			$event = "delete";
 			$details = "Note: <b>".$deleteTitle."</b> with content: <b>: ".$deleteContent."...</b>. ID: <b>".$deleteID." </b>is now gone.";
-			//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
 			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 			$result = mysql_query($sql);
 		}

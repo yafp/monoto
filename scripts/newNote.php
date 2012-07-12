@@ -8,9 +8,8 @@
 		$newNoteContent = $_POST['newNoteContent'];		
 
 		include '../conf/config.php';
-
-	    // connect to mysql
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
+ 
+		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		// connect to mysql
 		if (!$con)
 		{
 			die('Could not connect: ' . mysql_error());
@@ -30,25 +29,21 @@
 		{
 			// insert into m_notes
 			$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
-			//$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), 'monoto' )";
 			$result = mysql_query($sql);
 			if (!$result) 
 			{
 		    	die('Error: ' . mysql_error());
 			}
-			else
+			else // update m_notes
 			{
-				// update m_notes
 				$newNoteContentSummary = substr($newNoteContent, 0, 10);
 				$event = "create";
 				$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
-				//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event','$details', now() )";
 				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
 				$result = mysql_query($sql);
 			}
 			mysql_close($con);									// close sql connection
-
-			}
+		}
 	}
 	else
 	{

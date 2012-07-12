@@ -1,10 +1,9 @@
 Used technologies:
 ##################
 - html, php, javascript, mysql
-- jQuery/DataTables: 
+- jQuery/DataTables/cleditor: 
 --- http://datatables.net/
+--- http://premiumsoftware.net/cleditor/
 - patterns:
 --- http://subtlepatterns.com
 --- http://www.patterncooler.com/editor/?P=131617FF46016AEBFF695444BEB3A1_129
-- mysqldump:
---- http://code.google.com/p/db-mysqldump/

@@ -1,6 +1,5 @@
 <?php
 	session_start();
-
 	// check if the user-session is valid or not
 	if($_SESSION['valid'] == 1)
 	{
@@ -11,24 +10,19 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		
 		<title>monoto - your webbased notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
-
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-
 	</head>
-	
 	
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
-
 			<div id="noteContentCo">
 				
 				<?php
@@ -36,16 +30,13 @@
 					if($s_enable_toc == true)
 					{
 						echo '<h2>settings toc</h2>';
-						echo '<small>';
-						echo '<ul>';
+						echo '<small><ul>';
 							echo '<li><a href="#welcome">welcome</a></li>';
 							echo '<li><a href="#profile">profile</a></li>';
 							echo '<li><a href="#importer">importer</a></li>';
 							echo '<li><a href="#exporter">exporter</a></li>';
 							echo '<li><a href="#eraser">eraser</a></li>';
-						echo '</ul>';
-						echo '</small>';
-						
+						echo '</ul></small>';
 					}
 				?>
 
@@ -57,14 +48,13 @@
 				<?php 
 					if($enable_welcome_message == true)
 					{
-						// check if welcome message is configured or just empty
-						if (strlen($welcome_message_to_all_users) > 0)
+						if (strlen($welcome_message_to_all_users) > 0) // check if welcome message is configured or just empty
 						{
 							echo $welcome_message_to_all_users;
 						}
 						else
 						{
-							echo "Welcome message is enabled but not defined by admin. Shame on him.";
+							echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";
 						}
 					}
 
@@ -72,7 +62,6 @@
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
-
 
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
@@ -82,15 +71,14 @@
 					connectToDB();
 
 					// display user image - hardcoded dummy image
-					//
-					echo "<a href=''>";
-					echo "<img src='images/default_user_icon_trans.png' align='right' border='1'>";
-					echo "</a>";
+					echo "<a href=''><img src='images/default_user_icon_trans.png' align='right' border='1'></a>";
 
 					// display user icon from db
+					/*
 					$sql="SELECT user_icon FROM m_users WHERE username='".$_SESSION['username']."' ";
 					$row = mysql_fetch_array($sql);
 					$content = $row['user_icon'];
+					*/
 
 					// Login & logout counter
 					$sql="SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
@@ -100,7 +88,6 @@
 						echo "<b>User</b><br> ".$_SESSION['username']."<br>";
 						echo "<small>(".$row[0]." logins and ".$row[1]." logouts)</small><br><br>";
 					}
-
 					echo "<b>Changing password</b><br>";
 				?>
 
@@ -109,8 +96,6 @@
 						<tr>Please enter your new password twice and press the UPDATE button.<br>
 							<input type="password" name="newPassword1" placeholder="Password" />
 							<input type="password" name="newPassword2" placeholder="Please enter the new password again" />
-
-
 							<td><input type="submit" name="doChangeUserPW" value="Update" /></td>
 						</tr>					
 				</form>
@@ -124,7 +109,6 @@
 						</tr>					
 				</form>
 				
-
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 
@@ -178,7 +162,6 @@
 						</tr>					
 					</form>
 				</table>
-
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
@@ -234,20 +217,16 @@
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
-
 			</div>
-
 
 			<!--  FOOTER -->
 			<?php include 'footer.php'; ?>
-
 
 				</span>
 			</div>
 		</div>
 	</body>
 </html>
-
 
 
 <?php
@@ -259,7 +238,6 @@
 	}
    
 ?>
-
 
 
 
@@ -278,8 +256,10 @@ include 'conf/config.php';
 
 if ( isset($_POST["doChangeUserPW"]) ) 
 {
-	$owner = $_SESSION['username'];
+	include 'conf/config.php';
 
+	// get values
+	$owner = $_SESSION['username'];
 	$newPassword1 = $_POST['newPassword1'];
 	$newPassword2 = $_POST['newPassword2'];
 	$password = $newPassword1;
@@ -328,12 +308,11 @@ if ( isset($_POST["doChangeUserPW"]) )
 if ( isset($_POST["doDelAllNotes"]) ) 
 {	
 	// connect to db
-	include ('scripts/db.php');
+	include ('conf/config.php');
 	connectToDB();
-
 	$owner = $_SESSION['username'];
 
-	// update m_notes
+	// update m_notes = delete notes
 	$sql="DELETE FROM m_notes WHERE owner='$owner'";
 	$result = mysql_query($sql);
 
@@ -352,14 +331,13 @@ if ( isset($_POST["doDelAllNotes"]) )
 //                 
 if ( isset($_POST["doDelAllEvents"]) ) 
 {	
-	// connect to db
-	include ('scripts/db.php');
+	include ('conf/config.php');
 	connectToDB();
-
+	
 	$owner = $_SESSION['username'];
 
-	// update m_notes
-	$sql="DELETE FROM m_log WHERE owner='$owner'";
+	// update m_notes = delete events
+	$sql="DELETE FROM m_log WHERE owner='".$owner."' ";
 	$result = mysql_query($sql);
 
 	// update m_log
@@ -377,11 +355,9 @@ if ( isset($_POST["doDelAllEvents"]) )
 //
 if ( isset($_POST["doExport"]) ) 
 {
-	echo "try export and download of mysqldata<br>";
-
 	echo '<script type="text/javascript" language="javascript">
-	window.open("scripts/dump.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");
-	</script>';
+window.open("scripts/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");
+</script>';				
 }
 
 
@@ -395,7 +371,7 @@ if ( isset($_POST["doImport"]) )
 	// means: we got an array of files
 
 	// connect to db
-	include ('scripts/db.php');
+	//include ('scripts/db.php');
 	connectToDB();
 
 	$owner = $_SESSION['username'];
@@ -432,8 +408,7 @@ if ( isset($_POST["doImport"]) )
 			}
 			else
 			{
-				// we can create it
-				// update notes: m_notes
+				// we can create it - update notes: m_notes
 				//$sql="INSERT INTO m_notes (title, content, date_create, date_mod) VALUES ('$newNoteTitle', '$newNoteContent', now(), now() )";
 				$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner' )";
 
@@ -470,10 +445,8 @@ if ( isset($_POST["doImport"]) )
 //
 if ( isset($_POST["doChangeUserIcon"]) ) 
 {
-	//echo "trying to change the user icon";
-
 	// connect to db
-	include ('scripts/db.php');
+	//include ('scripts/db.php');
 	connectToDB();
 
 	$owner = $_SESSION['username'];
