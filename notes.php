@@ -118,6 +118,7 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				} );
 
 				$('.dataTables_filter input').attr("placeholder", "enter seach term here");			// define placeholder for search field
+				$("#example_filter input").focus();													// set focus on search field
 				$('table tr').click(function () 
 				{
 				//alert("clicked ...");
