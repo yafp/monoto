@@ -202,8 +202,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		}
 
 
-
-
 		//
 		// DELETE A NEW NOTE
 		//
@@ -247,69 +245,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 			}	
 		}
 
-
-		//
-		// DELETE A NEW NOTE
-		//
-		/*
-		function deleteNote() 
-		{
-
-			<?php
-				include 'conf/config.php';
-				if($s_enable_really_delete	== true)
-				{
-					// ask javascript question
-					?>
-
-					var answer = confirm("Do you really want to delete this note?")
-					if (answer)
-					{
-					// get the note id
-					var deleteID = document.myform.noteID.value;
-					var deleteTitle = document.myform.noteTitle.value;
-					var deleteContent = document.myform.outputtext.value;
-
-					// if we have a note id to delete - do it
-					if ((deleteID.length > 0) && (deleteID != 'ID' ))
-				  	{	
-						// just delete it
-						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-						reloadNote();				
-				  	}
-					else
-					{
-				  		alert("Error while trying to delete a note. Please select a record first and try again.");
-				  	}	
-					}
-					<?php
-				}
-				else
-				{
-					// just delete right away
-					?>
-					// get the note id
-					var deleteID = document.myform.noteID.value;
-					var deleteTitle = document.myform.noteTitle.value;
-					var deleteContent = document.myform.outputtext.value;
-
-					// if we have a note id to delete - do it
-					if ((deleteID.length > 0) && (deleteID != 'ID' ))
-				  	{	
-						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-						reloadNote();				
-				  	}
-					else
-					{
-				  		alert("Error while trying to delete a note. Please select a record first and try again.");
-				  	}	
-					<?php
-				}
-			?>	
-		}
-		*/
-
-
 		//
 		// CREATE NEW NOTE
 		//
@@ -333,7 +268,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		  		alert("Error while trying to create a new note. Please enter a note title plus content and try again.");
 		  	}
 		}
-
 
 
 		//
@@ -378,8 +312,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 	</head>
 
 
-
-
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
@@ -408,7 +340,6 @@ first step via http://datatables.net/examples/api/select_single_row.html
 								<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">
 							</td>
 						</tr>
-						
 						<!-- OLD note content -->
 						<!--
 						<tr>

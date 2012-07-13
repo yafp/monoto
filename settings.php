@@ -155,13 +155,33 @@
 				<!-- the real importer -->
 				<!-- http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
 				<table width="100%" border="0">
-					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 						<tr>
 							<td  align="right" width="55%"><input type="file" name="file[]" multiple id="file[]" /></td>
 							<td><input type="submit" name="doImport" value="Import" /></td>
-						</tr>					
+						</tr>
+						<tr>
+							<td colspan="2"><textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea></td>
+						</tr>
 					</form>
 				</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
@@ -361,11 +381,19 @@ window.open("scripts/expNotes.php", "width=400,height=500,top=50,left=280,resiza
 }
 
 
+
+
+
+
+
+
 //
 // importer submit button was pressed
 //
 if ( isset($_POST["doImport"]) ) 
 {
+	//var_dump($_FILES);
+
 	//print_r($_FILES['file']['tmp_name']);
 	//print_r($_FILES['file']['name']);
 	// means: we got an array of files
@@ -375,24 +403,25 @@ if ( isset($_POST["doImport"]) )
 	connectToDB();
 
 	$owner = $_SESSION['username'];
+	$good_counter =0;
 
 	// loop it for each note
 	foreach($_FILES['file']['name'] as $key => $value)
 	{
-		echo "Importing: ".$newNoteTitle = $_FILES["file"]["name"][$key]."<br>";
+		echo "<font color='white'>Trying to import: ".$newNoteTitle = $_FILES["file"]["name"][$key]."<br></font>";
 
 		//if file already exists
-       	if (file_exists("upload/" . $_FILES["file"]["name"])) 
-        {
-        	echo $_FILES["file"]["name"] . " already exists. ";
-      	}
-        else 
-        {
-           	//Print file details
-           	//echo "Upload: " . $_FILES["file"]["name"] . "<br />";
-           	//echo "Type: " . $_FILES["file"]["type"] . "<br />";
-           	//echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
-           	//echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
+	   	if (file_exists("upload/" . $_FILES["file"]["name"])) 
+	    {
+	     	echo $_FILES["file"]["name"] . " already exists. ";
+	   	}
+	    else 
+	    {
+	       	//Print file details
+	        //echo "Upload: " . $_FILES["file"]["name"] . "<br />";
+	        //echo "Type: " . $_FILES["file"]["type"] . "<br />";
+	        //echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
+	        //echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
 			//echo "File content: ".file_get_contents($_FILES['file']['tmp_name']); 
 
 			// define insert vars
@@ -404,33 +433,73 @@ if ( isset($_POST["doImport"]) )
 			// check if there is already a note with this title - as we dislike having > 1 note with the same title ...yes we do
 			if(mysql_num_rows(mysql_query("SELECT title FROM m_notes WHERE title = '$newNoteTitle'")))
 			{
-				echo "Error - there is already a note with the title:" .$newNoteTitle."<br>";
+				//echo "<font color='red'>!!! Error - there is already a note with the title:" .$newNoteTitle."</font><br><br>";
+
+				?>
+				<script type="text/javascript">
+					var newtext = '<?php echo "Error - there is already a note with the title: ".$newNoteTitle.". Import of that specificnote was skipped."; ?>';
+					document.importerForm.importLog.value += newtext;
+				</script>
+				<?php
+
 			}
 			else // we can create it - update notes: m_notes
-			{
-				$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner' )";
-				$result = mysql_query($sql);
-				if (!$result) 
 				{
-   					die('Error: ' . mysql_error());
-				}
-				else 
-				{
-					// update event-log: m_log
-					$newNoteContentSummary = substr($newNoteContent, 0, 10);
-					$event = "import";
-					$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
-					$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
+					$sql="INSERT INTO m_notes (title, content, save_count,  date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', '1',now(), now(), '$owner' )";
 					$result = mysql_query($sql);
-					echo "Note: ".$newNoteTitle = $_FILES["file"]["name"][$key]." imported.<br><br>";
-				}					
-			} 	
-      	}
-	}
-	$amount_of_import_files = $key +1;
-	echo "Finished import - handling ".$amount_of_import_files." files";
-	
-	disconnectFromDB();
+					if (!$result) 
+					{
+	   					die('Error: ' . mysql_error());
+					}
+					else 
+					{
+						// update event-log: m_log
+						$newNoteContentSummary = substr($newNoteContent, 0, 10);
+						$event = "import";
+						$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
+						$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
+						$result = mysql_query($sql);
+						//echo "<font color='green'>Note: ".$newNoteTitle = $_FILES["file"]["name"][$key]." successfully imported.</font><br><br>";
+
+						?>
+							<script type="text/javascript">
+								var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported."; ?>';
+								document.importerForm.importLog.value += newtext;
+							</script>
+						<?php
+
+						$good_counter = $good_counter +1;
+					}					
+				} 	
+	      	}
+		}
+
+		// output summary
+		$amount_of_import_files = $key +1;
+		if($good_counter == $amount_of_import_files)
+		{
+			//echo "<font color='green'><br><br>Finished import - handling ".$amount_of_import_files." files. All imported worked without issue.</font>";
+
+		?>
+				<script type="text/javascript">
+					var newtext = '<?php echo "Finished importing ".$amount_of_import_files." notes - all got imported without issues."; ?>';
+					document.importerForm.importLog.value += newtext;
+				</script>
+		<?php
+
+		}
+		else
+		{
+			//echo "<font color='red'><br><br>Finished import - handling ".$amount_of_import_files." files - but only ".$good_counter." of them worked.</font>";
+
+			?>
+				<script type="text/javascript">
+					var newtext = '<?php echo "Finished importing. Importer was only able to import".$good_counter." from ".$amount_of_import_files." notes. Sorry for the trouble.<br>"; ?>';
+					document.importerForm.importLog.value += newtext;
+				</script>
+			<?php
+		}
+		disconnectFromDB();
 } 
 
 
