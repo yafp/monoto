@@ -33,13 +33,22 @@
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">login</a></h2>
 
-				<img src="images/login.png" align="right" width="140px">
-
+				<table border="0" width="100%">
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-    				Username: <input type="text" name="username" placeholder="Username" />
-    				Password: <input type="password" name="password" placeholder="Password" />
-    				<input type="submit" value="Login" name="doLogin" />
+					<tr>
+						<td align="center"><input type="text" name="username" placeholder="Username" /></td>
+					</tr>
+					<tr>
+						<td align="center"><input type="password" name="password" placeholder="Password" /></td>
+					</tr>
+					<tr>
+						<td align="center">&nbsp;</td>
+					</tr>
+					<tr>
+						<td align="center"><input type="submit" value="Login" name="doLogin" /></td>
+					</tr>
 				</form>
+				</table>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
@@ -56,7 +65,6 @@
 
 	<?php
 	}
-
 ?>
 
 
@@ -135,15 +143,12 @@ if ( isset($_POST["doLogin"]) )
 		// check if its first login - if so save date to db
 		if($loginCounter == 1) // = first login
 		{
-			// set first login date
 			$sql="UPDATE m_users SET date_first_login= now() WHERE username='".$_SESSION['username']."' ";
 			$result = mysql_query($sql);
 		}
 
 		// update last login date
 		$sql="UPDATE m_users SET date_last_login= now()  WHERE username='".$_SESSION['username']."' ";
-		echo "fuck ....was soll das";
-		echo $sql;
 		$result = mysql_query($sql);
 
 		// update logincounter
@@ -151,17 +156,13 @@ if ( isset($_POST["doLogin"]) )
 		$result = mysql_query($sql);
 
     	// record to log - that we had a successfull user login
-    	// update m_log
 		$event = "login";
 		$details = "User: <b>".$username."</b> logged in successfully.";
-		//$sql="INSERT INTO m_log (event, details, activity_date) VALUES ('$event', '$details', now() )";
 		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 		$result = mysql_query($sql);
 
 		mysql_close($con);													// close sql connection
-
     	header('Location: notes.php');
 	}
 }
-
 ?>

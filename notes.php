@@ -135,9 +135,10 @@ first step via http://datatables.net/examples/api/select_single_row.html
 				aData[ aPos[1] ] = 'clicked';
 
 				// change content of current note ..dont know right now what for ;)
-				//this.innerHTML = 'cli_cked';				
-				document.myform.outputtext.value = "";			// reset note content
-				document.myform.outputtext.value += sData[2]	// add data of current selected row to textarea
+				//this.innerHTML = 'cli_cked';
+				// BAUSTELLE				
+				////document.myform.outputtext.value = "";			// reset note content
+				////document.myform.outputtext.value += sData[2]	// add data of current selected row to textarea
 
 				// cleditor
 				$('#input2').val(sData[2]).blur();
@@ -179,7 +180,9 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		{
 			var modifiedNoteID = document.myform.noteID.value;					// get the note id
 			var modifiedNoteTitle = document.myform.noteTitle.value;			// get the note title 
-			var modifiedNoteContent = document.myform.outputtext.value;			// get the NEW note content
+			//// BAUSTELLE
+			////var modifiedNoteContent = document.myform.outputtext.value;			// get the NEW note content
+			var modifiedNoteContent = document.myform.input2.value;			// get the NEW note content
 			var modifiedNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
 
 			// get text of cleditor
@@ -209,7 +212,8 @@ first step via http://datatables.net/examples/api/select_single_row.html
 			// get the note id
 			var deleteID = document.myform.noteID.value;
 			var deleteTitle = document.myform.noteTitle.value;
-			var deleteContent = document.myform.outputtext.value;
+			////var deleteContent = document.myform.outputtext.value;
+			var deleteContent = document.myform.input2.value;
 
 			// if we have a note id to delete - do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
@@ -312,7 +316,8 @@ first step via http://datatables.net/examples/api/select_single_row.html
 		function createNote() 
 		{
 			var newNoteTitle = document.myform.newNoteTitle.value;
-			var newNoteContent = document.myform.outputtext.value;
+			////var newNoteContent = document.myform.outputtext.value;
+			var newNoteContent = document.myform.input2.value;
 
 			// get text of cleditor
 			var html = $("#input2").val();
@@ -339,7 +344,8 @@ first step via http://datatables.net/examples/api/select_single_row.html
 			// is a note selected?
 			var renameNoteID = document.myform.noteID.value;					// get the note id
 			var renameNoteTitle = document.myform.newNoteTitle.value;			// get the NEW note title 
-			var renameNoteContent = document.myform.outputtext.value;			// get the NEW note content
+			////var renameNoteContent = document.myform.outputtext.value;			// get the NEW note content
+			var renameNoteContent = document.myform.input2.value;			// get the NEW note content
 			var renameNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
 
 			// get text of cleditor
@@ -402,14 +408,15 @@ first step via http://datatables.net/examples/api/select_single_row.html
 								<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">
 							</td>
 						</tr>
-					
+						
 						<!-- OLD note content -->
+						<!--
 						<tr>
 							<td colspan="2" width="95%" height="0px">
 								<textarea class="database" disabled="disabled" id="outputtext" onDblClick="SelectAll('outputtext');" style="width:100%" name="outputtext" cols="110" rows="1" placeholder="IGNORE ME - I am old and not cleaned up."></textarea>
 							</td>
-							
 						</tr>
+						-->
 						<!-- newTitle & create buttons -->
 						<tr>
 							<td colspan="2"><input type="text" 	 style="width:100%" placeholder="Enter title for your new note and press the 'create' button."  name="newNoteTitle" align="right" /></td>

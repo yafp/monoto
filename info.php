@@ -94,7 +94,7 @@
 				}
 				else
 				{
-					echo "<font color='silver'><i>The About section was disabled in the settings.</i></font>";
+					echo "<font color='#808080'><i>The About section was disabled in the settings.</i></font>";
 				} 
 			?>
 
@@ -137,7 +137,7 @@
 				}
 				else
 				{
-					echo "<font color='silver'><br><i>The Changelog section was disabled in the settings.</i></font>";
+					echo "<font color='#808080'><br><i>The Changelog section was disabled in the settings.</i></font>";
 				} 
 			?>
 
@@ -362,11 +362,11 @@
 								echo "- Lets come to the end - the entire monoto db has a size of ".$stats_entire_monoto_db_size."  MB.<br>";
 							}
 					}
-					echo "<br><small>Missing something? Please feel free to send me your sql-queries per mail</small>";
+					echo "<br><font color='#808080'>Missing something? Please feel free to send me your sql-queries per mail</font>";
 				}
 				else
 				{
-					echo "<font color='silver'><i>The Stats section was disabled in the settings.</i></font>";
+					echo "<font color='#808080'><i>The Stats section was disabled in the settings.</i></font>";
 				}    			
 			?>
 
@@ -463,7 +463,7 @@
 				}
 				else
 				{
-					echo "<font color='silver'><i>The Keyboard section was disabled in the settings.</i></font>";
+					echo "<font color='#808080'><i>The Keyboard section was disabled in the settings.</i></font>";
 				} 
 			?>
 
