@@ -1,7 +1,6 @@
 <?php
 	session_start();
-	// check if the user-session is valid or not
-	if($_SESSION['valid'] == 1)
+	if($_SESSION['valid'] == 1) 			// check if the user-session is valid or not
 	{
 ?>
 
@@ -10,7 +9,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		<title>monoto - your webbased notes-keeper</title>
+		<title>monoto - your web-based notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
@@ -58,15 +57,13 @@
 					if($s_enable_toc == true)
 					{
 						echo '<h2>info toc</h2>';
-						echo '<small>';
-						echo '<ul>';
+						echo '<small><ul>';
 							echo '<li><a href="#about">about</a></li>';
 							echo '<li><a href="#version">version</a></li>';
 							echo '<li><a href="#stats">stats</a></li>';
 							echo '<li><a href="#keyboard">keyboard shortcuts</a></li>';
 							echo '<li><a href="#log">log</a></li>';
-						echo '</ul>';
-						echo '</small>';	
+						echo '</ul></small>';	
 					}
 			?>
 
@@ -115,9 +112,7 @@
 						<?php 
 							echo $m_build; 
 							if($m_stable == false)
-							{
-								echo " - <font color='red'>Development Version</font>";
-							}
+							{ echo " - <font color='red'>Development Version</font>"; }
 						?>
 					</td>
 					<td></td>
@@ -150,10 +145,8 @@
 				{
 					echo '<h2><a name="stats">stats</a></h2>';
 
-					// connect to db
-					include ('scripts/db.php');
+					include ('scripts/db.php');  	// connect to db
 					connectToDB();
-
 					$owner = $_SESSION['username'];
 						
 					// User: amount of notes 
@@ -170,64 +163,46 @@
 								while($row = mysql_fetch_array($result)) 
 								{
 									if($row[0] == 0)
-									{
-										echo " Even worse ... there is not a single note by any other user.<br>";
-									}
+									{ echo " Even worse ... there is not a single note by any other user.<br>"; }
 									else
-									{
-										echo " But at least other users seem to save notes to the database. Give it some love dude.<br>";
-									}
+									{ echo " But at least other users seem to save notes to the database. Give it some love dude.<br>"; }
 								}
 							}
 							else
 							{
-
 								echo "- You have ".$row[0]." notes in your monoto database<br>"; 	// output amount of notes
 
-								//
 								// SQL-SECTION
 								//
 								// amount of activity-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
-								{
-									$stats_events_of_current_user = $row[0];
-								}
+								{ $stats_events_of_current_user = $row[0]; }
 
 								// amount of create-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
-								{
-									$stats_amount_of_creates = $row[0];
-								}
+								{ $stats_amount_of_creates = $row[0]; }
 
 								// amount of import-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
-								{
-									$stats_amount_of_imports = $row[0];
-								}
+								{ $stats_amount_of_imports = $row[0]; }
 
 								// amount of edits-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
-								{
-									$stats_amount_of_changes = $row[0];
-								}
+								{ $stats_amount_of_changes = $row[0]; }
 
 								// amount of renames-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='rename' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
-								{
-									$stats_amount_of_renames = $row[0];
-								}
+								{ $stats_amount_of_renames = $row[0]; }
 
 								// amount of delete-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
-								{
-									$stats_amount_of_deletes = $row[0];
-								}
+								{ $stats_amount_of_deletes = $row[0]; }
 
 								// amount of logins and logouts
 								$result = mysql_query("SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' "); 
@@ -235,7 +210,6 @@
 								{ 
 									$stats_amount_of_logins = $row[0];
 									$stats_amount_of_logouts = $row[1];
-
 								}
 
 								//  version: highest note-version (most used note)
@@ -299,10 +273,7 @@
 									$stats_entire_monoto_db_size = $row[0];
 								}
 
-								//
 								// DISPLAY  stats
-								//
-								// we can use:
 								//
 								// EVENTS
 								// - $stats_events_of_current_user
@@ -313,7 +284,6 @@
 								//		- $stats_amount_of_deletes
 								//		- $stats_amount_of_logins
 								//		- $stats_amount_of_logouts
-								//
 								//
 								// HIGHEST NOTE per VERSION:
 								// - $stats_highest_note_version_id 
@@ -390,81 +360,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>ESC</td>
-						<td>Reset input fields and sets the focus back to the main search field.</td>
-						<td>home</td>
-						<td>works</td>
-					</tr>
-					<tr>
-						<td>F2</td>
-						<td>Rename a selected note</td>
-						<td>home</td>
-						<td>works</td>
-					</tr>
-					<tr>
-						<td>F9</td>
-						<td>Save a selected note</td>
-						<td>home</td>
-						<td>works</td>
-					</tr>
-					<tr>
-						<td>Del</td>
-						<td>Delete selected note.</td>
-						<td>home</td>
-						<td>works</td>
-					</tr>
-					<tr>
-						<td>Arrow Down</td>
-						<td>row-selection</td>
-						<td>home</td>
-						<td>DUMMY</td>
-					</tr>
-					<tr>
-						<td>Arrow Up</td>
-						<td>row-selection</td>
-						<td>home</td>
-						<td>DUMMY</td>
-					</tr>
-					<tr>
-						<td>F1</td>
-						<td>Open the online help / documentation</td>
-						<td>all pages</td>
-						<td>only for home</td>
-					</tr>
-					<tr>
-						<td>F5</td>
-						<td>Reloads all notes from db.</td>
-						<td>all pages</td>
-						<td>only for home</td>
-					</tr>
-					<tr>
-						<td>(Shift) + Alt + y</td>
-						<td>Loads home page per accesskey</td>
-						<td>all pages</td>
-						<td>should work</td>
-					</tr>
-					<tr>
-						<td>(Shift) + Alt + x</td>
-						<td>Loads settings page per accesskey</td>
-						<td>all pages</td>
-						<td>should work</td>
-					</tr>
-					<tr>
-						<td>(Shift) + Alt + c</td>
-						<td>Loads info page per accesskey</td>
-						<td>all pages</td>
-						<td>should work</td>
-					</tr>
+					<tr><td>ESC</td><td>Reset input fields and sets the focus back to the main search field.</td><td>home</td><td>works</td></tr>
+					<tr><td>F2</td><td>Rename a selected note</td><td>home</td><td>works</td></tr>
+					<tr><td>F9</td><td>Save a selected note</td><td>home</td><td>works</td></tr>
+					<tr><td>Del</td><td>Delete selected note.</td><td>home</td><td>works</td></tr>
+					<tr><td>Arrow Down</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
+					<tr><td>Arrow Up</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
+					<tr><td>F1</td><td>Open the online help / documentation</td><td>all pages</td><td>only for home</td></tr>
+					<tr><td>F5</td><td>Reloads all notes from db.</td><td>all pages</td><td>only for home</td></tr>
+					<tr><td>(Shift) + Alt + y</td><td>Loads home page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + x</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + c</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
 				</tbody>
 			</table>
 
 			<?php
 				}
 				else
-				{
-					echo "<font color='#808080'><i>The Keyboard section was disabled in the settings.</i></font>";
-				} 
+				{ echo "<font color='#808080'><i>The Keyboard section was disabled in the settings.</i></font>"; } 
 			?>
 
 			<!-- SPACER -->
@@ -487,12 +400,9 @@
 						<td>
 						<?php
 							$owner = $_SESSION['username'];
-
 							$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'  and owner='".$owner."'   "); 
 							while($row = mysql_fetch_array($result))
-							{
-								echo $row[0];
-							}
+							{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -503,9 +413,7 @@
 							<?php
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -516,9 +424,7 @@
 							<?php
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -529,9 +435,7 @@
 							<?php
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'rename' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -542,9 +446,7 @@
 							<?php
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'delete' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -555,9 +457,7 @@
 							<?php							
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -568,9 +468,7 @@
 							<?php							
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'logout' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -581,9 +479,7 @@
 							<?php							
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'notes eraser' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -594,9 +490,7 @@
 							<?php							
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'events eraser' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
-								{
-									echo $row[0];
-								}
+								{ echo $row[0]; }
 						?>
 						</td>
 					</tr>
@@ -607,38 +501,21 @@
 				<!-- ACTIVITY/EVENT LOG -->
 				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
 					<thead>
-						<tr>
-							<th>id</th>
-							<th>event</th>
-							<th>details</th>
-							<th>timestamp</th>
-						</tr>
+						<tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr>
 					</thead>
 					<tbody>
 
 					<?php
-							//$owner= $_SESSION['username'];
 							$result = mysql_query("SELECT * FROM m_log WHERE owner='".$owner."' "); // m_log
-							while($row = mysql_fetch_array($result))
+							while($row = mysql_fetch_array($result))   // fill datatable
 							{
-								// fill datatable
-								echo '<tr class="odd gradeU">';
-									echo '<td>'.$row[0].'</td>';
-									echo '<td>'.$row[1].'</td>';		// event - colorize?
-									echo '<td>'.$row[2].'</td>';
-									echo '<td>'.$row[3].'</td>';
-								echo '</tr>';
+								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
 							}
 					?>
 
 					</tbody>
 					<tfoot>
-						<tr>
-							<th>id</th>
-							<th>event</th>
-							<th>details</th>
-							<th>timestamp</th>
-						</tr>
+						<tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr>
 					</tfoot>
 				</table>
 
@@ -664,14 +541,12 @@
 
 
 <?php
-//
 // UpdateCheck
 //
 // http://wuxiaotian.com/2009/09/php-check-for-updates-script/
 if ( isset($_POST["doUpdateCheck"]) ) 
 {
 	session_start();
-
 	// assume everything is good
 	$critical = FALSE;
 	$update = FALSE;
@@ -683,27 +558,18 @@ if ( isset($_POST["doUpdateCheck"]) )
 
 	// its critical
 	if (($read[0] > $m_build) && ($read[2] == "1")) 
-	{ 
-		$critical = TRUE; 
-	}
+	{  $critical = TRUE; }
 		
 	// normal update
 	if ($read[0] > $m_build) 
-	{ 
-		$update = TRUE; 
-	}
+	{  $update = TRUE; }
 
 	if ($critical) 
 	{ 
-		// print '<p>'.$read[1].'</p>';   													// aka buildbeschreibung
-		// print '<p>You can get it at <a href="'.$read[3].'">'.$read[3].'</a></p>';		// aka DL-url
    		echo '<script type="text/javascript">
    				var r=confirm("There is a critical update available. Should i download the latest version?")
 				if (r==true)
-  				{
-  					window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; 
-  				}
-   		</script>';
+  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
 
 		die(); //terminate the script
 	}
@@ -716,7 +582,6 @@ if ( isset($_POST["doUpdateCheck"]) )
 		echo '<script type="text/javascript">alert("You are using the latest version. Well done.");</script>';
 	}
 
-	
 	//
 	// check for unstable versions as well
 	//
@@ -735,38 +600,25 @@ if ( isset($_POST["doUpdateCheck"]) )
 
 		// its critical
 		if (($read[0] > $m_build) && ($read[2] == "1")) 
-		{ 
-			$critical = TRUE; 
-		}
+		{ $critical = TRUE; }
 			
 		// normal update
 		if ($read[0] > $m_build) 
-		{ 
-			$update = TRUE; 
-		}
+		{ $update = TRUE; }
 
 		if ($critical) 
 		{ 
-			// print '<p>'.$read[1].'</p>';   													// aka buildbeschreibung
-			// print '<p>You can get it at <a href="'.$read[3].'">'.$read[3].'</a></p>';		// aka DL-url
 	   		echo '<script type="text/javascript">
 	   				var r=confirm("There is a critical dev update available. Should i download the latest version?")
 					if (r==true)
-	  				{
-	  					window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; 
-	  				}
-	   		</script>';
+	  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
 
 			die(); //terminate the script
 		}
 		else if ($update)
-		{
-			echo '<script type="text/javascript">alert("There is an dev update available.");</script>';
-		}
+		{ echo '<script type="text/javascript">alert("There is an dev update available.");</script>'; }
 		else // uptodate
-		{
-			echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>';
-		}
+		{ echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>'; }
 	}
 }
 ?>

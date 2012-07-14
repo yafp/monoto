@@ -1,8 +1,6 @@
 <?php
 	session_start();
-
-	// check if the user-session is valid or not
-	if($_SESSION['valid'] == 1)
+	if($_SESSION['valid'] == 1)		// check if the user-session is valid or not
 	{
 ?>
 
@@ -11,13 +9,11 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		
-		<title>monoto - your webbased notes-keeper</title>
+		<title>monoto - your web-based notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
-
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 	</head>
@@ -26,21 +22,17 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
-
 			<div id="noteContentCo">
-				
 				<?php
 					include 'config.php';
 					if($s_enable_toc == true)
 					{
 						echo '<h2>admin toc</h2>';
-						echo '<small>';
-						echo '<ul>';
+						echo '<small><ul>';
 							echo '<li><a href="#basic">admin settings</a></li>';
 							echo '<li><a href="#users">users</a></li>';
 							echo '<li><a href="#invites">invites</a></li>';
-						echo '</ul>';
-						echo '</small>';	
+						echo '</ul></small>';	
 					}
 				?>
 
@@ -48,8 +40,7 @@
 				<div id="spacer">&nbsp;</div>
 
 				<?php
-					// connect to db
-					include ('scripts/db.php');
+					include ('scripts/db.php');		// connect to db
 					connectToDB();
 				?>
 				
@@ -187,9 +178,8 @@
 
 <?php
 	}
-	else
+	else  //session is NOT valid
 	{
-		//session is NOT valid
 		header('Location: redirect.php');
 	}
    
@@ -199,13 +189,11 @@
 <?php
 	include 'conf/config.php';
 
-	// 
 	// CREATE NEW USER
 	//
 	if ( isset($_POST["doCreateNewUserAccount"]) ) 
 	{
-		// connect to mysql
-		connectToDB();
+		connectToDB();  // connect to mysql
 		
 		// store values on vars
 		$newPassword1 	= $_POST['newPassword1'];
@@ -226,10 +214,8 @@
 					// create the new user account
 					$username	= $newUsername;
 					$password 	= $newPassword1;
-					// playing with hash
-					$hash = hash('sha256', $password);
-					// playing with salt - creates a 3 character sequence
-					function createSalt()
+					$hash = hash('sha256', $password);   // playing with hash
+					function createSalt()   			// playing with salt - creates a 3 character sequence
 					{
 				    	$string = md5(uniqid(rand(), true));
 				    	return substr($string, 0, 3);

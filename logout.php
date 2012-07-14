@@ -5,9 +5,7 @@
 	// connect to db
 	include ('scripts/db.php');
 	connectToDB();
-	
 	$owner = $_SESSION['username'];
-
 	mysql_select_db($mysql_db, $con);				// select get
 
 	// db current logout count-value
@@ -40,7 +38,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		<title>monoto - your webbased notes-keeper</title>
+		<title>monoto - your web-based notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
@@ -50,7 +48,6 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
-
 			<div id="noteContentCo">
 				
 				<!-- SPACER -->

@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		<title>monoto - your webbased notes-keeper</title>
+		<title>monoto - your web-based notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
@@ -54,11 +54,8 @@
 </html>
 
 
-
 <?php
-//
-// create admin-account
-//
+// creating the initial admin-account
 if ( isset($_POST["doCreateAdminAccount"]) ) 
 {
 	include 'conf/config.php';
@@ -69,7 +66,7 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 	{
 		die('Could not connect: ' . mysql_error());
 	}
-	mysql_select_db($mysql_db, $con);									// select db
+	mysql_select_db($mysql_db, $con);										// select db
 
 	// get data
 	$username = $_POST['username'];
@@ -78,12 +75,11 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 	$username = mysql_real_escape_string($username);
 
 	// compare passwords
-	if($password1 == $password2)
+	if($password1 == $password2)											// both passwords do match
 	{
 		// playing with hash
 		$hash = hash('sha256', $password1);
-		// playing with salt - creates a 3 character sequence
-		function createSalt()
+		function createSalt()												// playing with salt - creates a 3 character sequence
 		{
 	    	$string = md5(uniqid(rand(), true));
 	    	return substr($string, 0, 3);
@@ -91,24 +87,17 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 		$salt = createSalt();
 		$hash = hash('sha256', $salt . $hash);
 
-		// connect to mysql
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
-		if (!$con)
-		{
-			die('Could not connect: ' . mysql_error());
-		}
+		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		// connect to mysql	
+		if (!$con){ die('Could not connect: ' . mysql_error()); }
+		mysql_select_db($mysql_db, $con);									// select db
 
-		mysql_select_db($mysql_db, $con);				// select db
 		$query = "INSERT INTO m_users ( username, password, salt, is_admin ) VALUES ( '$username' , '$hash' , '$salt', '1' );";
 		mysql_query($query);
-
-		mysql_close($con); 								// close sql connection
-
+		mysql_close($con); 													// close sql connection
 		echo "<font color=red>Admin-Account created.</font>";
-
-		header('Location: index.php');
+		header('Location: index.php');										// redirect to main page
 	}
-	else
+	else 																	// Password mismatch
 	{
 		echo "<font color=red>Password mismatch.<br>Canceling the setup script at this point.</font>";
 	}

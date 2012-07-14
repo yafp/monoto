@@ -10,7 +10,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		<title>monoto - your webbased notes-keeper</title>
+		<title>monoto - your web-based notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
@@ -18,7 +18,6 @@
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 	</head>
-	
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
@@ -46,18 +45,13 @@
 				<!-- WELCOME MESSAGE -->
 				<h2><a name="welcome">welcome</a></h2>
 				<?php 
-					if($enable_welcome_message == true)
+					if($enable_welcome_message == true)								// check if welcome message is configured 
 					{
-						if (strlen($welcome_message_to_all_users) > 0) // check if welcome message is configured or just empty
-						{
-							echo $welcome_message_to_all_users;
-						}
-						else
-						{
-							echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";
-						}
+						if (strlen($welcome_message_to_all_users) > 0) 				// is a text defined as well?		
+						{ echo $welcome_message_to_all_users; }
+						else 														// admin has fucked it up
+						{ echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";  }
 					}
-
 				?>
 
 				<!-- SPACER -->
@@ -66,12 +60,10 @@
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
 				<?php
-					// connect to db
-					include ('scripts/db.php');
+					include ('scripts/db.php');						// connect to db
 					connectToDB();
 
-					// display user image - hardcoded dummy image
-					echo "<a href=''><img src='images/default_user_icon_trans.png' align='right' border='1'></a>";
+					echo "<a href=''><img src='images/default_user_icon_trans.png' align='right' border='1'></a>";			// display user image - hardcoded dummy image
 
 					// display user icon from db
 					/*
@@ -166,23 +158,6 @@
 					</form>
 				</table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 
@@ -251,14 +226,12 @@
 
 <?php
 	}
-	else
-	{
-		//session is NOT valid
+	else 				//session is NOT valid - redirect to login
+	{	
 		header('Location: redirect.php');
 	}
    
 ?>
-
 
 
 <?php
@@ -271,8 +244,6 @@
 // - Do Change USerpassword
 
 include 'conf/config.php';
-
-
 
 if ( isset($_POST["doChangeUserPW"]) ) 
 {
@@ -288,10 +259,8 @@ if ( isset($_POST["doChangeUserPW"]) )
 	// Check if user entered two times the same new password
 	if($newPassword1 == $newPassword2)
 	{
-		// playing with hash
-		$hash = hash('sha256', $password);
-		// playing with salt - creates a 3 character sequence
-		function createSalt()
+		$hash = hash('sha256', $password);								// playing with hash
+		function createSalt() 											// playing with salt - creates a 3 character sequence
 		{
     		$string = md5(uniqid(rand(), true));
     		return substr($string, 0, 3);
@@ -299,8 +268,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 		$salt = createSalt();
 		$hash = hash('sha256', $salt . $hash);
 
-    	// connect to mysql
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw); 		// connect to mysql		
 		if (!$con)
 		{
 			die('Could not connect: ' . mysql_error());
@@ -311,7 +279,6 @@ if ( isset($_POST["doChangeUserPW"]) )
 		// change pw
 		$query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";
 		mysql_query($query);
-
 		mysql_close($con); 								// close sql connection
 	}
 	else // User entered 2 different password - cant change pw like that.
@@ -327,8 +294,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 //                 
 if ( isset($_POST["doDelAllNotes"]) ) 
 {	
-	// connect to db
-	include ('conf/config.php');
+	include ('conf/config.php');			// connect to db
 	connectToDB();
 	$owner = $_SESSION['username'];
 
@@ -341,7 +307,6 @@ if ( isset($_POST["doDelAllNotes"]) )
 	$details = "All user notes deleted with eraser.";
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
-
 	disconnectFromDB();
 }
 
@@ -353,7 +318,6 @@ if ( isset($_POST["doDelAllEvents"]) )
 {	
 	include ('conf/config.php');
 	connectToDB();
-	
 	$owner = $_SESSION['username'];
 
 	// update m_notes = delete events
@@ -365,7 +329,6 @@ if ( isset($_POST["doDelAllEvents"]) )
 	$details = "All user events deleted with eraser.";
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
-
 	disconnectFromDB();
 }
 
@@ -382,22 +345,11 @@ window.open("scripts/expNotes.php", "width=400,height=500,top=50,left=280,resiza
 
 
 
-
-
-
-
-
 //
 // importer submit button was pressed
 //
 if ( isset($_POST["doImport"]) ) 
 {
-	//var_dump($_FILES);
-
-	//print_r($_FILES['file']['tmp_name']);
-	//print_r($_FILES['file']['name']);
-	// means: we got an array of files
-
 	// connect to db
 	//include ('scripts/db.php');
 	connectToDB();
@@ -433,8 +385,6 @@ if ( isset($_POST["doImport"]) )
 			// check if there is already a note with this title - as we dislike having > 1 note with the same title ...yes we do
 			if(mysql_num_rows(mysql_query("SELECT title FROM m_notes WHERE title = '$newNoteTitle'")))
 			{
-				//echo "<font color='red'>!!! Error - there is already a note with the title:" .$newNoteTitle."</font><br><br>";
-
 				?>
 				<script type="text/javascript">
 					var newtext = '<?php echo "Error - there is already a note with the title: ".$newNoteTitle.". Import of that specificnote was skipped."; ?>';
@@ -459,7 +409,6 @@ if ( isset($_POST["doImport"]) )
 						$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
 						$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
 						$result = mysql_query($sql);
-						//echo "<font color='green'>Note: ".$newNoteTitle = $_FILES["file"]["name"][$key]." successfully imported.</font><br><br>";
 
 						?>
 							<script type="text/javascript">
@@ -467,8 +416,7 @@ if ( isset($_POST["doImport"]) )
 								document.importerForm.importLog.value += newtext;
 							</script>
 						<?php
-
-						$good_counter = $good_counter +1;
+							$good_counter = $good_counter +1;
 					}					
 				} 	
 	      	}
@@ -478,20 +426,15 @@ if ( isset($_POST["doImport"]) )
 		$amount_of_import_files = $key +1;
 		if($good_counter == $amount_of_import_files)
 		{
-			//echo "<font color='green'><br><br>Finished import - handling ".$amount_of_import_files." files. All imported worked without issue.</font>";
-
 		?>
 				<script type="text/javascript">
 					var newtext = '<?php echo "Finished importing ".$amount_of_import_files." notes - all got imported without issues."; ?>';
 					document.importerForm.importLog.value += newtext;
 				</script>
 		<?php
-
 		}
 		else
 		{
-			//echo "<font color='red'><br><br>Finished import - handling ".$amount_of_import_files." files - but only ".$good_counter." of them worked.</font>";
-
 			?>
 				<script type="text/javascript">
 					var newtext = '<?php echo "Finished importing. Importer was only able to import".$good_counter." from ".$amount_of_import_files." notes. Sorry for the trouble.<br>"; ?>';
@@ -503,13 +446,11 @@ if ( isset($_POST["doImport"]) )
 } 
 
 
-
 //
 // Changing User icon
 //
 if ( isset($_POST["doChangeUserIcon"]) ) 
 {
-	//include ('scripts/db.php');
 	connectToDB();
 
 	$owner = $_SESSION['username'];
@@ -528,10 +469,8 @@ if ( isset($_POST["doChangeUserIcon"]) )
 		// update user record     
         $query = "UPDATE m_users SET  user_icon='$data' WHERE username='$owner'";
 		mysql_query($query);
-
-        //echo "Thanks, the new user icon has been uploaded.";
 	}
-	else 
+	else // no image defined.
 	{
    		echo "No image selected/uploaded";
 	}

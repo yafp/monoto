@@ -1,6 +1,6 @@
 Used technologies:
 ##################
-- html, php, javascript, mysql
+- html, php, css, javascript, mysql
 - jQuery/DataTables/cleditor: 
 --- http://datatables.net/
 --- http://premiumsoftware.net/cleditor/

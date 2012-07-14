@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		<title>monoto - your webbased notes-keeper</title>
+		<title>monoto - your web-based notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
@@ -13,7 +13,6 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
-
 			<div id="noteContentCo">
 				
 				<!-- SPACER -->
@@ -23,7 +22,7 @@
 				<h2><a name="redirect">Error: access failed</a></h2>
 
 				You must login first before you can use monoto.<br>
-				Gonna redirect you to the login dialog.
+				Gonna redirect you to the login dialog in some seconds ...
 
 				<img src="images/login.png" align="right">
 

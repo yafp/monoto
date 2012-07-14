@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `m_log` (
   `event` text NOT NULL,
   `details` text NOT NULL,
   `activity_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `owner` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='stores every edit, create, save etc' AUTO_INCREMENT=1 ;
 
@@ -53,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `m_notes` (
   `save_count` int(11) NOT NULL,
   `owner` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 
 
@@ -72,10 +73,14 @@ CREATE TABLE IF NOT EXISTS `m_users` (
   `salt` varchar(3) NOT NULL,
   `login_counter` int(11) NOT NULL,
   `logout_counter` int(11) NOT NULL,
+  `user_icon` blob NOT NULL,
+  `date_invite` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'stores date of invite via admin',
+  `date_first_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'stores the first login',
+  `date_last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'stores the last login',
+  `is_admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 
 
@@ -88,3 +93,4 @@ CREATE TABLE IF NOT EXISTS `m_users` (
 --
 TRUNCATE TABLE m_log;
 TRUNCATE TABLE m_notes;
+TRUNCATE TABLE m_users;

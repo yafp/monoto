@@ -3,23 +3,17 @@
 
 	// HEADER
 	echo '<div id="header">';
-		// display monoto logo
-		echo '<a href="notes.php"><img src="images/logo.png" width="140px" align="left"></a>';
+		echo '<a href="notes.php"><img src="images/logo.png" width="140px" align="left"></a>';			// display monoto logo
 
-		// display tagline if enabled
-		if($s_enable_header_tagline == true)
-		{
-			echo "<small>".$m_tagline."</small>"; 
-		}	
+		if($s_enable_header_tagline == true)				// display tagline if enabled
+		{ echo "<small>".$m_tagline."</small>";  }	
 	echo '</div>';
 
 	// NAVI
 	// 
 	echo '<div id="navi">';
 		echo "<table border='0' align='right'>";
-			
 			echo "<tr>";
-				
 				// check if the user-session is valid or not
 				if($_SESSION['valid'] == 1) // is valid
 				{
@@ -31,19 +25,17 @@
 					echo "</td>";
 					}
 					// WELCOME TEXT
-					echo "<td>";
-					echo  "Welcome ".$_SESSION['username']." ... ";
-					echo "</td>";
+					echo "<td>Welcome ".$_SESSION['username']." ... </td>";
 					echo "<td>";
 					
 					session_start();
-					//echo $_SESSION['userid'];
 
 					$var=explode('?',$_SERVER['REQUEST_URI']);
 					$page=preg_replace('/.*\/([^\/])/','$1',$var[0]);
 					unset($var);
 
 					// we should fix that with proper css usage
+					//
 					// home
 					if ($page == 'notes.php')
 					{ echo '| <a accesskey="y" href="notes.php" title="jump to the main monoto page" style="text-decoration: underline;">&nbsp;notes&nbsp;</a>'; }
@@ -65,18 +57,12 @@
 					}
 					// logout
 					if ($s_enable_really_logout == true)
-					{
-						echo '| <a href="javascript:void(0)" onclick="reallyLogout();" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
-					}
+					{ echo '| <a href="javascript:void(0)" onclick="reallyLogout();" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>'; }
 					else
-					{
-						echo '| <a href="logout.php" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>';
-					}
+					{ echo '| <a href="logout.php" title="jumps to the monoto login page">&nbsp;logout&nbsp;</a> |<br>'; }
 				}
 				else // not logged in / non valid session - so just show him the login menu
-				{
-					echo '| <a accesskey="x" href="index.php" title="jumps to the monoto login page">&nbsp;login&nbsp;</a> |' ;
-				}
+				{ echo '| <a accesskey="x" href="index.php" title="jumps to the monoto login page">&nbsp;login&nbsp;</a> |' ; }
 				echo "</td>";
 			echo "</tr>";
 		echo "</table>";

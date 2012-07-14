@@ -14,7 +14,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />		
-		<title>monoto - your webbased notes-keeper</title>
+		<title>monoto - your web-based notes-keeper</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
@@ -35,18 +35,10 @@
 
 				<table border="0" width="100%">
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-					<tr>
-						<td align="center"><input type="text" name="username" placeholder="Username" /></td>
-					</tr>
-					<tr>
-						<td align="center"><input type="password" name="password" placeholder="Password" /></td>
-					</tr>
-					<tr>
-						<td align="center">&nbsp;</td>
-					</tr>
-					<tr>
-						<td align="center"><input type="submit" value="Login" name="doLogin" /></td>
-					</tr>
+					<tr><td align="center"><input type="text" name="username" placeholder="Username" /></td></tr>
+					<tr><td align="center"><input type="password" name="password" placeholder="Password" /></td></tr>
+					<tr><td align="center">&nbsp;</td></tr>
+					<tr><td align="center"><input type="submit" value="Login" name="doLogin" /></td></tr>
 				</form>
 				</table>
 
@@ -80,16 +72,13 @@ if ( isset($_POST["doLogin"]) )
 	// connect to mysql
 	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
 	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}
+	{ die('Could not connect: ' . mysql_error()); }
 	mysql_select_db($mysql_db, $con);									// select db
 
 	// get data
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$username = mysql_real_escape_string($username);
-
 	$_SESSION['username'] = $username;									// add session-info
 	$owner = $_SESSION['username'];
 
@@ -124,9 +113,7 @@ if ( isset($_POST["doLogin"]) )
 		while($row = mysql_fetch_array($result))
 		{
 			if($row[0] == 1)
-			{
-				$_SESSION['admin'] = 1;
-			}						
+			{ $_SESSION['admin'] = 1; }						
 		}
 
     	$_SESSION['userid'] = $userid;
