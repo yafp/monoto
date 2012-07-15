@@ -24,12 +24,14 @@
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
 		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>
  		<script type="text/javascript">
  		
-      $(document).ready(function() {
+      $(document).ready(function() 
+      {
         $("#input2").cleditor({
           width:        "100%", // width not including margins, borders or padding
           height:       400, // height not including margins, borders or padding
@@ -279,6 +281,7 @@
 		{
 			javascript:history.go(0)	// reload page
 		}
+
 		</script>
 	</head>
 
@@ -297,7 +300,7 @@
 						<tr>
 							<td width="5%"><input type="input" name="noteID" disabled placeholder="ID" style="width:50%; height:15px;" /></td>
 							<td colspan="1"><input type="input" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; height:15px;" /></td>
-							<td><input type="button"  style="width:90px" title="Stores the current note to the db." value="save" onClick="saveNote();"></td>
+							<td><input type="button"  style="width:90px" title="Stores the current note to the db." id="save" value="save" onClick="saveNote();"></td>
 							<input type="hidden" style="width:50%; height:15px;"   name="noteVersion" />
 						<!-- NEW NOTE CONTENT using clEditor -->
 						<tr>

@@ -12,7 +12,7 @@
 	$mysql_pw				= "monoto";				// define the mysql user pw here
 
 	$s_enable_toc 				= true;				// should there be a toc on info.php & settings.php?
-	$s_enable_header_tagline 	= true;			// should the tagline be displayed in the header?
+	$s_enable_header_tagline 	= false;			// should the tagline be displayed in the header?
 	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
 	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
@@ -44,6 +44,6 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120715.03";
+	$m_build					= "20120715.04";
 	$m_stable					= false;
 ?>

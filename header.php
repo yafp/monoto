@@ -3,7 +3,7 @@
 
 	// HEADER
 	echo '<div id="header">';
-		echo '<a href="notes.php"><img src="images/logo/icon_big_mod.png" width="100px" align="left"></a>';			// display monoto logo
+		echo '<a href="notes.php"><img src="images/logo/icon_big_mod2.png" width="80px" align="left"></a>';			// display monoto logo
 
 		if($s_enable_header_tagline == true)				// display tagline if enabled
 		{ echo "<small>".$m_tagline."</small>";  }	
@@ -25,7 +25,7 @@
 					echo "</td>";
 					}
 					// WELCOME TEXT
-					echo "<td>Welcome ".$_SESSION['username']." ... </td>";
+					echo "<td>Welcome ".$_SESSION['username']." </td>";
 					echo "<td>";
 					
 					session_start();
