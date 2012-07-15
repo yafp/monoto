@@ -30,7 +30,6 @@
 					{
 						echo '<h2>settings toc</h2>';
 						echo '<small><ul>';
-							echo '<li><a href="#welcome">welcome</a></li>';
 							echo '<li><a href="#profile">profile</a></li>';
 							echo '<li><a href="#importer">importer</a></li>';
 							echo '<li><a href="#exporter">exporter</a></li>';
@@ -39,21 +38,7 @@
 					}
 				?>
 
-				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
-
-				<!-- WELCOME MESSAGE -->
-				<h2><a name="welcome">welcome</a></h2>
-				<?php 
-					if($enable_welcome_message == true)								// check if welcome message is configured 
-					{
-						if (strlen($welcome_message_to_all_users) > 0) 				// is a text defined as well?		
-						{ echo $welcome_message_to_all_users; }
-						else 														// admin has fucked it up
-						{ echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";  }
-					}
-				?>
-
+				
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 

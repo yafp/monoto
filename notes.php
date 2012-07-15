@@ -103,8 +103,8 @@
 				"aoColumns"   : [					/* visible columns */
 							{ "bSearchable": true, "bVisible": true }, 	/* note-id */
 							{ "bSearchable": true, "bVisible": true },	/* note-title */
-							{ "bSearchable": true, "bVisible": false }, /* note-content */
-							{ "bSearchable": true, "bVisible": true },	/* tags */
+							{ "bSearchable": true, "bVisible": false}, /* note-content */
+							{ "bSearchable": false, "bVisible": false },	/* tags */
 							{ "bSearchable": true, "bVisible": true }, 	/* last edit */
 							{ "bSearchable": true, "bVisible": true },	/* created */
 							{ "bSearchable": true, "bVisible": true }	/* save_counter */

@@ -58,6 +58,7 @@
 					{
 						echo '<h2>info toc</h2>';
 						echo '<small><ul>';
+							echo '<li><a href="#welcome">welcome</a></li>';
 							echo '<li><a href="#about">about</a></li>';
 							echo '<li><a href="#version">version</a></li>';
 							echo '<li><a href="#stats">stats</a></li>';
@@ -70,9 +71,24 @@
 			<!-- SPACER -->
 			<div id="spacer">&nbsp;</div>
 
+			<!-- WELCOME MESSAGE -->
+			<h2><a name="welcome">welcome</a></h2>
+			<?php 
+				if($s_enable_welcome_message == true)								// check if welcome message is configured 
+				{
+					if (strlen($s_welcome_message_to_all_users) > 0) 				// is a text defined as well?		
+					{ echo "<pre>".$s_welcome_message_to_all_users."</pre>"; }
+					else 														// admin has fucked it up
+					{ echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";  }
+				}
+			?>
+
+			<!-- SPACER -->
+			<div id="spacer">&nbsp;</div>
+
 			<!-- ABOUT -->
 			<?php
-				if($enable_info_about_section == true)
+				if($s_enable_info_about_section == true)
 				{
 			?>
 					<h2><a name="about">about</a></h2>
@@ -122,7 +138,7 @@
 			</form>
 
 			<?php
-				if($enable_info_version_changelog_section == true)
+				if($s_enable_info_version_changelog_section == true)
 				{
 					?>
 						<textarea name="changes" style="width:100%" rows=20 disabled>
@@ -141,7 +157,7 @@
 
 			<!-- STATS -->
 			<?php
-				if($enable_info_stats_section == true)
+				if($s_enable_info_stats_section == true)
 				{
 					echo '<h2><a name="stats">stats</a></h2>';
 
@@ -345,7 +361,7 @@
 
 			<!-- KEYBOARD SHORTCUT -->
 			<?php
-				if($enable_info_keyboard_section == true)
+				if($s_enable_info_keyboard_section == true)
 				{
 			?>
 
@@ -371,6 +387,7 @@
 					<tr><td>(Shift) + Alt + y</td><td>Loads notes page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + x</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + c</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + v</td><td>Loads admin page per accesskey</td><td>all pages</td><td>should work</td></tr>
 				</tbody>
 			</table>
 
