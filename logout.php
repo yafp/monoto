@@ -37,8 +37,8 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="http://www.yafp.de/favicon.ico" />
-		<title>monoto - your web-based notes-keeper</title>
+		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<title>monoto-notes</title>
 		<style type="text/css" title="currentStyle">
 			@import "css/page.css";
 			@import "css/table.css";
