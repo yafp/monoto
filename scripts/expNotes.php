@@ -35,7 +35,7 @@
  
 
 		//$select = "SELECT * FROM m_notes";
-		$select = "SELECT * FROM m_notes WHERE owner='".$owner."'";
+		$select = "SELECT id, title, content FROM m_notes WHERE owner='".$owner."'";
 		$export = mysql_query ( $select ) or die ( "Sql error : " . mysql_error( ) );
 		$fields = mysql_num_fields ( $export );
 

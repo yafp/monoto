@@ -63,7 +63,9 @@
 					include ('scripts/db.php');						// connect to db
 					connectToDB();
 
+					/*
 					echo "<a href=''><img src='images/default_user_icon_trans.png' align='right' border='1'></a>";			// display user image - hardcoded dummy image
+					*/
 
 					// display user icon from db
 					/*
@@ -77,8 +79,7 @@
 					$result = mysql_query($sql);
 					while($row = mysql_fetch_array($result)) 					
 					{
-						echo "<b>User</b><br> ".$_SESSION['username']."<br>";
-						echo "<small>(".$row[0]." logins and ".$row[1]." logouts)</small><br><br>";
+						echo "<b>User</b><br> ".$_SESSION['username']." - <small>(".$row[0]." logins and ".$row[1]." logouts)</small><br><br>";
 					}
 					echo "<b>Changing password</b><br>";
 				?>
@@ -93,11 +94,12 @@
 				</form>
 
 				<!-- CHANGE USER ICON BUTTON -->
+				<br><b>Changing the user icon:</b><br>This will store your image in the users-table - but the image itself is not used so far ;)
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 						<tr>
 							<input name="MAX_FILE_SIZE" value="102400" type="hidden">
 							<input name="image" accept="image/jpeg" type="file">
-							<input value="Change Icon" type="submit" name="doChangeUserIcon" >Dummy	
+							<input value="Change Icon" type="submit" name="doChangeUserIcon" >	
 						</tr>					
 				</form>
 				
@@ -173,7 +175,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>- export some kind of mysql dump ..not yet fully working.</td>
+						<td>Export all your notes (id, title, content) to a single csv file (tab separated).</td>
 						<td></td>
 						<td>Press the export button</td>
 					</tr>

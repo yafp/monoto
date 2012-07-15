@@ -1,5 +1,21 @@
 Welcome to the official monoto changelog.
 
+Milestone 2 - Doing the second step - Build ???????????
+#######################################################
+- html editor (cleditor)
+- multi-user support
+- new admin section added (with create user function)
+- added welcome message for users on info page
+- more stats (first / last login, login / logout counter)
+- added install script
+- added data cleaner/eraser (notes and events)
+- added change password function
+- new setting: really delete question
+- new setting: really logout question
+- improved importer
+- improved exporter
+- removed old mysql dump function
+
 
 Milestone 1 - The Hello World Thing - Build 20120707.04
 #######################################################

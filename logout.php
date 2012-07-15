@@ -59,7 +59,7 @@
 				<img src="images/login.png" align="right">
 
 				<!-- REDIRECT TO LOGIN -->
-				<?php	header( "refresh:5;url=index.php" ); ?>
+				<?php	header( "refresh:2;url=index.php" ); ?>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>

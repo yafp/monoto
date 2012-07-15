@@ -12,18 +12,18 @@
 	$mysql_pw				= "monoto";				// define the mysql user pw here
 
 	$s_enable_toc 				= true;				// should there be a toc on info.php & settings.php?
-	$s_enable_header_tagline 	= false;			// should the tagline be displayed in the header?
+	$s_enable_header_tagline 	= true;			// should the tagline be displayed in the header?
 	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
-	$s_enable_really_delete		= false;				// should there be a 'really delete' question before deleting notes?
+	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
 	$enable_welcome_message 	= true;				// should all users see a welcome message defined by you? 
-	$welcome_message_to_all_users = "Hi - feel free to use monoto .... pseudo welcome message adjustable by monoto-admin.";
+	$welcome_message_to_all_users = "<pre>This is an example welcome message displayed for all users. It is adjustable by the admin.</pre>";
 	$s_enable_user_icon			= true;				// enable user-icon in nav
-	$s_user_icon_path			= "images/myUser.jpg";
+	$s_user_icon_path			= "images/user_icons/user-14.png";
 
 	// info.php:
-	$enable_info_about_section	= false;				// show about oninfo page
-	$enable_info_version_changelog_section	= false;	// should the changelog be displayed 
+	$enable_info_about_section	= true;				// show about oninfo page
+	$enable_info_version_changelog_section	= true;	// should the changelog be displayed 
 	$enable_info_stats_section	= true;				// show stats on info page
 	$enable_info_keyboard_section	= true;			// show keyboard on info page
 	
@@ -44,6 +44,6 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120714.01";
+	$m_build					= "20120715.01";
 	$m_stable					= false;
 ?>

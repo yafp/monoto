@@ -361,14 +361,14 @@
 				</thead>
 				<tbody>
 					<tr><td>ESC</td><td>Reset input fields and sets the focus back to the main search field.</td><td>home</td><td>works</td></tr>
+					<tr><td>F1</td><td>Open the online help / documentation</td><td>all pages</td><td>only for home</td></tr>
 					<tr><td>F2</td><td>Rename a selected note</td><td>home</td><td>works</td></tr>
+					<tr><td>F5</td><td>Reloads all notes from db.</td><td>all pages</td><td>only for home</td></tr>
 					<tr><td>F9</td><td>Save a selected note</td><td>home</td><td>works</td></tr>
 					<tr><td>Del</td><td>Delete selected note.</td><td>home</td><td>works</td></tr>
 					<tr><td>Arrow Down</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
 					<tr><td>Arrow Up</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
-					<tr><td>F1</td><td>Open the online help / documentation</td><td>all pages</td><td>only for home</td></tr>
-					<tr><td>F5</td><td>Reloads all notes from db.</td><td>all pages</td><td>only for home</td></tr>
-					<tr><td>(Shift) + Alt + y</td><td>Loads home page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + y</td><td>Loads notes page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + x</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + c</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
 				</tbody>

@@ -3,7 +3,7 @@
 
 	// HEADER
 	echo '<div id="header">';
-		echo '<a href="notes.php"><img src="images/logo.png" width="140px" align="left"></a>';			// display monoto logo
+		echo '<a href="notes.php"><img src="images/logo/icon_big_mod.png" width="100px" align="left"></a>';			// display monoto logo
 
 		if($s_enable_header_tagline == true)				// display tagline if enabled
 		{ echo "<small>".$m_tagline."</small>";  }	

@@ -82,6 +82,7 @@
 					});
 					$(event.target.parentNode).addClass('row_selected');
 				});
+
 	
 				/* Add a click handler for the delete row */
 				$('#delete').click( function() 
@@ -102,7 +103,7 @@
 				"aoColumns"   : [					/* visible columns */
 							{ "bSearchable": true, "bVisible": true }, 	/* note-id */
 							{ "bSearchable": true, "bVisible": true },	/* note-title */
-							{ "bSearchable": true, "bVisible": false }, 	/* note-content */
+							{ "bSearchable": true, "bVisible": false }, /* note-content */
 							{ "bSearchable": true, "bVisible": true },	/* tags */
 							{ "bSearchable": true, "bVisible": true }, 	/* last edit */
 							{ "bSearchable": true, "bVisible": true },	/* created */
@@ -112,32 +113,27 @@
 
 				$('.dataTables_filter input').attr("placeholder", "enter seach term here");			// define placeholder for search field
 				$("#example_filter input").focus();													// set focus on search field
+
 				$('table tr').click(function () 
-				{
-				/* Get the position of the current data from the node */
-				var sData = oTable.fnGetData( this );
-				// show selected note-data as alert
-				var aPos = oTable.fnGetPosition(this);
-				/* Get the data array for this row */
-				var aData = oTable.fnGetData( aPos[0] );
-				/* Update the data array and return the value */
-				aData[ aPos[1] ] = 'clicked';
+				{				
+				var sData = oTable.fnGetData( this );			// Get the position of the current data from the node 				
+				var aPos = oTable.fnGetPosition(this);			// show selected note-data as alert				
+				var aData = oTable.fnGetData( aPos[0] );		// Get the data array for this row			
+				aData[ aPos[1] ] = 'clicked';  					// Update the data array and return the value
 
 				// cleditor
 				$('#input2').val(sData[2]).blur();
 
-				// we need the note id
-				document.myform.noteID.value = "";	
+				document.myform.noteID.value = "";				// we need the note id
 				document.myform.noteID.value += sData[0]
-				// we need the note Title
-				document.myform.noteTitle.value = "";
+				document.myform.noteTitle.value = "";			// we need the note Title
 				document.myform.noteTitle.value += sData[1]
-				// we need the version
-				document.myform.noteVersion.value = "";
+				document.myform.noteVersion.value = "";			// we need the version
 				document.myform.noteVersion.value += sData[6]
 			});
 
 		} );
+
 
 
 		/* Get the rows which are currently selected */
@@ -305,9 +301,7 @@
 							<input type="hidden" style="width:50%; height:15px;"   name="noteVersion" />
 						<!-- NEW NOTE CONTENT using clEditor -->
 						<tr>
-							<td colspan="2" width="95%" height="400px">
-								<textarea id="input2" name="input2" cols="110" ></textarea>
-							</td>
+							<td colspan="2" width="95%" height="400px"><textarea id="input2" name="input2" cols="110" ></textarea></td>
 							<td>
 								<input type="button"  style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
 								<input type="button"  style="width:90px" title="Renames the current note" value="rename" onClick="renameNote();" >

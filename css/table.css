@@ -324,18 +324,15 @@ td.details {
 }
 
 .paging_full_numbers a.paginate_active {
-	background-color: #99B3FF;
-	background-color: #ff530d;
+	background-color: #4489c9;
 }
 
 table.display tr.even.row_selected td {
-	background-color: #B0BED9;
-	background-color: #ff530d;
+	background-color: #4489c9;
 }
 
 table.display tr.odd.row_selected td {
-	background-color: #9FAFD1;
-	background-color: #ff530d;
+	background-color: #4489c9;
 }
 
 
