@@ -18,6 +18,23 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+		<!-- toc/info/help -->
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$(".accordion h3:first").addClass("active");
+				//$(".accordion p:not(:first)").hide();
+				$(".accordion p").hide();
+
+				$(".accordion h3").click(function(){
+					$(this).next("p").slideToggle("slow")
+					.siblings("p:visible").slideUp("slow");
+					$(this).toggleClass("active");
+					$(this).siblings("h3").removeClass("active");
+				});
+
+			});
+		</script>
 		<!-- main js for table etc -->
 		<script type="text/javascript" charset="utf-8">
 			var oTable;
@@ -55,15 +72,25 @@
 					include 'config.php';
 					if($s_enable_toc == true)
 					{
-						echo '<h2>info toc</h2>';
-						echo '<ul>';
-							echo '<li><a href="#welcome">welcome</a></li>';
-							echo '<li><a href="#about">about</a></li>';
-							echo '<li><a href="#version">version</a></li>';
-							echo '<li><a href="#stats">stats</a></li>';
-							echo '<li><a href="#keyboard">keyboard shortcuts</a></li>';
-							echo '<li><a href="#log">log</a></li>';
-						echo '</ul>';	
+						?>
+
+						<h2><a name="desc">info toc</a></h2>
+						<div class="accordion">
+							<h3>01. welcome <a href="#welcome">#</a></h3>
+							<p>the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin</p>
+							<h3>02. about <a href="#about">#</a></h3>
+							<p>the <a href="#about">about</a> section lists a short description of monoto.</p>
+							<h3>03. version <a href="#version">#</a></h3>
+							<p>the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-checkfunction.</p>
+							<h3>04. stats <a href="#stats">#</a></h3>
+							<p>the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
+							<h3>05. keyboard shortcuts <a href="#keyboard">#</a></h3>
+							<p>the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
+							<h3>06. log <a href="#log">#</a></h3>
+							<p>the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
+						</div>
+
+						<?php
 					}
 			?>
 
@@ -76,7 +103,7 @@
 				if($s_enable_welcome_message == true)								// check if welcome message is configured 
 				{
 					if (strlen($s_welcome_message_to_all_users) > 0) 				// is a text defined as well?		
-					{ echo "<blockquote>".$s_welcome_message_to_all_users."</blockquote>"; }
+					{ echo "<pre>".$s_welcome_message_to_all_users."</pre>"; }
 					else 														// admin has fucked it up
 					{ echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";  }
 				}
@@ -111,25 +138,27 @@
 			<!-- VERSION -->
 			<h2><a name="version">version</a></h2>
 
+			
+
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+
 			<table width="100%">
-				<tr>
-					<td width="10%">your milestone:</td>
-					<td width="70%"><?php echo $m_milestone." <i>aka</i> ".$m_milestone_title.""; ?></td>
-					<td width="10%"></td>
-					<td width=""><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
-				</tr>
+				<tr><td rowspan="6"><img src="images/logo/icon_big.png" alt="monoto logo" align="center"></td></tr>
 				<tr>
 					<td>build:</td>
-					<td>
-						<?php 
-							echo $m_build; 
-							if($m_stable == false)
-							{ echo " - <font color='red'>Development Version</font>"; }
-						?>
-					</td>
+					<td><?php echo $m_build; ?></td>
+					<td><?php if($m_stable == false) { echo "<font color='red'>Development Version</font>"; } ?></td>
+				</tr>
+				<tr>
+					<td>milestone:</td>
+					<td><?php echo $m_milestone." <i>aka</i> ".$m_milestone_title.""; ?></td>
 					<td></td>
-					<td></td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td colspan="2">&nbsp;</td>
+					<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
 				</tr>
 			</table>
 			</form>

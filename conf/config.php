@@ -22,7 +22,7 @@
 	$s_user_icon_path			= "images/user_icons/user-14.png";
 
 	// info.php:
-	$s_enable_info_about_section	= false;				// show about oninfo page
+	$s_enable_info_about_section	= true;				// show about oninfo page
 	$s_enable_info_version_changelog_section	= true;	// should the changelog be displayed 
 	$s_enable_info_stats_section	= true;				// show stats on info page
 	$s_enable_info_keyboard_section	= true;			// show keyboard on info page
@@ -44,6 +44,6 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120716.01";
+	$m_build					= "20120716.02";
 	$m_stable					= false;
 ?>

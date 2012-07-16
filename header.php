@@ -4,7 +4,6 @@
 	// HEADER
 	echo '<div id="header">';
 		echo '<a href="notes.php"><img src="images/logo/icon_big.png" width="80" alt="monoto logo" align="left"></a>';			// display monoto logo
-
 		if($s_enable_header_tagline == true)				// display tagline if enabled
 		{ echo "<small>".$m_tagline."</small>";  }	
 	echo '</div>';
@@ -12,6 +11,7 @@
 	// NAVI
 	// 
 	echo '<div id="navi">';
+		
 		echo "<table align='right'>";
 			echo "<tr>";
 				// check if the user-session is valid or not

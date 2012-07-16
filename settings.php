@@ -13,8 +13,27 @@
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
+		<!-- jquery -->
+		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+		<!-- toc/info/help -->
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$(".accordion h3:first").addClass("active");
+				//$(".accordion p:not(:first)").hide();
+				$(".accordion p").hide();
+
+				$(".accordion h3").click(function(){
+					$(this).next("p").slideToggle("slow")
+					.siblings("p:visible").slideUp("slow");
+					$(this).toggleClass("active");
+					$(this).siblings("h3").removeClass("active");
+				});
+
+			});
+		</script>
 	</head>
 	<body id="dt_example">
 		<div id="container">
@@ -26,13 +45,20 @@
 					include 'config.php';
 					if($s_enable_toc == true)
 					{
-						echo '<h2>settings toc</h2>';
-						echo '<ul>';
-							echo '<li><a href="#profile">profile</a></li>';
-							echo '<li><a href="#importer">importer</a></li>';
-							echo '<li><a href="#exporter">exporter</a></li>';
-							echo '<li><a href="#eraser">eraser</a></li>';
-						echo '</ul>';
+						?>
+							<h2><a name="desc">settings toc</a></h2>
+							<div class="accordion">
+							<h3>01. profile <a href="#profile">#</a></h3>
+							<p>the <a href="#profile">profile</a> section displays a quick overview about your user account.</p>
+							<h3>02. importer <a href="#importer">#</a></h3>
+							<p>the <a href="#importer">importer</a> section allows you to import single or multiple text notes.</p>
+							<h3>03. exporter <a href="#exporter">#</a></h3>
+							<p>the <a href="#exporter">exporter</a> section allows you to export your notes to a single, tab-separated csv-file. This included only the note-ids, -titles and content.</p>
+							<h3>04. eraser <a href="#eraser">#</a></h3>
+							<p>the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events.</p>
+							</div>
+						<?php
+
 					}
 				?>
 
@@ -45,10 +71,8 @@
 					include ('scripts/db.php');						// connect to db
 					connectToDB();
 
-					/*
-					echo "<a href=''><img src='images/default_user_icon_trans.png' align='right' border='1'></a>";			// display user image - hardcoded dummy image
-					*/
-
+					echo "<a href=''><img src='images/user_icons/user-14.png' align='right' border='1'></a>";			// display user image - hardcoded dummy image
+					
 					// display user icon from db
 					/*
 					$sql="SELECT user_icon FROM m_users WHERE username='".$_SESSION['username']."' ";
@@ -71,7 +95,7 @@
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 							<input type="password" name="newPassword1" placeholder="Password" />
 							<input type="password" name="newPassword2" placeholder="Please enter the new password again" /><br>
-							<input type="submit" name="doChangeUserPW" value="Update" />					
+							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" />					
 				</form>
 
 				<!-- CHANGE USER ICON BUTTON -->
@@ -79,98 +103,37 @@
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 							<input name="MAX_FILE_SIZE" value="102400" type="hidden">
 							<input name="image" accept="image/jpeg" type="file"><br>
-							<input value="Change Icon" type="submit" name="doChangeUserIcon" >					
+							<input value="Change Icon" type="submit" name="doChangeUserIcon" style="width:140px" >					
 				</form>
 				
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-				<!-- IMPORTER -->				
-				<!-- http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
+				<!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data" name="importerForm">
-				<h2><a name="importer">importer</a></h2>
-				<table width="100%">
-					<tr>
-						<th align="left" width="45%">Theory: What importer does</th>
-						<th align="left" width="10%"></th>
-						<th align="left" width="45%">Practice: Step by Step</th>
-					</tr>
-					<tr>
-						<td>The importer can import plain-text files into monoto.</td>
-						<td></td>
-						<td>Press the <i>Browse...</i> button</td>
-					</tr>
-					<tr>
-						<td>- create a note with the title of filename (cutting the extension)</td>
-						<td></td>
-						<td>Select one or multiple text-files in the file-selection-dialog</td>
-					</tr>
-					<tr>
-						<td>- each new note contains the related file-content</td>
-						<td></td>
-						<td>Confirm the file-selection dialog</td>
-					</tr>
-					<tr>
-						<td>- add a creation date to each new created note</td>
-						<td></td>
-						<td>Press the <i>Import</i> button</td>
-					</tr>
-					<tr>
-						<td>- define a version number for the new notes (0)</td>
-						<td></td>
-						<td>Wait and pray - the current approach is crappy</td>
-					</tr>
-					<tr>
-						<td colspan="2" align="right" width="55%"><input type="file" name="file[]" multiple id="file[]" /></td>
-						<td><input type="submit" name="doImport" value="Import" /></td>
-					</tr>
-					<tr>
-						<td colspan="3"><textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea></td>
-					</tr>
-				</table>
+					<h2><a name="importer">importer</a></h2>
+						<input type="file" name="file[]" multiple id="file[]" /><br>
+						<input type="submit" name="doImport" value="Import"  style="width:140px"/>
+						<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
 				</form>
 				
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
 				<!-- EXPORTER -->
-				<!-- the real exporter -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-				<h2><a name="exporter">exporter</a></h2>
-				<table width="100%">
-					<tr>
-						<th align="left" width="45%">Theory: What exporter does</th>
-						<th align="left" width="10%"></th>
-						<th align="left" width="45%">Practice: Step by Step</th>
-					</tr>
-					<tr>
-						<td>Export all your notes (id, title, content) to a single csv file (tab separated).</td>
-						<td>&nbsp;</td>
-						<td>Press the export button</td>
-					</tr>
-					<tr>
-						<td colspan="2">&nbsp;</td>
-						<td><input type="submit" name="doExport" value="Export" /></td>
-					</tr>					
-				</table>
+					<h2><a name="exporter">exporter</a></h2>
+						<input type="submit" name="doExport" value="Export" style="width:140px" />
 				</form>
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
 				<!-- ERASER -->
-				<h2><a name="eraser">eraser</a></h2>
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-					<table width="100%">
-						<tr>
-							<td width="30%"><input type="submit" name="doDelAllNotes" value="Delete Notes" /></td>
-							<td>Delete all your notes. There is no way back.</td>
-						</tr>
-						<tr>
-							<td><input type="submit" name="doDelAllEvents" value="Delete Events" /></td>
-							<td>Delete all your log events. There is no way back.</td>
-						</tr>
-					</table>
+					<h2><a name="eraser">eraser</a></h2>
+					<input type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" /><br>
+					<input type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" />
 				</form>
 			
 				<!-- SPACER -->
