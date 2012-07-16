@@ -3,8 +3,7 @@
 	if($_SESSION['valid'] == 1) 			// check if the user-session is valid or not
 	{
 ?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -31,10 +30,10 @@
 				{ 
 				/* "oSearch": {"sSearch": "Initial search"}, */
 				"sPaginationType": "full_numbers",
-				"iDisplayLength": 20,					/* default rows */
+				"iDisplayLength": 50,					/* default rows */
 				"bLengthChange": false,
 				"bPaginate": true , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
-				"aaSorting": [[ 4, "desc" ]],				/* sorting */
+				"aaSorting": [[ 3, "desc" ]],				/* sorting */
 				"aoColumns"   : [					/* visible columns */
 							{ "bSearchable": true, "bVisible": true }, 	/* note-id */
 							{ "bSearchable": true, "bVisible": true },	/* note-title */
@@ -57,19 +56,19 @@
 					if($s_enable_toc == true)
 					{
 						echo '<h2>info toc</h2>';
-						echo '<small><ul>';
+						echo '<ul>';
 							echo '<li><a href="#welcome">welcome</a></li>';
 							echo '<li><a href="#about">about</a></li>';
 							echo '<li><a href="#version">version</a></li>';
 							echo '<li><a href="#stats">stats</a></li>';
 							echo '<li><a href="#keyboard">keyboard shortcuts</a></li>';
 							echo '<li><a href="#log">log</a></li>';
-						echo '</ul></small>';	
+						echo '</ul>';	
 					}
 			?>
 
 			<!-- SPACER -->
-			<div id="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>
 
 			<!-- WELCOME MESSAGE -->
 			<h2><a name="welcome">welcome</a></h2>
@@ -77,14 +76,14 @@
 				if($s_enable_welcome_message == true)								// check if welcome message is configured 
 				{
 					if (strlen($s_welcome_message_to_all_users) > 0) 				// is a text defined as well?		
-					{ echo "<pre>".$s_welcome_message_to_all_users."</pre>"; }
+					{ echo "<blockquote>".$s_welcome_message_to_all_users."</blockquote>"; }
 					else 														// admin has fucked it up
 					{ echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";  }
 				}
 			?>
 
 			<!-- SPACER -->
-			<div id="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>
 
 			<!-- ABOUT -->
 			<?php
@@ -101,21 +100,19 @@
 				Wanna know <a href="https://github.com/macfidelity/monoto/wiki/About-the-monoto-history">more</a>?
 
 			<!-- SPACER -->
-			<div id="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>
 
 			<?php
 				}
 				else
-				{
-					echo "<font color='#808080'><i>The About section was disabled in the settings.</i></font>";
-				} 
+				{	echo "<pre>The About section was disabled in the admin-settings.</pre>";		} 
 			?>
 
 			<!-- VERSION -->
 			<h2><a name="version">version</a></h2>
 
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-			<table border="0" width="100%">
+			<table width="100%">
 				<tr>
 					<td width="10%">your milestone:</td>
 					<td width="70%"><?php echo $m_milestone." <i>aka</i> ".$m_milestone_title.""; ?></td>
@@ -148,12 +145,12 @@
 				}
 				else
 				{
-					echo "<font color='#808080'><br><i>The Changelog section was disabled in the settings.</i></font>";
+					echo "<pre>The Changelog section was disabled in the admin-settings.</pre>";
 				} 
 			?>
 
 			<!-- SPACER -->
-			<div id="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>
 
 			<!-- STATS -->
 			<?php
@@ -352,12 +349,12 @@
 				}
 				else
 				{
-					echo "<font color='#808080'><i>The Stats section was disabled in the settings.</i></font>";
+					echo "<pre>The Stats section was disabled in the admin-settings.</pre>";
 				}    			
 			?>
 
 			<!-- SPACER -->
-			<div id="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>
 
 			<!-- KEYBOARD SHORTCUT -->
 			<?php
@@ -366,7 +363,7 @@
 			?>
 
 			<h2><a name="keyboard">keyboard shortcuts</a></h2>
-			<table width="100%" border="0">
+			<table width="100%">
 				<thead>
 					<tr>
 						<th align="left" width="20%">key</th>
@@ -394,15 +391,15 @@
 			<?php
 				}
 				else
-				{ echo "<font color='#808080'><i>The Keyboard section was disabled in the settings.</i></font>"; } 
+				{ echo "<pre>The Keyboard section was disabled in the admin-settings.</pre>"; } 
 			?>
 
 			<!-- SPACER -->
-			<div id="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>
 			
 			<!-- LOG -->
 			<h2><a name="log">log</a></h2>
-				<table width="100%" border="0">
+				<table width="100%">
 				<thead>
 					<tr>
 						<th align="left" width="20%">event</th>
@@ -516,7 +513,7 @@
 				<br>
 
 				<!-- ACTIVITY/EVENT LOG -->
-				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead>
 						<tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr>
 					</thead>
@@ -537,7 +534,7 @@
 				</table>
 
 			<!-- SPACER -->
-			<div id="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>
 		</div>
 				
 	<!--  FOOTER -->

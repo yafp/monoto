@@ -3,8 +3,7 @@
 	if($_SESSION['valid'] == 1)		// check if the user-session is valid or not
 	{
 ?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -28,16 +27,16 @@
 					if($s_enable_toc == true)
 					{
 						echo '<h2>admin toc</h2>';
-						echo '<small><ul>';
+						echo '<ul>';
 							echo '<li><a href="#basic">admin settings</a></li>';
 							echo '<li><a href="#users">users</a></li>';
 							echo '<li><a href="#invites">invites</a></li>';
-						echo '</ul></small>';	
+						echo '</ul>';	
 					}
 				?>
 
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<?php
 					include ('scripts/db.php');		// connect to db
@@ -46,7 +45,7 @@
 				
 				<!-- BASICS -->
 				<h2><a name="basic">admin settings</a></h2>
-				<table width="100%" border="0">
+				<table width="100%">
 				<tbody>
 					<tr>
 						<td colspan="2" width="50%"><b>General</b></td>
@@ -92,11 +91,11 @@
 				</table>
 
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<!-- USERS -->
 				<h2><a name="users">users</a></h2>
-					<table width="100%" border="0">
+					<table width="100%">
 						<tbody>
 							<tr>
 								<td><b>ID</b></td>
@@ -127,19 +126,19 @@
 					</table>
 
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<h2><a name="invites">invites</a></h2>
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 						You can create new user accounts here - newly created users will get a notification regarding the newly created monoto-account including login instructions and all relevant informations.<br><br>
-						<table width="100%" border="0">
+						<table width="100%">
 							<tr>
 								<td width='30%'>Username:</td> 
-								<td><input type="input" name="newUsername" placeholder="Insert new username" /></td>
+								<td><input type="text" name="newUsername" placeholder="Insert new username" /></td>
 							</tr>
 							<tr>
 								<td>Mail:</td> 
-								<td><input type="input" name="newUserMail" placeholder="Insert email" /></td>
+								<td><input type="text" name="newUserMail" placeholder="Insert email" /></td>
 							</tr>
 							<tr>
 								<td>Password:</td> 
@@ -163,7 +162,7 @@
 					Hint: account will be created with a creation-timestamp. Admin-interface will list pending invites and offer an option to delete them.
 
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>				
+				<div class="spacer">&nbsp;</div>				
 			</div>
 
 			<!--  FOOTER -->

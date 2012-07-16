@@ -4,12 +4,6 @@
 
 
 /* core-colors 
-#2b3a42 			dunkles blau
-#3f5765 			helleres blau
-#bdd4de 			helles blau
-#efefef 			weiss quasi
-#ff530d 			orange
-
 #4489c9				blau
 */
 
@@ -17,22 +11,19 @@ body
 {
 	/* background-image:url('../images/patterns/pattern02.png'); */
 	background-image:url('../images/patterns/low_contrast_linen.png');		
-	
 	background-repeat:repeat;
 } 
-
 
 /* main background */
 #dt_example 
 {
 	/* font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; */
-	font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font: 12px/22px normal helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
 	color: #333;
 	background-color: #bdd4de;
 }
-
 
 /* content block */
 #dt_example #container 
@@ -40,36 +31,28 @@ body
 	width: 95%;
 	margin: 20px auto;
 	padding: 0;
-	background-color: #efefef ;
 
 	/* round corners */
 	-webkit-border-radius: 20px;
     -khtml-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
-
 	border-color: #4489c9;
 	border-style:solid;
 	border-width:3px;
 
 	background-color:rgba(239,239,239,0.95);
-
-
-
 }
-
 
 /* header */
 #dt_example #header 
 {
 	margin-left: 1em;
 	margin-right:1em;
-	font-family: Tahoma, Geneva, sans-serif;
 	font-weight: bold;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	color: silver;
 }
-
 
 /* navigation */
 #dt_example #navi 
@@ -77,13 +60,10 @@ body
 	margin-top: 0em;
 	text-align: right;
 	margin-right:1em;
-	font-family: Tahoma, Geneva, sans-serif;
 }
-
 
 #dt_example #usericon 
 {
-
 	background-image:url('../images/myUser.jpg');
 	background-size:25px 25px; */
 	background-repeat:no-repeat;
@@ -96,8 +76,6 @@ body
 	opacity:0.6;
 }
 
-
-
 /* footer */
 #dt_example #footer 
 {
@@ -106,33 +84,15 @@ body
 	color: #808080;
 }
 
-
-
-#dt_example #demo 
-{
-	margin-left: 1em;
-	margin-right:1em;
-	font-family: Tahoma, Geneva, sans-serif;
-}
-
-
 #dt_example #noteContentCo 
 {
 	margin-left: 1em;
 	margin-right:1em;
 }
 
-
 #dt_example .demo_jui 
 {
 	margin: 30px auto 0 auto;
-}
-
-
-#dt_example .spacer 
-{
-	height: 20px;
-	clear: both;
 }
 
 #dt_example .clear 
@@ -145,21 +105,17 @@ body
 	padding: 15px;
 	background-color: #F5F5F5;
 	border: 1px solid #CCCCCC;
+	font: 10px/22px normal helvetica, sans-serif;
+	color: grey;
 }
 
 #dt_example #myform 
 {
-margin:0 auto;
-width:400px;
-padding:14px;
-background-color: #C0C0C0;
+	margin:0 auto;
+	width:400px;
+	padding:14px;
+	background-color: #C0C0C0;
 }
-
-
-
-
-
-
 
 /* H1-Hx */
 #dt_example h1 
@@ -173,7 +129,6 @@ background-color: #C0C0C0;
 	clear: both;
 }
 
-
 #dt_example h2 
 {
 	margin-top: 1em;
@@ -186,16 +141,11 @@ background-color: #C0C0C0;
 	text-align: left;
 }
 
-
-
-
-
 /* A HREF */
 #dt_example a 
 {
 	color: #4489c9;	
 	text-decoration: none;
-
 	padding-right: 1px;
 	padding-left: 1px;
 }
@@ -208,20 +158,24 @@ background-color: #C0C0C0;
 	padding-left: 1px;
 	padding-top: 2px;
 	padding-bottom: 2px;
-
-
-
 }
-
 
 /* LISTS */
 #dt_example ul 
 {
 	color: #4A4344;	/* gray34 */
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 0.9em;
 }
 
-
-
+blockquote {
+  font: 14px/22px normal helvetica, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  padding-left: 15px;
+  border-left: 3px solid #ccc;
+} 
 
 .css_right 
 {
@@ -233,31 +187,12 @@ background-color: #C0C0C0;
 	float: left;
 }
 
-.demo_links 
-{
-	float: left;
-	width: 50%;
-	margin-bottom: 1em;
-}
-
-#demo_info 
-{
-	padding: 5px;
-	border: 1px solid #B0BED9;
-	height: 100px;
-	width: 100%;
-	overflow: auto;
-}
-
-
-
-
- 
-.show_hide {
-    display:none;
-}
-
-
 .database {
 visibility: true;
 } 
+
+/* SPACER class */
+.spacer {
+  	height: 20px;
+	clear: both;
+}

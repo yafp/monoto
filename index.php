@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	
 	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
 	{
 		header('Location: notes.php');
@@ -8,8 +7,7 @@
 	else
 	{
 ?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -28,23 +26,23 @@
 			<div id="noteContentCo">
 				
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">login</a></h2>
 
-				<table border="0" width="100%">
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-					<tr><td align="center"><input type="text" name="username" placeholder="Username" /></td></tr>
-					<tr><td align="center"><input type="password" name="password" placeholder="Password" /></td></tr>
-					<tr><td align="center">&nbsp;</td></tr>
-					<tr><td align="center"><input type="submit" value="Login" name="doLogin" /></td></tr>
+					<table width="100%">
+						<tr><td align="center"><input type="text" name="username" placeholder="Username" /></td></tr>
+						<tr><td align="center"><input type="password" name="password" placeholder="Password" /></td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td align="center"><input type="submit" value="Login" name="doLogin" /></td></tr>
+					</table>
 				</form>
-				</table>
-
-				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
 			</div>
+
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
 
 			<!--  FOOTER -->
 			<?php include 'footer.php'; ?>
@@ -55,7 +53,7 @@
 	</body>
 </html>
 
-	<?php
+<?php
 	}
 ?>
 

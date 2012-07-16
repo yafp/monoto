@@ -4,8 +4,7 @@
 	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
 	{
 ?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>monoto-notes</title>
@@ -15,7 +14,6 @@
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
-
 		<!-- jquery -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!-- datatables -->
@@ -24,49 +22,47 @@
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
 		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>
- 		<script type="text/javascript">
- 		
-      $(document).ready(function() 
-      {
-        $("#input2").cleditor({
-          width:        "100%", // width not including margins, borders or padding
-          height:       400, // height not including margins, borders or padding
-          controls:     // controls to add to the toolbar
-                        "bold italic underline strikethrough | font size " +
-                        "style | color highlight removeformat | bullets numbering | outdent " +
-                        "indent | alignleft center alignright justify | undo redo | " +
-                        "rule image link unlink | cut copy paste pastetext | print source",
-          colors:       // colors in the color popup
-                        "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
-                        "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
-                        "BBB F00 F90 FC6 FF0 3F3 6CC 3CF 66C C6C " +
-                        "999 C00 F60 FC3 FC0 3C0 0CC 36F 63F C3C " +
-                        "666 900 C60 C93 990 090 399 33F 60C 939 " +
-                        "333 600 930 963 660 060 366 009 339 636 " +
-                        "000 300 630 633 330 030 033 006 309 303",    
-          fonts:        // font names in the font popup
-                        "Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
-                        "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
-          sizes:        // sizes in the font size popup
-                        "1,2,3,4,5,6,7",
-          styles:       // styles in the style popup
-                        [["Paragraph", "<p>"], ["Header 1", "<h1>"], ["Header 2", "<h2>"],
-                        ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"],
-                        ["Header 6","<h6>"]],
-          useCSS:       false, // use CSS to style HTML when possible (not supported in ie)
-          docType:      // Document type contained within the editor
-                        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
-          docCSSFile:   // CSS file used to style the document contained within the editor
-                        "", 
-          bodyStyle:    // style to assign to document body contained within the editor
-                        "margin:4px; font:10pt Arial,Verdana; cursor:text"
-        });
-      });
-    </script>
+ 		<script type="text/javascript">		
+	      $(document).ready(function() 
+	      {
+	        $("#input2").cleditor({
+	          width:        "100%", // width not including margins, borders or padding
+	          height:       400, // height not including margins, borders or padding
+	          controls:     // controls to add to the toolbar
+	                        "bold italic underline strikethrough | font size " +
+	                        "style | color highlight removeformat | bullets numbering | outdent " +
+	                        "indent | alignleft center alignright justify | undo redo | " +
+	                        "rule image link unlink | cut copy paste pastetext | print source",
+	          colors:       // colors in the color popup
+	                        "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
+	                        "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
+	                        "BBB F00 F90 FC6 FF0 3F3 6CC 3CF 66C C6C " +
+	                        "999 C00 F60 FC3 FC0 3C0 0CC 36F 63F C3C " +
+	                        "666 900 C60 C93 990 090 399 33F 60C 939 " +
+	                        "333 600 930 963 660 060 366 009 339 636 " +
+	                        "000 300 630 633 330 030 033 006 309 303",    
+	          fonts:        // font names in the font popup
+	                        "Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
+	                        "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
+	          sizes:        // sizes in the font size popup
+	                        "1,2,3,4,5,6,7",
+	          styles:       // styles in the style popup
+	                        [["Paragraph", "<p>"], ["Header 1", "<h1>"], ["Header 2", "<h2>"],
+	                        ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"],
+	                        ["Header 6","<h6>"]],
+	          useCSS:       false, // use CSS to style HTML when possible (not supported in ie)
+	          docType:      // Document type contained within the editor
+	                        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
+	          docCSSFile:   // CSS file used to style the document contained within the editor
+	                        "", 
+	          bodyStyle:    // style to assign to document body contained within the editor
+	                        "margin:4px; font:10pt Arial,Verdana; cursor:text"
+	        });
+	      });
+    	</script>
 
 		<!-- main js for table etc -->
 		<script type="text/javascript" charset="utf-8">
@@ -175,9 +171,7 @@
 				reloadNote();
 			}
 			else
-			{
-				alert("Error while trying to save a note. Please select a record first and try again.");
-			}
+			{ alert("Error while trying to save a note. Please select a record first and try again."); }
 		}
 
 
@@ -217,9 +211,7 @@
 				?>
 			}
 			else
-			{
-				alert("Error while trying to delete a note. Please select a record first and try again.");
-			}	
+			{ alert("Error while trying to delete a note. Please select a record first and try again."); }	
 		}
 
 		//
@@ -240,9 +232,7 @@
 				$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );
 		  	}
 			else
-			{
-		  		alert("Error while trying to create a new note. Please enter a note title plus content and try again.");
-		  	}
+			{ alert("Error while trying to create a new note. Please enter a note title plus content and try again."); }
 		}
 
 
@@ -268,9 +258,7 @@
 				reloadNote();
 			}
 			else
-			{
-				alert("Error while trying to rename a note. Please select a record first and try again.");
-			}
+			{ alert("Error while trying to rename a note. Please select a record first and try again."); }
 		}
 
 
@@ -279,27 +267,25 @@
 		//
 		function reloadNote() 
 		{
-			javascript:history.go(0)	// reload page
+			javascript:history.go(0)
 		}
-
 		</script>
 	</head>
-
 
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
 
-			<div id="demo">
+			<div id="noteContentCo">
 				<!-- SHOW SELECTED NOTE -->
 				<h2>create/view/edit/rename/delete notes</h2>	
 				<form name="myform">
-					<table border="0" width="100%" cellspacing="0" cellpadding="5">
+					<table width="100%"  cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td width="5%"><input type="input" name="noteID" disabled placeholder="ID" style="width:50%; height:15px;" /></td>
-							<td colspan="1"><input type="input" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; height:15px;" /></td>
+							<td width="5%"><input type="text" name="noteID" disabled placeholder="ID" style="width:50%; height:15px;" /></td>
+							<td colspan="1"><input type="text" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; height:15px;" /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." id="save" value="save" onClick="saveNote();"></td>
 							<input type="hidden" style="width:50%; height:15px;"   name="noteVersion" />
 						<!-- NEW NOTE CONTENT using clEditor -->
@@ -311,9 +297,9 @@
 								<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">
 							</td>
 						</tr>
-						<!-- newTitle & create buttons -->
+						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" 	 style="width:100%" placeholder="Enter title for your new note and press the 'create' button."  name="newNoteTitle" align="right" /></td>
+							<td colspan="2"><input type="text" style="width:100%" placeholder="Enter title for your new note and press the 'create' button."  name="newNoteTitle" align="right" /></td>
 							<td><input type="submit"  style="width:90px" title="Create a new note" name="createNoteButton" value="create" onClick="createNote()"></td>
 						</tr>
 					</table>
@@ -328,10 +314,10 @@
 				-->
 		
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<h2>search notes</h2>
-				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead>
 						<tr>
 							<th>id</th>
@@ -353,28 +339,18 @@
 						$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
 						if (!$con)
 					  	{
-					  		die('Could not connect: ' . mysql_error());
-							echo "Unable to connect to defined database - please check your credentials.";	
+					  		die('Could not connect: ' . mysql_error());	
 					  	}
 						else
 						{
 							mysql_select_db("monoto", $con);				// do the mysql connect
 							$owner = $_SESSION['username'];					// only select notes of this user
 
-							// run the mysql query
 							$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
-
-							// fetch data and file table as a second step later on
 							while($row = mysql_fetch_array($result))
 							{
 								echo '<tr class="odd gradeU">';
-									echo '<td>'.$row[0].'</td>';
-									echo '<td>'.$row[1].'</td>';
-									echo '<td>'.$row[2].'</td>';
-									echo '<td>'.$row[3].'</td>';
-									echo '<td>'.$row[4].'</td>';
-									echo '<td>'.$row[5].'</td>';
-									echo '<td>'.$row[6].'</td>';	
+									echo '<td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td>';	
 								echo '</tr>';
 							}
 						}

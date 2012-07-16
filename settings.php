@@ -1,11 +1,9 @@
 <?php
 	session_start();
-	// check if the user-session is valid or not
-	if($_SESSION['valid'] == 1)
+	if($_SESSION['valid'] == 1)		// check if the user-session is valid or not
 	{
 ?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -29,18 +27,17 @@
 					if($s_enable_toc == true)
 					{
 						echo '<h2>settings toc</h2>';
-						echo '<small><ul>';
+						echo '<ul>';
 							echo '<li><a href="#profile">profile</a></li>';
 							echo '<li><a href="#importer">importer</a></li>';
 							echo '<li><a href="#exporter">exporter</a></li>';
 							echo '<li><a href="#eraser">eraser</a></li>';
-						echo '</ul></small>';
+						echo '</ul>';
 					}
 				?>
 
-				
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
@@ -70,38 +67,34 @@
 				?>
 
 				<!-- CHANGE USER PASSWORD BUTTON -->
+				Please enter your new password twice and press the UPDATE button.
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-						<tr>Please enter your new password twice and press the UPDATE button.<br>
 							<input type="password" name="newPassword1" placeholder="Password" />
-							<input type="password" name="newPassword2" placeholder="Please enter the new password again" />
-							<td><input type="submit" name="doChangeUserPW" value="Update" /></td>
-						</tr>					
+							<input type="password" name="newPassword2" placeholder="Please enter the new password again" /><br>
+							<input type="submit" name="doChangeUserPW" value="Update" />					
 				</form>
 
 				<!-- CHANGE USER ICON BUTTON -->
-				<br><b>Changing the user icon:</b><br>This will store your image in the users-table - but the image itself is not used so far ;)
+				<br><b>Changing the user icon:</b><br>This will store your image in the users-table - but the image itself is not used so far.
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-						<tr>
 							<input name="MAX_FILE_SIZE" value="102400" type="hidden">
-							<input name="image" accept="image/jpeg" type="file">
-							<input value="Change Icon" type="submit" name="doChangeUserIcon" >	
-						</tr>					
+							<input name="image" accept="image/jpeg" type="file"><br>
+							<input value="Change Icon" type="submit" name="doChangeUserIcon" >					
 				</form>
 				
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
-				<!-- IMPORTER -->
+				<!-- IMPORTER -->				
+				<!-- http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
+				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 				<h2><a name="importer">importer</a></h2>
-				<table width="100%" border="0">
-				<thead>
+				<table width="100%">
 					<tr>
 						<th align="left" width="45%">Theory: What importer does</th>
 						<th align="left" width="10%"></th>
 						<th align="left" width="45%">Practice: Step by Step</th>
 					</tr>
-				</thead>
-				<tbody>
 					<tr>
 						<td>The importer can import plain-text files into monoto.</td>
 						<td></td>
@@ -127,78 +120,61 @@
 						<td></td>
 						<td>Wait and pray - the current approach is crappy</td>
 					</tr>
-				</tbody>
+					<tr>
+						<td colspan="2" align="right" width="55%"><input type="file" name="file[]" multiple id="file[]" /></td>
+						<td><input type="submit" name="doImport" value="Import" /></td>
+					</tr>
+					<tr>
+						<td colspan="3"><textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea></td>
+					</tr>
 				</table>
-				<br>
-
-				<!-- the real importer -->
-				<!-- http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
-				<table width="100%" border="0">
-					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data" name="importerForm">
-						<tr>
-							<td  align="right" width="55%"><input type="file" name="file[]" multiple id="file[]" /></td>
-							<td><input type="submit" name="doImport" value="Import" /></td>
-						</tr>
-						<tr>
-							<td colspan="2"><textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea></td>
-						</tr>
-					</form>
-				</table>
-
+				</form>
+				
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<!-- EXPORTER -->
+				<!-- the real exporter -->
+				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 				<h2><a name="exporter">exporter</a></h2>
-				<table width="100%" border="0">
-				<thead>
+				<table width="100%">
 					<tr>
 						<th align="left" width="45%">Theory: What exporter does</th>
 						<th align="left" width="10%"></th>
 						<th align="left" width="45%">Practice: Step by Step</th>
 					</tr>
-				</thead>
-				<tbody>
 					<tr>
 						<td>Export all your notes (id, title, content) to a single csv file (tab separated).</td>
-						<td></td>
+						<td>&nbsp;</td>
 						<td>Press the export button</td>
 					</tr>
-				</tbody>
+					<tr>
+						<td colspan="2">&nbsp;</td>
+						<td><input type="submit" name="doExport" value="Export" /></td>
+					</tr>					
 				</table>
-
-				<!-- the real exporter -->
-				<table width="100%" border="0">
-					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-						<tr>
-							<td width="55%"></td>
-							<td><input type="submit" name="doExport" value="Export" /></td>
-						</tr>					
-					</form>
-				</table>
+				</form>
 
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 
 				<!-- ERASER -->
 				<h2><a name="eraser">eraser</a></h2>
-				<table width="100%" border="0">
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-				<tbody>
-					<tr>
-						<td width="30%"><input type="submit" name="doDelAllNotes" value="Delete Notes" /></td>
-						<td>Delete all your notes. There is no way back.</td>
-					</tr>
-					<tr>
-						<td><input type="submit" name="doDelAllEvents" value="Delete Events" /></td>
-						<td>Delete all your log events. There is no way back.</td>
-					</tr>
-				</tbody>
+					<table width="100%">
+						<tr>
+							<td width="30%"><input type="submit" name="doDelAllNotes" value="Delete Notes" /></td>
+							<td>Delete all your notes. There is no way back.</td>
+						</tr>
+						<tr>
+							<td><input type="submit" name="doDelAllEvents" value="Delete Events" /></td>
+							<td>Delete all your log events. There is no way back.</td>
+						</tr>
+					</table>
 				</form>
-				</table>
-
+			
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
 			</div>
 
 			<!--  FOOTER -->
@@ -214,10 +190,7 @@
 <?php
 	}
 	else 				//session is NOT valid - redirect to login
-	{	
-		header('Location: redirect.php');
-	}
-   
+	{	header('Location: redirect.php'); 	}
 ?>
 
 
@@ -263,14 +236,13 @@ if ( isset($_POST["doChangeUserPW"]) )
 
 		mysql_select_db($mysql_db, $con);				// select db
 
-		// change pw
-		$query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";
+		$query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";			// change pw
 		mysql_query($query);
 		mysql_close($con); 								// close sql connection
 	}
 	else // User entered 2 different password - cant change pw like that.
 	{
-		//echo "cant change";
+		echo '<script type="text/javascript">alert("Error - Password mismatch while trying to change.");</script>';
 	}
 }
 
@@ -285,8 +257,7 @@ if ( isset($_POST["doDelAllNotes"]) )
 	connectToDB();
 	$owner = $_SESSION['username'];
 
-	// update m_notes = delete notes
-	$sql="DELETE FROM m_notes WHERE owner='$owner'";
+	$sql="DELETE FROM m_notes WHERE owner='$owner'";		// update m_notes = delete notes
 	$result = mysql_query($sql);
 
 	// update m_log
@@ -325,9 +296,7 @@ if ( isset($_POST["doDelAllEvents"]) )
 //
 if ( isset($_POST["doExport"]) ) 
 {
-	echo '<script type="text/javascript" language="javascript">
-window.open("scripts/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");
-</script>';				
+	echo '<script type="text/javascript" language="javascript">window.open("scripts/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';				
 }
 
 
@@ -342,7 +311,7 @@ if ( isset($_POST["doImport"]) )
 	connectToDB();
 
 	$owner = $_SESSION['username'];
-	$good_counter =0;
+	$good_counter = 0;
 
 	// loop it for each note
 	foreach($_FILES['file']['name'] as $key => $value)
@@ -356,7 +325,6 @@ if ( isset($_POST["doImport"]) )
 	   	}
 	    else 
 	    {
-	       	//Print file details
 	        //echo "Upload: " . $_FILES["file"]["name"] . "<br />";
 	        //echo "Type: " . $_FILES["file"]["type"] . "<br />";
 	        //echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
@@ -365,8 +333,7 @@ if ( isset($_POST["doImport"]) )
 
 			// define insert vars
 			$newNoteTitle = $_FILES["file"]["name"][$key];
-			// we need to cut the extension from filename - ugly hack
-			$newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle);
+			$newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle);					// we need to cut the extension from filename - ugly hack
 			$newNoteContent = file_get_contents($_FILES['file']['tmp_name'][$key]);
 
 			// check if there is already a note with this title - as we dislike having > 1 note with the same title ...yes we do
@@ -385,18 +352,14 @@ if ( isset($_POST["doImport"]) )
 					$sql="INSERT INTO m_notes (title, content, save_count,  date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', '1',now(), now(), '$owner' )";
 					$result = mysql_query($sql);
 					if (!$result) 
+					{	die('Error: ' . mysql_error());		}
+					else  // update event-log: m_log
 					{
-	   					die('Error: ' . mysql_error());
-					}
-					else 
-					{
-						// update event-log: m_log
 						$newNoteContentSummary = substr($newNoteContent, 0, 10);
 						$event = "import";
 						$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
 						$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
 						$result = mysql_query($sql);
-
 						?>
 							<script type="text/javascript">
 								var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported."; ?>';
@@ -439,7 +402,6 @@ if ( isset($_POST["doImport"]) )
 if ( isset($_POST["doChangeUserIcon"]) ) 
 {
 	connectToDB();
-
 	$owner = $_SESSION['username'];
 
 	// is there a new file at all?
@@ -459,7 +421,7 @@ if ( isset($_POST["doChangeUserIcon"]) )
 	}
 	else // no image defined.
 	{
-   		echo "No image selected/uploaded";
+   		echo '<script type="text/javascript">alert("Error - no image defined");</script>';
 	}
 }
 
