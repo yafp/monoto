@@ -17,6 +17,8 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+		<!--  m_disableRightClick-->
+		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
 		<!-- scroll up -->
 		<script type="text/javascript">
 		$(function () 

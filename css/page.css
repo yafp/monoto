@@ -46,8 +46,7 @@ body
 /* navigation */
 #dt_example #logo 
 {
-	margin-top: 0em;
-	text-align: right;
+	/*text-align: right; */
 	margin-right:1em;
 	opacity:0.4;
 }
@@ -94,13 +93,10 @@ body
 /* H1-Hx */
 #dt_example h1 
 {
-	margin-top: 0.0em;
-	font-size: 1.3em;
-	font-weight: normal;
-	line-height: 1.6em;
-	color: #4E6CA3;
-
-	clear: both;
+	font-size: 1.0em;
+	font-weight: big;
+	color: white;
+	text-align: center;
 }
 
 #dt_example h2 
@@ -223,10 +219,6 @@ visibility: true;
      list-style-position:outside;
      position:relative;
      line-height:1.5em;
-
-    
-
-
  }
 
  #nav a:link, #nav a:active, #nav a:visited

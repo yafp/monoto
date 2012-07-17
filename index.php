@@ -17,6 +17,10 @@
 			@import "css/page.css";
 			@import "css/table.css";
 		</style>
+		<!-- jquery -->
+		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+		<!--  m_disableRightClick-->
+		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
 	</head>
 	<body id="dt_example">
 		<div id="container">

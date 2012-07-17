@@ -5,6 +5,7 @@
 	<a href="notes.php"><img src="images/logo/icon_big.png" width="90" alt="monoto logo" align="right" margin-right="10"></a>
 </div>
 
+
 <!-- MONOTO NAVI -->
 <?php 
 	include 'conf/config.php';
@@ -15,7 +16,6 @@
 		$owner = $_SESSION['username'];
 		
 		echo '<ul id="nav">
-				
 		    	<li><a accesskey="n" href="notes.php"><b>n</b>otes</a></li>
 		    	<li><a accesskey="s" href="settings.php"><b>s</b>ettings</a></li>
 			    <li><a accesskey="i" href="info.php"><b>i</b>nfo</a></li>';
@@ -29,7 +29,7 @@
 	}
 	else // no valid session: display login only
 	{
-		// snhow nothing - redirect andstuff will take care.
-		//echo '<ul id="nav"><li><a href="index.php">login</a></li></ul>';
+		// show nothing - redirect and stuff will take care.
 	}
 ?>
+
