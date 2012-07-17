@@ -22,6 +22,37 @@
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+		<!-- scroll up -->
+		<script type="text/javascript">
+		$(function () 
+		{
+			/* set variables locally for increased performance */
+			var scroll_timer;
+			var displayed = false;
+			var $message = $('#message a');
+			var $window = $(window);
+			var top = $(document.body).children(0).position().top;
+
+			/* react to scroll event on window */
+			$window.scroll(function () 
+			{
+			   	window.clearTimeout(scroll_timer);
+			    scroll_timer = window.setTimeout(function () 
+			    {
+			       	if($window.scrollTop() <= top)
+			        {
+			            displayed = false;
+			            $message.fadeOut(500);
+			        }
+			        else if(displayed == false)
+			        {
+			            displayed = true;
+			            $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
+			        }
+			    }, 100);
+			});
+		});
+		</script>
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
 		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>
@@ -364,6 +395,10 @@
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 		</div>
+
+		<!-- back to top -->
+		<div id="message"><a href="#noteContentCo">Scroll to top</a></div>
+
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>
 	</body>

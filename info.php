@@ -18,6 +18,42 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+
+		<!-- scroll up -->
+		<script type="text/javascript">
+		$(function () 
+		{
+			/* set variables locally for increased performance */
+			var scroll_timer;
+			var displayed = false;
+			var $message = $('#message a');
+			var $window = $(window);
+			var top = $(document.body).children(0).position().top;
+
+			/* react to scroll event on window */
+			$window.scroll(function () 
+			{
+			   	window.clearTimeout(scroll_timer);
+			    scroll_timer = window.setTimeout(function () 
+			    {
+			       	if($window.scrollTop() <= top)
+			        {
+			            displayed = false;
+			            $message.fadeOut(500);
+			        }
+			        else if(displayed == false)
+			        {
+			            displayed = true;
+			            $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
+			        }
+			    }, 100);
+			});
+		});
+		</script>
+
+
+
+
 		<!-- toc/info/help -->
 		<script type="text/javascript">
 			$(document).ready(function()
@@ -70,7 +106,7 @@
 					if($s_enable_toc == true)
 					{
 			?>
-						<h2><a name="desc">info toc</a></h2>
+						<h2><a name="desc">info</a></h2>
 						<div class="accordion">
 							<h3>welcome [<a href="#welcome">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
@@ -188,7 +224,7 @@
 							}
 							else
 							{
-								echo "- You have ".$row[0]." notes in your monoto database<br>"; 	// output amount of notes
+								echo "- You have <span>".$row[0]." notes</span> in your monoto database<br>"; 	// output amount of notes
 
 								// SQL-SECTION
 								//
@@ -323,17 +359,17 @@
 								// - $stats_entire_monoto_db_size
 								//
 								// Use our variables to create some kind of LOG text - should be informative but still funny if possible.
-								echo "- The personal event log has recorded ".$stats_events_of_current_user." events for this account.<br>";
-								echo "- Those can be devided into ".$stats_amount_of_creates." notes creations, ".$stats_amount_of_changes." times editing existing notes, ".$stats_amount_of_renames." rename-events and ".$stats_amount_of_deletes." notes-deletions.<br>";
-								echo "- In addition to those numbers your account has ".$stats_amount_of_imports." note-import events logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
-								echo "- Your highest note id is currently ".$stats_highest_note_version_id.", with the title ".$stats_highest_note_version_title.". This specific note has revision number ".$stats_highest_note_version_versions.".<br>";
-								echo "- Well in case numbers still dont match up - add ".$stats_amount_of_logins." logins and ".$stats_amount_of_logouts." logouts.<br>";
-								echo "- Your shortest note so far is note number ".$stats_note_with_shortest_content_id.", it is using ".$stats_note_with_shortest_content_chars." chars for its entire content.<br>";
-								echo "- Lets compare that with your longest note which has the id ".$stats_note_with_longest_content_id." and is ".$stats_note_with_longest_content_chars." long.<br>";
-								echo "- Looking for dates? Let's face it: your oldest note has an age of ".$stats_oldest_created_note_age." days. It was created ".$stats_oldest_created_note_date." with the id ".$stats_oldest_created_note_id.".<br>";
-								echo "- In comparison - your latest created note has the age of ".$stats_latest_created_note_age." days, has the id ".$stats_latest_created_note_id.", the title ".$stats_latest_created_note_title." and a creation date of ".$stats_latest_created_note_date.".<br>";
-								echo "- The last note you actually edited was note ".$stats_last_edited_note_id." with the title ".$stats_last_edited_note_title.". This edit is ".$stats_last_edited_note_age." days old - from ".$stats_last_edited_note_date." in case you bother.<br>";
-								echo "- Lets come to the end - the entire monoto db has a size of ".$stats_entire_monoto_db_size."  MB.<br>";
+								echo "- The personal event log has recorded <span>".$stats_events_of_current_user." events</span> for this account.<br>";
+								echo "- Those can be devided into <span>".$stats_amount_of_creates." notes creations</span>, <span>".$stats_amount_of_changes." note-editings</span>, <span>".$stats_amount_of_renames." rename-events</span> and <span>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
+								echo "- In addition to those numbers your account has <span>".$stats_amount_of_imports." note-import events</span> logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
+								echo "- Your highest note id is currently <span>".$stats_highest_note_version_id."</span>, with the title <span>".$stats_highest_note_version_title."</span>. This specific note has <span>revision number ".$stats_highest_note_version_versions."</span>.<br>";
+								echo "- Well in case numbers still dont match up - add <span>".$stats_amount_of_logins." logins</span> and <span>".$stats_amount_of_logouts." logouts</span>.<br>";
+								echo "- Your shortest note so far is note <span>number ".$stats_note_with_shortest_content_id."</span>, it is <span>using ".$stats_note_with_shortest_content_chars." chars</span> for its entire content.<br>";
+								echo "- Lets compare that with your longest note which has the <span>id ".$stats_note_with_longest_content_id."</span> and is <span>".$stats_note_with_longest_content_chars." long</span>.<br>";
+								echo "- Looking for dates? Let's face it: your oldest note has an <span>age of ".$stats_oldest_created_note_age." days</span>. It was created <span>".$stats_oldest_created_note_date."</span> with the <span>id ".$stats_oldest_created_note_id."</span>.<br>";
+								echo "- In comparison - your latest created note has the <span>age of ".$stats_latest_created_note_age." days</span>, has the <span>id ".$stats_latest_created_note_id."</span>, the title <span>".$stats_latest_created_note_title."</span> and a creation date of <span>".$stats_latest_created_note_date."</span>.<br>";
+								echo "- The last note you actually edited was note <span>".$stats_last_edited_note_id."</span> with the title <span>".$stats_last_edited_note_title."</span>. This edit is <span>".$stats_last_edited_note_age." days</span> old - from <span>".$stats_last_edited_note_date."</span> in case you bother.<br>";
+								echo "- Lets come to the end - the entire monoto db has a size of <span>".$stats_entire_monoto_db_size."  MB</span>.<br>";
 							}
 					}
 					echo "<br><font color='#808080'>Missing something? Please feel free to send me your sql-queries per mail</font>";		
@@ -355,9 +391,10 @@
 					<tr><td>Del</td><td>Delete selected note.</td><td>home</td><td>works</td></tr>
 					<tr><td>Arrow Down</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
 					<tr><td>Arrow Up</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
-					<tr><td>(Shift) + Alt + y</td><td>Loads notes page per accesskey</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + x</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + c</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + s</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + i</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey</td><td>all pages</td><td>should work</td></tr>
 				</tbody>
 			</table>
 
@@ -489,6 +526,9 @@
 					</tbody>
 					<tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
 				</table>
+
+				<!-- back to top -->
+				<div id="message"><a href="#noteContentCo">Scroll to top</a></div>
 
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>

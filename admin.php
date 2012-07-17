@@ -19,6 +19,37 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+		<!-- scroll up -->
+		<script type="text/javascript">
+		$(function () 
+		{
+			/* set variables locally for increased performance */
+			var scroll_timer;
+			var displayed = false;
+			var $message = $('#message a');
+			var $window = $(window);
+			var top = $(document.body).children(0).position().top;
+
+			/* react to scroll event on window */
+			$window.scroll(function () 
+			{
+			   	window.clearTimeout(scroll_timer);
+			    scroll_timer = window.setTimeout(function () 
+			    {
+			       	if($window.scrollTop() <= top)
+			        {
+			            displayed = false;
+			            $message.fadeOut(500);
+			        }
+			        else if(displayed == false)
+			        {
+			            displayed = true;
+			            $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
+			        }
+			    }, 100);
+			});
+		});
+		</script>
 		<!-- toc/info/help -->
 		<script type="text/javascript">
 			$(document).ready(function()
@@ -74,7 +105,7 @@
 					if($s_enable_toc == true)
 					{
 				?>
-					<h2><a name="desc">admin toc</a></h2>
+					<h2><a name="desc">admin</a></h2>
 						<div class="accordion">
 							<h3>admin settings [<a href="#basic">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
@@ -188,6 +219,9 @@
 				<div class="spacer">&nbsp;</div>				
 			</div>
 		</div>
+
+		<!-- back to top -->
+		<div id="message"><a href="#noteContentCo">Scroll to top</a></div>
 
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>

@@ -17,6 +17,37 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
+		<!-- scroll up -->
+		<script type="text/javascript">
+		$(function () 
+		{
+			/* set variables locally for increased performance */
+			var scroll_timer;
+			var displayed = false;
+			var $message = $('#message a');
+			var $window = $(window);
+			var top = $(document.body).children(0).position().top;
+
+			/* react to scroll event on window */
+			$window.scroll(function () 
+			{
+			   	window.clearTimeout(scroll_timer);
+			    scroll_timer = window.setTimeout(function () 
+			    {
+			       	if($window.scrollTop() <= top)
+			        {
+			            displayed = false;
+			            $message.fadeOut(500);
+			        }
+			        else if(displayed == false)
+			        {
+			            displayed = true;
+			            $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
+			        }
+			    }, 100);
+			});
+		});
+		</script>
 		<!-- toc/info/help -->
 		<script type="text/javascript">
 			$(document).ready(function()
@@ -44,7 +75,7 @@
 					if($s_enable_toc == true)
 					{
 						?>
-							<h2><a name="desc">settings toc</a></h2>
+							<h2><a name="desc">settings</a></h2>
 							<div class="accordion">
 							<h3>profile [<a href="#profile">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#profile">profile</a> section displays a quick overview about your user account. You can change your monoto password here and upload an user image.</p>
@@ -137,6 +168,10 @@
 				<div class="spacer">&nbsp;</div>
 			</div>
 		</div>
+
+		<!-- back to top -->
+		<div id="message"><a href="#noteContentCo">Scroll to top</a></div>
+		
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>
 	</body>

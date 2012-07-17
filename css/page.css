@@ -27,7 +27,7 @@ body
 /* content block */
 #dt_example #container 
 {
-	width: 95%;
+	width: 96%;
 	margin: 20px auto;
 	padding: 0;
 
@@ -43,45 +43,20 @@ body
 	background-color:rgba(239,239,239,0.95);
 }
 
-
-/* header */
-/*
-#dt_example #header 
-{
-	margin-left: 1em;
-	margin-right:1em;
-	font-weight: bold;
-	font-size: 0.8em;
-	color: silver;
-}
-*/
-
 /* navigation */
 #dt_example #logo 
 {
 	margin-top: 0em;
 	text-align: right;
 	margin-right:1em;
+	opacity:0.4;
 }
 
-/*
-#dt_example #usericon 
-{
-	background-image:url('../images/myUser.jpg');
-	background-size:25px 25px; 
-	background-repeat:no-repeat;
-	align: left;
-	-webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	opacity:0.6;
-}
-*/
 
 /* footer */
 #dt_example #footer 
 {
+	font: 10px/22px normal helvetica, sans-serif;
 	margin: 20px auto 0 auto;
 	padding: 0;
 	color: #808080;
@@ -93,12 +68,6 @@ body
 	margin-right:1em;
 }
 
-/*
-#dt_example .demo_jui 
-{
-	margin: 30px auto 0 auto;
-}
-*/
 
 #dt_example .clear 
 {
@@ -254,6 +223,10 @@ visibility: true;
      list-style-position:outside;
      position:relative;
      line-height:1.5em;
+
+    
+
+
  }
 
  #nav a:link, #nav a:active, #nav a:visited
@@ -264,6 +237,11 @@ visibility: true;
     color:#fff;
     text-decoration:none;
     background-color:#4489c9;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 1px;
  }
 
 #nav a:hover
@@ -308,4 +286,79 @@ visibility: true;
 #nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul
 {
     display:block;
+}
+
+
+
+
+
+
+
+
+span 
+{ 
+	color: white;
+	background-color: #4489c9;
+    width: 40px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	opacity:0.7;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#message a
+{
+    /* display: block before hiding */
+    display: block;
+    display: none;
+
+    /* link is above all other elements */
+    z-index: 999; 
+
+    /* link doesn't hide text behind it */
+    opacity: .8;
+
+    /* link stays at same place on page */
+    position: fixed;
+
+    /* link goes at the bottom of the page */
+    top: 100%;
+    margin-top: -80px; /* = height + preferred bottom margin */
+
+    /* link is centered */
+    left: 50%;
+    margin-left: -160px; /* = half of width */
+
+    /* round the corners (to your preference) */
+    -moz-border-radius: 24px;
+    -webkit-border-radius: 24px;
+
+    /* make it big and easy to see (size, style to preferences) */
+    width: 300px;
+    line-height: 48px;
+    height: 48px;
+    padding: 10px;
+    background-color: #000;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
 }
