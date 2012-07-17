@@ -18,6 +18,7 @@
 		}
 
 		mysql_select_db($mysql_db, $con);				// select db
+		$owner = $_SESSION['username'];
 		
 		// update m_notes
 		$sql="DELETE FROM m_notes WHERE id='$deleteID'";

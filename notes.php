@@ -65,7 +65,7 @@
     	</script>
 
 		<!-- main js for table etc -->
-		<script type="text/javascript" charset="utf-8">
+		<script type="text/javascript">
 			var oTable;
 			var giRedraw = false;
 
@@ -129,7 +129,6 @@
 				document.myform.noteVersion.value = "";			// we need the version
 				document.myform.noteVersion.value += sData[6]
 			});
-
 		} );
 
 
@@ -221,18 +220,19 @@
 		{
 			var newNoteTitle = document.myform.newNoteTitle.value;
 			var newNoteContent = document.myform.input2.value;
-
 			// get text of cleditor
 			var html = $("#input2").val();
 			newNoteContent = html;
-
 			// if we have a note title - create the new note (content is not needed so far)
 			if ((newNoteTitle.length > 0) && (newNoteContent.length != 0 ))
 		  	{
 				$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );
 		  	}
 			else
-			{ alert("Error while trying to create a new note. Please enter a note title plus content and try again."); }
+			{ 
+				alert("Error while trying to create a new note. Please enter a note title plus content and try again."); 
+				// we should stop here and NOT reload page as we are doing right now
+			}
 		}
 
 
@@ -246,11 +246,9 @@
 			var renameNoteTitle = document.myform.newNoteTitle.value;			// get the NEW note title 
 			var renameNoteContent = document.myform.input2.value;			// get the NEW note content
 			var renameNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
-
 			// get text of cleditor
 			var html = $("#input2").val();
 			renameNoteContent = html;
-
 			// if we have a note-id - save the change to db
 			if( (renameNoteID.length > 0) && (renameNoteID != 'ID') && (renameNoteTitle.length >0) )
 			{
@@ -258,7 +256,9 @@
 				reloadNote();
 			}
 			else
-			{ alert("Error while trying to rename a note. Please select a record first and try again."); }
+			{ 
+				alert("Error while trying to rename a note. Please select a record first and try again."); 
+			}
 		}
 
 
@@ -279,7 +279,10 @@
 
 			<div id="noteContentCo">
 				<!-- SHOW SELECTED NOTE -->
+				<!--
 				<h2>create/view/edit/rename/delete notes</h2>	
+			-->
+				<h2>notes</h2>
 				<form name="myform">
 					<table width="100%"  cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
@@ -315,8 +318,9 @@
 		
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
+				<!--
 				<h2>search notes</h2>
+			-->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead>
 						<tr>
@@ -371,16 +375,13 @@
 					</tfoot>
 				</table>
 			</div>
-		
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
+		</div>
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>
-
-		</span>
-		</div>
-		</div>
 	</body>
 </html>
-
 
 <?php
 	}

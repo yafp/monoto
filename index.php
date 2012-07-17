@@ -25,9 +25,6 @@
 
 			<div id="noteContentCo">
 				
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">login</a></h2>
 
@@ -43,13 +40,10 @@
 
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
-
-			<!--  FOOTER -->
-			<?php include 'footer.php'; ?>
-
-				</span>
-			</div>
 		</div>
+
+		<!--  FOOTER -->
+		<?php include 'footer.php'; ?>
 	</body>
 </html>
 

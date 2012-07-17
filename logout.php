@@ -61,14 +61,10 @@
 				<?php	header( "refresh:2;url=index.php" ); ?>
 
 				<!-- SPACER -->
-				<div id="spacer">&nbsp;</div>
-			</div>
-
-			<!--  FOOTER -->
-			<?php include 'footer.php'; ?>
-
-				</span>
+				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
 			</div>
 		</div>
+		<!--  FOOTER -->
+		<?php include 'footer.php'; ?>
 	</body>
 </html>

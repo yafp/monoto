@@ -79,12 +79,12 @@
 				?>
 					<h2><a name="desc">admin toc</a></h2>
 						<div class="accordion">
-							<h3>01. admin settings <a href="#basic">#</a></h3>
-							<p>the <a href="#basic">admin </a>section shows all server-wide monoto-settings. Those settings are configurable by the adminvia conf/config.php.</p>
-							<h3>02. user list <a href="#users">#</a></h3>
-							<p>the <a href="#users">users </a>section lists all existing user accounts ........</p>
-							<h3>03. invites <a href="#invites">#</a></h3>
-							<p>the <a href="#invites">invites </a>section allows you to create new user accounts.</p>
+							<h3>admin settings [<a href="#basic">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">admin </a>section shows all server-wide monoto-settings. Those settings are configurable by the adminvia conf/config.php.</p>
+							<h3>user list [<a href="#users">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#users">users </a>section lists all existing user accounts ........</p>
+							<h3>invites [<a href="#invites">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#invites">invites </a>section allows you to create new user accounts.</p>
 						</div>
 				<?php
 					}
@@ -110,35 +110,29 @@
 							<td width="30%">- enable toc:</td>
 							<td width="20%"><?php if($s_enable_toc == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 							<td width="30%">- enable about section on info page:</td>
-							<td width="20%"><?php if($enable_info_about_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td width="20%"><?php if($s_enable_info_about_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
-							<td>- show tagline in header:</td>
-							<td><?php if($s_enable_header_tagline == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td>- enable welcome message:</td>
+							<td><?php if($s_enable_welcome_message == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 							<td>- enable changelog on info page:</td>
-							<td><?php if($enable_info_version_changelog_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td><?php if($s_enable_info_version_changelog_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really delete question:</td>
 							<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 							<td>- enable stats section on info page:</td>
-							<td><?php if($enable_info_stats_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td><?php if($s_enable_info_stats_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable user icon:</td>
 							<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 							<td>- enable keyboard section on info page:</td>
-							<td><?php if($enable_info_keyboard_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td><?php if($s_enable_info_keyboard_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really logout question:</td>
 							<td><?php if($s_enable_really_logout == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>- enable welcome message:</td>
-							<td><?php if($enable_welcome_message == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 							<td></td>
 							<td></td>
 						</tr>
@@ -167,6 +161,8 @@
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
+
+				<!-- INVITES -->
 				<h2><a name="invites">invites</a></h2>
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
 						<table width="100%">
@@ -202,13 +198,10 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>				
 			</div>
-
-			<!--  FOOTER -->
-			<?php include 'footer.php'; ?>
-
-				</span>
-			</div>
 		</div>
+
+		<!--  FOOTER -->
+		<?php include 'footer.php'; ?>
 	</body>
 </html>
 
@@ -263,48 +256,40 @@
 					$query = "INSERT INTO m_users ( username, password, salt, date_invite ) VALUES ( '$username' , '$hash' , '$salt' , now() );";
 					mysql_query($query);
 					echo "Account created.<br><br>Checking if we should send an invite letter as well.";
+					echo '<script type="text/javascript">alert("Notification - Account created.")</script>';
 
 					// we should log that to m_notes -> admin only.
 
 					// check if we should send a notification as well
 					if($sendNotification == 'sendNotification' )
 					{
-						echo "we should send an account-created notification";
 						if($newUserMail != '')
 						{
-							echo "DUMMY: sending invite to".$newUserMail;
-
-							$to = "fidel@vido.info";
-	 						$subject = "monoto invited you to use fidels latest playground - a web-based notes system.";
+							$to = "fidel@yafp.de";
+	 						$subject = "someone invited you to monot - a web based notes system.";
 	 						$body = "Hi,\n\ni've created a new account on my web-based notes solution called 'monoto'. In case you would like to test it as well is asking for you and your notes.";
 	 						if (mail($to, $subject, $body)) 
 	 						{
-	   							echo("<p>Message successfully sent!</p>");
+	   							echo '<script type="text/javascript">alert("Notification - Mail was sent.")</script>';
 	  						} 
 	  						else 
 	  						{
-	   							echo("<p>Message delivery failed...</p>");
+	   							echo '<script type="text/javascript">alert("Error - Mail was not sent.")</script>';
 	  						}
 						}
-					}
-					else
-					{
-						echo "NO notification wanted.";
 					}
 				}
 				else // username already in use - cancel and inform the admin
 				{
-					echo "CANCEL - Username exists already<br>";
+					echo '<script type="text/javascript">alert("Error - Username already exists.")</script>';
 				}
 			}
 		}	
 		else // passwords not matching
 		{
-			echo "CANCEL - You need to submit a password twice - not 2 different passwords.<br>";
+			echo '<script type="text/javascript">alert("Error - You need to submit apassword twice - not 2 different passwords.")</script>';
 		}
 		// disconnect from mysql
-		disconnectFromDB();
-
-		// reload page
+		disconnectFromDB();		
 	}
 ?>

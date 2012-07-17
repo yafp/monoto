@@ -19,7 +19,6 @@
 			die('Could not connect: ' . mysql_error());
 		}
 		mysql_select_db($mysql_db, $con);									// select db
-
 		$owner = $_SESSION['username'];
 
 		// check if the new title is in use already by this user

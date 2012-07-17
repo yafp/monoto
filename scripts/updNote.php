@@ -18,6 +18,7 @@
 			die('Could not connect: ' . mysql_error());
 		}
 		mysql_select_db($mysql_db, $con);									// select db
+		$owner = $_SESSION['username'];
 		
 		$sql="UPDATE m_notes SET content='$modifiedNoteContent', save_count='$modifiedNoteCounter' WHERE id='$modifiedNoteID'"; 		// update m_notes
 		$result = mysql_query($sql);																

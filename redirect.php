@@ -19,24 +19,17 @@
 				<div id="spacer">&nbsp;</div>
 
 				<!-- ERROR MESSAGE -->
-				<h2><a name="redirect">Error: access failed</a></h2>
-
-				You must login first before you can use monoto.<br>
-				Gonna redirect you to the login dialog in some seconds ...
-
-				<img src="images/login.png" align="right">
+				<h2><a name="redirect">redirect</a></h2>
+				You must login first before you can use monoto. Gonna redirect you to the login dialog in some seconds.
 
 				<!-- REDIRECT TO LOGIN -->
-				<?php header( "refresh:5;url=index.php" ); ?>
+				<?php header( "refresh:3;url=index.php" ); ?>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 			</div>
-
-			<!--  FOOTER -->
-			<?php include 'footer.php'; ?>
-				</span>
-			</div>
 		</div>
+		<!--  FOOTER -->
+		<?php include 'footer.php'; ?>
 	</body>
 </html>

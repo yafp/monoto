@@ -76,18 +76,18 @@
 
 						<h2><a name="desc">info toc</a></h2>
 						<div class="accordion">
-							<h3>01. welcome <a href="#welcome">#</a></h3>
-							<p>the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin</p>
-							<h3>02. about <a href="#about">#</a></h3>
-							<p>the <a href="#about">about</a> section lists a short description of monoto.</p>
-							<h3>03. version <a href="#version">#</a></h3>
-							<p>the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-checkfunction.</p>
-							<h3>04. stats <a href="#stats">#</a></h3>
-							<p>the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
-							<h3>05. keyboard shortcuts <a href="#keyboard">#</a></h3>
-							<p>the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
-							<h3>06. log <a href="#log">#</a></h3>
-							<p>the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
+							<h3>welcome [<a href="#welcome">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin</p>
+							<h3>about [<a href="#about">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#about">about</a> section lists a short description of monoto.</p>
+							<h3>version [<a href="#version">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-checkfunction.</p>
+							<h3>stats [<a href="#stats">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
+							<h3>keyboard shortcuts [<a href="#keyboard">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
+							<h3>log [<a href="#log">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
 						</div>
 
 						<?php
@@ -565,13 +565,10 @@
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 		</div>
-				
+	</div>
 	<!--  FOOTER -->
 	<?php include 'footer.php'; ?>
-</span>
-</div>
-</div>
-</body>
+	</body>
 </html>
 
 <?php
