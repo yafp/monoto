@@ -22,11 +22,7 @@
 
 	// info.php:
 	$s_enable_info_about_section	= true;				// show about oninfo page
-	$s_enable_info_version_changelog_section	= true;	// should the changelog be displayed 
-	$s_enable_info_stats_section	= true;				// show stats on info page
-	$s_enable_info_keyboard_section	= true;			// show keyboard on info page
 	
-
 	// #################################################################################
 	// SECTION 2- you might mess with these
 	// #################################################################################
@@ -43,6 +39,6 @@
 	//
 	$m_milestone				= "1";
 	$m_milestone_title			= "the hello world thing";
-	$m_build					= "20120717.01";
+	$m_build					= "20120717.02";
 	$m_stable					= false;
 ?>

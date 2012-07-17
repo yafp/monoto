@@ -46,7 +46,6 @@ function KeyCheck(e)
 		// Arrow Down
 		case 40:
 		   	// jump to next note
-		   	//alert("Dummy Arrow Down - Jump to next note - current row?");
 		break;
 
 

@@ -111,7 +111,6 @@
 
 				$('.dataTables_filter input').attr("placeholder", "enter seach term here");			// define placeholder for search field
 				$("#example_filter input").focus();													// set focus on search field
-
 				$('table tr').click(function () 
 				{				
 				var sData = oTable.fnGetData( this );			// Get the position of the current data from the node 				
@@ -130,7 +129,6 @@
 				document.myform.noteVersion.value += sData[6]
 			});
 		} );
-
 
 
 		/* Get the rows which are currently selected */
@@ -336,8 +334,7 @@
 					<tbody>
 
 					<?php
-						// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
-						include 'conf/config.php';
+						include 'conf/config.php';			// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
 
     					// connect to mysql
 						$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
@@ -353,25 +350,14 @@
 							$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
 							while($row = mysql_fetch_array($result))
 							{
-								echo '<tr class="odd gradeU">';
-									echo '<td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td>';	
-								echo '</tr>';
+								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
 							}
 						}
 						mysql_close($con);													// close sql connection
 					?>
-
 					</tbody>
 					<tfoot>
-						<tr>
-							<th>id</th>
-							<th>title</th>
-							<th>content</th>
-							<th>tags</th>
-							<th>modified</th>
-							<th>created</th>
-							<th>version</th>
-						</tr>
+						<tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr>
 					</tfoot>
 				</table>
 			</div>

@@ -21,22 +21,19 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 		<!-- toc/info/help -->
 		<script type="text/javascript">
-			$(document).ready(function(){
-				
-				$(".accordion h3:first").addClass("active");
+			$(document).ready(function()
+			{	
+				//$(".accordion h3:first").addClass("active");
 				//$(".accordion p:not(:first)").hide();
 				$(".accordion p").hide();
-
 				$(".accordion h3").click(function(){
 					$(this).next("p").slideToggle("slow")
 					.siblings("p:visible").slideUp("slow");
 					$(this).toggleClass("active");
 					$(this).siblings("h3").removeClass("active");
 				});
-
 			});
 		</script>
-
 		<!-- main js for table etc -->
 		<script type="text/javascript" charset="utf-8">
 			var oTable;
@@ -115,26 +112,20 @@
 						<tr>
 							<td>- enable welcome message:</td>
 							<td><?php if($s_enable_welcome_message == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-							<td>- enable changelog on info page:</td>
-							<td><?php if($s_enable_info_version_changelog_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really delete question:</td>
 							<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-							<td>- enable stats section on info page:</td>
-							<td><?php if($s_enable_info_stats_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable user icon:</td>
-							<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-							<td>- enable keyboard section on info page:</td>
-							<td><?php if($s_enable_info_keyboard_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really logout question:</td>
 							<td><?php if($s_enable_really_logout == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 							<td></td>
 							<td></td>
+						</tr>
+						<tr>
+							<td>- enable user icon:</td>
+							<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 					</tbody>
 					</table>

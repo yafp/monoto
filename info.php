@@ -20,19 +20,17 @@
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 		<!-- toc/info/help -->
 		<script type="text/javascript">
-			$(document).ready(function(){
-				
-				$(".accordion h3:first").addClass("active");
+			$(document).ready(function()
+			{
+				//$(".accordion h3:first").addClass("active");
 				//$(".accordion p:not(:first)").hide();
 				$(".accordion p").hide();
-
 				$(".accordion h3").click(function(){
 					$(this).next("p").slideToggle("slow")
 					.siblings("p:visible").slideUp("slow");
 					$(this).toggleClass("active");
 					$(this).siblings("h3").removeClass("active");
 				});
-
 			});
 		</script>
 		<!-- main js for table etc -->
@@ -61,7 +59,6 @@
 		} );
 		</script>
 </head>
-	
 <body id="dt_example">
 	<div id="container">
 		<!-- HEADER & NAV -->
@@ -72,8 +69,7 @@
 					include 'config.php';
 					if($s_enable_toc == true)
 					{
-						?>
-
+			?>
 						<h2><a name="desc">info toc</a></h2>
 						<div class="accordion">
 							<h3>welcome [<a href="#welcome">...</a>]</h3>
@@ -89,8 +85,7 @@
 							<h3>log [<a href="#log">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
 						</div>
-
-						<?php
+			<?php
 					}
 			?>
 
@@ -137,56 +132,38 @@
 
 			<!-- VERSION -->
 			<h2><a name="version">version</a></h2>
-
-			
-
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-
-			<table width="100%">
-				<tr><td rowspan="6"><img src="images/logo/icon_big.png" alt="monoto logo" align="center"></td></tr>
-				<tr>
-					<td>build:</td>
-					<td><?php echo $m_build; ?></td>
-					<td><?php if($m_stable == false) { echo "<font color='red'>Development Version</font>"; } ?></td>
-				</tr>
-				<tr>
-					<td>milestone:</td>
-					<td><?php echo $m_milestone." <i>aka</i> ".$m_milestone_title.""; ?></td>
-					<td></td>
-				</tr>
-				<tr><td>&nbsp;</td></tr>
-				<tr><td>&nbsp;</td></tr>
-				<tr>
-					<td colspan="2">&nbsp;</td>
-					<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
-				</tr>
-			</table>
+				<table width="100%">
+					<tr><td rowspan="6"><img src="images/logo/icon_big.png" alt="monoto logo" align="center"></td></tr>
+					<tr>
+						<td>build:</td>
+						<td><?php echo $m_build; ?></td>
+						<td><?php if($m_stable == false) { echo "<font color='red'>Development Version</font>"; } ?></td>
+					</tr>
+					<tr>
+						<td>milestone:</td>
+						<td><?php echo $m_milestone." <i>aka</i> ".$m_milestone_title.""; ?></td>
+					</tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr>
+						<td colspan="2">&nbsp;</td>
+						<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+					</tr>
+				</table>
 			</form>
 
-			<?php
-				if($s_enable_info_version_changelog_section == true)
-				{
-					?>
-						<textarea name="changes" style="width:100%" rows=20 disabled>
-						<?=file_get_contents ('doc/CHANGELOG.txt');?>	
-						</textarea>
-					<?php 
-				}
-				else
-				{
-					echo "<pre>The Changelog section was disabled in the admin-settings.</pre>";
-				} 
-			?>
-
+			<!-- CHANGELOG-->
+			<textarea name="changes" style="width:100%" rows=20 disabled>
+			<?=file_get_contents ('doc/CHANGELOG.txt');?>	
+			</textarea>
+				
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 
 			<!-- STATS -->
 			<?php
-				if($s_enable_info_stats_section == true)
-				{
 					echo '<h2><a name="stats">stats</a></h2>';
-
 					include ('scripts/db.php');  	// connect to db
 					connectToDB();
 					$owner = $_SESSION['username'];
@@ -199,7 +176,6 @@
 							if($row[0] == 0)
 							{
 								echo "Lazy ass award goes to you as you havent created a single note .....erm yes ... ".$row[0]." notes in your monoto database."; 	// blame user that he has no notes
-
 								// is someone else storing notes?
 								$result = mysql_query("SELECT count(*) FROM m_notes");
 								while($row = mysql_fetch_array($result)) 
@@ -220,32 +196,26 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_events_of_current_user = $row[0]; }
-
 								// amount of create-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_creates = $row[0]; }
-
 								// amount of import-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_imports = $row[0]; }
-
 								// amount of edits-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_changes = $row[0]; }
-
 								// amount of renames-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='rename' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_renames = $row[0]; }
-
 								// amount of delete-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_deletes = $row[0]; }
-
 								// amount of logins and logouts
 								$result = mysql_query("SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' "); 
 								while($row = mysql_fetch_array($result)) 					
@@ -253,7 +223,6 @@
 									$stats_amount_of_logins = $row[0];
 									$stats_amount_of_logouts = $row[1];
 								}
-
 								//  version: highest note-version (most used note)
 								$result = mysql_query("SELECT id, title, save_count FROM m_notes WHERE owner='".$owner."'ORDER BY save_count DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -262,7 +231,6 @@
 									$stats_highest_note_version_title = $row[1];
 									$stats_highest_note_version_versions = $row[2];
 								}
-
 								//  shortest and longest note-content
 								$result = mysql_query("SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$owner."'"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -270,7 +238,6 @@
 									$stats_note_with_shortest_content_id = $row[1];
 									$stats_note_with_shortest_content_chars = $row[0];
 								}
-
 								//  longest note-content
 								$result = mysql_query("SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$owner."' ORDER BY longest DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -278,7 +245,6 @@
 									$stats_note_with_longest_content_id = $row[1];
 									$stats_note_with_longest_content_chars = $row[0];
 								}
-
 								//  oldest created note
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$owner."' ORDER BY date_create ASC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -287,7 +253,6 @@
 									$stats_oldest_created_note_date = $row[1];
 									$stats_oldest_created_note_id = $row[2];
 								}
-
 								//  newest/latest created note
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '0' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -297,7 +262,6 @@
 									$stats_latest_created_note_id = $row[4];
 									$stats_latest_created_note_title = $row[3];
 								}
-
 								//  latest edited note
 								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_mod, save_count, title, id FROM m_notes ORDER BY date_create DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
@@ -307,14 +271,12 @@
 									$stats_last_edited_note_title = $row[3];
 									$stats_last_edited_note_date = $row[1];
 								}
-
 								//  entire db size
 								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = 'monoto'"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									$stats_entire_monoto_db_size = $row[0];
 								}
-
 								// DISPLAY  stats
 								//
 								// EVENTS
@@ -359,7 +321,7 @@
 								//
 								// DB-SIZE
 								// - $stats_entire_monoto_db_size
-
+								//
 								// Use our variables to create some kind of LOG text - should be informative but still funny if possible.
 								echo "- The personal event log has recorded ".$stats_events_of_current_user." events for this account.<br>";
 								echo "- Those can be devided into ".$stats_amount_of_creates." notes creations, ".$stats_amount_of_changes." times editing existing notes, ".$stats_amount_of_renames." rename-events and ".$stats_amount_of_deletes." notes-deletions.<br>";
@@ -374,33 +336,16 @@
 								echo "- Lets come to the end - the entire monoto db has a size of ".$stats_entire_monoto_db_size."  MB.<br>";
 							}
 					}
-					echo "<br><font color='#808080'>Missing something? Please feel free to send me your sql-queries per mail</font>";
-				}
-				else
-				{
-					echo "<pre>The Stats section was disabled in the admin-settings.</pre>";
-				}    			
+					echo "<br><font color='#808080'>Missing something? Please feel free to send me your sql-queries per mail</font>";		
 			?>
 
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 
 			<!-- KEYBOARD SHORTCUT -->
-			<?php
-				if($s_enable_info_keyboard_section == true)
-				{
-			?>
-
 			<h2><a name="keyboard">keyboard shortcuts</a></h2>
 			<table width="100%">
-				<thead>
-					<tr>
-						<th align="left" width="20%">key</th>
-						<th align="left" width="60%">function</th>
-						<th align="left" width="10%">valid for</th>
-						<th align="left" width="10%">status</th>
-					</tr>
-				</thead>
+				<thead><tr><th align="left" width="20%">key</th><th align="left" width="60%">function</th><th align="left" width="10%">valid for</th><th align="left" width="10%">status</th></tr></thead>
 				<tbody>
 					<tr><td>ESC</td><td>Reset input fields and sets the focus back to the main search field.</td><td>home</td><td>works</td></tr>
 					<tr><td>F1</td><td>Open the online help / documentation</td><td>all pages</td><td>only for home</td></tr>
@@ -413,15 +358,8 @@
 					<tr><td>(Shift) + Alt + y</td><td>Loads notes page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + x</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + c</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + v</td><td>Loads admin page per accesskey</td><td>all pages</td><td>should work</td></tr>
 				</tbody>
 			</table>
-
-			<?php
-				}
-				else
-				{ echo "<pre>The Keyboard section was disabled in the admin-settings.</pre>"; } 
-			?>
 
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -429,13 +367,7 @@
 			<!-- LOG -->
 			<h2><a name="log">log</a></h2>
 				<table width="100%">
-				<thead>
-					<tr>
-						<th align="left" width="20%">event</th>
-						<th align="left" width="60%">description</th>
-						<th align="left" width="20%">count</th>
-					</tr>
-				</thead>
+				<thead><tr><th align="left" width="20%">event</th><th align="left" width="60%">description</th><th align="left" width="20%">count</th></tr></thead>
 				<tbody>
 					<tr>
 						<td bgcolor=#84FF00>create</td>
@@ -539,8 +471,7 @@
 					</tr>
 				</tbody>
 				</table>
-				<br>
-
+				
 				<!-- ACTIVITY/EVENT LOG -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead>
@@ -555,11 +486,8 @@
 								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
 							}
 					?>
-
 					</tbody>
-					<tfoot>
-						<tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr>
-					</tfoot>
+					<tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
 				</table>
 
 			<!-- SPACER -->

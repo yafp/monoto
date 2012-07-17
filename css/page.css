@@ -43,7 +43,9 @@ body
 	background-color:rgba(239,239,239,0.95);
 }
 
+
 /* header */
+/*
 #dt_example #header 
 {
 	margin-left: 1em;
@@ -52,33 +54,35 @@ body
 	font-size: 0.8em;
 	color: silver;
 }
+*/
 
 /* navigation */
-#dt_example #navi 
+#dt_example #logo 
 {
 	margin-top: 0em;
 	text-align: right;
 	margin-right:1em;
 }
 
+/*
 #dt_example #usericon 
 {
 	background-image:url('../images/myUser.jpg');
-	background-size:25px 25px; */
+	background-size:25px 25px; 
 	background-repeat:no-repeat;
 	align: left;
-	/* round corners */
 	-webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	opacity:0.6;
 }
+*/
 
 /* footer */
 #dt_example #footer 
 {
-	margin: 50px auto 0 auto;
+	margin: 20px auto 0 auto;
 	padding: 0;
 	color: #808080;
 }
@@ -89,10 +93,12 @@ body
 	margin-right:1em;
 }
 
+/*
 #dt_example .demo_jui 
 {
 	margin: 30px auto 0 auto;
 }
+*/
 
 #dt_example .clear 
 {

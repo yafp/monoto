@@ -19,19 +19,17 @@
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 		<!-- toc/info/help -->
 		<script type="text/javascript">
-			$(document).ready(function(){
-				
-				$(".accordion h3:first").addClass("active");
+			$(document).ready(function()
+			{
+				//$(".accordion h3:first").addClass("active");
 				//$(".accordion p:not(:first)").hide();
 				$(".accordion p").hide();
-
 				$(".accordion h3").click(function(){
 					$(this).next("p").slideToggle("slow")
 					.siblings("p:visible").slideUp("slow");
 					$(this).toggleClass("active");
 					$(this).siblings("h3").removeClass("active");
 				});
-
 			});
 		</script>
 	</head>
@@ -71,7 +69,7 @@
 					include ('scripts/db.php');						// connect to db
 					connectToDB();
 
-					echo "<a href=''><img src='images/user_icons/user-14.png' align='right' border='1'></a>";			// display user image - hardcoded dummy image
+					echo "<a href=''><img src='images/user_icons/user-14.png' alt='user icon' align='right' border='1'></a>";			// display user image - hardcoded dummy image
 					
 					// display user icon from db
 					/*

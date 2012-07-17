@@ -1,8 +1,8 @@
 <script type='text/javascript' src='js/m_menu.js'></script>
 
 <!-- MONOTO ICON -->
-<div ID="navi">
-<a href="notes.php"><img src="images/logo/icon_big.png" width="90" alt="monoto logo" align="right" margin-right="10"></a>
+<div ID="logo">
+	<a href="notes.php"><img src="images/logo/icon_big.png" width="90" alt="monoto logo" align="right" margin-right="10"></a>
 </div>
 
 <!-- MONOTO NAVI -->
@@ -25,7 +25,7 @@
 		{	echo '<li><a href="admin.php">admin</a></li>';		}
 		
 		// logout
-		echo '<li><a href="logout.php"> ...logout '.$owner.'</a></li></ul>';
+		echo '<li><a href="logout.php"> ...logout <b>'.$owner.'</b></a></li></ul>';
 	}
 	else // no valid session: display login only
 	{

@@ -43,13 +43,9 @@
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 			</div>
-
-			<!--  FOOTER -->
-			<?php include 'footer.php'; ?>
-
-				</span>
-			</div>
 		</div>
+		<!--  FOOTER -->
+		<?php include 'footer.php'; ?>
 	</body>
 </html>
 
