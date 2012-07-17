@@ -77,11 +77,11 @@
 					<h2><a name="desc">admin toc</a></h2>
 						<div class="accordion">
 							<h3>admin settings [<a href="#basic">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">admin </a>section shows all server-wide monoto-settings. Those settings are configurable by the adminvia conf/config.php.</p>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
 							<h3>user list [<a href="#users">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#users">users </a>section lists all existing user accounts ........</p>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
 							<h3>invites [<a href="#invites">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#invites">invites </a>section allows you to create new user accounts.</p>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
 						</div>
 				<?php
 					}
@@ -110,12 +110,10 @@
 							<td width="20%"><?php if($s_enable_info_about_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
-							<td>- enable welcome message:</td>
-							<td><?php if($s_enable_welcome_message == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
-						</tr>
-						<tr>
 							<td>- enable really delete question:</td>
 							<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td>- enable welcome message on info page:</td>
+							<td><?php if($s_enable_welcome_message == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really logout question:</td>
@@ -137,17 +135,17 @@
 				<h2><a name="users">users</a></h2>
 				<!-- datatables showing our users -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
-					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th></tr></thead>
+					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th></tr></thead>
 					<tbody>
 					<?php
-							$result = mysql_query("SELECT id, username, login_counter, logout_counter, date_invite, date_first_login, date_last_login  FROM m_users ORDER by id "); // m_log
+							$result = mysql_query("SELECT id, username, login_counter, logout_counter, date_invite, date_first_login, date_last_login, email, is_admin  FROM m_users ORDER by id "); // m_log
 							while($row = mysql_fetch_array($result))   // fill datatable
 							{
-								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
+								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td></tr>';
 							}
 					?>
 					</tbody>
-					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th></tr></tfoot>
+					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th></tr></tfoot>
 				</table>
 
 				<!-- SPACER -->

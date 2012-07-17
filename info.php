@@ -73,11 +73,11 @@
 						<h2><a name="desc">info toc</a></h2>
 						<div class="accordion">
 							<h3>welcome [<a href="#welcome">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin</p>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
 							<h3>about [<a href="#about">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#about">about</a> section lists a short description of monoto.</p>
 							<h3>version [<a href="#version">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-checkfunction.</p>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
 							<h3>stats [<a href="#stats">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
 							<h3>keyboard shortcuts [<a href="#keyboard">...</a>]</h3>

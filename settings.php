@@ -47,16 +47,15 @@
 							<h2><a name="desc">settings toc</a></h2>
 							<div class="accordion">
 							<h3>profile [<a href="#profile">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#profile">profile</a> section displays a quick overview about your user account.</p>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#profile">profile</a> section displays a quick overview about your user account. You can change your monoto password here and upload an user image.</p>
 							<h3>importer [<a href="#importer">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#importer">importer</a> section allows you to import single or multiple text notes.</p>
 							<h3>exporter [<a href="#exporter">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#exporter">exporter</a> section allows you to export your notes to a single, tab-separated csv-file. This included only the note-ids, -titles and content.</p>
 							<h3>eraser [<a href="#eraser">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events.</p>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events. The eraser event itself will be your first new log entry.</p>
 							</div>
 						<?php
-
 					}
 				?>
 
