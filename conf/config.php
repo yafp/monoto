@@ -20,7 +20,7 @@
 	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
 	$s_enable_user_icon			= true;				// enable user-icon in nav
-	$s_user_icon_path			= "images/user_icons/user-14.png";
+	$s_user_icon_path			= "images/icons/user-14.png";
 	// info.php:
 	$s_enable_info_about_section= true;				// show about oninfo page
 	$s_enable_welcome_message 	= true;				// should all users see a welcome message defined by you? 
@@ -35,6 +35,6 @@
 	$m_name						= "monoto";						// name of your notes system
 	$m_milestone				= "1";							// current milestone number
 	$m_milestone_title			= "the hello world thing";		// current milestone name
-	$m_build					= "20120718.01";				// build-date and day's version
+	$m_build					= "20120718.02";				// build-date and day's version
 	$m_stable					= false;						// defined if that is a milestone release
 ?>

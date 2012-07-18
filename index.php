@@ -38,8 +38,11 @@
 						<tr><td align="center"><input type="password" name="password" placeholder="Password" /></td></tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td align="center"><input type="submit" value="Login" name="doLogin" /></td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td align="center"><img src="images/icons/firefox1.png" width="100" title="monoto is only tested with Mozillas Firefox so far. If you consider issues feel free to report and fix them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
 					</table>
 				</form>
+				
 			</div>
 
 			<!-- SPACER -->

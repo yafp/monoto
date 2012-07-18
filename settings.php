@@ -59,7 +59,7 @@
 					include ('scripts/db.php');						// connect to db
 					connectToDB();
 
-					echo "<a href=''><img src='images/user_icons/user-14.png' alt='user icon' align='right' border='1'></a>";			// display user image - hardcoded dummy image
+					echo "<a href=''><img src='images/icons/user-14.png' alt='user icon' align='right' border='1'></a>";			// display user image - hardcoded dummy image
 					
 					// display user icon from db
 					/*

@@ -339,25 +339,15 @@
 
 					<?php
 						include 'conf/config.php';			// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
-
-    					// connect to mysql
-						$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-						if (!$con)
-					  	{
-					  		die('Could not connect: ' . mysql_error());	
-					  	}
-						else
+						include ('scripts/db.php');  	// connect to db
+						connectToDB();
+						$owner = $_SESSION['username'];					// only select notes of this user
+						$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
+						while($row = mysql_fetch_array($result))
 						{
-							mysql_select_db("monoto", $con);				// do the mysql connect
-							$owner = $_SESSION['username'];					// only select notes of this user
-
-							$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
-							while($row = mysql_fetch_array($result))
-							{
-								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
-							}
+							echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
 						}
-						mysql_close($con);													// close sql connection
+						disconnectFromDB();
 					?>
 					</tbody>
 					<tfoot>

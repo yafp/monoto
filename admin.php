@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if($_SESSION['valid'] == 1)		// check if the user-session is valid or not
+	if($_SESSION['valid'] == 1)	&& ($_SESSION['admin'] == 1)	// check if the user-session is valid or not AND if its an admin account.
 	{
 ?>
 <!DOCTYPE html>
@@ -54,7 +54,6 @@
 		} );
 		</script>
 	</head>
-	
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
