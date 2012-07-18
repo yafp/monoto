@@ -25,36 +25,7 @@
 		<!--  m_disableRightClick-->
 		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
 		<!-- scroll up -->
-		<script type="text/javascript">
-		$(function () 
-		{
-			/* set variables locally for increased performance */
-			var scroll_timer;
-			var displayed = false;
-			var $message = $('#message a');
-			var $window = $(window);
-			var top = $(document.body).children(0).position().top;
-
-			/* react to scroll event on window */
-			$window.scroll(function () 
-			{
-			   	window.clearTimeout(scroll_timer);
-			    scroll_timer = window.setTimeout(function () 
-			    {
-			       	if($window.scrollTop() <= top)
-			        {
-			            displayed = false;
-			            $message.fadeOut(500);
-			        }
-			        else if(displayed == false)
-			        {
-			            displayed = true;
-			            $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
-			        }
-			    }, 100);
-			});
-		});
-		</script>
+		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
 		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>
@@ -399,7 +370,7 @@
 		</div>
 
 		<!-- back to top -->
-		<div id="message"><a href="#noteContentCo">Scroll to top</a></div>
+		<div id="message"><a href="#container">scroll to top</a></div>
 
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>

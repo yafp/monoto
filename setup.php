@@ -26,6 +26,10 @@
 							<td><input type="text" name="username" placeholder="Username" /></td>
 						</tr>
 						<tr>
+							<td>Mail:</td>
+							<td><input type="text" name="email" placeholder="Email" /></td>
+						</tr>
+						<tr>
 							<td>Password:</td>
 							<td><input type="password" name="password1" placeholder="Password" /></td>
 						</tr>
@@ -66,6 +70,7 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 
 	// get data
 	$username = $_POST['username'];
+	$email = $_POST['email'];
 	$password1 = $_POST['password1'];
 	$password2 = $_POST['password2'];
 	$username = mysql_real_escape_string($username);
@@ -87,15 +92,15 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 		if (!$con){ die('Could not connect: ' . mysql_error()); }
 		mysql_select_db($mysql_db, $con);									// select db
 
-		$query = "INSERT INTO m_users ( username, password, salt, is_admin ) VALUES ( '$username' , '$hash' , '$salt', '1' );";
+		$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
 		mysql_query($query);
 		mysql_close($con); 													// close sql connection
-		echo "<font color=red>Admin-Account created.</font>";
+		echo '<script type="text/javascript">alert("Ńotification: Admin account created. You will be redirected to monoto now.")</script>';
 		header('Location: index.php');										// redirect to main page
 	}
 	else 																	// Password mismatch
 	{
-		echo "<font color=red>Password mismatch.<br>Canceling the setup script at this point.</font>";
+		echo '<script type="text/javascript">alert("Error: Password mismatch. Canceling setup script at this point.")</script>';
 	}
 }
 ?>

@@ -22,7 +22,6 @@ USE `monoto`;
 -- Table structure for table `m_log`
 --
 
-DROP TABLE IF EXISTS `m_log`;
 CREATE TABLE IF NOT EXISTS `m_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `event` text NOT NULL,
@@ -43,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `m_log` (
 -- Table structure for table `m_notes`
 --
 
-DROP TABLE IF EXISTS `m_notes`;
 CREATE TABLE IF NOT EXISTS `m_notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` text NOT NULL,
@@ -54,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `m_notes` (
   `save_count` int(11) NOT NULL,
   `owner` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 
 
@@ -65,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `m_notes` (
 -- Table structure for table `m_users`
 --
 
-DROP TABLE IF EXISTS `m_users`;
 CREATE TABLE IF NOT EXISTS `m_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
@@ -78,6 +75,8 @@ CREATE TABLE IF NOT EXISTS `m_users` (
   `date_first_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'stores the first login',
   `date_last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'stores the last login',
   `is_admin` tinyint(1) NOT NULL,
+  `email` text NOT NULL,
+  `admin_note` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

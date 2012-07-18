@@ -21,57 +21,11 @@
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 		<!-- scroll up -->
-		<script type="text/javascript">
-		$(function () 
-		{
-			/* set variables locally for increased performance */
-			var scroll_timer;
-			var displayed = false;
-			var $message = $('#message a');
-			var $window = $(window);
-			var top = $(document.body).children(0).position().top;
-
-			/* react to scroll event on window */
-			$window.scroll(function () 
-			{
-			   	window.clearTimeout(scroll_timer);
-			    scroll_timer = window.setTimeout(function () 
-			    {
-			       	if($window.scrollTop() <= top)
-			        {
-			            displayed = false;
-			            $message.fadeOut(500);
-			        }
-			        else if(displayed == false)
-			        {
-			            displayed = true;
-			            $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
-			        }
-			    }, 100);
-			});
-		});
-		</script>
-
-
-
-
-		<!-- toc/info/help -->
-		<script type="text/javascript">
-			$(document).ready(function()
-			{
-				//$(".accordion h3:first").addClass("active");
-				//$(".accordion p:not(:first)").hide();
-				$(".accordion p").hide();
-				$(".accordion h3").click(function(){
-					$(this).next("p").slideToggle("slow")
-					.siblings("p:visible").slideUp("slow");
-					$(this).toggleClass("active");
-					$(this).siblings("h3").removeClass("active");
-				});
-			});
-		</script>
+		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
+		<!-- m_accordionToc -->
+		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- main js for table etc -->
-		<script type="text/javascript" charset="utf-8">
+		<script type="text/javascript">
 			var oTable;
 			var giRedraw = false;
 
@@ -135,9 +89,13 @@
 				if($s_enable_welcome_message == true)								// check if welcome message is configured 
 				{
 					if (strlen($s_welcome_message_to_all_users) > 0) 				// is a text defined as well?		
-					{ echo "<pre>".$s_welcome_message_to_all_users."</pre>"; }
+					{ 
+						echo "<pre>".$s_welcome_message_to_all_users."</pre>"; 
+					}
 					else 														// admin has fucked it up
-					{ echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";  }
+					{ 
+						echo "<i>Welcome message is enabled but not defined by admin. Shame on him.</i>";  
+					}
 				}
 			?>
 
@@ -164,7 +122,9 @@
 			<?php
 				}
 				else
-				{	echo "<pre>The About section was disabled in the admin-settings.</pre>";		} 
+				{	
+					echo "<pre>The About section was disabled in the admin-settings.</pre>";		
+				} 
 			?>
 
 			<!-- VERSION -->
@@ -529,7 +489,7 @@
 				</table>
 
 				<!-- back to top -->
-				<div id="message"><a href="#noteContentCo">Scroll to top</a></div>
+				<div id="message"><a href="#container">scroll to top</a></div>
 
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -556,6 +516,8 @@
 if ( isset($_POST["doUpdateCheck"]) ) 
 {
 	session_start();
+	include 'config.php';
+	
 	// assume everything is good
 	$critical = FALSE;
 	$update = FALSE;
@@ -594,8 +556,6 @@ if ( isset($_POST["doUpdateCheck"]) )
 	//
 	// check for unstable versions as well
 	//
-	include 'config.php';
-
 	if($s_enable_UnstableSources == true)
 	{
 		// assume everything is good
@@ -625,9 +585,13 @@ if ( isset($_POST["doUpdateCheck"]) )
 			die(); //terminate the script
 		}
 		else if ($update)
-		{ echo '<script type="text/javascript">alert("There is an dev update available.");</script>'; }
+		{ 
+			echo '<script type="text/javascript">alert("There is an dev update available.");</script>'; 
+		}
 		else // uptodate
-		{ echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>'; }
+		{ 
+			echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>'; 
+		}
 	}
 }
 ?>

@@ -22,53 +22,11 @@
 		<!--  m_disableRightClick-->
 		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
 		<!-- scroll up -->
-		<script type="text/javascript">
-		$(function () 
-		{
-			/* set variables locally for increased performance */
-			var scroll_timer;
-			var displayed = false;
-			var $message = $('#message a');
-			var $window = $(window);
-			var top = $(document.body).children(0).position().top;
-
-			/* react to scroll event on window */
-			$window.scroll(function () 
-			{
-			   	window.clearTimeout(scroll_timer);
-			    scroll_timer = window.setTimeout(function () 
-			    {
-			       	if($window.scrollTop() <= top)
-			        {
-			            displayed = false;
-			            $message.fadeOut(500);
-			        }
-			        else if(displayed == false)
-			        {
-			            displayed = true;
-			            $message.stop(true, true).show().click(function () { $message.fadeOut(500); });
-			        }
-			    }, 100);
-			});
-		});
-		</script>
-		<!-- toc/info/help -->
-		<script type="text/javascript">
-			$(document).ready(function()
-			{	
-				//$(".accordion h3:first").addClass("active");
-				//$(".accordion p:not(:first)").hide();
-				$(".accordion p").hide();
-				$(".accordion h3").click(function(){
-					$(this).next("p").slideToggle("slow")
-					.siblings("p:visible").slideUp("slow");
-					$(this).toggleClass("active");
-					$(this).siblings("h3").removeClass("active");
-				});
-			});
-		</script>
+		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
+		<!-- m_accordionToc -->
+		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- main js for table etc -->
-		<script type="text/javascript" charset="utf-8">
+		<script type="text/javascript">
 			var oTable;
 			var giRedraw = false;
 
@@ -168,17 +126,17 @@
 				<h2><a name="users">users</a></h2>
 				<!-- datatables showing our users -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
-					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th></tr></thead>
+					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
 					<tbody>
 					<?php
-							$result = mysql_query("SELECT id, username, login_counter, logout_counter, date_invite, date_first_login, date_last_login, email, is_admin  FROM m_users ORDER by id "); // m_log
+							$result = mysql_query("SELECT id, username, login_counter, logout_counter, date_invite, date_first_login, date_last_login, email, is_admin, admin_note  FROM m_users ORDER by id "); // m_log
 							while($row = mysql_fetch_array($result))   // fill datatable
 							{
-								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td></tr>';
+								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td></tr>';
 							}
 					?>
 					</tbody>
-					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th></tr></tfoot>
+					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
 				</table>
 
 				<!-- SPACER -->
@@ -190,24 +148,28 @@
 						<table width="100%">
 							<tr>
 								<td width='30%'>Username:</td> 
-								<td><input type="text" name="newUsername" placeholder="Insert new username" /></td>
+								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" /></td>
 								<td rowspan="6"><img src="images/default_user_icon_trans.png" border="1"></td>
 							</tr>
 							<tr>
 								<td>Mail:</td> 
-								<td><input type="text" name="newUserMail" placeholder="Insert email" /></td>
+								<td><input type="text" name="newUserMail" placeholder="Required - Insert email" /></td>
 							</tr>
 							<tr>
 								<td>Password:</td> 
-								<td><input type="password" name="newPassword1" placeholder="Please enter the new password" /></td>
+								<td><input type="password" name="newPassword1" placeholder="Required - Please enter the new password" /></td>
 							</tr>
 							<tr>
 								<td>Repeat Password:</td> 
-								<td><input type="password" name="newPassword2" placeholder="Please enter the new password again" /></td>
+								<td><input type="password" name="newPassword2" placeholder="Required - Please enter the new password again" /></td>
 							</tr>
 							<tr>
-								<td>Send notification mail to new user (optional)</td> 
+								<td>Send notification mail to new user: (optional)</td> 
 								<td><input type="checkbox" name="sendNotification" value="sendNotification" /></td>
+							</tr>
+							<tr>
+								<td>Admin note about this invite or user: (optional)</td> 
+								<td><input type="text" name="newUserNote" placeholder="Optional - note about user" /></td>
 							</tr>
 							<tr>
 								<td><input type="submit" name="doCreateNewUserAccount" value="Invite" /></td> 
@@ -223,7 +185,7 @@
 		</div>
 
 		<!-- back to top -->
-		<div id="message"><a href="#noteContentCo">Scroll to top</a></div>
+		<div id="message"><a href="#container">scroll to top</a></div>
 
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>
@@ -255,7 +217,8 @@
 		$newPassword2 	= $_POST['newPassword2'];
 		$newUsername 	= $_POST['newUsername'];
 		$newUserMail 	= $_POST['newUserMail'];
-		$sendNotification = $_POST['sendNotification'];
+		$sendNotification = $_POST['sendNotification'];		// optional
+		$newUserNote = $_POST['newUserNote'];				// optional
 
 		// check if password is ok
 		if($newPassword1 == $newPassword2) //& passwords match - we can continue trying to create this user
@@ -264,55 +227,62 @@
 			$result = mysql_query("SELECT count(username) FROM m_users WHERE username='$newUsername' "); 					// run the mysql query
 			while($row = mysql_fetch_array($result)) 																					// fetch data and file table as a second step later on
 			{
-				if($row[0] == 0)  //username is free
+				if($row[0] == 0)  // username is free
 				{
-					// create the new user account
-					$username	= $newUsername;
-					$password 	= $newPassword1;
-					$hash = hash('sha256', $password);   // playing with hash
-					function createSalt()   			// playing with salt - creates a 3 character sequence
+					// check if we got an emailadress
+					if(strlen($newUserMail) > 0)
 					{
-				    	$string = md5(uniqid(rand(), true));
-				    	return substr($string, 0, 3);
-					}
-					$salt = createSalt();
-					$hash = hash('sha256', $salt . $hash);
-
-					$query = "INSERT INTO m_users ( username, password, salt, date_invite ) VALUES ( '$username' , '$hash' , '$salt' , now() );";
-					mysql_query($query);
-					echo "Account created.<br><br>Checking if we should send an invite letter as well.";
-					echo '<script type="text/javascript">alert("Notification - Account created.")</script>';
-
-					// we should log that to m_notes -> admin only.
-
-					// check if we should send a notification as well
-					if($sendNotification == 'sendNotification' )
-					{
-						if($newUserMail != '')
+						// create the new user account
+						$username	= $newUsername;
+						$password 	= $newPassword1;
+						$hash = hash('sha256', $password);   // playing with hash
+						function createSalt()   			// playing with salt - creates a 3 character sequence
 						{
-							$to = "fidel@yafp.de";
-	 						$subject = "someone invited you to monot - a web based notes system.";
-	 						$body = "Hi,\n\ni've created a new account on my web-based notes solution called 'monoto'. In case you would like to test it as well is asking for you and your notes.";
-	 						if (mail($to, $subject, $body)) 
-	 						{
-	   							echo '<script type="text/javascript">alert("Notification - Mail was sent.")</script>';
-	  						} 
-	  						else 
-	  						{
-	   							echo '<script type="text/javascript">alert("Error - Mail was not sent.")</script>';
-	  						}
+					    	$string = md5(uniqid(rand(), true));
+					    	return substr($string, 0, 3);
 						}
+						$salt = createSalt();
+						$hash = hash('sha256', $salt . $hash);
+
+						$query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
+						mysql_query($query);
+						echo '<script type="text/javascript">alert("Notification: New account successfully created.")</script>';
+
+						// we should log that to m_notes -> admin only.
+
+						// check if we should send a notification as well
+						if($sendNotification == 'sendNotification' )
+						{
+							if($newUserMail != '')
+							{
+								$to = $newUserMail;
+		 						$subject = "someone invited you to monoto-notes - a web based notes system.";
+		 						$body = "Hi,\n\ni've created a new account on my web-based notes solution called 'monoto'. In case you would like to test it as well is asking for you and your notes.";
+		 						if (mail($to, $subject, $body)) 
+		 						{
+		   							echo '<script type="text/javascript">alert("Notification: Mail was sent.")</script>';
+		  						} 
+		  						else 
+		  						{
+		   							echo '<script type="text/javascript">alert("Error: Mail was NOT sent.")</script>';
+		  						}
+							}
+						}
+					}
+					else // no usermail-adress defined while trying to create new account
+					{
+						echo '<script type="text/javascript">alert("Error: No email defined.")</script>';
 					}
 				}
 				else // username already in use - cancel and inform the admin
 				{
-					echo '<script type="text/javascript">alert("Error - Username already exists.")</script>';
+					echo '<script type="text/javascript">alert("Error: Username already exists.")</script>';
 				}
 			}
 		}	
 		else // passwords not matching
 		{
-			echo '<script type="text/javascript">alert("Error - You need to submit apassword twice - not 2 different passwords.")</script>';
+			echo '<script type="text/javascript">alert("Error: You need to submit a password twice - not 2 different passwords. Classic typo i guess.")</script>';
 		}
 		// disconnect from mysql
 		disconnectFromDB();		

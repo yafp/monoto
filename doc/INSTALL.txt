@@ -2,11 +2,12 @@ INSTALL:
 ########
 
 Step 01: 	Download the latest monoto version from github
-			Stable: https://github.com/downloads/macfidelity/monoto/monoto_20120707.04_milestone01.zip
+			Stable: 	https://github.com/downloads/macfidelity/monoto/monoto_20120707.04_milestone01.zip
+			Unstable: 	https://github.com/macfidelity/monoto/zipball/master
 
 Step 02: 	Extract the archive on disk
 
-Step 03: 	Check conf/config.php and modify it to your needs
+Step 03: 	Check conf/config.php and modify it to your needs (mysql settings)
 
 Step 04: 	Prepare your mysql server
 			- create databases (using the informations from doc/MYSQL_STRUCT.txt)
@@ -18,6 +19,6 @@ Step 06: 	visit setup.php in your browser and create your admin user with this s
 Step 07: 	Secure your monoto install
 			- conf/config.php (only webserver should be allowoed to read this file)
 			- remove/delete setup.php
-			- optional: add .htaccess protection to your monoto installation - as it isnt designed for security aspects right now. Sorry.
+			- optional: add .htaccess protection to your monoto installation - as it isnt designed for security aspects right now. Sorry
 
 Enjoy!
