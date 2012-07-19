@@ -33,8 +33,8 @@
 	//
 	//
 	$m_name						= "monoto";						// name of your notes system
-	$m_milestone				= "1";							// current milestone number
-	$m_milestone_title			= "the hello world thing";		// current milestone name
-	$m_build					= "20120719.02";				// build-date and day's version
-	$m_stable					= false;						// defined if that is a milestone release
+	$m_milestone				= "2";							// current milestone number
+	$m_milestone_title			= "doing the second step";		// current milestone name
+	$m_build					= "20120719.03";				// build-date and day's version
+	$m_stable					= true;						// defined if that is a milestone release
 ?>
