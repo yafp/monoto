@@ -2,7 +2,7 @@
 
 <!-- MONOTO ICON -->
 <div ID="logo">
-	<a href="notes.php"><img src="images/logo/icon_big.png" width="90" alt="monoto logo" align="right" margin-right="10"></a>
+	<a href="notes.php"><img src="images/logo/monoto_logo.png" alt="monoto logo" align="right" margin-right="10"></a>
 </div>
 
 

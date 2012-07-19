@@ -269,7 +269,8 @@
 									$stats_last_edited_note_date = $row[1];
 								}
 								//  entire db size
-								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = 'monoto'"); 
+								//$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = 'monoto'"); 
+								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$mysql_db."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									$stats_entire_monoto_db_size = $row[0];

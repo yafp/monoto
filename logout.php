@@ -52,8 +52,6 @@
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">logout</a></h2>
 
-				<img src="images/login.png" align="right">
-
 				<!-- REDIRECT TO LOGIN -->
 				<?php	header( "refresh:2;url=index.php" ); ?>
 
