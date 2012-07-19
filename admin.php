@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if($_SESSION['valid'] == 1)	&& ($_SESSION['admin'] == 1)	// check if the user-session is valid or not AND if its an admin account.
+	if(($_SESSION['valid'] == 1)	&& ($_SESSION['admin'] == 1))	// check if the user-session is valid or not AND if its an admin account.
 	{
 ?>
 <!DOCTYPE html>
@@ -25,6 +25,11 @@
 		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
+
+		<!-- flot graphs -->
+		<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
+    	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.js"></script>
+
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var oTable;
@@ -68,6 +73,8 @@
 						<div class="accordion">
 							<h3>admin settings [<a href="#basic">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
+							<h3>notes [<a href="#notes">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
 							<h3>user list [<a href="#users">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
 							<h3>invites [<a href="#invites">...</a>]</h3>
@@ -95,29 +102,114 @@
 						</tr>
 						<tr>
 							<td width="30%">- enable toc:</td>
-							<td width="20%"><?php if($s_enable_toc == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td width="20%"><?php if($s_enable_toc == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 							<td width="30%">- enable about section on info page:</td>
-							<td width="20%"><?php if($s_enable_info_about_section == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td width="20%"><?php if($s_enable_info_about_section == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really delete question:</td>
-							<td><?php if($s_enable_really_delete == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 							<td>- enable welcome message on info page:</td>
-							<td><?php if($s_enable_welcome_message == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td><?php if($s_enable_welcome_message == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really logout question:</td>
-							<td><?php if($s_enable_really_logout == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td><?php if($s_enable_really_logout == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>- enable user icon:</td>
-							<td><?php if($s_enable_user_icon == false){ echo "<i>false</i>";}else{echo "<i>true</i>";} ?></td>
+							<td><?php if($s_enable_user_icon == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 					</tbody>
 					</table>
 
+
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+
+				<!-- USERS -->
+				<h2><a name="notes">notes</a></h2>
+				<?php
+					// User: amount of all notes 
+					$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
+					while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
+					{
+						echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
+					}
+				?>
+
+				<table width="20%">
+					<tr align="left"><th>notes</td><th>creator</td></tr>
+					<!-- get notes count per user -->
+					<?php
+						// define array for our flot pie graph
+						$whatArray = array();
+						$howMuchArray = array();
+
+						$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
+						while($row = mysql_fetch_array($result))   // fill datatable
+						{
+							// fill table
+							echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';
+
+							// fill array for graph
+							array_push($whatArray, $row[0]);
+							array_push($howMuchArray, $row[1]);
+						}
+					?>
+				</table>
+
+				<!-- placeholder for flot pie-chart -->
+				<div id="placeholder" style="height:200px;"></div>
+
+
+				<!-- generate our flot pie chart -->
+				<script type="text/javascript">
+
+				arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
+				arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
+
+				var data = [];
+				var series = 10;
+
+				for( var i = 0; i<series; i++)
+				{
+					data[i] = { 
+							label: arr01[i],
+							data: parseFloat(arr02[i])
+							}
+				}
+
+
+				// PLOT
+				$.plot($("#placeholder"), data, {
+				    series: {
+				        pie: {
+				            show: true,
+				            radius: 1,
+				            label: {
+				                show: true,
+				                radius: 1,
+				                formatter: function(label, series) {
+				                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+				                },
+				                background: {
+				                    opacity: 0.8,
+				                    color: '#444'
+				                }
+				            }
+				        }
+				    },
+				    legend: {
+				        show: false
+				    }
+				});
+				</script>
+
+				
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 

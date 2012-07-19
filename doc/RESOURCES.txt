@@ -2,10 +2,11 @@ Used technologies:
 ##################
 - html, php, css, javascript, mysql
 
-- jQuery/DataTables/cleditor: 
+- jQuery/DataTables/cleditor/flot: 
 --- http://jquery.com/
 --- http://datatables.net/
 --- http://premiumsoftware.net/cleditor/
+--- http://code.google.com/p/flot/
 
 - patterns:
 --- http://subtlepatterns.com
