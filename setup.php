@@ -59,7 +59,10 @@
 if ( isset($_POST["doCreateAdminAccount"]) ) 
 {
 	include 'conf/config.php';
+	include 'scripts/db.php';  							// connect to db
+	connectToDB();
 
+	/*
 	// connect to mysql
 	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
 	if (!$con)
@@ -67,6 +70,7 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 		die('Could not connect: ' . mysql_error());
 	}
 	mysql_select_db($mysql_db, $con);										// select db
+	*/
 
 	// get data
 	$username = $_POST['username'];
@@ -88,9 +92,11 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 		$salt = createSalt();
 		$hash = hash('sha256', $salt . $hash);
 
+		/*
 		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		// connect to mysql	
 		if (!$con){ die('Could not connect: ' . mysql_error()); }
 		mysql_select_db($mysql_db, $con);									// select db
+		*/
 
 		$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
 		mysql_query($query);

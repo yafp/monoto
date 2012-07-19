@@ -10,11 +10,9 @@
 	// check if the user-session is valid or not
 	if($_SESSION['valid'] == 1)
 	{
+		include '../conf/config.php';
+
 		$owner = $_SESSION['username'];
-		$mysql_server 			= "localhost";			// define your mysql server here
-		$mysql_db 				= "monoto";				// define your mysql db here	
-		$mysql_user				= "monoto";				// define your mysql user here
-		$mysql_pw				= "monoto";				// define the mysql user pw here
 
 		// connect to mysql
 		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
@@ -24,7 +22,6 @@
 		}
 		mysql_select_db($mysql_db, $con);				// select db
 
-		//$select = "SELECT * FROM m_notes";
 		$select = "SELECT id, title, content FROM m_notes WHERE owner='".$owner."'";
 		$export = mysql_query ( $select ) or die ( "Sql error : " . mysql_error( ) );
 		$fields = mysql_num_fields ( $export );

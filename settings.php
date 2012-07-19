@@ -141,7 +141,9 @@
 <?php
 	}
 	else 				//session is NOT valid - redirect to login
-	{	header('Location: redirect.php'); 	}
+	{	
+		header('Location: redirect.php'); 	
+	}
 ?>
 
 
@@ -159,6 +161,7 @@ include 'conf/config.php';
 if ( isset($_POST["doChangeUserPW"]) ) 
 {
 	include 'conf/config.php';
+	connectToDB();
 
 	// get values
 	$owner = $_SESSION['username'];
@@ -179,14 +182,6 @@ if ( isset($_POST["doChangeUserPW"]) )
 		$salt = createSalt();
 		$hash = hash('sha256', $salt . $hash);
 
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw); 		// connect to mysql		
-		if (!$con)
-		{
-			die('Could not connect: ' . mysql_error());
-		}
-
-		mysql_select_db($mysql_db, $con);				// select db
-
 		$query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";			// change pw
 		mysql_query($query);
 		mysql_close($con); 								// close sql connection
@@ -195,6 +190,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 	{
 		echo '<script type="text/javascript">alert("Error - Password mismatch while trying to change.");</script>';
 	}
+	disconnectFromDB();
 }
 
 
@@ -243,7 +239,7 @@ if ( isset($_POST["doDelAllEvents"]) )
 
 
 //
-// exporter - submit button was pressed
+// exporter - submit button was pressed - open download in new tab/window
 //
 if ( isset($_POST["doExport"]) ) 
 {

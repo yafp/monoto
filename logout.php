@@ -1,12 +1,9 @@
 <?php
 	session_start();
 	include 'conf/config.php';
-
-	// connect to db
-	include ('scripts/db.php');
+	include 'scripts/db.php';
 	connectToDB();
 	$owner = $_SESSION['username'];
-	mysql_select_db($mysql_db, $con);				// select get
 
 	// db current logout count-value
     $sql="SELECT logout_counter FROM m_users WHERE username='".$owner."'  ";

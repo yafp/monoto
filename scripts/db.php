@@ -5,16 +5,14 @@
 	//
 	function connectToDB() 
 	{
-		// include the relevant stuff - as it is executed from 1 folder above we need to define the path from there ;)
-		include 'conf/config.php';
+		include 'conf/config.php';												// include the relevant stuff (remember regarding path: who is calling this?)
 
-		// connect to mysql
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
+		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);			// connect to mysql	
 		if (!$con)
 		{
-			die('Could not connect: ' . mysql_error());
+			die('Could not connect: ' . mysql_error());							// die is useless as not visible
 		}
-		mysql_select_db($mysql_db, $con);				// select db
+		mysql_select_db($mysql_db, $con);										// select db
 	}
 
 
@@ -23,11 +21,8 @@
 	//
 	function disconnectFromDB() 
 	{
-		// include the relevant stuff - as it is executed from 1 folder above we need to define the path from there ;)
 		include 'conf/config.php';
-
-		// disconnect from mysql db  
-	   	mysql_close($con);
+	   	mysql_close($con);				// disconnect from mysql db 
 	}
 
 

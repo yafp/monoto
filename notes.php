@@ -96,6 +96,8 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
+
+				"sDom": '<"wrapper"flipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 				"oSearch": {"sSearch": ""}, 
 				"sPaginationType": "full_numbers",
 				"iDisplayLength": 100000,					/* default rows */
@@ -313,35 +315,21 @@
 				<!-- SHOW TAGS -->
 				<!--
 				Selected note is tagged as follows:
-				<a href="">#dummyA</a> 
-				<a href="">#dummyB</a>
-				<a href="">#dummyC</a>
+				<a href="">#dummyA</a> <a href="">#dummyB</a><a href="">#dummyC</a>
 				-->
 		
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-				<!--
-				<h2>search notes</h2>
-			-->
+
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
-					<thead>
-						<tr>
-							<th>id</th>
-							<th>title</th>
-							<th>content</th>
-							<th>tags</th>
-							<th>modified</th>
-							<th>created</th>
-							<th>version</th>
-						</tr>
-					</thead>
+					<thead><tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
 					<tbody>
 
 					<?php
-						include 'conf/config.php';			// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
-						include ('scripts/db.php');  	// connect to db
+						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
+						include 'scripts/db.php';  							// connect to db
 						connectToDB();
-						$owner = $_SESSION['username'];					// only select notes of this user
+						$owner = $_SESSION['username'];						// only select notes of this user
 						$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
 						while($row = mysql_fetch_array($result))
 						{
@@ -350,9 +338,7 @@
 						disconnectFromDB();
 					?>
 					</tbody>
-					<tfoot>
-						<tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr>
-					</tfoot>
+					<tfoot><tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>
 				</table>
 			</div>
 			<!-- SPACER -->
