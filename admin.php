@@ -347,8 +347,8 @@
 							if($newUserMail != '')
 							{
 								$to = $newUserMail;
-		 						$subject = "someone invited you to monoto-notes - a web based notes system.";
-		 						$body = "Hi,\n\ni've created a new account on my web-based notes solution called 'monoto'. In case you would like to test it as well is asking for you and your notes.";
+		 						$subject = "someone invited you to monoto-notes";
+		 						$body = "Hi,\n\ni've created a new account on my web-based notes solution called 'monoto'.\nYoucan get some general informations about monoto here: https://github.com/macfidelity/monoto/wiki.\n\nFeel free to use it as your personal notes keeper.\n\nThe login credentials are as follows:\nUsername: ".$username."\nPassword: ".$password."\n\nPlease change your password after your first visit.\n\nSERVER URL IS MISSING hehe\n\nHave fun.";
 		 						if (mail($to, $subject, $body)) 
 		 						{
 		   							echo '<script type="text/javascript">alert("Notification: Mail was sent.")</script>';
