@@ -302,6 +302,9 @@
 	if ( isset($_POST["doCreateNewUserAccount"]) ) 
 	{
 		connectToDB();  // connect to mysql
+
+		$invite_from 	= $_SESSION['username'];
+		$invite_target 	= $_SERVER['SERVER_NAME'];
 		
 		// store values on vars
 		$newPassword1 	= $_POST['newPassword1'];
@@ -347,8 +350,17 @@
 							if($newUserMail != '')
 							{
 								$to = $newUserMail;
-		 						$subject = "someone invited you to monoto-notes";
-		 						$body = "Hi,\n\ni've created a new account on my web-based notes solution called 'monoto'.\nYoucan get some general informations about monoto here: https://github.com/macfidelity/monoto/wiki.\n\nFeel free to use it as your personal notes keeper.\n\nThe login credentials are as follows:\nUsername: ".$username."\nPassword: ".$password."\n\nPlease change your password after your first visit.\n\nSERVER URL IS MISSING hehe\n\nHave fun.";
+		 						$subject = "monoto-notes invite";
+		 						$body = "Hi,
+		 									\n".$invite_from." invited you to monoto - his web-based notes solution.
+		 									\n\nFeel free to use it as your personal notes keeper as well.
+		 									\n\nYou can get some general informations about monoto here: https://github.com/macfidelity/monoto/wiki.
+		 									\n\n\n\nThe login credentials are as follows:
+		 									\n\nUsername: ".$username."
+		 									\nPassword: ".$password."
+		 									\n\n\nPlease change your password after your first visit at:
+		 									\n".$invite_target."
+		 									\n\nHave fun.";
 		 						if (mail($to, $subject, $body)) 
 		 						{
 		   							echo '<script type="text/javascript">alert("Notification: Mail was sent.")</script>';

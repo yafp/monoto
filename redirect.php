@@ -24,7 +24,7 @@
 
 				<!-- ERROR MESSAGE -->
 				<h2><a name="redirect">redirect</a></h2>
-				You must login first before you can use monoto. Gonna redirect you to the login dialog in some seconds.
+				Something went wrong ... gonna redirect you in some seconds.
 
 				<!-- REDIRECT TO LOGIN -->
 				<?php header( "refresh:3;url=index.php" ); ?>
