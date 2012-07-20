@@ -73,11 +73,11 @@
 							</form>
 
 							<!-- CHANGE USER ICON BUTTON -->
-							<br><b>Changing the user icon:</b><br>Select your new user icon via the <span>Browse...</span> button and confirm that change by pressing the <span>Change Icon</span> button. This will store your image in the users-table - but the image itself is not used so far.
+							<br><b>Changing the user icon:</b><br>Select your new user icon via the <span>Browse...</span> button and confirm that change by pressing the <span>Upload</span> button. This will store your image in the users-table - but the image itself is not used so far.
 							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 										<input name="MAX_FILE_SIZE" value="102400" type="hidden">
 										<input name="image" accept="image/jpeg" type="file"><br>
-										<input value="Change Icon" type="submit" name="doChangeUserIcon" style="width:140px" >					
+										<input value="Upload" type="submit" name="doChangeUserIcon" style="width:140px" >					
 							</form>
 						</td>
 					</tr>

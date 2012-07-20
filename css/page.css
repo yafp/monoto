@@ -46,12 +46,23 @@ body
 	background-color:rgba(239,239,239,0.95);
 }
 
-/* navigation */
+/* header logo */
 #dt_example #logo 
 {
-	/*text-align: right; */
 	margin-right:1em;
 	opacity: 0.9;
+}
+
+
+/* header random welcome text */
+#dt_example #welcome 
+{	
+	color: grey;
+	font-family:"Times New Roman", Times, serif;
+	font-style:italic;
+	text-align: center;
+	font-size: 25px;
+	text-transform:lowercase;
 }
 
 

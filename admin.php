@@ -81,6 +81,8 @@
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
 							<h3>mysql [<a href="#mysql">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
+							<h3>misc [<a href="#misc">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
 						</div>
 				<?php
 					}
@@ -89,11 +91,16 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
+
+				
+
+
 				<?php
 					include ('scripts/db.php');		// connect to db
 					connectToDB();
 				?>
 				
+
 				<!-- BASICS -->
 				<h2><a name="basic">admin settings</a></h2>
 					<table width="100%">
@@ -285,11 +292,20 @@
 					<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" /> This will delete all notes from the table: m_notes.
 				</form>
 
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+
+				<!-- MYSQL -->
+				<h2><a name="misc">misc</a></h2>
+					<!-- SHOW jquery version -->
+					jquery version
+					<div id="myResults"></div>
+					<script type="text/javascript">
+						$("#myResults").html(jQuery.fn.jquery);
+					</script>
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>	
-
-
 			</div>
 		</div>
 

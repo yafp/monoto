@@ -30,6 +30,13 @@
 
       	// logout
 		echo '<li><a href="logout.php"> ...logout <b>'.$owner.'</b></a></li></ul>';
+
+		// random welcome message to user
+		echo '<div ID="welcome">';
+			$input = array("Hello", "ahoy", "welcome", "Hallo", "bonjour", "welkom", "velkommen", "Willkommen", "aloha", "shalom", "benvenuto", "Bienvenido", "Merhaba", "Välkommen");
+			echo $input[array_rand($input)]." ".$owner ;
+		echo '</div>';
+
 	}
 	else // no valid session: display login only
 	{
