@@ -231,6 +231,7 @@
 			if ((newNoteTitle.length > 0) && (newNoteContent.length != 0 ))
 		  	{
 				$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );
+				reloadNote();
 		  	}
 			else
 			{ 
@@ -257,7 +258,6 @@
 			if( (renameNoteID.length > 0) && (renameNoteID != 'ID') && (renameNoteTitle.length >0) )
 			{
 				$.post("scripts/renNote.php", { renameNoteID: renameNoteID, renameNoteTitle: renameNoteTitle, renameNoteContent: renameNoteContent, renameNoteCounter: renameNoteCounter  } );
-				reloadNote();
 			}
 			else
 			{ 

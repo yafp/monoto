@@ -131,26 +131,27 @@
 			<h2><a name="version">version</a></h2>
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 				<table width="100%">
-					<tr><td rowspan="6"><img src="images/logo/icon_big.png" alt="monoto logo" align="center"></td></tr>
 					<tr>
 						<td>build:</td>
-						<td><?php echo $m_build; ?></td>
+						<td><span><?php echo $m_build; ?></span></td>
 						<td><?php if($m_stable == false) { echo "<font color='red'>Development Version</font>"; } ?></td>
-					</tr>
+						<td rowspan="3" align="right"><img src="images/logo/monoto_logo.png" alt="monoto logo"></td></tr>
 					<tr>
 						<td>milestone:</td>
-						<td><?php echo $m_milestone." <i>aka</i> ".$m_milestone_title.""; ?></td>
+						<td colspan="2"><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
 					</tr>
-					<tr><td>&nbsp;</td></tr>
-					<tr><td>&nbsp;</td></tr>
 					<tr>
-						<td colspan="2">&nbsp;</td>
-						<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+						<td colspan="3">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="3">&nbsp;</td>
+						<td align="right"><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
 					</tr>
 				</table>
 			</form>
 
 			<!-- CHANGELOG-->
+			<b>changelog</b>
 			<textarea name="changes" style="width:100%" rows=20 disabled>
 			<?=file_get_contents ('doc/CHANGELOG.txt');?>	
 			</textarea>

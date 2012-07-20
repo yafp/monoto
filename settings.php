@@ -58,41 +58,82 @@
 				<?php
 					include ('scripts/db.php');						// connect to db
 					connectToDB();
-
-					echo "<a href=''><img src='images/icons/user-14.png' alt='user icon' align='right' border='1'></a>";			// display user image - hardcoded dummy image
-					
-					// display user icon from db
-					/*
-					$sql="SELECT user_icon FROM m_users WHERE username='".$_SESSION['username']."' ";
-					$row = mysql_fetch_array($sql);
-					$content = $row['user_icon'];
-					*/
-
-					// Login & logout counter
-					$sql="SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
-					$result = mysql_query($sql);
-					while($row = mysql_fetch_array($result)) 					
-					{
-						echo "<b>User</b><br> ".$_SESSION['username']." - <small>(".$row[0]." logins and ".$row[1]." logouts)</small><br><br>";
-					}
-					echo "<b>Changing password</b><br>";
 				?>
+				<table width="100%">
+					<tr>
+						<td width="25%" colspan="2"><img src="images/icons/user-14.png" alt="user icon" align="left" border="1"></td>
+						<td width="5%"></td>
+						<td rowspan="5">
+							<!-- CHANGE USER PASSWORD BUTTON -->
+							<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.
+							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+										<input type="password" name="newPassword1" placeholder="Password" />
+										<input type="password" name="newPassword2" placeholder="Please enter the new password again" /><br>
+										<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" />					
+							</form>
 
-				<!-- CHANGE USER PASSWORD BUTTON -->
-				Please enter your new password twice and press the UPDATE button.
-				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-							<input type="password" name="newPassword1" placeholder="Password" />
-							<input type="password" name="newPassword2" placeholder="Please enter the new password again" /><br>
-							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" />					
-				</form>
+							<!-- CHANGE USER ICON BUTTON -->
+							<br><b>Changing the user icon:</b><br>Select your new user icon via the <span>Browse...</span> button and confirm that change by pressing the <span>Change Icon</span> button. This will store your image in the users-table - but the image itself is not used so far.
+							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+										<input name="MAX_FILE_SIZE" value="102400" type="hidden">
+										<input name="image" accept="image/jpeg" type="file"><br>
+										<input value="Change Icon" type="submit" name="doChangeUserIcon" style="width:140px" >					
+							</form>
+						</td>
+					</tr>
+					<tr>
+						<td>name:</td>
+						<td><?php echo "<span>".$_SESSION['username']."</span>" ?></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>mail:</td>
+						<td>
+							<?php
+								// Login & logout counter
+								$sql="SELECT email FROM m_users WHERE username='".$_SESSION['username']."' ";
+								$result = mysql_query($sql);
+								while($row = mysql_fetch_array($result)) 					
+								{
+									echo "<span>".$row[0]."</span>";
+								}
+							?>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>logins:</td>
+						<td>
+							<?php
+								// Login & logout counter
+								$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."' ";
+								$result = mysql_query($sql);
+								while($row = mysql_fetch_array($result)) 					
+								{
+									echo "<span>".$row[0]."</span>";
+								}
+							?>
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>since:</td>
+						<td>
+							<?php
+								// Login & logout counter
+								$sql="SELECT date_first_login FROM m_users WHERE username='".$_SESSION['username']."' ";
+								$result = mysql_query($sql);
+								while($row = mysql_fetch_array($result)) 					
+								{
+									echo "<span>".$row[0]."</span>";
+								}
+							?>
+						</td>
+						<td></td>
+					</tr>
+				</table>
 
-				<!-- CHANGE USER ICON BUTTON -->
-				<br><b>Changing the user icon:</b><br>This will store your image in the users-table - but the image itself is not used so far.
-				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-							<input name="MAX_FILE_SIZE" value="102400" type="hidden">
-							<input name="image" accept="image/jpeg" type="file"><br>
-							<input value="Change Icon" type="submit" name="doChangeUserIcon" style="width:140px" >					
-				</form>
+				
 				
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
