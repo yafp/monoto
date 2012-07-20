@@ -26,12 +26,9 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
-
 			<div id="noteContentCo">
-				
-				<!-- CORE SETTINGS -->
+				<!-- LOGIN -->
 				<h2><a name="core">login</a></h2>
-
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 					<table width="100%">
 						<tr><td align="center"><input type="text" name="username" placeholder="Username" /></td></tr>
@@ -39,9 +36,9 @@
 						<tr><td>&nbsp;</td></tr>
 						<tr><td align="center"><input type="submit" value="Login" name="doLogin" /></td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td align="center"><img src="images/icons/firefox1.png" width="100" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report (and fix) them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
+						<tr><td align="center"><img src="images/icons/firefox1.png" width="100" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td align="center"><noscript><b>Warning:</b><br>monoto heavily depends on Javascript, which seems to be disabled in your browser.<br>Consider enabling it or ignoring monoto in the first place.</noscript></td></tr>
+						<tr><td align="center"><noscript><b>Warning</b><br>monoto heavily depends on Javascript, which seems to be disabled in your browser.<br>Consider enabling it or ignoring monoto in the first place.</noscript></td></tr>
 					</table>
 				</form>
 			</div>
@@ -56,12 +53,13 @@
 </html>
 
 <?php
-	}
-?>
+
+}
 
 
 
-<?php
+
+
 //
 // try to login
 //
@@ -123,8 +121,8 @@ if ( isset($_POST["doLogin"]) )
 		}
 		$loginCounter = $loginCounter +1;
 
-		// check if its first login - if so save date to db
-		if($loginCounter == 1) // = first login
+		// check if its first login - if so: save the first login date to db
+		if($loginCounter == 1)
 		{
 			$sql="UPDATE m_users SET date_first_login= now() WHERE username='".$_SESSION['username']."' ";
 			$result = mysql_query($sql);
@@ -145,7 +143,8 @@ if ( isset($_POST["doLogin"]) )
 		$result = mysql_query($sql);
 
 		mysql_close($con);													// close sql connection
-    	header('Location: notes.php');
+    	header('Location: notes.php');										// redirect to the main page
 	}
 }
+
 ?>

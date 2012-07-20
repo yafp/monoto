@@ -79,6 +79,8 @@
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
 							<h3>invites [<a href="#invites">...</a>]</h3>
 							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
+							<h3>mysql [<a href="#mysql">...</a>]</h3>
+							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
 						</div>
 				<?php
 					}
@@ -271,7 +273,23 @@
 					</form>
 					
 				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>				
+				<div class="spacer">&nbsp;</div>
+
+				<!-- MYSQL -->
+				<h2><a name="mysql">mysql</a></h2>
+				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
+					<input type="submit" name="doOptimize" value="Optimize" style="width:200px" />This will optimize your entire monoto mysql database.
+					<br><br>
+					<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" /> This will delete all entries from the table: m_events.
+					<br>
+					<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" /> This will delete all notes from the table: m_notes.
+				</form>
+
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>	
+
+
 			</div>
 		</div>
 
@@ -294,8 +312,70 @@
 ?>
 
 
+
+
+
 <?php
 	include 'conf/config.php';
+
+
+	//
+	// OPTIMIZE MYSQL TABLES
+	//
+	if ( isset($_POST["doOptimize"]) ) 
+	{
+		connectToDB();  // connect to mysql
+
+		// select all table with (> 10% overhead) AND at (least > 100k free space)
+		$res = mysql_query('SHOW TABLE STATUS WHERE Data_free / Data_length > 0.1 AND Data_free > 102400');
+		while($row = mysql_fetch_assoc($res)) 
+		{
+  			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
+		}
+		echo '<script type="text/javascript">alert("Notification: Tables optimized")</script>';
+		disconnectFromDB();
+	}
+
+
+
+
+	//
+	// TRUNCATE EVENTS
+	//
+	if ( isset($_POST["doTruncateEvents"]) ) 
+	{
+		connectToDB();  // connect to mysql
+
+		// truncate table
+		$res = mysql_query('TRUNCATE TABLE m_log');
+		while($row = mysql_fetch_assoc($res)) 
+		{		
+		}
+		echo '<script type="text/javascript">alert("Notification: Table m_log truncated.")</script>';
+		disconnectFromDB();
+	}
+
+
+
+
+	//
+	// TRUNCATE NOTES
+	//
+	if ( isset($_POST["doTruncateNotes"]) ) 
+	{
+		connectToDB();  // connect to mysql
+
+		// truncate table
+		$res = mysql_query('TRUNCATE TABLE m_notes');
+		while($row = mysql_fetch_assoc($res)) 
+		{		
+		}
+		echo '<script type="text/javascript">alert("Notification: Table m_notes truncated.")</script>';
+		disconnectFromDB();
+	}
+
+
+
 
 	// CREATE NEW USER
 	//
@@ -387,7 +467,6 @@
 		{
 			echo '<script type="text/javascript">alert("Error: You need to submit a password twice - not 2 different passwords. Classic typo i guess.")</script>';
 		}
-		// disconnect from mysql
-		disconnectFromDB();		
+		disconnectFromDB();				// disconnect from mysql
 	}
 ?>

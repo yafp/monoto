@@ -27,7 +27,7 @@
 				Something went wrong ... gonna redirect you in some seconds.
 
 				<!-- REDIRECT TO LOGIN -->
-				<?php header( "refresh:3;url=index.php" ); ?>
+				<?php header( "refresh:1;url=index.php" ); ?>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>

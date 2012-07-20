@@ -283,9 +283,6 @@
 
 			<div id="noteContentCo">
 				<!-- SHOW SELECTED NOTE -->
-				<!--
-				<h2>create/view/edit/rename/delete notes</h2>	
-			-->
 				<h2>notes</h2>
 				<form name="myform">
 					<table width="100%"  cellspacing="0" cellpadding="5">
@@ -307,16 +304,15 @@
 						<!-- newTitle AND create buttons -->
 						<tr>
 							<td colspan="2"><input type="text" style="width:100%" placeholder="Enter title for your new note and press the 'create' button."  name="newNoteTitle" align="right" /></td>
-							<td><input type="submit"  style="width:90px" title="Create a new note" name="createNoteButton" value="create" onClick="createNote()"></td>
+							<td>
+								<input type="submit"  style="width:90px" title="Create a new note" name="createNoteButton" value="create" onClick="createNote()">							
+							</td>
 						</tr>
 					</table>
 				</form>
 
-				<!-- SHOW TAGS -->
-				<!--
-				Selected note is tagged as follows:
-				<a href="">#dummyA</a> <a href="">#dummyB</a><a href="">#dummyC</a>
-				-->
+
+			
 		
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
