@@ -285,13 +285,13 @@
 				<!-- SHOW SELECTED NOTE -->
 				<h2>notes</h2>
 				<form name="myform">
-					<table width="100%"  cellspacing="0" cellpadding="5">
+					<table width="100%" cellspacing="0" cellpadding="5" border="0">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td width="5%"><input type="text" name="noteID" disabled placeholder="ID" style="width:50%; height:15px;" /></td>
-							<td colspan="1"><input type="text" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; height:15px;" /></td>
+							<td width="20px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" /></td>
+							<td colspan="1"><input type="text" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." id="save" value="save" onClick="saveNote();"></td>
-							<input type="hidden" style="width:50%; height:15px;"   name="noteVersion" />
+							<input type="hidden" style="width:50%; height:15px;" name="noteVersion" />
 						<!-- NEW NOTE CONTENT using clEditor -->
 						<tr>
 							<td colspan="2" width="95%" height="400px"><textarea id="input2" name="input2" cols="110" ></textarea></td>

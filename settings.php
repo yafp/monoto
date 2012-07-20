@@ -23,6 +23,9 @@
 		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
+
+		<!-- password -->
+		<script type="text/javascript" language="javascript" src="js/digitalspaghetti.password.js"></script>
 	</head>
 	<body id="dt_example">
 		<div id="container">
@@ -53,12 +56,14 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
+
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
 				<?php
 					include ('scripts/db.php');						// connect to db
 					connectToDB();
 				?>
+
 				<table width="100%">
 					<tr>
 						<td width="25%" colspan="2"><img src="images/icons/user-14.png" alt="user icon" align="left" border="1"></td>
@@ -67,8 +72,9 @@
 							<!-- CHANGE USER PASSWORD BUTTON -->
 							<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.
 							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-										<input type="password" name="newPassword1" placeholder="Password" />
-										<input type="password" name="newPassword2" placeholder="Please enter the new password again" /><br>
+										<input type="password" id="newPassword1" name="newPassword1" placeholder="Password" />
+										<input type="password" id="newPassword2" name="newPassword2" placeholder="Please enter the new password again" /><br>
+										<script type="text/javascript">jQuery('#newPassword2').pstrength();</script>
 										<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" />					
 							</form>
 
@@ -294,10 +300,7 @@ if ( isset($_POST["doExport"]) )
 //
 if ( isset($_POST["doImport"]) ) 
 {
-	// connect to db
-	//include ('scripts/db.php');
 	connectToDB();
-
 	$owner = $_SESSION['username'];
 	$good_counter = 0;
 
@@ -329,18 +332,26 @@ if ( isset($_POST["doImport"]) )
 			{
 				?>
 				<script type="text/javascript">
-					var newtext = '<?php echo "Error - there is already a note with the title: ".$newNoteTitle.". Import of that specificnote was skipped."; ?>';
+					var newtext = '<?php echo "Error - there is already a note with the title: ".$newNoteTitle.". Import of that specific note was skipped."; ?>';
 					document.importerForm.importLog.value += newtext;
 				</script>
 				<?php
 
+				// add log entry that importing failed cause title is already in use
+				$newNoteContentSummary = substr($newNoteContent, 0, 10);
+				$event = "import";
+				$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b> was NOT imported as the title is already in use.";
+				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
+				$result = mysql_query($sql);
 			}
 			else // we can create it - update notes: m_notes
 				{
 					$sql="INSERT INTO m_notes (title, content, save_count,  date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', '1',now(), now(), '$owner' )";
 					$result = mysql_query($sql);
 					if (!$result) 
-					{	die('Error: ' . mysql_error());		}
+					{	
+						die('Error: ' . mysql_error());	
+					}
 					else  // update event-log: m_log
 					{
 						$newNoteContentSummary = substr($newNoteContent, 0, 10);
@@ -350,11 +361,11 @@ if ( isset($_POST["doImport"]) )
 						$result = mysql_query($sql);
 						?>
 							<script type="text/javascript">
-								var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported."; ?>';
+								var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported. "; ?>';
 								document.importerForm.importLog.value += newtext;
 							</script>
-						<?php
-							$good_counter = $good_counter +1;
+		<?php
+					$good_counter = $good_counter +1;
 					}					
 				} 	
 	      	}
@@ -411,6 +422,7 @@ if ( isset($_POST["doChangeUserIcon"]) )
 	{
    		echo '<script type="text/javascript">alert("Error - no image defined");</script>';
 	}
+	disconnectFromDB();
 }
 
 ?>

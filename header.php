@@ -15,6 +15,7 @@
 		session_start();
 		$owner = $_SESSION['username'];
 		
+		echo "<br>";
 		echo '<ul id="nav">
 		    	<li><a accesskey="n" href="notes.php"><b>n</b>otes</a></li>
 				<li><a href="#">more... </a>
