@@ -6,13 +6,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
-		<title>monoto-notes</title>
-		<style type="text/css" title="currentStyle">
-			@import "css/page.css";
-			@import "css/table.css";
-		</style>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
+		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
+
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 		<!-- jquery -->
@@ -25,7 +23,8 @@
 		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
-
+		<!-- styleswitcher -->
+		<script type="text/javascript" language="javascript" src="js/styleswitcher.js"></script>
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.js"></script>
@@ -72,17 +71,17 @@
 					<h2><a name="desc">admin</a></h2>
 						<div class="accordion">
 							<h3>admin settings [<a href="#basic">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
 							<h3>notes [<a href="#notes">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
 							<h3>user list [<a href="#users">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
 							<h3>invites [<a href="#invites">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
 							<h3>mysql [<a href="#mysql">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
 							<h3>misc [<a href="#misc">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
 						</div>
 				<?php
 					}
@@ -249,7 +248,7 @@
 							<tr>
 								<td width='30%'>Username:</td> 
 								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" /></td>
-								<td rowspan="6"><img src="images/default_user_icon_trans.png" border="1"></td>
+								<td rowspan="6"><img src="images/default_user_icon_trans.png" alt="user_icon" border="1"></td>
 							</tr>
 							<tr>
 								<td>Mail:</td> 

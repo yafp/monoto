@@ -7,13 +7,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>monoto-notes</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
-		<style type="text/css" title="currentStyle">
-			@import "css/page.css";
-			@import "css/table.css";
-		</style>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
+		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
+
 		<!-- jquery -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!-- datatables -->
@@ -26,6 +25,8 @@
 		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
 		<!-- scroll up -->
 		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
+		<!-- styleswitcher -->
+		<script type="text/javascript" language="javascript" src="js/styleswitcher.js"></script>
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
 		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>

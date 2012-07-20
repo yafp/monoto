@@ -7,12 +7,12 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
-		<title>monoto-notes</title>
-		<style type="text/css" title="currentStyle">
-			@import "css/page.css";
-			@import "css/table.css";
-		</style>
+		
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
+		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
+
 		<!-- data tables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
@@ -24,6 +24,8 @@
 		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
+		<!-- styleswitcher -->
+		<script type="text/javascript" language="javascript" src="js/styleswitcher.js"></script>
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var oTable;
@@ -64,17 +66,17 @@
 						<h2><a name="desc">info</a></h2>
 						<div class="accordion">
 							<h3>welcome [<a href="#welcome">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
 							<h3>about [<a href="#about">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#about">about</a> section lists a short description of monoto.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#about">about</a> section lists a short description of monoto.</p>
 							<h3>version [<a href="#version">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
 							<h3>stats [<a href="#stats">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
 							<h3>keyboard shortcuts [<a href="#keyboard">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
 							<h3>log [<a href="#log">...</a>]</h3>
-							<p><img src="images/info_icon.png" width="40" align="right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
 						</div>
 			<?php
 					}
@@ -370,7 +372,7 @@
 				<thead><tr><th align="left" width="20%">event</th><th align="left" width="60%">description</th><th align="left" width="20%">count</th></tr></thead>
 				<tbody>
 					<tr>
-						<td bgcolor=#84FF00>create</td>
+						<td>create</td>
 						<td>Note was created, version counter = 0, date created and modified set</td>
 						<td>
 						<?php
@@ -382,7 +384,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#00CDCD>import</td>
+						<td>import</td>
 						<td>Note was imported using the importer, version counter = 0, date created and modified set</td>
 						<td>
 							<?php
@@ -393,7 +395,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#FFB914>save</td>
+						<td>save</td>
 						<td>Content was changed, note saved, version counter +1, date modified set</td>
 						<td>
 							<?php
@@ -404,7 +406,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#D77D00>rename</td>
+						<td>rename</td>
 						<td>Title (and maybe content) was changed, version counter +1, date modified set</td>
 						<td>
 							<?php
@@ -415,7 +417,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#CD0000>delete</td>
+						<td>delete</td>
 						<td>Note was deleted, id/number is doomed forever.</td>
 						<td>
 							<?php
@@ -426,7 +428,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#666666>login</td>
+						<td>login</td>
 						<td>User login - logincounter +1</td>
 						<td>
 							<?php							
@@ -437,7 +439,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#CCCCCC>logout</td>
+						<td>logout</td>
 						<td>User logout - logoutcounter +1</td>
 						<td>
 							<?php							
@@ -448,7 +450,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#CCCCCC>notes eraser</td>
+						<td>notes eraser</td>
 						<td>All user notes deleted</td>
 						<td>
 							<?php							
@@ -459,7 +461,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor=#CCCCCC>events eraser</td>
+						<td>events eraser</td>
 						<td>All user events deleted</td>
 						<td>
 							<?php							

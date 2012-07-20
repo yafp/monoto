@@ -1,0 +1,373 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * General page setup
+ */
+
+
+/* 
+
+core-colors 
+#FFA500				blau
+#FFA500				orange
+
+*/
+
+body
+{
+	background-image:url('../images/patterns/low_contrast_linen.png');		
+	background-repeat:repeat;
+} 
+
+/* main background */
+#dt_example 
+{
+	/* font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; */
+	font: 12px/22px normal helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	color: #333;
+	background-color: #bdd4de;
+}
+
+/* content block */
+#dt_example #container 
+{
+	width: 96%;
+	margin: 20px auto;
+	padding: 0;
+
+	/* round corners */
+	-webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	border-color: #FFA500;
+	border-style:solid;
+	border-width:3px;
+
+	background-color:rgba(239,239,239,0.95);
+}
+
+/* header logo */
+#dt_example #logo 
+{
+	margin-right:1em;
+	opacity: 0.9;
+}
+
+
+/* header random welcome text */
+#dt_example #welcome 
+{	
+	color: grey;
+	font-family:"Times New Roman", Times, serif;
+	font-style:italic;
+	text-align: center;
+	font-size: 25px;
+	text-transform:lowercase;
+}
+
+
+/* footer */
+#dt_example #footer 
+{
+	font: 10px/22px normal helvetica, sans-serif;
+	margin: 20px auto 0 auto;
+	padding: 0;
+	color: #808080;
+}
+
+#dt_example #noteContentCo 
+{
+	margin-left: 1em;
+	margin-right:1em;
+}
+
+
+#dt_example .clear 
+{
+	clear: both;
+}
+
+#dt_example pre 
+{
+	padding: 15px;
+	background-color: #F5F5F5;
+	border: 1px solid #CCCCCC;
+	font: 10px/22px normal helvetica, sans-serif;
+	color: grey;
+}
+
+#dt_example #myform 
+{
+	margin:0 auto;
+	width:400px;
+	padding:14px;
+	background-color: #C0C0C0;
+}
+
+/* H1-Hx */
+#dt_example h1 
+{
+	font-size: 1.0em;
+	font-weight: big;
+	color: white;
+	text-align: center;
+}
+
+#dt_example h2 
+{
+	margin-top: 1em;
+	font-size: 1.2em;
+	font-weight: normal;
+	line-height: 1.6em;
+	color: #FFA500 ;
+	border-bottom: 1px solid silver;
+	clear: both;
+	text-align: left;
+}
+
+/* A HREF */
+#dt_example a 
+{
+	color: #FFA500;	
+	text-decoration: none;
+	padding-right: 1px;
+	padding-left: 1px;
+}
+
+#dt_example a:hover 
+{
+	text-decoration: underline;
+	background-color: white;
+	padding-right: 1px;
+	padding-left: 1px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+/* LISTS */
+#dt_example ul 
+{
+	color: #4A4344;	/* gray34 */
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 0.9em;
+}
+
+blockquote {
+  font: 14px/22px normal helvetica, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  padding-left: 15px;
+  border-left: 3px solid #ccc;
+} 
+
+.css_right 
+{
+	float: right;
+}
+
+.css_left 
+{
+	float: left;
+}
+
+.database {
+visibility: true;
+} 
+
+/* SPACER class */
+.spacer {
+  	height: 40px;
+	clear: both;
+}
+
+
+
+span 
+{ 
+	color: white;
+	background-color: #FFA500;
+    width: 40px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	opacity:0.7;
+}
+
+
+
+
+/* ############################################################ */ 
+/* TOC ACCORDION												*/
+/* ############################################################ */ 
+.accordion 
+{
+	width: 480px;
+	width: 100%;
+	border-bottom: solid 1px #c4c4c4;
+}
+
+.accordion h3 
+{
+	background: #e9e7e7 url(../images/arrow-square.gif) no-repeat right -51px;
+	padding: 7px 15px;
+	margin: 0;
+	font: bold 120%/100% Arial, Helvetica, sans-serif;
+	border: solid 1px #c4c4c4;
+	border-bottom: none;
+	cursor: pointer;
+}
+
+.accordion h3:hover 
+{
+	background-color: #e3e2e2;
+}
+
+.accordion h3.active 
+{
+	background-position: right 5px;
+}
+
+.accordion p 
+{
+	background: #f7f7f7;
+	margin: 0;
+	padding: 10px 15px 20px;
+	border-left: solid 1px #c4c4c4;
+	border-right: solid 1px #c4c4c4;
+}
+
+
+
+
+
+/* ############################################################ */ 
+/* NAVIGATION													*/
+/* ############################################################ */ 
+#nav, #nav ul
+{
+     margin:0;
+     padding:0;
+     list-style-type:none;
+     list-style-position:outside;
+     position:relative;
+     line-height:1.5em;
+ }
+
+ #nav a:link, #nav a:active, #nav a:visited
+ {
+    display:block;
+    padding:0px 5px;
+    border:0px solid #333;
+    color:#fff;
+    text-decoration:none;
+    background-color:#FFA500;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 1px;
+ }
+
+#nav a:hover
+{
+    background-color:#fff;
+    color:#333;
+}
+
+#nav li
+{
+    float:left;
+    position:relative;
+}
+
+#nav ul 
+{
+    position:absolute;
+    width:12em;
+    top:2.8em;
+    display:none;
+}
+
+#nav li ul a
+{
+    width:12em;
+    float:left;
+}
+
+#nav ul ul
+{
+	top:auto;
+}
+
+#nav li ul ul 
+{
+    left:12em;
+    margin:0px 0 0 10px;
+}
+
+#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li:hover ul ul ul ul
+{
+    display:none;
+}
+
+#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul
+{
+    display:block;
+}
+
+
+
+
+
+
+/* ############################################################ */ 
+/* SCROLL ON TOP												*/
+/* ############################################################ */ 
+#message a
+{
+    /* display: block before hiding */
+    display: block;
+    display: none;
+
+    /* link is above all other elements */
+    z-index: 999; 
+
+    /* link doesn't hide text behind it */
+    opacity: .8;
+
+    /* link stays at same place on page */
+    position: fixed;
+
+    /* link goes at the bottom of the page */
+    top: 100%;
+    margin-top: -80px; /* = height + preferred bottom margin */
+
+    /* link is centered */
+    left: 95%;
+    margin-left: -160px; /* = half of width */
+
+    /* round the corners (to your preference) */
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+
+    /* make it big and easy to see (size, style to preferences) */
+    width: 200px;
+    line-height: 48px;
+    height: 48px;
+    padding: 10px;
+    background-color: #000;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+}

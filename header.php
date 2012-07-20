@@ -1,4 +1,13 @@
-<script type='text/javascript' src='js/m_menu.js'></script>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<title>monoto-notes</title>
+
+		<!-- JS - navigation -->
+		<script type='text/javascript' src='js/m_menu.js'></script>
+</head>
 
 <!-- MONOTO ICON -->
 <div ID="logo">
@@ -14,7 +23,12 @@
 	{
 		session_start();
 		$owner = $_SESSION['username'];
-		
+	?>
+		<!-- stylesheet-switcher -->
+		<a href="#" onclick="setActiveStyleSheet('default'); return false;">/b</a>
+		<a href="#" onclick="setActiveStyleSheet('alt'); return false;">/o</a>
+
+	<?php	
 		echo "<br>";
 		echo '<ul id="nav">
 		    	<li><a accesskey="n" href="notes.php"><b>n</b>otes</a></li>
@@ -34,10 +48,9 @@
 
 		// random welcome message to user
 		echo '<div ID="welcome">';
-			$input = array("Hello", "ahoy", "welcome", "Hallo", "bonjour", "welkom", "velkommen", "Willkommen", "aloha", "shalom", "benvenuto", "Bienvenido", "Merhaba", "Välkommen");
+			$input = array("Hello", "ahoy", "welcome", "Hallo", "bonjour", "welkom", "velkommen", "Willkommen", "aloha", "shalom", "benvenuto", "Bienvenido", "Merhaba", "Välkommen", "Wellkumma", "Bonvenon", "Salve", "Bun venit", "Binvinutu");
 			echo $input[array_rand($input)]." ".$owner ;
 		echo '</div>';
-
 	}
 	else // no valid session: display login only
 	{
