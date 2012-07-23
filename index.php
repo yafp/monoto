@@ -1,10 +1,10 @@
 <?php
 	session_start();
-	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
-	{
-		header('Location: notes.php');
+	if($_SESSION['valid'] == 1)				// check if the user-session is valid or not
+	{	
+		header('Location: notes.php');		// if session is valid - redirect to main-notes interface.
 	}
-	else
+	else 									// no valid session - show login form
 	{
 ?>
 <!DOCTYPE html>
@@ -25,8 +25,30 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php include 'header.php'; ?>
+			<?php 
+				include 'header.php'; 
+				include 'conf/config.php';
+			?>
 			<div id="noteContentCo">
+
+			<?php
+				if($s_enable_maintenance_mode == true)			// show maintenance mode
+				{
+			?>
+				<!-- MAINTENACE -->
+				<h2><a name="core">maintenance mode</a></h2>
+					<table width="100%">
+						<tr><td align="center">This monoto installation is currently in maintenance mode. User-logins are disabled. Sorry ;)</td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td align="center"><img src="images/icons/firefox1.png" width="100" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr><td align="center"><noscript><b>Warning</b><br>monoto heavily depends on Javascript, which seems to be disabled in your browser.<br>Consider enabling it or ignoring monoto in the first place.</noscript></td></tr>
+					</table>
+			<?php
+				}
+				else 											 // show real login form
+				{
+			?>
 				<!-- LOGIN -->
 				<h2><a name="core">login</a></h2>
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
@@ -41,6 +63,9 @@
 						<tr><td align="center"><noscript><b>Warning</b><br>monoto heavily depends on Javascript, which seems to be disabled in your browser.<br>Consider enabling it or ignoring monoto in the first place.</noscript></td></tr>
 					</table>
 				</form>
+			<?php
+				}
+			?>	
 			</div>
 
 			<!-- SPACER -->
@@ -55,8 +80,6 @@
 <?php
 
 }
-
-
 
 
 

@@ -229,14 +229,20 @@
 			var html = $("#input2").val();
 			newNoteContent = html;
 			// if we have a note title - create the new note (content is not needed so far)
-			if ((newNoteTitle.length > 0) && (newNoteContent.length != 0 ))
+			//if ((newNoteTitle.length > 0) && (newNoteContent.length != 0 ))
+			if (newNoteTitle.length > 0)
 		  	{
-				$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );
-				reloadNote();
+		  		if(newNoteContent.length == 0)
+		  		{
+		  			newNoteContent = "Dummy Content - as you entered no content while creating this note.";			// define dummy content as user didnt
+		  		}
+		  		
+		  		$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
+				reloadNote();	
 		  	}
 			else
 			{ 
-				alert("Error while trying to create a new note. Please enter a note title plus content and try again."); 
+				alert("Error while trying to create a new note. Please enter a note title and try again."); 
 				// we should stop here and NOT reload page as we are doing right now
 			}
 		}
@@ -275,6 +281,20 @@
 			javascript:history.go(0)
 		}
 		</script>
+
+
+
+		<script language="javascript">
+			function enableCreateButton()
+			{
+				document.myform.createNoteButton.disabled=false;
+			}
+
+			
+		</script>
+
+
+
 	</head>
 
 	<body id="dt_example">
@@ -289,7 +309,7 @@
 					<table width="100%" cellspacing="0" cellpadding="5" border="0">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td width="20px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" /></td>
+							<td width="20px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
 							<td colspan="1"><input type="text" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." id="save" value="save" onClick="saveNote();"></td>
 							<input type="hidden" style="width:50%; height:15px;" name="noteVersion" />
@@ -304,17 +324,14 @@
 						</tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" style="width:100%" placeholder="Enter title for your new note and press the 'create' button."  name="newNoteTitle" align="right" /></td>
+							<td colspan="2"><input type="text" style="width:100%"  placeholder="Enter title for your new note and press the 'create' button."  name="newNoteTitle" align="right" onkeyup="javascript:enableCreateButton()" /></td>
 							<td>
-								<input type="submit"  style="width:90px" title="Create a new note" name="createNoteButton" value="create" onClick="createNote()">							
+								<input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="true">							
 							</td>
 						</tr>
 					</table>
 				</form>
 
-
-			
-		
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 

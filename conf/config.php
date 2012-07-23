@@ -15,6 +15,9 @@
 	// #################################################################################
 	// SECTION 2- you might mess with these
 	// #################################################################################
+
+	$s_enable_maintenance_mode	= false;			// true = login is locked.
+	//
 	$s_enable_toc 				= true;				// should there be a toc on info.php & settings.php?
 	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
 	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
@@ -35,6 +38,6 @@
 	$m_name						= "monoto";						// name of your notes system
 	$m_milestone				= "2";							// current milestone number
 	$m_milestone_title			= "doing the second step";		// current milestone name
-	$m_build					= "20120720.05";				// build-date and day's version
+	$m_build					= "20120723.01";				// build-date and day's version
 	$m_stable					= false;						// defined if that is a milestone release
 ?>

@@ -25,8 +25,8 @@
 		$owner = $_SESSION['username'];
 	?>
 		<!-- stylesheet-switcher -->
-		<a href="#" onclick="setActiveStyleSheet('default'); return false;">/b</a>
-		<a href="#" onclick="setActiveStyleSheet('alt'); return false;">/o</a>
+		<a href="#" title="default stylesheet" onclick="setActiveStyleSheet('default'); return false;">/b</a>
+		<a href="#" title="alt stylesheet" onclick="setActiveStyleSheet('alt'); return false;">/o</a>
 
 	<?php	
 		echo "<br>";
