@@ -25,13 +25,11 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php 
-				include 'header.php'; 
-				include 'conf/config.php';
-			?>
+			<?php include 'header.php'; ?>
+			<!-- CONTENT -->
 			<div id="noteContentCo">
-
 			<?php
+				include 'conf/config.php';	
 				if($s_enable_maintenance_mode == true)			// show maintenance mode
 				{
 			?>
@@ -89,7 +87,7 @@
 if ( isset($_POST["doLogin"]) ) 
 {
 	include 'conf/config.php';
-	include ('scripts/db.php');		// connect to db
+	include 'scripts/db.php';		// connect to db
 	connectToDB();
 
 	// get data
@@ -104,7 +102,6 @@ if ( isset($_POST["doLogin"]) )
 	$result = mysql_query($query);
 	if(mysql_num_rows($result) < 1)  										//no such user exists
 	{
-	    mysql_close($con);													// close sql connection
 	    header('Location: redirect.php');
 	}
 
@@ -115,13 +112,12 @@ if ( isset($_POST["doLogin"]) )
 	//incorrect password
 	if($hash != $userData['password']) 
 	{
-	    mysql_close($con);													// close sql connection
 	    header('Location: redirect.php');
 	}
 	else //login successful
 	{	
 		session_start();
-		session_regenerate_id (); //this is a security measure
+		session_regenerate_id (); 											//this is a security measure ..is it?
     	$_SESSION['valid'] = 1;
 
     	// if user is admin - add the info to our session 
@@ -132,8 +128,6 @@ if ( isset($_POST["doLogin"]) )
 			if($row[0] == 1)
 			{ $_SESSION['admin'] = 1; }						
 		}
-
-    	$_SESSION['userid'] = $userid;
 
     	// get current login-count
     	$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
@@ -165,7 +159,6 @@ if ( isset($_POST["doLogin"]) )
 		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 		$result = mysql_query($sql);
 
-		mysql_close($con);													// close sql connection
     	header('Location: notes.php');										// redirect to the main page
 	}
 }

@@ -21,8 +21,8 @@
 	//
 	function disconnectFromDB() 
 	{
-		include 'conf/config.php';
-	   	mysql_close($con);				// disconnect from mysql db 
+		//include 'conf/config.php';
+	   	//mysql_close($con);				// disconnect from mysql db 
 	}
 
 

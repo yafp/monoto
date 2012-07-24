@@ -56,10 +56,10 @@
 	<div id="container">
 		<!-- HEADER & NAV -->
 		<?php include 'header.php';  ?>
-
+		<!-- CONTENT -->
 		<div id="noteContentCo">
 			<?php
-					include 'config.php';
+					include 'conf/config.php';
 					if($s_enable_toc == true)
 					{
 			?>
@@ -254,7 +254,7 @@
 									$stats_oldest_created_note_id = $row[2];
 								}
 								//  newest/latest created note
-								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '0' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1"); 
+								$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '1' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1"); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									$stats_latest_created_note_age = $row[0];

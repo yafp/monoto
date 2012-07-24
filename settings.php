@@ -31,9 +31,10 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
+			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<?php
-					include 'config.php';
+					include ('conf/config.php');
 					if($s_enable_toc == true)
 					{
 						?>
@@ -58,7 +59,7 @@
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
 				<?php
-					include ('scripts/db.php');						// connect to db
+					include 'scripts/db.php';						// connect to db
 					connectToDB();
 				?>
 
@@ -223,7 +224,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 
 		$query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";			// change pw
 		mysql_query($query);
-		mysql_close($con); 								// close sql connection
+		//mysql_close($con); 								// close sql connection
 	}
 	else // User entered 2 different password - cant change pw like that.
 	{

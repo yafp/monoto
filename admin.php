@@ -62,9 +62,10 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
+			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<?php
-					include 'config.php';
+					include 'conf/config.php';
 					if($s_enable_toc == true)
 					{
 				?>

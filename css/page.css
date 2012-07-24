@@ -47,7 +47,7 @@ body
 }
 
 /* header logo */
-#dt_example #logo 
+#dt_example #logo
 {
 	margin-right:1em;
 	opacity: 0.9;
@@ -57,12 +57,13 @@ body
 /* header random welcome text */
 #dt_example #welcome 
 {	
-	color: grey;
+	color: #B0B0B0;
 	font-family:"Times New Roman", Times, serif;
-	font-style:italic;
+	font-style:bold;
 	text-align: center;
-	font-size: 25px;
+	font-size: 20px;
 	text-transform:lowercase;
+	/* opacity: 0.2; */
 }
 
 

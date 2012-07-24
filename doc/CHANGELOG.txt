@@ -1,5 +1,15 @@
 Welcome to the official monoto changelog.
 
+Milestone 3 - Pimping the workflow - Build NOT YET DEFINED
+##########################################################
+= current dev version 
+
+Check the github issue tracker for details or wait 
+for the stable milestone release which will come 
+with a changelog.
+
+
+
 Milestone 2 - Doing the second step - Build 20120719.03
 #######################################################
 - html editor (cleditor)
