@@ -11,8 +11,6 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />		
-		<title>monoto-notes</title>
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
@@ -33,7 +31,7 @@
 				if($s_enable_maintenance_mode == true)			// show maintenance mode
 				{
 			?>
-				<!-- MAINTENACE -->
+				<!-- MAINTENANCE -->
 				<h2><a name="core">maintenance mode</a></h2>
 					<table width="100%">
 						<tr><td align="center">This monoto installation is currently in maintenance mode. User-logins are disabled. Sorry ;)</td></tr>
@@ -80,7 +78,6 @@
 }
 
 
-
 //
 // try to login
 //
@@ -119,6 +116,7 @@ if ( isset($_POST["doLogin"]) )
 		session_start();
 		session_regenerate_id (); 											//this is a security measure ..is it?
     	$_SESSION['valid'] = 1;
+		ini_set('session.gc_maxlifetime', '3600');							// sec
 
     	// if user is admin - add the info to our session 
 		$query = "SELECT is_admin FROM m_users WHERE username = '$username';";
@@ -162,5 +160,4 @@ if ( isset($_POST["doLogin"]) )
     	header('Location: notes.php');										// redirect to the main page
 	}
 }
-
 ?>

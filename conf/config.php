@@ -15,7 +15,7 @@
 	// #################################################################################
 	// SECTION 2- you might mess with these
 	// #################################################################################
-
+	//
 	$s_enable_maintenance_mode	= false;			// true = login is locked.
 	//
 	$s_enable_toc 				= true;				// should there be a toc on info.php & settings.php?
@@ -34,10 +34,9 @@
 	// SECTION 3 - but you shouldnt touch those ... thanks. DEVELOPER-STUFF
 	// #################################################################################
 	//
-	//
 	$m_name						= "monoto";						// name of your notes system
 	$m_milestone				= "3";							// current milestone number
 	$m_milestone_title			= "pimping the workflow";		// current milestone name
-	$m_build					= "20120724.01";				// build-date and day's version
-	$m_stable					= false;						// defined if that is a milestone release
+	$m_build					= "20120724.02";				// build-date and day's version
+	$m_stable					= falses;						// defined if that is a milestone release
 ?>

@@ -61,12 +61,6 @@ function KeyCheck(e)
 		break;
 
 
-		// F2 - Rename selected note
-		case 113:
-			renameNote();
-		break;
-
-
 		// F5 - Reload main page
 		case 116:
 			reloadNote();

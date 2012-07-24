@@ -12,7 +12,6 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
 		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
-
 		<!-- jquery -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!-- datatables -->
@@ -84,6 +83,13 @@
 						$(this.nTr).removeClass('row_selected');
 					});
 					$(event.target.parentNode).addClass('row_selected');
+
+					// enable the following buttons - as we have selected a note
+					document.myform.save.disabled=false;
+					document.myform.delete.disabled=false;
+
+					// enable note title field
+					document.myform.noteTitle.disabled=false;
 				});
 
 	
@@ -175,7 +181,9 @@
 				reloadNote();
 			}
 			else
-			{ alert("Error while trying to save a note. Please select a record first and try again."); }
+			{ 
+				alert("Error while trying to save a note. Please select a record first and try again."); 
+			}
 		}
 
 
@@ -215,7 +223,9 @@
 				?>
 			}
 			else
-			{ alert("Error while trying to delete a note. Please select a record first and try again."); }	
+			{ 
+				alert("Error while trying to delete a note. Please select a record first and try again."); 
+			}	
 		}
 
 		//
@@ -229,7 +239,6 @@
 			var html = $("#input2").val();
 			newNoteContent = html;
 			// if we have a note title - create the new note (content is not needed so far)
-			//if ((newNoteTitle.length > 0) && (newNoteContent.length != 0 ))
 			if (newNoteTitle.length > 0)
 		  	{
 		  		if(newNoteContent.length == 0)
@@ -249,52 +258,36 @@
 
 
 		//
-		// RENAME NOTE
-		//
-		function renameNote() 
-		{
-			// is a note selected?
-			var renameNoteID = document.myform.noteID.value;					// get the note id
-			var renameNoteTitle = document.myform.newNoteTitle.value;			// get the NEW note title 
-			var renameNoteContent = document.myform.input2.value;			// get the NEW note content
-			var renameNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
-			// get text of cleditor
-			var html = $("#input2").val();
-			renameNoteContent = html;
-			// if we have a note-id - save the change to db
-			if( (renameNoteID.length > 0) && (renameNoteID != 'ID') && (renameNoteTitle.length >0) )
-			{
-				$.post("scripts/renNote.php", { renameNoteID: renameNoteID, renameNoteTitle: renameNoteTitle, renameNoteContent: renameNoteContent, renameNoteCounter: renameNoteCounter  } );
-			}
-			else
-			{ 
-				alert("Error while trying to rename a note. Please select a record first and try again."); 
-			}
-		}
-
-
-		//
 		// RELOAD ALL NOTES
 		//
 		function reloadNote() 
 		{
 			javascript:history.go(0)
 		}
+
+		//
+		// ENABLE CREATE NOTE BUTTON
+		//
+		function enableCreateButton()
+		{
+			document.myform.createNoteButton.disabled=false;
+			//
+			// lets clean up the main interface - as the user has choosen to create a new note by entering
+			document.myform.noteID.value = "";				// empty ID of previously selected note
+			document.myform.noteTitle.value = "";			// empty title of previously selected note
+			document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
+
+			// disable sidebar buttons
+			document.myform.save.disabled=true;
+			document.myform.delete.disabled=true;
+
+			// disable note title field
+			document.myform.noteTitle.disabled=true;
+
+			// empty cleditor textarea
+			//$('#input2').val('').blur();
+		}
 		</script>
-
-
-
-		<script language="javascript">
-			function enableCreateButton()
-			{
-				document.myform.createNoteButton.disabled=false;
-			}
-
-			
-		</script>
-
-
-
 	</head>
 
 	<body id="dt_example">
@@ -310,16 +303,15 @@
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td width="20px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
-							<td colspan="1"><input type="text" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
-							<td><input type="button"  style="width:90px" title="Stores the current note to the db." id="save" value="save" onClick="saveNote();"></td>
+							<td colspan="1"><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
+							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="true"></td>
 							<input type="hidden" style="width:50%; height:15px;" name="noteVersion" />
 						<!-- NEW NOTE CONTENT using clEditor -->
 						<tr>
 							<td colspan="2" width="95%" height="400px"><textarea id="input2" name="input2" cols="110" ></textarea></td>
 							<td>
 								<input type="button"  style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
-								<input type="button"  style="width:90px" title="Renames the current note" value="rename" onClick="renameNote();" >
-								<input type="button"  style="color:#c00; width:90px" title="Deletes the current note from the db" value="delete" onClick="deleteNote();">
+								<input type="button"  style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="true">
 							</td>
 						</tr>
 						<!-- newTitle AND create buttons -->
@@ -349,7 +341,7 @@
 						{
 							echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
 						}
-						disconnectFromDB();
+						//disconnectFromDB();
 					?>
 					</tbody>
 					<tfoot><tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>

@@ -7,12 +7,10 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
 		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
-
 		<!-- data tables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
@@ -114,7 +112,7 @@
 					include 'conf/config.php';
 					echo "<b>".$m_name."</b>"; 
 			?>
-				is an open-source web-based notes-keeper. You can create, edit, rename, delete text-based notes - but the most important function is for sure the search.				
+				is an open-source web-based notes-keeper. You can create, edit, rename and delete text-based notes - but the most important function is for sure the search.				
 				The basic workflow is somehow inspired by <a href="http://notational.net/" target="_new">Notational Velocity</a>.
 				Wanna know <a href="https://github.com/macfidelity/monoto/wiki/About-the-monoto-history">more</a>?
 
@@ -137,7 +135,7 @@
 						<td>build:</td>
 						<td><span><?php echo $m_build; ?></span></td>
 						<td><?php if($m_stable == false) { echo "<font color='red'>Development Version</font>"; } ?></td>
-						<td rowspan="3" align="right"><img src="images/logo/monoto_logo.png" alt="monoto logo"></td></tr>
+						<td rowspan="3" align="right"><img src="images/icons/monoto_logo.png" alt="monoto logo"></td></tr>
 					<tr>
 						<td>milestone:</td>
 						<td colspan="2"><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
@@ -208,10 +206,6 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_changes = $row[0]; }
-								// amount of renames-events
-								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='rename' and owner='".$owner."' "); 
-								while($row = mysql_fetch_array($result)) 					
-								{ $stats_amount_of_renames = $row[0]; }
 								// amount of delete-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
@@ -285,7 +279,6 @@
 								// 		- $stats_amount_of_creates
 								//		- $stats_amount_of_imports
 								//		- $stats_amount_of_changes
-								//		- $stats_amount_of_renames
 								//		- $stats_amount_of_deletes
 								//		- $stats_amount_of_logins
 								//		- $stats_amount_of_logouts
@@ -325,7 +318,7 @@
 								//
 								// Use our variables to create some kind of LOG text - should be informative but still funny if possible.
 								echo "- The personal event log has recorded <span>".$stats_events_of_current_user." events</span> for this account.<br>";
-								echo "- Those can be devided into <span>".$stats_amount_of_creates." notes creations</span>, <span>".$stats_amount_of_changes." note-editings</span>, <span>".$stats_amount_of_renames." rename-events</span> and <span>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
+								echo "- Those can be devided into <span>".$stats_amount_of_creates." notes creations</span>, <span>".$stats_amount_of_changes." note-editings</span> and <span>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
 								echo "- In addition to those numbers your account has <span>".$stats_amount_of_imports." note-import events</span> logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
 								echo "- Your highest note id is currently <span>".$stats_highest_note_version_id."</span>, with the title <span>".$stats_highest_note_version_title."</span>. This specific note has <span>revision number ".$stats_highest_note_version_versions."</span>.<br>";
 								echo "- Well in case numbers still dont match up - add <span>".$stats_amount_of_logins." logins</span> and <span>".$stats_amount_of_logouts." logouts</span>.<br>";
@@ -350,7 +343,6 @@
 				<tbody>
 					<tr><td>ESC</td><td>Reset input fields and sets the focus back to the main search field.</td><td>home</td><td>works</td></tr>
 					<tr><td>F1</td><td>Open the online help / documentation</td><td>all pages</td><td>only for home</td></tr>
-					<tr><td>F2</td><td>Rename a selected note</td><td>home</td><td>works</td></tr>
 					<tr><td>F5</td><td>Reloads all notes from db.</td><td>all pages</td><td>only for home</td></tr>
 					<tr><td>F9</td><td>Save a selected note</td><td>home</td><td>works</td></tr>
 					<tr><td>Del</td><td>Delete selected note.</td><td>home</td><td>works</td></tr>
@@ -360,6 +352,7 @@
 					<tr><td>(Shift) + Alt + s</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + i</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey</td><td>all pages</td><td>should work</td></tr>
 				</tbody>
 			</table>
 
@@ -385,7 +378,7 @@
 					</tr>
 					<tr>
 						<td>import</td>
-						<td>Note was imported using the importer, version counter = 0, date created and modified set</td>
+						<td>Note was imported using the importer, version counter = 1, date created and modified set</td>
 						<td>
 							<?php
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import' and owner='".$owner."' "); 
@@ -400,17 +393,6 @@
 						<td>
 							<?php
 								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save' and owner='".$owner."' "); 
-								while($row = mysql_fetch_array($result))
-								{ echo $row[0]; }
-						?>
-						</td>
-					</tr>
-					<tr>
-						<td>rename</td>
-						<td>Title (and maybe content) was changed, version counter +1, date modified set</td>
-						<td>
-							<?php
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'rename' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result))
 								{ echo $row[0]; }
 						?>

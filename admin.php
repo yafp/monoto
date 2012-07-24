@@ -10,7 +10,6 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
 		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
-
 		<!--  m_reallyLogout-->
 		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
 		<!-- jquery -->
@@ -28,7 +27,6 @@
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.js"></script>
-
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var oTable;
@@ -39,11 +37,7 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-				/* "oSearch": {"sSearch": "Initial search"}, */
-				"sPaginationType": "full_numbers",
-				"iDisplayLength": 5,					/* default rows */
 				"bLengthChange": false,
-				"bPaginate": true , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
 				"aaSorting": [[ 0, "asc" ]],				/* sorting */
 				"aoColumns"   : [					/* visible columns */
 							{ "bSearchable": true, "bVisible": true }, 	/* note-id */
@@ -91,16 +85,11 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-
-				
-
-
 				<?php
 					include ('scripts/db.php');		// connect to db
 					connectToDB();
 				?>
 				
-
 				<!-- BASICS -->
 				<h2><a name="basic">admin settings</a></h2>
 					<table width="100%">
@@ -134,8 +123,6 @@
 					</tbody>
 					</table>
 
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
@@ -154,18 +141,15 @@
 					<tr align="left"><th>notes</td><th>creator</td></tr>
 					<!-- get notes count per user -->
 					<?php
-						// define array for our flot pie graph
-						$whatArray = array();
+						$whatArray = array();			// define arrays for our flot pie graph
 						$howMuchArray = array();
 
 						$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
 						while($row = mysql_fetch_array($result))   // fill datatable
 						{
-							// fill table
-							echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';
+							echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';		// fill table
 
-							// fill array for graph
-							array_push($whatArray, $row[0]);
+							array_push($whatArray, $row[0]);								// fill array for graph
 							array_push($howMuchArray, $row[1]);
 						}
 					?>
@@ -173,7 +157,6 @@
 
 				<!-- placeholder for flot pie-chart -->
 				<div id="placeholder" style="height:200px;"></div>
-
 
 				<!-- generate our flot pie chart -->
 				<script type="text/javascript">
@@ -218,7 +201,6 @@
 				});
 				</script>
 
-				
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
@@ -276,7 +258,6 @@
 								<td></td>
 							</tr>
 						</table>
-
 					</form>
 					
 				<!-- SPACER -->
@@ -334,7 +315,6 @@
 <?php
 	include 'conf/config.php';
 
-
 	//
 	// OPTIMIZE MYSQL TABLES
 	//
@@ -349,50 +329,34 @@
   			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
 		}
 		echo '<script type="text/javascript">alert("Notification: Tables optimized")</script>';
-		disconnectFromDB();
+		//disconnectFromDB();
 	}
-
-
-
 
 	//
 	// TRUNCATE EVENTS
 	//
 	if ( isset($_POST["doTruncateEvents"]) ) 
 	{
-		connectToDB();  // connect to mysql
+		connectToDB();  								// connect to mysql
+		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
 
-		// truncate table
-		$res = mysql_query('TRUNCATE TABLE m_log');
-		while($row = mysql_fetch_assoc($res)) 
-		{		
-		}
 		echo '<script type="text/javascript">alert("Notification: Table m_log truncated.")</script>';
-		disconnectFromDB();
+		//disconnectFromDB();
 	}
-
-
-
 
 	//
 	// TRUNCATE NOTES
 	//
 	if ( isset($_POST["doTruncateNotes"]) ) 
 	{
-		connectToDB();  // connect to mysql
+		connectToDB();  								// connect to mysql
+		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
 
-		// truncate table
-		$res = mysql_query('TRUNCATE TABLE m_notes');
-		while($row = mysql_fetch_assoc($res)) 
-		{		
-		}
 		echo '<script type="text/javascript">alert("Notification: Table m_notes truncated.")</script>';
-		disconnectFromDB();
+		//disconnectFromDB();
 	}
 
-
-
-
+	//
 	// CREATE NEW USER
 	//
 	if ( isset($_POST["doCreateNewUserAccount"]) ) 
@@ -483,6 +447,6 @@
 		{
 			echo '<script type="text/javascript">alert("Error: You need to submit a password twice - not 2 different passwords. Classic typo i guess.")</script>';
 		}
-		disconnectFromDB();				// disconnect from mysql
+		//disconnectFromDB();				// disconnect from mysql
 	}
 ?>

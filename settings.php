@@ -11,7 +11,6 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
 		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
-
 		<!-- jquery -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!--  m_reallyLogout-->
@@ -58,11 +57,6 @@
 
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
-				<?php
-					include 'scripts/db.php';						// connect to db
-					connectToDB();
-				?>
-
 				<table width="100%">
 					<tr>
 						<td width="25%" colspan="2"><img src="images/icons/user-14.png" alt="user icon" align="left" border="1"></td>
@@ -94,6 +88,9 @@
 						<td>mail:</td>
 						<td>
 							<?php
+								include 'scripts/db.php';						// connect to db
+								connectToDB();
+
 								$sql="SELECT email FROM m_users WHERE username='".$_SESSION['username']."' ";				// mail
 								$result = mysql_query($sql);
 								while($row = mysql_fetch_array($result)) 					
@@ -230,9 +227,8 @@ if ( isset($_POST["doChangeUserPW"]) )
 	{
 		echo '<script type="text/javascript">alert("Error - Password mismatch while trying to change.");</script>';
 	}
-	disconnectFromDB();
+	//disconnectFromDB();
 }
-
 
 
 //
@@ -252,7 +248,7 @@ if ( isset($_POST["doDelAllNotes"]) )
 	$details = "All user notes deleted with eraser.";
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
-	disconnectFromDB();
+	//disconnectFromDB();
 }
 
 
@@ -274,7 +270,7 @@ if ( isset($_POST["doDelAllEvents"]) )
 	$details = "All user events deleted with eraser.";
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
-	disconnectFromDB();
+	//disconnectFromDB();
 }
 
 
@@ -384,7 +380,7 @@ if ( isset($_POST["doImport"]) )
 				</script>
 			<?php
 		}
-		disconnectFromDB();
+		//disconnectFromDB();
 } 
 
 
@@ -416,7 +412,7 @@ if ( isset($_POST["doChangeUserIcon"]) )
 	{
    		echo '<script type="text/javascript">alert("Error - no image defined");</script>';
 	}
-	disconnectFromDB();
+	//disconnectFromDB();
 }
 
 ?>

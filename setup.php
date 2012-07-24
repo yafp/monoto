@@ -62,16 +62,6 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 	include 'scripts/db.php';  							// connect to db
 	connectToDB();
 
-	/*
-	// connect to mysql
-	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);
-	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}
-	mysql_select_db($mysql_db, $con);										// select db
-	*/
-
 	// get data
 	$username = $_POST['username'];
 	$email = $_POST['email'];

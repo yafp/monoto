@@ -4,14 +4,13 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 		<title>monoto-notes</title>
-
 		<!-- JS - navigation -->
 		<script type='text/javascript' src='js/m_menu.js'></script>
 </head>
 
 <!-- MONOTO ICON -->
 <div ID="logo">
-	<a href="notes.php"><img src="images/logo/monoto_logo.png" alt="monoto logo" align="right" margin-right="10"></a>
+	<a href="notes.php"><img src="images/icons/monoto_logo.png" alt="monoto logo" align="right" margin-right="10"></a>
 </div>
 
 
@@ -25,8 +24,8 @@
 		$owner = $_SESSION['username'];
 	?>
 		<!-- stylesheet-switcher -->
-		<a href="#" title="default stylesheet" onclick="setActiveStyleSheet('default'); return false;">/b</a>
-		<a href="#" title="alt stylesheet" onclick="setActiveStyleSheet('alt'); return false;">/o</a>
+		<a href="#" title="default stylesheet" onclick="setActiveStyleSheet('default'); return false;"><small>/b</small></a>
+		<a href="#" title="alt stylesheet" onclick="setActiveStyleSheet('alt'); return false;"><small>/o</small></a>
 
 	<?php	
 		echo "<br>";
@@ -44,12 +43,10 @@
       	echo '</ul></li>';
 
       	// logout
-		echo '<li><a href="logout.php"> ...logout <b>'.$owner.'</b></a></li></ul>';
+		echo '<li><a accesskey="l" href="logout.php"> ...<b>l</b>ogout <b>'.$owner.'</b></a></li></ul>';
 
-		
 		// random welcome message to user
 		echo '<div ID="welcome">';
-			// define welcome strings and related languages
 			$welcomeArray = array("Hello", "ahoy", "welcome", "Hallo", "bonjour", "welkom", "velkommen", "Willkommen", "aloha", "shalom", "benvenuto", "Bienvenido", "Merhaba", "Välkommen", "Wellkumma", "Bonvenon", "Salve", "Bun venit" );
 			$relation = array("english", "czech", "english", "german", "french", "dutch", "Norwegian", "german", "hawai", "hebrew", "italian", "spanish", "turkish", "swedish", "Wellkumma", "esperanto", "romanian", "romania" );
 			$myRandomPick = array_rand($welcomeArray);				// pick a random text/number
@@ -64,4 +61,3 @@
 		// show nothing - redirect and stuff will take care.
 	}
 ?>
-
