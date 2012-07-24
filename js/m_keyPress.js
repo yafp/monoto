@@ -13,14 +13,24 @@ function KeyCheck(e)
 	{
 		// ESC
 		case 27:
-			// focus in newNoteTitle
+			// specialcase: if focus in newNoteTitle -> reset the field
 			if(document.activeElement.name == "newNoteTitle")
 			{
 				document.activeElement.value = "";		// reset field
 				document.activeElement.blur(); 			// lose focus
 			}
+
+			// unselect a maybe selected row in datatable - maybe via redraw.
+			$(oTable.fnSettings().aoData).each(function ()
+			{
+				$(this.nTr).removeClass('row_selected');
+			});
+
+			// jump to search
 			$('.dataTables_filter input').val('').keyup();						// reset search - showing all records
 			$('div.dataTables_filter input').focus();							// set focus on search-field
+
+			enableCreateButton();												// run enableCreateButton from notes.php to reload buttons status etc. 
 		break;
 
 
@@ -51,6 +61,7 @@ function KeyCheck(e)
 
 		// DEL - delete selected note & reloads page
 		case 46:
+			// missing: we should do that only if a row in datatables is selected 
 		   	deleteNote();
 		break;
 

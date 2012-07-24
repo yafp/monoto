@@ -84,10 +84,9 @@
 					});
 					$(event.target.parentNode).addClass('row_selected');
 
-					// enable the following buttons - as we have selected a note
+					// enable the sidebar buttons - as we have selected a note
 					document.myform.save.disabled=false;
 					document.myform.delete.disabled=false;
-
 					// enable note title field
 					document.myform.noteTitle.disabled=false;
 				});

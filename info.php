@@ -134,7 +134,7 @@
 					<tr>
 						<td>build:</td>
 						<td><span><?php echo $m_build; ?></span></td>
-						<td><?php if($m_stable == false) { echo "<font color='red'>Development Version</font>"; } ?></td>
+						<td><?php if($m_stable == false) { echo "<font color='red'>Development Version (unstable)</font>"; } ?></td>
 						<td rowspan="3" align="right"><img src="images/icons/monoto_logo.png" alt="monoto logo"></td></tr>
 					<tr>
 						<td>milestone:</td>
@@ -366,7 +366,7 @@
 				<tbody>
 					<tr>
 						<td>create</td>
-						<td>Note was created, version counter = 0, date created and modified set</td>
+						<td>Note was created, version counter = 1, date created and modified set</td>
 						<td>
 						<?php
 							$owner = $_SESSION['username'];
