@@ -502,7 +502,7 @@
 if ( isset($_POST["doUpdateCheck"]) ) 
 {
 	session_start();
-	include 'config.php';
+	include 'conf/config.php';
 	
 	// assume everything is good
 	$critical = FALSE;
