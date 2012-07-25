@@ -50,8 +50,10 @@
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">logout</a></h2>
 
+				<img src="images/icons/logout.gif">
+
 				<!-- REDIRECT TO LOGIN -->
-				<?php	header( "refresh:2;url=index.php" ); ?>
+				<?php	header( "refresh:3;url=index.php" ); ?>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;<br>&nbsp;</br></div>

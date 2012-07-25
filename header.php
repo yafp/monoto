@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 		<title>monoto-notes</title>
 		<!-- JS - navigation -->
 		<script type='text/javascript' src='js/m_menu.js'></script>
@@ -24,6 +24,7 @@
 		$owner = $_SESSION['username'];
 	?>
 		<!-- stylesheet-switcher -->
+		&nbsp;
 		<a href="#" title="default stylesheet" onclick="setActiveStyleSheet('default'); return false;"><small>/b</small></a>
 		<a href="#" title="alt stylesheet" onclick="setActiveStyleSheet('alt'); return false;"><small>/o</small></a>
 

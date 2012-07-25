@@ -36,11 +36,11 @@
 				{ 
 				/* "oSearch": {"sSearch": "Initial search"}, */
 				"sPaginationType": "full_numbers",
-				"iDisplayLength": 50,					/* default rows */
+				"iDisplayLength": 50,									/* default rows */
 				"bLengthChange": false,
-				"bPaginate": true , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
-				"aaSorting": [[ 3, "desc" ]],				/* sorting */
-				"aoColumns"   : [					/* visible columns */
+				"bPaginate": true , 									/* pagination */
+				"aaSorting": [[ 3, "desc" ]],							/* sorting */
+				"aoColumns"   : [										/* visible columns */
 							{ "bSearchable": true, "bVisible": true }, 	/* note-id */
 							{ "bSearchable": true, "bVisible": true },	/* note-title */
 							{ "bSearchable": true, "bVisible": true }, 	/* note-content */
@@ -132,10 +132,12 @@
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 				<table width="100%">
 					<tr>
+						<td colspan="4"><img src="images/icons/monoto_logo.png" alt="monoto logo"></td></tr>
+					<tr>
+					<tr>
 						<td>build:</td>
 						<td><span><?php echo $m_build; ?></span></td>
 						<td><?php if($m_stable == false) { echo "<font color='red'>Development Version (unstable)</font>"; } ?></td>
-						<td rowspan="3" align="right"><img src="images/icons/monoto_logo.png" alt="monoto logo"></td></tr>
 					<tr>
 						<td>milestone:</td>
 						<td colspan="2"><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
@@ -144,8 +146,20 @@
 						<td colspan="3">&nbsp;</td>
 					</tr>
 					<tr>
-						<td colspan="3">&nbsp;</td>
-						<td align="right"><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+						<td>&nbsp;</td>
+						<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+						<td>
+							<?php 
+								if($s_enable_UnstableSources == true)
+								{
+									echo "Searching for <span>stable</span> and <span>unstable</span> versions";
+								}
+								else
+								{
+									echo "Searching only for <span>stable</span> versions.";
+								}
+						 	?>
+						</td>
 					</tr>
 				</table>
 			</form>
@@ -198,6 +212,14 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_creates = $row[0]; }
+
+								// amount of create-error events
+								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create error' and owner='".$owner."' "); 
+								while($row = mysql_fetch_array($result)) 					
+								{ $stats_amount_of_creates_errors = $row[0]; }
+
+
+
 								// amount of import-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
@@ -277,6 +299,7 @@
 								// EVENTS
 								// - $stats_events_of_current_user
 								// 		- $stats_amount_of_creates
+								//		- $stats_amount_of_creates_errors
 								//		- $stats_amount_of_imports
 								//		- $stats_amount_of_changes
 								//		- $stats_amount_of_deletes
@@ -320,6 +343,7 @@
 								echo "- The personal event log has recorded <span>".$stats_events_of_current_user." events</span> for this account.<br>";
 								echo "- Those can be devided into <span>".$stats_amount_of_creates." notes creations</span>, <span>".$stats_amount_of_changes." note-editings</span> and <span>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
 								echo "- In addition to those numbers your account has <span>".$stats_amount_of_imports." note-import events</span> logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
+								echo "- Plus <span>".$stats_amount_of_creates_errors."</span> failed create errors.<br>";
 								echo "- Your highest note id is currently <span>".$stats_highest_note_version_id."</span>, with the title <span>".$stats_highest_note_version_title."</span>. This specific note has <span>revision number ".$stats_highest_note_version_versions."</span>.<br>";
 								echo "- Well in case numbers still dont match up - add <span>".$stats_amount_of_logins." logins</span> and <span>".$stats_amount_of_logouts." logouts</span>.<br>";
 								echo "- Your shortest note so far is note <span>number ".$stats_note_with_shortest_content_id."</span>, it is <span>using ".$stats_note_with_shortest_content_chars." chars</span> for its entire content.<br>";
@@ -371,6 +395,18 @@
 						<?php
 							$owner = $_SESSION['username'];
 							$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'  and owner='".$owner."'   "); 
+							while($row = mysql_fetch_array($result))
+							{ echo $row[0]; }
+						?>
+						</td>
+					</tr>
+					<tr>
+						<td>create error</td>
+						<td>Error while trying to create a note. The title was already in use.</td>
+						<td>
+						<?php
+							$owner = $_SESSION['username'];
+							$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create error'  and owner='".$owner."'   "); 
 							while($row = mysql_fetch_array($result))
 							{ echo $row[0]; }
 						?>

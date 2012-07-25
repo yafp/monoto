@@ -42,7 +42,7 @@ window.digitalspaghetti = window.digitalspaghetti || {};
 digitalspaghetti.password = {	
 	'defaults' : {
 		'displayMinChar': true,
-		'minChar': 8,
+		'minChar':8,
 		'minCharText': 'You must enter a minimum of %d characters',
 		'colors': ["#f00", "#c06", "#f60", "#3c0", "#3f0"],
 		'scores': [20, 30, 43, 50],

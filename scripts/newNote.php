@@ -1,6 +1,5 @@
 <?php
 	session_start();
-
 	if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 	{
 		// get data for new note
@@ -23,7 +22,13 @@
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result)>0) 
 		{
-			
+			// update m_log
+			$newNoteContentSummary = substr($newNoteContent, 0, 10);
+			$event = "create error";
+			$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b> failed to create as there was already a note with this title.</b>";
+			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
+			$result = mysql_query($sql);
+
 		}
 		else // do create note and do log it
 		{
@@ -34,7 +39,7 @@
 			{
 		    	die('Error: ' . mysql_error());
 			}
-			else // update m_notes
+			else // update m_log
 			{
 				$newNoteContentSummary = substr($newNoteContent, 0, 10);
 				$event = "create";

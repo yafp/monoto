@@ -65,9 +65,9 @@
 							<!-- CHANGE USER PASSWORD BUTTON -->
 							<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.
 							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-										<input type="password" id="newPassword1" name="newPassword1" placeholder="Password" />
-										<input type="password" id="newPassword2" name="newPassword2" placeholder="Please enter the new password again" /><br>
-										<script type="text/javascript">jQuery('#newPassword2').pstrength();</script>
+										<input type="password" id="newPassword1" name="newPassword1" placeholder="Please enter your new password" />
+										<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" />
+										<script type="text/javascript">jQuery('#newPassword1').pstrength();</script><br>
 										<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" />					
 							</form>
 							<!-- CHANGE USER ICON BUTTON -->

@@ -234,6 +234,7 @@
 		{
 			var newNoteTitle = document.myform.newNoteTitle.value;
 			var newNoteContent = document.myform.input2.value;
+
 			// get text of cleditor
 			var html = $("#input2").val();
 			newNoteContent = html;
@@ -242,11 +243,11 @@
 		  	{
 		  		if(newNoteContent.length == 0)
 		  		{
-		  			newNoteContent = "Dummy Content - as you entered no content while creating this note.";			// define dummy content as user didnt
+		  			newNoteContent = "Placeholder content - as no note-content was defined while creating this note.";			// define dummy content as user didnt
 		  		}
 		  		
 		  		$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
-				reloadNote();	
+				//reloadNote();	
 		  	}
 			else
 			{ 
@@ -284,7 +285,7 @@
 			document.myform.noteTitle.disabled=true;
 
 			// empty cleditor textarea
-			//$('#input2').val('').blur();
+			$('#input2').val('').blur();
 		}
 		</script>
 	</head>
@@ -293,12 +294,11 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
-
+			<!-- CONTENT -->
 			<div id="noteContentCo">
-				<!-- SHOW SELECTED NOTE -->
 				<h2>notes</h2>
-				<form name="myform">
-					<table width="100%" cellspacing="0" cellpadding="5" border="0">
+				<form name="myform" method="post" action="<?php echo $PHP_SELF;?>">
+					<table width="100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td width="20px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
