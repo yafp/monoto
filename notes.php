@@ -91,8 +91,7 @@
 					document.myform.noteTitle.disabled=false;
 				});
 
-	
-				/* Add a click handler for the delete row */
+				/* Add a click handler for the delete row - we dont use that so far */
 				$('#delete').click( function() 
 				{
 					var anSelected = fnGetSelected( oTable );
@@ -102,46 +101,61 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-
-				"sDom": '<"wrapper"flipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
-				"oSearch": {"sSearch": ""}, 
-				"sPaginationType": "full_numbers",
-				"iDisplayLength": 100000,					/* default rows */
-				"bLengthChange": false,
-				"bPaginate": false , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
-				"aaSorting": [[ 4, "desc" ]],				/* sorting */
-				"aoColumns"   : [					/* visible columns */
-							{ "bSearchable": true, "bVisible": true }, 	/* note-id */
-							{ "bSearchable": true, "bVisible": true },	/* note-title */
-							{ "bSearchable": true, "bVisible": false}, /* note-content */
-							{ "bSearchable": false, "bVisible": false },	/* tags */
-							{ "bSearchable": true, "bVisible": true }, 	/* last edit */
-							{ "bSearchable": true, "bVisible": true },	/* created */
-							{ "bSearchable": true, "bVisible": true }	/* save_counter */
-						],
+					/* "sDom": '<"wrapper"flipt>, <l<t>ip>', */		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+					"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+					"oSearch": {"sSearch": ""}, 
+					"sPaginationType": "full_numbers",
+					"iDisplayLength": 100000,					/* default rows */
+					"bLengthChange": false,
+					"bPaginate": false , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
+					"aaSorting": [[ 4, "desc" ]],				/* sorting */
+					"aoColumns"   : [					/* visible columns */
+								{ "bSearchable": true, "bVisible": true }, 	/* note-id */
+								{ "bSearchable": true, "bVisible": true },	/* note-title */
+								{ "bSearchable": true, "bVisible": false}, /* note-content */
+								{ "bSearchable": false, "bVisible": false },	/* tags */
+								{ "bSearchable": true, "bVisible": true }, 	/* last edit */
+								{ "bSearchable": true, "bVisible": true },	/* created */
+								{ "bSearchable": true, "bVisible": true }	/* save_counter */
+							],
 				} );
 
-				$('.dataTables_filter input').attr("placeholder", "enter seach term here");			// define placeholder for search field
-				$("#example_filter input").focus();													// set focus on search field
+
+				/* configure a new search field */
+				$('#myInputTextField').keypress(function()
+				{
+      				oTable.fnFilter( $(this).val() );	// search the table
+
+      				// get amount of records after filter
+      				var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
+
+      				// if there is only 1 record left - select/click it
+      				if(amountOfRecordsAfterFilter == 1)
+      				{
+      					alert("only 1 record left after filtering - should autoselect that record.");
+      				}
+
+				})
+
+
+				//$('.dataTables_filter input').attr("placeholder", "enter seach term here");			// define placeholder for search field
+				//$("#example_filter input").focus();													// set focus on search field
+				document.getElementById('myInputTextField').focus();
+
 				$('table tr').click(function () 
 				{				
-				var sData = oTable.fnGetData( this );			// Get the position of the current data from the node 				
-				var aPos = oTable.fnGetPosition(this);			// show selected note-data as alert				
-				var aData = oTable.fnGetData( aPos[0] );		// Get the data array for this row			
-				aData[ aPos[1] ] = 'clicked';  					// Update the data array and return the value
+					var sData = oTable.fnGetData( this );			// Get the position of the current data from the node 				
+					var aPos = oTable.fnGetPosition(this);			// show selected note-data as alert				
+					var aData = oTable.fnGetData( aPos[0] );		// Get the data array for this row			
+					//aData[ aPos[1] ] = 'clicked';  					// Update the data array and return the value
 
-				// cleditor
-				$('#input2').val(sData[2]).blur();
+					$('#input2').val(sData[2]).blur();				// fill html ricktext cleditor with text of selected note
 
-				document.myform.noteID.value = "";				// we need the note id
-				document.myform.noteID.value += sData[0]
-				document.myform.noteTitle.value = "";			// we need the note Title
-				document.myform.noteTitle.value += sData[1]
-				document.myform.noteVersion.value = "";			// we need the version
-				document.myform.noteVersion.value += sData[6]
-			});
-		} );
-
+					document.myform.noteID.value = sData[0]			// fill id field
+					document.myform.noteTitle.value = sData[1]		// fill title field
+					document.myform.noteVersion.value = sData[6]	// fill version - not displayed as field is hidden
+				});
+			} );
 
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
@@ -265,32 +279,28 @@
 			javascript:history.go(0)
 		}
 
+
 		//
 		// ENABLE CREATE NOTE BUTTON
 		//
 		function enableCreateButton()
 		{
-			document.myform.createNoteButton.disabled=false;
-			//
+			document.myform.createNoteButton.disabled=false;	// enable Create new note button
+
 			// lets clean up the main interface - as the user has choosen to create a new note by entering
 			document.myform.noteID.value = "";				// empty ID of previously selected note
 			document.myform.noteTitle.value = "";			// empty title of previously selected note
 			document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
-
 			// disable sidebar buttons
 			document.myform.save.disabled=true;
 			document.myform.delete.disabled=true;
-
-			// disable note title field
-			document.myform.noteTitle.disabled=true;
-
-			// empty cleditor textarea
-			$('#input2').val('').blur();
+			document.myform.noteTitle.disabled=true;		// disable note title field
+			$('#input2').val('').blur();					// empty cleditor textarea
 		}
 		</script>
 	</head>
 
-	<body id="dt_example">
+	<body id="dt_example" class="ex_highlight_row">
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'header.php'; ?>
@@ -301,7 +311,7 @@
 					<table width="100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td width="20px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
+							<td width="40px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
 							<td colspan="1"><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="true"></td>
 							<input type="hidden" style="width:50%; height:15px;" name="noteVersion" />
@@ -315,10 +325,8 @@
 						</tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" style="width:100%"  placeholder="Enter title for your new note and press the 'create' button."  name="newNoteTitle" align="right" onkeyup="javascript:enableCreateButton()" /></td>
-							<td>
-								<input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="true">							
-							</td>
+							<td colspan="2"><input type="text" style="width:100%"  placeholder="Enter title for your new note and press the 'create' button."  id="newNoteTitle" name="newNoteTitle" align="right" onkeyup="javascript:enableCreateButton()" /></td>
+							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="true">							</td>
 						</tr>
 					</table>
 				</form>
@@ -326,6 +334,10 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
+				<!--  NEW CUSTOM SEARCH FIELD -->
+				<input style="float:right" type="text" id="myInputTextField" placeholder="enter search term here">					
+
+				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead><tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
 					<tbody>

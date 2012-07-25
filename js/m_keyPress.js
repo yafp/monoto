@@ -20,6 +20,9 @@ function KeyCheck(e)
 				document.activeElement.blur(); 			// lose focus
 			}
 
+			document.getElementById('myInputTextField').value = '';
+
+			
 			// unselect a maybe selected row in datatable - maybe via redraw.
 			$(oTable.fnSettings().aoData).each(function ()
 			{
@@ -27,10 +30,14 @@ function KeyCheck(e)
 			});
 
 			// jump to search
-			$('.dataTables_filter input').val('').keyup();						// reset search - showing all records
-			$('div.dataTables_filter input').focus();							// set focus on search-field
+			//$('.dataTables_filter input').val('').keyup();						// reset search - showing all records
+			//$('div.dataTables_filter input').focus();							// set focus on search-field
+			document.getElementById('myInputTextField').focus();				// set focus to new search
 
 			enableCreateButton();												// run enableCreateButton from notes.php to reload buttons status etc. 
+
+			// disable create new note button afterwards to end up with a clean interface
+			document.myform.createNoteButton.disabled=true;
 		break;
 
 
@@ -42,8 +49,12 @@ function KeyCheck(e)
 
 		// Arrow Up
 		case 38:
-		   	// jump tp previous row
-			//alert("Dummy Arrow Up - Jump to previous note - current row?");
+			// specialcase: if focus in search -> jump to new note title
+			if(document.activeElement.id == "myInputTextField")
+			{
+				//$('#input2').cleditor()[0].focus(); 	// jump to cleditor - makes no sense
+				document.getElementById('newNoteTitle').focus();
+			}
 		break;
 
 
@@ -55,7 +66,11 @@ function KeyCheck(e)
 
 		// Arrow Down
 		case 40:
-		   	// jump to next note
+		   	// specialcase: if focus in search -> jump to first record in table
+			if(document.activeElement.id == "myInputTextField")
+			{
+				alert("Arrow Down in search - jump to first record");
+			}
 		break;
 
 
