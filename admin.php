@@ -141,8 +141,6 @@
 	</script>
 
 
-
-
 	</head>
 	<body id="dt_example">
 		<div id="container">
@@ -270,7 +268,6 @@
 							data: parseFloat(arr02[i])
 							}
 				}
-
 
 				// PLOT
 				$.plot($("#placeholder"), data, {

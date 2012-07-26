@@ -47,7 +47,13 @@ function KeyCheck(e)
 			if(document.activeElement.id == "myInputTextField")
 			{
 				//$('#input2').cleditor()[0].focus(); 	// jump to cleditor - makes no sense
-				document.getElementById('newNoteTitle').focus();
+				// unselect all rows
+				$(oTable.fnSettings().aoData).each(function ()
+				{
+					$(this.nTr).removeClass('row_selected');
+				});
+
+				document.getElementById('newNoteTitle').focus();		// set focus to new note title
 			}
 		break;
 

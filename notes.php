@@ -246,27 +246,25 @@
 		//
 		function createNote() 
 		{
-			var newNoteTitle = document.myform.newNoteTitle.value;
-			var newNoteContent = document.myform.input2.value;
+			var newNoteTitle = document.myform.newNoteTitle.value;			// get new title
+			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');		// replace all characters except numbers,letters, space, underscore and -
+											
+			var newNoteContent = document.myform.input2.value;				// get note content if defined									
+			newNoteContent = $("#input2").val();							// cleanup html stuff of note-content
 
-			// get text of cleditor
-			var html = $("#input2").val();
-			newNoteContent = html;
-			// if we have a note title - create the new note (content is not needed so far)
-			if (newNoteTitle.length > 0)
+			if (newNoteTitle.length > 0)									// if we have a note title - create the new note (content is not needed so far)
 		  	{
-		  		if(newNoteContent.length == 0)
+		  		if(newNoteContent.length == 0)								// check if user defined note-content or not
 		  		{
 		  			newNoteContent = "Placeholder content - as no note-content was defined while creating this note.";			// define dummy content as user didnt
 		  		}
 		  		
 		  		$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
-				reloadNote();	
+				//reloadNote();
 		  	}
 			else
 			{ 
 				alert("Error while trying to create a new note. Please enter a note title and try again."); 
-				// we should stop here and NOT reload page as we are doing right now
 			}
 		}
 
@@ -276,7 +274,9 @@
 		//
 		function reloadNote() 
 		{
-			javascript:history.go(0)
+			// reload page - trying to ignore post data
+			var loc = window.location;
+    		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
 		}
 
 

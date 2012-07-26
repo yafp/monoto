@@ -161,8 +161,26 @@
 						 	?>
 						</td>
 					</tr>
+					<tr>
+						<td colspan="3">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>current stable;</td>
+						<td><div id="curStable01">please run the check</div></td>
+						<td><div id="curStable02">please run the check</div></td>
+					</tr>
+					<tr>
+						<td>current unstable;</td>
+						<td><div id="curUnstable01">please run the check</div></td>
+						<td><div id="curUnstable02">please run the check</div></td>
+					</tr>
 				</table>
 			</form>
+
+			
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
+
 
 			<!-- CHANGELOG-->
 			<b>changelog</b>
@@ -212,14 +230,10 @@
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_creates = $row[0]; }
-
 								// amount of create-error events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create error' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{ $stats_amount_of_creates_errors = $row[0]; }
-
-
-
 								// amount of import-events
 								$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
@@ -288,7 +302,6 @@
 									$stats_last_edited_note_date = $row[1];
 								}
 								//  entire db size
-								//$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = 'monoto'"); 
 								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$mysql_db."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
@@ -571,11 +584,16 @@ if ( isset($_POST["doUpdateCheck"]) )
 	else if ($update)
 	{
 		echo '<script type="text/javascript">alert("There is an update available.");</script>';
+		//echo '<script type="text/javascript">document.getElementById("content").innerHTML = "whatever";</script>';
 	}
 	else // uptodate
 	{
 		echo '<script type="text/javascript">alert("You are using the latest version. Well done.");</script>';
 	}
+
+	// update div with stable informations
+	echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
+	echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$read[3].'";</script>';
 
 	//
 	// check for unstable versions as well
@@ -616,6 +634,10 @@ if ( isset($_POST["doUpdateCheck"]) )
 		{ 
 			echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>'; 
 		}
+
+		// update div with unstable informations
+		echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
+		echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$read[3].'";</script>';
 	}
 }
 ?>

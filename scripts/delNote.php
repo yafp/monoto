@@ -31,7 +31,7 @@
 		else  // update m_log
 		{
 			$event = "delete";
-			$details = "Note: <b>".$deleteTitle."</b> with content: <b>: ".$deleteContent."...</b>. ID: <b>".$deleteID." </b>is now gone.";
+			$details = "Note: <b>".$deleteTitle."</b>. ID: <b>".$deleteID." </b>is now gone.";
 			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 			$result = mysql_query($sql);
 		}

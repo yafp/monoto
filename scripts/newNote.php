@@ -41,9 +41,8 @@
 			}
 			else // update m_log
 			{
-				$newNoteContentSummary = substr($newNoteContent, 0, 10);
 				$event = "create";
-				$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b>";
+				$details = "Note: <b>".$newNoteTitle."</b>";
 				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
 				$result = mysql_query($sql);
 			}
