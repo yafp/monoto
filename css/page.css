@@ -33,7 +33,6 @@ body
 	width: 96%;
 	margin: 20px auto;
 	padding: 0;
-
 	/* round corners */
 	-webkit-border-radius: 20px;
     -khtml-border-radius: 20px;
@@ -42,8 +41,8 @@ body
 	border-color: #4489c9;
 	border-style:solid;
 	border-width:3px;
-
-	background-color:rgba(239,239,239,0.95);
+	/* background-color:rgba(239,239,239,0.90); */
+	background-color: #EBEBEB;
 }
 
 /* header logo */
@@ -383,3 +382,86 @@ span
     text-align: center;
     color: #fff;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a img {border:none;}
+
+#wrapper {width:900px;margin:0px auto;padding:0 0 20px 0;}
+
+h3 {color:#396A88;font-size:1.6em;}
+h6 {color:#888;font-size:1.2em;padding:0;margin:0;font-family:georgia, Times New Roman, Times, Serif;font-style:italic;}
+
+p {width:600px;}
+
+
+#overlay {
+  position:absolute;
+  top:0;
+  left;0;
+  width:899px;
+  height:358px;
+  background:url(../images/overlay.png);
+}
+#container2 {
+  background:url(../images/gradient.jpg);
+  position:relative;
+  width:640px;
+  height:100px;
+}
+div#title {text-align:right;font-size:140px;font-weight:bold;font-family:Arial, Helvetica, Verdana, sans-serif;letter-spacing:-10px;color:#fff;line-height:105px;padding:110px 10px 0 0;}
+
+#overlay2 {
+  position:absolute;
+  top:0;
+  left;0;
+  width:640px;
+  height:100px;
+  background:url(../images/overlay.png);
+}
+#download {
+  position:absolute;
+  top:0;
+  left;0;
+  width:640px;
+  height:100px;
+}
+
+pre {padding:20px;background:#f2f2f2;font-weight:bold;width:600px;}
+div.note {padding:10px 20px 10px 20px;background:#f2f2f2;font-weight:normal;width:600px;}
+div.note h3 {padding:0;margin:0;color:#e00000;}
+span.red {color:#e00000;}
+span.grey {color:#999;}

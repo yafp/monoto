@@ -19,6 +19,20 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!--  m_disableRightClick-->
 		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
+		<!-- fade in via jquery -->
+		<script type="text/javascript" language="javascript">
+			$(document).ready(function(){	
+				$('#page_effect').fadeIn(1500);
+			});
+		</script>
+		<!-- funky image -->
+		<script type="text/javascript" src="js/custom.js"></script>
+		<script type="text/javascript" src="js/pngFix.js"></script>
+		<script type="text/javascript">
+  			DD_belatedPNG.fix('.png-fix');
+		</script>
+
+
 	</head>
 	<body id="dt_example">
 		<div id="container">
@@ -34,11 +48,10 @@
 				<!-- MAINTENANCE -->
 				<h2><a name="core">maintenance mode</a></h2>
 					<table width="100%">
-						<tr><td align="center">This monoto installation is currently in maintenance mode. User-logins are disabled. Sorry ;)</td></tr>
+						<tr><td align="center">This monoto installation is currently in maintenance mode. User-logins are disabled. Shit happens.</td></tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td align="center"><img src="images/icons/firefox1.png" width="100" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td align="center"><noscript><b>Warning</b><br>monoto heavily depends on Javascript, which seems to be disabled in your browser.<br>Consider enabling it or ignoring monoto in the first place.</noscript></td></tr>
 					</table>
 			<?php
 				}
@@ -48,6 +61,7 @@
 				<!-- LOGIN -->
 				<h2><a name="core">login</a></h2>
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+					<div id="page_effect" style="display:none;">
 					<table width="100%">
 						<tr><td align="center"><input type="text" name="username" placeholder="Username" /></td></tr>
 						<tr><td align="center"><input type="password" name="password" placeholder="Password" /></td></tr>
@@ -56,12 +70,27 @@
 						<tr><td>&nbsp;</td></tr>
 						<tr><td align="center"><img src="images/icons/firefox1.png" width="100" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td align="center"><noscript><b>Warning</b><br>monoto heavily depends on Javascript, which seems to be disabled in your browser.<br>Consider enabling it or ignoring monoto in the first place.</noscript></td></tr>
+						<tr>
+							<!--
+							<td align="center">
+									<div id="container2">
+									    <div id="overlay2" class="png-fix">
+									         <div id="download">
+									              <img src="images/example2.png" alt="Download it Image" class="png-fix" />
+									         </div>
+									    </div>
+									</div>
+							</td>
+						-->
+						</tr>
 					</table>
+					</div>
 				</form>
+				
 			<?php
 				}
 			?>	
+			<noscript><b>warning:</b> monoto heavily depends on Javascript, which seems to be disabled in your browser.<br>Consider enabling it or ignoring monoto in the first place.</noscript>
 			</div>
 
 			<!-- SPACER -->
