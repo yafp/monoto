@@ -104,56 +104,47 @@
 					/* "sDom": '<"wrapper"flipt>, <l<t>ip>', */		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"oSearch": {"sSearch": ""}, 
-					"sPaginationType": "full_numbers",
-					"iDisplayLength": 100000,					/* default rows */
+					"sRowSelect": "single",
 					"bLengthChange": false,
-					"bPaginate": false , 					/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
-					"aaSorting": [[ 4, "desc" ]],				/* sorting */
-					"aoColumns"   : [					/* visible columns */
-								{ "bSearchable": true, "bVisible": true }, 	/* note-id */
-								{ "bSearchable": true, "bVisible": true },	/* note-title */
-								{ "bSearchable": true, "bVisible": false}, /* note-content */
-								{ "bSearchable": false, "bVisible": false },	/* tags */
-								{ "bSearchable": true, "bVisible": true }, 	/* last edit */
-								{ "bSearchable": true, "bVisible": true },	/* created */
-								{ "bSearchable": true, "bVisible": true }	/* save_counter */
+					"bPaginate": false , 															/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
+					"aaSorting": [[ 4, "desc" ]],													/* sorting */
+					"aoColumns"   : [																/* visible columns */
+								{ "bSearchable": true, "bVisible": true }, 							/* note-id */
+								{ "bSearchable": true, "bVisible": true },							/* note-title */
+								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
+								{ "bSearchable": false, "bVisible": false },						/* tags */
+								{ "bSearchable": true, "bVisible": true }, 							/* last edit */
+								{ "bSearchable": true, "bVisible": true },							/* created */
+								{ "bSearchable": true, "bVisible": true }							/* save_counter */
 							],
 				} );
 
 
-				/* configure a new search field */
+				/* configure a new search field & its event while typing */
 				$('#myInputTextField').keypress(function()
 				{
-      				oTable.fnFilter( $(this).val() );	// search the table
+      				oTable.fnFilter( $(this).val() );												// search the table
+      				var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 
-      				// get amount of records after filter
-      				var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
-
-      				// if there is only 1 record left - select/click it
-      				if(amountOfRecordsAfterFilter == 1)
+      				if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
       				{
-      					alert("only 1 record left after filtering - should autoselect that record.");
+						$('#example tbody tr:eq(0)').click()										// select the only record left after search	
+						$('#example tbody tr:eq(0)').addClass('row_selected');						// change background as well					
       				}
 
 				})
 
-
-				//$('.dataTables_filter input').attr("placeholder", "enter seach term here");			// define placeholder for search field
-				//$("#example_filter input").focus();													// set focus on search field
-				document.getElementById('myInputTextField').focus();
+				document.getElementById('myInputTextField').focus();								// set focus on search field
 
 				$('table tr').click(function () 
 				{				
-					var sData = oTable.fnGetData( this );			// Get the position of the current data from the node 				
-					var aPos = oTable.fnGetPosition(this);			// show selected note-data as alert				
-					var aData = oTable.fnGetData( aPos[0] );		// Get the data array for this row			
-					//aData[ aPos[1] ] = 'clicked';  					// Update the data array and return the value
-
-					$('#input2').val(sData[2]).blur();				// fill html ricktext cleditor with text of selected note
-
-					document.myform.noteID.value = sData[0]			// fill id field
-					document.myform.noteTitle.value = sData[1]		// fill title field
-					document.myform.noteVersion.value = sData[6]	// fill version - not displayed as field is hidden
+					var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
+					var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
+					var aData = oTable.fnGetData( aPos[0] );										// Get the data array for this row			
+					$('#input2').val(sData[2]).blur();												// fill html richtext cleditor with text of selected note
+					document.myform.noteID.value = sData[0]											// fill id field
+					document.myform.noteTitle.value = sData[1]										// fill title field
+					document.myform.noteVersion.value = sData[6]									// fill version - not displayed as field is hidden
 				});
 			} );
 
@@ -173,6 +164,17 @@
 			return aReturn;
 		}
 
+
+		//
+		// select first row
+		//
+		function selecttopRow( )
+		{
+		    $('#example tbody tr:eq(0)').click(); 						// select the top record
+		    $('#example tbody tr:eq(0)').addClass('row_selected');		// change background as well
+		}
+
+
 		//
 		// SAVE A NOTE
 		//
@@ -182,11 +184,9 @@
 			var modifiedNoteTitle = document.myform.noteTitle.value;			// get the note title 
 			var modifiedNoteContent = document.myform.input2.value;			// get the NEW note content
 			var modifiedNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
-
 			// get text of cleditor
 			var html = $("#input2").val();
 			modifiedNoteContent = html;
-
 			// if we have a note-id - save the change to db
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))
 			{
@@ -261,7 +261,7 @@
 		  		}
 		  		
 		  		$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
-				//reloadNote();	
+				reloadNote();	
 		  	}
 			else
 			{ 
@@ -286,16 +286,14 @@
 		function enableCreateButton()
 		{
 			document.myform.createNoteButton.disabled=false;	// enable Create new note button
-
-			// lets clean up the main interface - as the user has choosen to create a new note by entering
-			document.myform.noteID.value = "";				// empty ID of previously selected note
-			document.myform.noteTitle.value = "";			// empty title of previously selected note
-			document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
-			// disable sidebar buttons
-			document.myform.save.disabled=true;
-			document.myform.delete.disabled=true;
-			document.myform.noteTitle.disabled=true;		// disable note title field
-			$('#input2').val('').blur();					// empty cleditor textarea
+			// lets clean up the main interface
+			document.myform.noteID.value = "";					// empty ID of previously selected note
+			document.myform.noteTitle.value = "";				// empty title of previously selected note
+			document.myform.noteVersion.value = "";				// empty hiddeen version of previously selected note
+			document.myform.save.disabled=true;					// disable the save button
+			document.myform.delete.disabled=true;				// disable the delete button
+			document.myform.noteTitle.disabled=true;			// disable note title field
+			$('#input2').val('').blur();						// empty cleditor textarea
 		}
 		</script>
 	</head>
@@ -335,7 +333,7 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!--  NEW CUSTOM SEARCH FIELD -->
-				<input style="float:right" type="text" id="myInputTextField" placeholder="enter search term here">					
+				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
 
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">

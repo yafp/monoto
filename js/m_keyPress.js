@@ -29,15 +29,9 @@ function KeyCheck(e)
 				$(this.nTr).removeClass('row_selected');
 			});
 
-			// jump to search
-			//$('.dataTables_filter input').val('').keyup();						// reset search - showing all records
-			//$('div.dataTables_filter input').focus();							// set focus on search-field
-			document.getElementById('myInputTextField').focus();				// set focus to new search
-
-			enableCreateButton();												// run enableCreateButton from notes.php to reload buttons status etc. 
-
-			// disable create new note button afterwards to end up with a clean interface
-			document.myform.createNoteButton.disabled=true;
+			document.getElementById('myInputTextField').focus();			// set focus to new search
+			enableCreateButton();											// run enableCreateButton from notes.php to reload buttons status etc. 
+			document.myform.createNoteButton.disabled=true;					// disable create new note button afterwards to end up with a clean interface
 		break;
 
 
@@ -69,7 +63,7 @@ function KeyCheck(e)
 		   	// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
-				alert("Arrow Down in search - jump to first record");
+				selecttopRow();
 			}
 		break;
 

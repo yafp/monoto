@@ -365,18 +365,20 @@
 			<table width="100%">
 				<thead><tr><th align="left" width="20%">key</th><th align="left" width="60%">function</th><th align="left" width="10%">valid for</th><th align="left" width="10%">status</th></tr></thead>
 				<tbody>
-					<tr><td>ESC</td><td>Reset input fields and sets the focus back to the main search field.</td><td>home</td><td>works</td></tr>
-					<tr><td>F1</td><td>Open the online help / documentation</td><td>all pages</td><td>only for home</td></tr>
-					<tr><td>F5</td><td>Reloads all notes from db.</td><td>all pages</td><td>only for home</td></tr>
-					<tr><td>F9</td><td>Save a selected note</td><td>home</td><td>works</td></tr>
-					<tr><td>Del</td><td>Delete selected note.</td><td>home</td><td>works</td></tr>
-					<tr><td>Arrow Down</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
-					<tr><td>Arrow Up</td><td>row-selection</td><td>home</td><td>DUMMY</td></tr>
-					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + s</td><td>Loads settings page per accesskey</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + i</td><td>Loads info page per accesskey</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>ESC</td><td>Resets all input fields and sets the focus back to search.</td><td>notes</td><td>works</td></tr>
+					<tr><td>F1</td><td>Opens the monoto online help / documentation.</td><td>all pages</td><td>only for notes</td></tr>
+					<tr><td>F5</td><td>Reloads all notes from db.</td><td>all pages</td><td>only for notes</td></tr>
+					<tr><td>F9</td><td>Saves a selected note.</td><td>notes</td><td>works</td></tr>
+					<tr><td>Del</td><td>Deletes the selected note.</td><td>notes</td><td>works</td></tr>
+					<tr><td>Arrow Down (in search)</td><td>Selects the top record.</td><td>notes</td><td>works</td></tr>
+					<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td><td>notes</td><td>DUMMY</td></tr>
+					<tr><td>Arrow Up (in seach)</td><td>Moves the focus to newNoteTitle.</td><td>notes</td><td>works</td></tr>
+					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td><td>notes</td><td>DUMMY</td></tr>
+					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + s</td><td>Loads settings page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + i</td><td>Loads info page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey.</td><td>all pages</td><td>should work</td></tr>
 				</tbody>
 			</table>
 

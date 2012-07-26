@@ -205,6 +205,18 @@ span
 
 
 
+#myInputTextField {
+    background: white url(../images/icons/search.jpg) right no-repeat;
+    padding-right: 16px;
+}
+
+
+
+
+
+
+
+
 /* ############################################################ */ 
 /* TOC ACCORDION												*/
 /* ############################################################ */ 
