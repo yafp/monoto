@@ -131,6 +131,7 @@
 
 				document.getElementById('myInputTextField').focus();								// set focus on search field
 
+				// select a row, highlight it and get the data
 				$('table tr').click(function () 
 				{				
 					var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				

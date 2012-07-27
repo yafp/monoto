@@ -111,6 +111,7 @@
 
 		/* basic table */
 		var oTable = $('#example').dataTable( {
+			"sRowSelect": "single"
 			//"sScrollY": 200,
 			//"sScrollX": "100%",
 			//"sScrollXInner": "100%"
@@ -121,6 +122,13 @@
 			"table": document.getElementById('example'),
 			"datatable": oTable
 		} );
+
+
+
+
+
+
+
 	} );
 	</script>
 	</head>
@@ -283,7 +291,9 @@
 
 				<!-- USERS -->
 				<h2><a name="users">users</a></h2>
+				<!--
 				<p><a href="javascript:void(0)" id="delete">Dummy: Delete selected user (only hides it right now)</a></p>
+				-->
 				<!-- datatables showing our users -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
 					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>

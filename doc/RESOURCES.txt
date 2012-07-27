@@ -7,6 +7,9 @@ Used technologies:
 --- http://datatables.net/
 --- http://premiumsoftware.net/cleditor/
 --- http://code.google.com/p/flot/
+--- styleswitcher
+--- digitalspaghetti.password
+--- jPopUp http://www.jquerypopup.com
 
 - patterns:
 --- http://subtlepatterns.com

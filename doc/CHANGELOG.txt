@@ -28,6 +28,8 @@ Milestone 2 - Doing the second step - Build 20120719.03
 - removed old mysql dump function
 - and several other things ... check the milestone notes at github.
 
+Details: https://github.com/macfidelity/monoto/issues?milestone=2&state=closed
+
 
 Milestone 1 - The Hello World Thing - Build 20120707.04
 #######################################################
@@ -46,3 +48,5 @@ First public monoto version ... featuring:
 - info page with some stats
 - version information
 - update-check
+
+Details: https://github.com/macfidelity/monoto/issues?milestone=1&state=closed

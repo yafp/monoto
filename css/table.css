@@ -484,11 +484,11 @@ tr.even.gradeU td.sorting_3 {
 }
 
 .ex_highlight_row #example tr.even:hover {
-	background-color: #ECFFB3;
+	background-color: #b3ecff;
 }
 
 .ex_highlight_row #example tr.even:hover td.sorting_1 {
-	background-color: #DDFF75;
+	background-color: #67d9ff;
 }
 
 .ex_highlight_row #example tr.even:hover td.sorting_2 {
@@ -500,11 +500,11 @@ tr.even.gradeU td.sorting_3 {
 }
 
 .ex_highlight_row #example tr.odd:hover {
-	background-color: #E6FF99;
+	background-color: #b3ecff;
 }
 
 .ex_highlight_row #example tr.odd:hover td.sorting_1 {
-	background-color: #D6FF5C;
+	background-color: #67d9ff;
 }
 
 .ex_highlight_row #example tr.odd:hover td.sorting_2 {

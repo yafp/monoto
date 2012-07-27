@@ -13,23 +13,16 @@ function KeyCheck(e)
 	{
 		// ESC
 		case 27:
-			// specialcase: if focus in newNoteTitle -> reset the field
-			if(document.activeElement.name == "newNoteTitle")
-			{
-				document.activeElement.value = "";		// reset field
-				document.activeElement.blur(); 			// lose focus
-			}
-
-			document.getElementById('myInputTextField').value = '';
-
-			
 			// unselect a maybe selected row in datatable - maybe via redraw.
 			$(oTable.fnSettings().aoData).each(function ()
 			{
 				$(this.nTr).removeClass('row_selected');
 			});
 
-			document.getElementById('myInputTextField').focus();			// set focus to new search
+			// refresh the gui
+			document.activeElement.value = "";								// reset newNoteTitle
+			document.activeElement.blur(); 									// lose focus from newNotetitle
+			document.getElementById('myInputTextField').focus();			// set focus to search
 			enableCreateButton();											// run enableCreateButton from notes.php to reload buttons status etc. 
 			document.myform.createNoteButton.disabled=true;					// disable create new note button afterwards to end up with a clean interface
 		break;
@@ -71,6 +64,10 @@ function KeyCheck(e)
 			{
 				selecttopRow();
 			}
+
+
+
+			
 		break;
 
 
