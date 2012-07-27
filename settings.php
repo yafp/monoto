@@ -2,30 +2,16 @@
 	session_start();
 	if($_SESSION['valid'] == 1)		// check if the user-session is valid or not
 	{
+		include 'html_head.php';			// include the new header
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
-		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
-		<!-- jquery -->
-		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
-		<!--  m_reallyLogout-->
-		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-		<!--  m_disableRightClick-->
-		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
-		<!-- scroll up -->
-		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
+		<!-- continue the header -->
+		<!-- ################### -->
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- password -->
 		<script type="text/javascript" language="javascript" src="js/digitalspaghetti.password.js"></script>
-		<!-- styleswitcher -->
-		<script type="text/javascript" language="javascript" src="js/styleswitcher.js"></script>
 	</head>
+	<!-- BODY -->
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
@@ -40,13 +26,13 @@
 							<h2><a name="desc">settings</a></h2>
 							<div class="accordion">
 							<h3>profile [<a href="#profile">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#profile">profile</a> section displays a quick overview about your user account. You can change your monoto password here and upload an user image.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#profile">profile</a> section displays a quick overview about your user account. You can change your monoto password here and upload an user image.</p>
 							<h3>importer [<a href="#importer">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#importer">importer</a> section allows you to import single or multiple text notes.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#importer">importer</a> section allows you to import single or multiple text notes.</p>
 							<h3>exporter [<a href="#exporter">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#exporter">exporter</a> section allows you to export your notes to a single, tab-separated csv-file. This included only the note-ids, -titles and content.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#exporter">exporter</a> section allows you to export your notes to a single, tab-separated csv-file. This included only the note-ids, -titles and content.</p>
 							<h3>eraser [<a href="#eraser">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events. The eraser event itself will be your first new log entry.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events. The eraser event itself will be your first new log entry.</p>
 							</div>
 						<?php
 					}
@@ -57,10 +43,10 @@
 
 				<!-- PROFILE -->
 				<h2><a name="profile">profile</a></h2>
-				<table width="100%">
+				<table style="width: 100%">
 					<tr>
-						<td width="25%" colspan="2"><img src="images/icons/user-14.png" alt="user icon" align="left" border="1"></td>
-						<td width="5%"></td>
+						<td style="width:25%" colspan="2"><img src="images/icons/user-14.png" alt="user icon"></td>
+						<td style="width:5%"></td>
 						<td rowspan="5">
 							<!-- CHANGE USER PASSWORD BUTTON -->
 							<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.

@@ -3,15 +3,10 @@
 	include 'conf/config.php';
 	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
 	{
+		include 'html_head.php';			// include the new header
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
-		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
+		<!-- continue the header -->
+		<!-- ################### -->
 		<!-- jquery -->
 		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!-- datatables -->
@@ -306,25 +301,25 @@
 			<div id="noteContentCo">
 				<h2>notes</h2>
 				<form name="myform" method="post" action="<?php echo $PHP_SELF;?>">
-					<table width="100%" cellspacing="0" cellpadding="5">
+					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td width="40px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
 							<td colspan="1"><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
-							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="true"></td>
-							<input type="hidden" style="width:50%; height:15px;" name="noteVersion" />
+							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
+							
 						<!-- NEW NOTE CONTENT using clEditor -->
 						<tr>
-							<td colspan="2" width="95%" height="400px"><textarea id="input2" name="input2" cols="110" ></textarea></td>
+							<td colspan="2" width="95%"><textarea id="input2" name="input2" cols="110" ></textarea></td>
 							<td>
-								<input type="button"  style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
-								<input type="button"  style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="true">
+								<input type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
+								<input type="button" style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled">
 							</td>
 						</tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" style="width:100%"  placeholder="Enter title for your new note and press the 'create' button."  id="newNoteTitle" name="newNoteTitle" align="right" onkeyup="javascript:enableCreateButton()" /></td>
-							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="true">							</td>
+							<td colspan="2"><input type="text" style="width:100%"  placeholder="Enter title for your new note and press the 'create' button."  id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
+							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled">							</td>
 						</tr>
 					</table>
 				</form>
@@ -336,7 +331,7 @@
 				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
 
 				<!-- DATA-TABLE -->
-				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
+				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
 					<thead><tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
 					<tbody>
 

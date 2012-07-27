@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
-		<title>monoto-notes</title>
-		<!-- JS - navigation -->
-		<script type='text/javascript' src='js/m_menu.js'></script>
-</head>
-
 <!-- MONOTO ICON -->
 <div ID="logo">
-	<a href="notes.php"><img src="images/icons/monoto_logo.png" alt="monoto logo" align="right" margin-right="10"></a>
+	<a href="notes.php"><img src="images/icons/monoto_logo.png" alt="monoto logo" style="float:right"></a>
 </div>
 
 

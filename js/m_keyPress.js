@@ -81,11 +81,7 @@ function KeyCheck(e)
 		break;
 
 
-		// F1 - Open online help/docs
-		case 112:
-			window.open('https://github.com/macfidelity/monoto/wiki');
-		break;
-
+	
 
 		// F5 - Reload main page
 		case 116:

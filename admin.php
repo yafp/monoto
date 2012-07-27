@@ -2,35 +2,19 @@
 	session_start();
 	if(($_SESSION['valid'] == 1)	&& ($_SESSION['admin'] == 1))	// check if the user-session is valid or not AND if its an admin account.
 	{
+		include 'html_head.php';			// include the new header
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
-		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
-		<!--  m_reallyLogout-->
-		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-		<!-- jquery -->
-		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+		<!-- continue the header -->
+		<!-- ################### -->
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-		<!--  m_disableRightClick-->
-		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
-		<!-- scroll up -->
-		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
-		<!-- styleswitcher -->
-		<script type="text/javascript" language="javascript" src="js/styleswitcher.js"></script>
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.js"></script>
-
     	<!-- datatables plugin: keytable -->
     	<script language="javascript" type="text/javascript" src="js/KeyTable.js"></script>
-
 
 		<!-- main js for table etc -->
 		<!--
@@ -139,9 +123,9 @@
 		} );
 	} );
 	</script>
-
-
 	</head>
+
+	<!-- BODY -->
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
@@ -156,17 +140,17 @@
 					<h2><a name="desc">admin</a></h2>
 						<div class="accordion">
 							<h3>admin settings [<a href="#basic">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
 							<h3>notes [<a href="#notes">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
 							<h3>user list [<a href="#users">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
 							<h3>invites [<a href="#invites">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
 							<h3>mysql [<a href="#mysql">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
 							<h3>misc [<a href="#misc">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
 						</div>
 				<?php
 					}
@@ -182,17 +166,17 @@
 				
 				<!-- BASICS -->
 				<h2><a name="basic">admin settings</a></h2>
-					<table width="100%">
+					<table style="width: 100%">
 					<tbody>
 						<tr>
-							<td colspan="2" width="50%"><b>General</b></td>
-							<td colspan="2" width="50%"><b>Page specific</b></td>
+							<td colspan="2" style="width:50%"><b>General</b></td>
+							<td colspan="2" style="width:50%"><b>Page specific</b></td>
 						</tr>
 						<tr>
-							<td width="30%">- enable toc:</td>
-							<td width="20%"><?php if($s_enable_toc == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-							<td width="30%">- enable about section on info page:</td>
-							<td width="20%"><?php if($s_enable_info_about_section == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td style="width:30%">- enable toc:</td>
+							<td style="width:20%"><?php if($s_enable_toc == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td style="width:30%">- enable about section on info page:</td>
+							<td style="width:20%"><?php if($s_enable_info_about_section == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really delete question:</td>
@@ -231,8 +215,8 @@
 					}
 				?>
 
-				<table width="20%">
-					<tr align="left"><th>notes</td><th>creator</td></tr>
+				<table style="width: 20%">
+					<tr style="float:left"><th>notes</td><th>creator</td></tr>
 					<!-- get notes count per user -->
 					<?php
 						$whatArray = array();			// define arrays for our flot pie graph
@@ -301,7 +285,7 @@
 				<h2><a name="users">users</a></h2>
 				<p><a href="javascript:void(0)" id="delete">Dummy: Delete selected user (only hides it right now)</a></p>
 				<!-- datatables showing our users -->
-				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
+				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
 					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>invite date</th><th>first login</th><th>last login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
 					<tbody>
 					<?php
@@ -321,11 +305,11 @@
 				<!-- INVITES -->
 				<h2><a name="invites">invites</a></h2>
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
-						<table width="100%">
+						<table style="width: 100%">
 							<tr>
 								<td width='30%'>Username:</td> 
 								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" /></td>
-								<td rowspan="6"><img src="images/default_user_icon_trans.png" alt="user_icon" border="1"></td>
+								<td rowspan="6"><img src="images/default_user_icon_trans.png" alt="user_icon"></td>
 							</tr>
 							<tr>
 								<td>Mail:</td> 

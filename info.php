@@ -2,28 +2,14 @@
 	session_start();
 	if($_SESSION['valid'] == 1) 			// check if the user-session is valid or not
 	{
+		include 'html_head.php';			// include the new header
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
-		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
+		<!-- continue the header -->
+		<!-- ################### -->
 		<!-- data tables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-		<!--  m_disableRightClick-->
-		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
-		<!--  m_reallyLogout-->
-		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-		<!-- scroll up -->
-		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
-		<!-- styleswitcher -->
-		<script type="text/javascript" language="javascript" src="js/styleswitcher.js"></script>
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var oTable;
@@ -50,6 +36,7 @@
 		} );
 		</script>
 </head>
+<!-- BODY -->
 <body id="dt_example">
 	<div id="container">
 		<!-- HEADER & NAV -->
@@ -64,17 +51,17 @@
 						<h2><a name="desc">info</a></h2>
 						<div class="accordion">
 							<h3>welcome [<a href="#welcome">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
 							<h3>about [<a href="#about">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#about">about</a> section lists a short description of monoto.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#about">about</a> section lists a short description of monoto.</p>
 							<h3>version [<a href="#version">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
 							<h3>stats [<a href="#stats">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
 							<h3>keyboard shortcuts [<a href="#keyboard">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
 							<h3>log [<a href="#log">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" align="right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
+							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
 						</div>
 			<?php
 					}
@@ -130,7 +117,7 @@
 			<!-- VERSION -->
 			<h2><a name="version">version</a></h2>
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-				<table width="100%">
+				<table style="width: 100%">
 					<tr>
 						<td colspan="4"><img src="images/icons/monoto_logo.png" alt="monoto logo"></td></tr>
 					<tr>
@@ -165,14 +152,14 @@
 						<td colspan="3">&nbsp;</td>
 					</tr>
 					<tr>
-						<td>current stable;</td>
-						<td><div id="curStable01">please run the check</div></td>
-						<td><div id="curStable02">please run the check</div></td>
+						<td>current stable:</td>
+						<td><div id="curStable01"><i>please run the check</i></div></td>
+						<td><div id="curStable02"><i>please run the check</i></div></td>
 					</tr>
 					<tr>
-						<td>current unstable;</td>
-						<td><div id="curUnstable01">please run the check</div></td>
-						<td><div id="curUnstable02">please run the check</div></td>
+						<td>current unstable:</td>
+						<td><div id="curUnstable01"><i>please run the check</i></div></td>
+						<td><div id="curUnstable02"><i>please run the check</i></div></td>
 					</tr>
 				</table>
 			</form>
@@ -375,23 +362,25 @@
 
 			<!-- KEYBOARD SHORTCUT -->
 			<h2><a name="keyboard">keyboard shortcuts</a></h2>
-			<table width="100%">
-				<thead><tr><th align="left" width="20%">key</th><th align="left" width="60%">function</th><th align="left" width="10%">valid for</th><th align="left" width="10%">status</th></tr></thead>
+			<table style="width:100%">
 				<tbody>
+					<tr><td><b>general</b></td></tr>
+					<tr><td>F1</td><td>Opens the monoto online help / documentation.</td><td>all pages</td><td>works</td></tr>
+					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + s</td><td>Loads settings page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + i</td><td>Loads info page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					<tr><td><b>notes page specific</b></td></tr>
 					<tr><td>ESC</td><td>Resets all input fields and sets the focus back to search.</td><td>notes</td><td>works</td></tr>
-					<tr><td>F1</td><td>Opens the monoto online help / documentation.</td><td>all pages</td><td>only for notes</td></tr>
-					<tr><td>F5</td><td>Reloads all notes from db.</td><td>all pages</td><td>only for notes</td></tr>
+					<tr><td>F5</td><td>Reloads all notes from db.</td><td>notes</td><td>works</td></tr>
 					<tr><td>F9</td><td>Saves a selected note.</td><td>notes</td><td>works</td></tr>
 					<tr><td>Del</td><td>Deletes the selected note.</td><td>notes</td><td>works</td></tr>
 					<tr><td>Arrow Down (in search)</td><td>Selects the top record.</td><td>notes</td><td>works</td></tr>
 					<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td><td>notes</td><td>DUMMY</td></tr>
 					<tr><td>Arrow Up (in seach)</td><td>Moves the focus to newNoteTitle.</td><td>notes</td><td>works</td></tr>
 					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td><td>notes</td><td>DUMMY</td></tr>
-					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey.</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + s</td><td>Loads settings page per accesskey.</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + i</td><td>Loads info page per accesskey.</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey.</td><td>all pages</td><td>should work</td></tr>
-					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey.</td><td>all pages</td><td>should work</td></tr>
+					
 				</tbody>
 			</table>
 
@@ -400,8 +389,8 @@
 			
 			<!-- LOG -->
 			<h2><a name="log">log</a></h2>
-				<table width="100%">
-				<thead><tr><th align="left" width="20%">event</th><th align="left" width="60%">description</th><th align="left" width="20%">count</th></tr></thead>
+				<table style="width:100%">
+				<thead><tr><th style="float:left" style="width:20%">event</th><th style="float:left" style="width:60%">description</th><th style="float:left" style="width:20%">count</th></tr></thead>
 				<tbody>
 					<tr>
 						<td>create</td>
@@ -508,12 +497,11 @@
 				</table>
 				
 				<!-- ACTIVITY/EVENT LOG -->
-				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
+				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width:100%">
 					<thead>
 						<tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr>
 					</thead>
 					<tbody>
-
 					<?php
 							$result = mysql_query("SELECT * FROM m_log WHERE owner='".$owner."' "); // m_log
 							while($row = mysql_fetch_array($result))   // fill datatable
