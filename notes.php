@@ -65,6 +65,8 @@
 
 		<!-- main js for table etc -->
 		<script type="text/javascript">
+			var currentRow = -1;
+
 			var oTable;
 			var giRedraw = false;
 
@@ -102,8 +104,18 @@
 					"sRowSelect": "single",
 					"bLengthChange": false,
 					"bPaginate": false , 															/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
-					"aaSorting": [[ 4, "desc" ]],													/* sorting */
+					"aaSorting": [[ 5, "desc" ]],													/* default sorting */
+					"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
+      							{ "bSortable": false, "aTargets": [ 1 ] },
+      							{ "bSortable": false, "aTargets": [ 2 ] },
+      							{ "bSortable": false, "aTargets": [ 3 ] },
+      							{ "bSortable": false, "aTargets": [ 4 ] },
+      							{ "bSortable": false, "aTargets": [ 5 ] },
+      							{ "bSortable": false, "aTargets": [ 6 ] },
+      							{ "bSortable": false, "aTargets": [ 7 ] },
+    								], 
 					"aoColumns"   : [																/* visible columns */
+								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
 								{ "bSearchable": true, "bVisible": true }, 							/* note-id */
 								{ "bSearchable": true, "bVisible": true },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
@@ -118,15 +130,14 @@
 				/* configure a new search field & its event while typing */
 				$('#myInputTextField').keypress(function()
 				{
-      				oTable.fnFilter( $(this).val() );												// search the table
-      				var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
+					oTable.fnFilter( $(this).val() );												// search the table
+	      			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 
-      				if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
-      				{
+	      			if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
+	      			{
 						$('#example tbody tr:eq(0)').click()										// select the only record left after search	
 						$('#example tbody tr:eq(0)').addClass('row_selected');						// change background as well					
-      				}
-
+	      			}
 				})
 
 				document.getElementById('myInputTextField').focus();								// set focus on search field
@@ -136,11 +147,13 @@
 				{				
 					var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
 					var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
-					var aData = oTable.fnGetData( aPos[0] );										// Get the data array for this row			
-					$('#input2').val(sData[2]).blur();												// fill html richtext cleditor with text of selected note
-					document.myform.noteID.value = sData[0]											// fill id field
-					document.myform.noteTitle.value = sData[1]										// fill title field
-					document.myform.noteVersion.value = sData[6]									// fill version - not displayed as field is hidden
+					var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
+					$('#input2').val(sData[3]).blur();												// fill html richtext cleditor with text of selected note
+					document.myform.noteID.value = sData[1]											// fill id field
+					document.myform.noteTitle.value = sData[2]										// fill title field
+					document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
+					currentRow = sData[0];															// correct current row - as its on the initial value but user select a note via mouse
+					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 				});
 			} );
 
@@ -162,13 +175,39 @@
 
 
 		//
-		// select first row
+		// select next row
 		//
-		function selecttopRow( )
+		function selectNextRow( )
 		{
-		    $('#example tbody tr:eq(0)').click(); 						// select the top record
-		    $('#example tbody tr:eq(0)').addClass('row_selected');		// change background as well
+
+			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();	// get amount of records after filter
+			if(parseInt(currentRow) +1 < amountOfRecordsAfterFilter)					// check if moving down makes sense at all
+			{
+				//alert("do something");
+			    currentRow = parseInt(currentRow) + 1;
+			    //alert(currentRow);													// update changeCurrentRow
+
+			    $('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
+			    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
+			}
+			
 		}
+
+
+		//
+		// select other row
+		//
+		function selectUpperRow( )
+		{
+			// change currentRow
+			if(currentRow > 0)
+			{
+				currentRow = currentRow - 1;
+			}
+			$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
+		    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
+		}
+
 
 
 		//
@@ -333,23 +372,25 @@
 
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
-					<thead><tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
+					<thead><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
 					<tbody>
 
 					<?php
 						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
 						include 'scripts/db.php';  							// connect to db
 						connectToDB();
+						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user
-						$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ");
+						$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ORDER by date_mod DESC ");
 						while($row = mysql_fetch_array($result))
 						{
-							echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
+							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
+							$rowID = $rowID +1;
 						}
 						//disconnectFromDB();
 					?>
 					</tbody>
-					<tfoot><tr><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>
+					<tfoot><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>
 				</table>
 			</div>
 			<!-- SPACER -->

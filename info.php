@@ -288,6 +288,22 @@
 									$stats_last_edited_note_title = $row[3];
 									$stats_last_edited_note_date = $row[1];
 								}
+
+								//
+								//  overall_note_content_words
+								$result = mysql_query("SELECT SUM( LENGTH( content ) - LENGTH( REPLACE( content, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' "); 
+								while($row = mysql_fetch_array($result)) 					
+								{
+									$stats_overall_content_words = $row[0];
+								}
+								//
+								//  overall_note_title_words
+								$result = mysql_query("SELECT SUM( LENGTH( title ) - LENGTH( REPLACE( title, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' "); 
+								while($row = mysql_fetch_array($result)) 					
+								{
+									$stats_overall_title_words = $row[0];
+								}
+
 								//  entire db size
 								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$mysql_db."' "); 
 								while($row = mysql_fetch_array($result)) 					
@@ -336,10 +352,15 @@
 								// $stats_last_edited_note_title
 								// $stats_last_edited_note_date
 								//
+								// WORDS
+								// - $stats_overall_content_words
+								// - $stats_overall_title_words
+								//
 								// DB-SIZE
 								// - $stats_entire_monoto_db_size
 								//
 								// Use our variables to create some kind of LOG text - should be informative but still funny if possible.
+								echo "- Those notes are using <span>".$stats_overall_title_words." words</span> for titles and overall <span>".$stats_overall_content_words." words</span> for the content.<br>";
 								echo "- The personal event log has recorded <span>".$stats_events_of_current_user." events</span> for this account.<br>";
 								echo "- Those can be devided into <span>".$stats_amount_of_creates." notes creations</span>, <span>".$stats_amount_of_changes." note-editings</span> and <span>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
 								echo "- In addition to those numbers your account has <span>".$stats_amount_of_imports." note-import events</span> logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
@@ -547,7 +568,8 @@ if ( isset($_POST["doUpdateCheck"]) )
 	$critical = FALSE;
 	$update = FALSE;
 
-	$url = "https://raw.github.com/macfidelity/monoto/master/vStable.csv";
+	//$url = "https://raw.github.com/macfidelity/monoto/master/vStable.csv";
+	$url = "https://raw.github.com/macfidelity/monoto/master/conf/vStable.csv";
 	$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 	$read = fgetcsv ($fp);
 	fclose ($fp); //always a good idea to close the file connection
@@ -592,7 +614,8 @@ if ( isset($_POST["doUpdateCheck"]) )
 		$critical = FALSE;
 		$update = FALSE;
 
-		$url = "https://raw.github.com/macfidelity/monoto/master/vDev.csv";
+		//$url = "https://raw.github.com/macfidelity/monoto/master/vDev.csv";
+		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vDev.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);
 		fclose ($fp); //always a good idea to close the file connection

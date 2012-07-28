@@ -13,6 +13,8 @@ function KeyCheck(e)
 	{
 		// ESC
 		case 27:
+			currentRow = -1;
+
 			// unselect a maybe selected row in datatable - maybe via redraw.
 			$(oTable.fnSettings().aoData).each(function ()
 			{
@@ -28,32 +30,27 @@ function KeyCheck(e)
 		break;
 
 
-		// Arrow Left
-		case 37:
-		 	//
-		break;
-
-
 		// Arrow Up
-		case 38:
-			// specialcase: if focus in search -> jump to new note title
+		case 38:		
+			// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
-				//$('#input2').cleditor()[0].focus(); 	// jump to cleditor - makes no sense
-				// unselect all rows
-				$(oTable.fnSettings().aoData).each(function ()
+				if(currentRow == -1)			// if no row is selected - moving up doesnt makes sense - offer jump to newNotetitle
 				{
-					$(this.nTr).removeClass('row_selected');
-				});
+					// safety first - unselect all rows
+					$(oTable.fnSettings().aoData).each(function ()
+					{
+						$(this.nTr).removeClass('row_selected');
+					});
 
-				document.getElementById('newNoteTitle').focus();		// set focus to new note title
+					// jump to new note title
+					document.getElementById('newNoteTitle').focus();	
+				}
+				else 	// select row/record above
+				{
+					selectUpperRow();
+				}
 			}
-		break;
-
-
-		// Arrow Right
-		case 39:
-		  	//
 		break;
 
 
@@ -62,12 +59,8 @@ function KeyCheck(e)
 		   	// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
-				selecttopRow();
+				selectNextRow();	
 			}
-
-
-
-			
 		break;
 
 
@@ -77,8 +70,6 @@ function KeyCheck(e)
 		   	deleteNote();
 		break;
 
-
-	
 
 		// F5 - Reload main page
 		case 116:

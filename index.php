@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
 		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
-		<!-- fade in via jquery -->
+		<!-- fade in on pageload via jquery -->
 		<script type="text/javascript" language="javascript">
 			$(document).ready(function(){	
 				$('#page_effect').fadeIn(1500);
@@ -26,7 +26,9 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
+			
 			<?php include 'header.php'; ?>
+
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 			<?php
@@ -112,7 +114,28 @@ if ( isset($_POST["doLogin"]) )
 	//incorrect password
 	if($hash != $userData['password']) 
 	{
-	    header('Location: redirect.php');
+		//echo '<script type="text/javascript">alert("Error: Wrong password.")</script>';			// notify user about wrong password
+
+		// log incorrect login attempt - date
+		$sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$_SESSION['username']."' ";
+		$result = mysql_query($sql);
+
+		// log failed logins via counter
+		// get current fail-login-count
+    	$sql="SELECT failed_logins FROM m_users WHERE username='".$_SESSION['username']."'  ";
+		$result = mysql_query($sql);
+		while($row = mysql_fetch_array($result)) 					
+		{
+			$failCounter = $row[0];
+		}
+		$failCounter = $failCounter +1;
+		// update failcounter
+		$sql="UPDATE m_users SET failed_logins='".$failCounter."' WHERE username='".$_SESSION['username']."' ";
+		$result = mysql_query($sql);
+
+
+
+	    header('Location: redirect.php');														// redirect user 
 	}
 	else //login successful
 	{	
@@ -127,7 +150,9 @@ if ( isset($_POST["doLogin"]) )
 		while($row = mysql_fetch_array($result))
 		{
 			if($row[0] == 1)
-			{ $_SESSION['admin'] = 1; }						
+			{ 
+				$_SESSION['admin'] = 1; 
+			}						
 		}
 
     	// get current login-count
@@ -160,7 +185,8 @@ if ( isset($_POST["doLogin"]) )
 		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 		$result = mysql_query($sql);
 
-    	header('Location: notes.php');										// redirect to the main page
+    	//header('Location: notes.php');												// redirect to the main page ...seems broken right now ...whyever
+    	echo '<script type="text/javascript">window.location="notes.php"</script>';		// whyever that works - but header not anymore. must be related to our header rework
 	}
 }
 ?>

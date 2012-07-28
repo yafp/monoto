@@ -49,9 +49,6 @@
 			echo $welcomeArray[$myRandomPick]." ".$owner."<br>" ;	// show the random text and the related language
 			echo "<small><i>... that's ".$myRandomPickLanguage."</i></small>";
 		echo '</div>';
-
-
-		
 	}
 	else // no valid session: display login only
 	{

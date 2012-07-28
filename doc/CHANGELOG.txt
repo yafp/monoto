@@ -8,6 +8,11 @@ Check the github issue tracker for details or wait
 for the stable milestone release which will come 
 with a changelog.
 
+DB Structure Updates:
+m_users -> 2 new fields:
+-- failed_logins
+-- date_last_login_fail
+
 
 
 Milestone 2 - Doing the second step - Build 20120719.03

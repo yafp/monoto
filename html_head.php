@@ -37,7 +37,7 @@
 				var width = 500; 										//Use an integer (in pixels)
 				var padding = 10;										//Use an integer (in pixels)
 				var backgroundColor = '#FFFFFF'; 						//Use any hex code
-				var source = 'keyboardShortcuts.html'; 					//Refer to any page on your server, external pages are not valid e.g. http://www.google.co.uk
+				var source = 'doc/keyboardShortcuts.html'; 					//Refer to any page on your server, external pages are not valid e.g. http://www.google.co.uk
 				var borderColor = '#333333'; 							//Use any hex code
 				var borderWeight = 4; 									//Use an integer (in pixels)
 				var borderRadius = 5; 									//Use an integer (in pixels)
