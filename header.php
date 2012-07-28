@@ -1,6 +1,10 @@
 <!-- MONOTO ICON -->
 <div ID="logo">
+	<a href="notes.php"><img src="images/icons/transparent.gif" width="200px" height="98px"></a>
+	<!--
 	<a href="notes.php"><img src="images/icons/monoto_logo.png" alt="monoto logo" style="float:right"></a>
+-->
+
 </div>
 
 

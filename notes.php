@@ -101,6 +101,7 @@
 					/* "sDom": '<"wrapper"flipt>, <l<t>ip>', */		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"oSearch": {"sSearch": ""}, 
+					"sPaginationType": "full_numbers",
 					"sRowSelect": "single",
 					"bLengthChange": false,
 					"bPaginate": false , 															/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
@@ -115,7 +116,7 @@
       							{ "bSortable": false, "aTargets": [ 7 ] },
     								], 
 					"aoColumns"   : [																/* visible columns */
-								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
+								{ "bSearchable": false, "bVisible": true },						/* manually defined row id */
 								{ "bSearchable": true, "bVisible": true }, 							/* note-id */
 								{ "bSearchable": true, "bVisible": true },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
@@ -133,6 +134,15 @@
 					oTable.fnFilter( $(this).val() );												// search the table
 	      			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 
+	      			// unselect all records
+	      			/*
+				    $(oTable.fnSettings().aoData).each(function ()
+					{
+						$(this.nTr).removeClass('row_selected');
+					});
+*/
+
+				    // specialcase - only 1 record
 	      			if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
 	      			{
 						$('#example tbody tr:eq(0)').click()										// select the only record left after search	
@@ -152,7 +162,7 @@
 					document.myform.noteID.value = sData[1]											// fill id field
 					document.myform.noteTitle.value = sData[2]										// fill title field
 					document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
-					currentRow = sData[0];															// correct current row - as its on the initial value but user select a note via mouse
+					//currentRow = sData[0];															// correct current row - as its on the initial value but user select a note via mouse
 					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 				});
 			} );
@@ -179,18 +189,23 @@
 		//
 		function selectNextRow( )
 		{
-
 			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();	// get amount of records after filter
-			if(parseInt(currentRow) +1 < amountOfRecordsAfterFilter)					// check if moving down makes sense at all
+
+			//alert(currentRow);
+
+			if( parseInt(currentRow) < (parseInt(amountOfRecordsAfterFilter) -1))					// check if moving down makes sense at all
 			{
-				//alert("do something");
 			    currentRow = parseInt(currentRow) + 1;
-			    //alert(currentRow);													// update changeCurrentRow
+			
+				// unselect all records
+			    $(oTable.fnSettings().aoData).each(function ()
+				{
+					$(this.nTr).removeClass('row_selected');
+				});
 
 			    $('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 			    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
-			}
-			
+			}			
 		}
 
 
@@ -204,6 +219,13 @@
 			{
 				currentRow = currentRow - 1;
 			}
+
+			// unselect all records
+			$(oTable.fnSettings().aoData).each(function ()
+			{
+				$(this.nTr).removeClass('row_selected');
+			});
+
 			$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 		    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 		}
@@ -371,7 +393,7 @@
 				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
 
 				<!-- DATA-TABLE -->
-				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
+				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
 					<tbody>
 

@@ -7,7 +7,8 @@
 
 core-colors 
 ############
-#4489c9				blau on both
+#4489c9				css1:	blau on both
+#b5d536				css2:	grün
 
 page 01:
 ########
@@ -26,7 +27,7 @@ background-color: #484848;
 
 body
 {
-	background-image:url('../images/patterns/dirty_old_shirt.png');		
+	background-image:url('../images/patterns/low_contrast_linen.png');		
 	background-repeat:repeat;
 } 
 
@@ -52,11 +53,11 @@ body
     -khtml-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
-	border-color: #4489c9;
+	border-color: #b5d536;
 	border-style:solid;
 	border-width:3px;
 	/* background-color:rgba(239,239,239,0.90); */
-	background-color:  	#B8B8B8;
+	background-color: #EBEBEB;
 }
 
 /* header logo */
@@ -64,6 +65,14 @@ body
 {
 	margin-right:1em;
 	opacity: 0.9;
+
+	width: 200px;
+	height: 98px;
+	float:right;
+
+	background-position:right;
+	background-image:url('../images/icons/monoto_logo02.png');
+	background-repeat:no-repeat;
 }
 
 
@@ -133,7 +142,7 @@ body
 	font-size: 1.2em;
 	font-weight: normal;
 	line-height: 1.6em;
-	color: #4489c9 ;
+	color: #b5d536;
 	border-bottom: 1px solid silver;
 	clear: both;
 	text-align: left;
@@ -142,7 +151,7 @@ body
 /* A HREF */
 #dt_example a 
 {
-	color: #4489c9;	
+	color: #b5d536;	
 	text-decoration: none;
 	padding-right: 1px;
 	padding-left: 1px;
@@ -200,7 +209,7 @@ visibility: true;
 span 
 { 
 	color: white;
-	background-color: #4489c9;
+	background-color: #b5d536;
     width: 40px;
     padding-left: 3px;
     padding-right: 3px;
@@ -294,7 +303,7 @@ span
     border:0px solid #333;
     color:#fff;
     text-decoration:none;
-    background-color:#4489c9;
+    background-color:#b5d536;
 
     padding-left: 15px;
     padding-right: 15px;
@@ -397,85 +406,3 @@ span
     color: #fff;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-a img {border:none;}
-
-#wrapper {width:900px;margin:0px auto;padding:0 0 20px 0;}
-
-h3 {color:#396A88;font-size:1.6em;}
-h6 {color:#888;font-size:1.2em;padding:0;margin:0;font-family:georgia, Times New Roman, Times, Serif;font-style:italic;}
-
-p {width:600px;}
-
-
-#overlay {
-  position:absolute;
-  top:0;
-  left;0;
-  width:899px;
-  height:358px;
-  background:url(../images/overlay.png);
-}
-#container2 {
-  background:url(../images/gradient.jpg);
-  position:relative;
-  width:640px;
-  height:100px;
-}
-div#title {text-align:right;font-size:140px;font-weight:bold;font-family:Arial, Helvetica, Verdana, sans-serif;letter-spacing:-10px;color:#fff;line-height:105px;padding:110px 10px 0 0;}
-
-#overlay2 {
-  position:absolute;
-  top:0;
-  left;0;
-  width:640px;
-  height:100px;
-  background:url(../images/overlay.png);
-}
-#download {
-  position:absolute;
-  top:0;
-  left;0;
-  width:640px;
-  height:100px;
-}
-
-pre {padding:20px;background:#f2f2f2;font-weight:bold;width:600px;}
-div.note {padding:10px 20px 10px 20px;background:#f2f2f2;font-weight:normal;width:600px;}
-div.note h3 {padding:0;margin:0;color:#e00000;}
-span.red {color:#e00000;}
-span.grey {color:#999;}

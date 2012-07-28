@@ -8,14 +8,13 @@
 core-colors 
 ############
 #4489c9				blau on both
+#b5d536				green/yellow
 
 page 01:
 ########
 background-color: #EBEBEB;
 
-page 02:
-########
-background-color: #484848;
+
 
 
 
@@ -64,6 +63,14 @@ body
 {
 	margin-right:1em;
 	opacity: 0.9;
+
+	width: 200px;
+	height: 98px;
+	float:right;
+
+	background-position:right;
+	background-image:url('../images/icons/monoto_logo01.png');
+	background-repeat:no-repeat;
 }
 
 
