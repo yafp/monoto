@@ -482,6 +482,17 @@
 						</td>
 					</tr>
 					<tr>
+						<td>login failed </td>
+						<td>User login - failcounter +1</td>
+						<td>
+							<?php							
+								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login error' and owner='".$owner."' "); 
+								while($row = mysql_fetch_array($result))
+								{ echo $row[0]; }
+						?>
+						</td>
+					</tr>
+					<tr>
 						<td>logout</td>
 						<td>User logout - logoutcounter +1</td>
 						<td>

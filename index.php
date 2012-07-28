@@ -129,11 +129,16 @@ if ( isset($_POST["doLogin"]) )
 			$failCounter = $row[0];
 		}
 		$failCounter = $failCounter +1;
+
 		// update failcounter
 		$sql="UPDATE m_users SET failed_logins='".$failCounter."' WHERE username='".$_SESSION['username']."' ";
 		$result = mysql_query($sql);
 
-
+		// record to log - that we had a successfull user login
+		$event = "login error";
+		$details = "User: <b>".$username."</b> failed to login.";
+		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
+		$result = mysql_query($sql);
 
 	    header('Location: redirect.php');														// redirect user 
 	}

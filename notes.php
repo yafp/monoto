@@ -101,10 +101,10 @@
 					/* "sDom": '<"wrapper"flipt>, <l<t>ip>', */		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"oSearch": {"sSearch": ""}, 
-					"sPaginationType": "full_numbers",
 					"sRowSelect": "single",
 					"bLengthChange": false,
 					"bPaginate": false , 															/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
+					"bScrollCollapse": true,
 					"aaSorting": [[ 5, "desc" ]],													/* default sorting */
 					"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
       							{ "bSortable": false, "aTargets": [ 1 ] },
@@ -116,14 +116,14 @@
       							{ "bSortable": false, "aTargets": [ 7 ] },
     								], 
 					"aoColumns"   : [																/* visible columns */
-								{ "bSearchable": false, "bVisible": true },						/* manually defined row id */
-								{ "bSearchable": true, "bVisible": true }, 							/* note-id */
-								{ "bSearchable": true, "bVisible": true },							/* note-title */
+								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
+								{ "bSearchable": true, "bVisible": true, "sWidth": "5%" }, 							/* note-id */
+								{ "bSearchable": true, "bVisible": true, "sWidth": "50%" },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
 								{ "bSearchable": false, "bVisible": false },						/* tags */
 								{ "bSearchable": true, "bVisible": true }, 							/* last edit */
 								{ "bSearchable": true, "bVisible": true },							/* created */
-								{ "bSearchable": true, "bVisible": true }							/* save_counter */
+								{ "bSearchable": true, "bVisible": true, "sWidth": "5%" }							/* save_counter */
 							],
 				} );
 
@@ -387,14 +387,14 @@
 				</form>
 
 				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
+				
 
 				<!--  NEW CUSTOM SEARCH FIELD -->
 				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
 
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
-					<thead><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
+					<thead align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
 					<tbody>
 
 					<?php
@@ -412,7 +412,7 @@
 						//disconnectFromDB();
 					?>
 					</tbody>
-					<tfoot><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>
+					<tfoot align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>
 				</table>
 			</div>
 			<!-- SPACER -->

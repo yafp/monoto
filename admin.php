@@ -13,124 +13,44 @@
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.js"></script>
-    	<!-- datatables plugin: keytable -->
-    	<script language="javascript" type="text/javascript" src="js/KeyTable.js"></script>
-
-		<!-- main js for table etc -->
-		<!--
+		<!-- Example: http://datatables.net/release-datatables/examples/api/select_single_row.html -->
 		<script type="text/javascript">
 			var oTable;
-			var giRedraw = false;
-
+	 
 			$(document).ready(function() 
 			{
-				/* Init the table */
-				oTable = $('#example').dataTable( 
-				{ 
-				"bLengthChange": false,
-				"aaSorting": [[ 0, "asc" ]],				/* sorting */
-				"aoColumns"   : [					/* visible columns */
-							{ "bSearchable": true, "bVisible": true }, 	/* user-id */
-							{ "bSearchable": true, "bVisible": true },	/* username */
-							{ "bSearchable": true, "bVisible": true }, 	/* logins */
-							{ "bSearchable": true, "bVisible": true }, 	/* logouts */
-							{ "bSearchable": true, "bVisible": true },	/* invite-date */
-							{ "bSearchable": true, "bVisible": true }, 	/* first_login */
-							{ "bSearchable": true, "bVisible": true }, 	/* last_login */
-							{ "bSearchable": true, "bVisible": true }, 	/* mail */
-							{ "bSearchable": true, "bVisible": true }, 	/* is_admin */
-							{ "bSearchable": true, "bVisible": true } 	/* comment */	
-						],
-				});
-		} );
+			    /* Add a click handler to the rows - this could be used as a callback */
+			    $("#example tbody tr").click( function( e ) {
+			        if ( $(this).hasClass('row_selected') ) {
+			            $(this).removeClass('row_selected');
+			        }
+			        else {
+			            oTable.$('tr.row_selected').removeClass('row_selected');
+			            $(this).addClass('row_selected');
+			        }
+			    });
+			     
+			    /* Add a click handler for the delete row */
+			    $('#delete').click( function() {
+			        var anSelected = fnGetSelected( oTable );
+			        if ( anSelected.length !== 0 ) 
+			        {
+			            oTable.fnDeleteRow( anSelected[0] );
+			            // mysql part is missing to really delete the user
+			        }
+			    } );
+			     
+			    /* Init the table */
+			    oTable = $('#example').dataTable( );
+			} );
+			 
+			 
+			/* Get the rows which are currently selected */
+			function fnGetSelected( oTableLocal )
+			{
+			    return oTableLocal.$('tr.row_selected');
+			}
 		</script>
-	-->
-
-
-
-
-	<!-- Example: http://datatables.net/release-datatables/examples/api/select_single_row.html -->
-	<!--
-	<script type="text/javascript">
-		var oTable;
- 
-		$(document).ready(function() 
-		{
-		    /* Add a click handler to the rows - this could be used as a callback */
-		    $("#example tbody tr").click( function( e ) {
-		        if ( $(this).hasClass('row_selected') ) {
-		            $(this).removeClass('row_selected');
-		        }
-		        else {
-		            oTable.$('tr.row_selected').removeClass('row_selected');
-		            $(this).addClass('row_selected');
-		        }
-		    });
-		     
-		    /* Add a click handler for the delete row */
-		    $('#delete').click( function() {
-		        var anSelected = fnGetSelected( oTable );
-		        if ( anSelected.length !== 0 ) 
-		        {
-		            oTable.fnDeleteRow( anSelected[0] );
-		            // mysql part is missing to really delete the user
-		        }
-		    } );
-		     
-		    /* Init the table */
-		    oTable = $('#example').dataTable( );
-		} );
-		 
-		 
-		/* Get the rows which are currently selected */
-		function fnGetSelected( oTableLocal )
-		{
-		    return oTableLocal.$('tr.row_selected');
-		}
-	</script>
--->
-
-	<!-- keyTable test -->
-	<script type="text/javascript">
-	$(document).ready( function () 
-	{
-		/* Add a click handler to the rows - this could be used as a callback */
-		$("#example tbody tr").click( function( e ) 
-		{
-		   	if ( $(this).hasClass('row_selected') ) 
-		   	{
-		       	$(this).removeClass('row_selected');
-		   	}
-		    else 
-		    {
-		        oTable.$('tr.row_selected').removeClass('row_selected');
-		        $(this).addClass('row_selected');
-		    }
-		});
-
-
-		/* basic table */
-		var oTable = $('#example').dataTable( {
-			"sRowSelect": "single"
-			//"sScrollY": 200,
-			//"sScrollX": "100%",
-			//"sScrollXInner": "100%"
-		} );
-		
-		/* keytable */
-		var keys = new KeyTable( {
-			"table": document.getElementById('example'),
-			"datatable": oTable
-		} );
-
-
-
-
-
-
-
-	} );
-	</script>
 	</head>
 
 	<!-- BODY -->

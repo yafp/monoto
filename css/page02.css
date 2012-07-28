@@ -160,7 +160,7 @@ body
 #dt_example a:hover 
 {
 	text-decoration: underline;
-	background-color: white;
+	/* background-color: white; */
 	padding-right: 1px;
 	padding-left: 1px;
 	padding-top: 2px;
@@ -208,7 +208,7 @@ visibility: true;
 
 span 
 { 
-	color: white;
+	color: black;
 	background-color: #b5d536;
     width: 40px;
     padding-left: 3px;
