@@ -126,6 +126,10 @@
 							<td>- enable unstable sources:</td>
 							<td><?php if($s_enable_UnstableSources == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
+						<tr>
+							<td>- enable random logout images:</td>
+							<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
 					</tbody>
 					</table>
 

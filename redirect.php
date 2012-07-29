@@ -18,7 +18,9 @@
 
 				<!-- ERROR MESSAGE -->
 				<h2><a name="redirect">redirect</a></h2>
-				<img src="images/icons/logout.gif">
+				<table style="width: 100%">
+					<tr><td style="text-align: center;"><img src="images/icons/redirect.gif"></td></tr>
+				</table>
 
 				<!-- REDIRECT TO LOGIN -->
 				<?php header( "refresh:3;url=index.php" ); ?>

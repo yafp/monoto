@@ -46,10 +46,27 @@
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">logout</a></h2>
 
-				<img src="images/icons/logout.gif">
 
+				<?php
+					// define logout image
+					if($s_enable_random_logout_gif == false)
+					{
+						$logoutImage = "images/icons/logout.gif";
+					}
+					else // pick random from folder
+					{
+						$imagesDir = 'images/random_logout/';
+						$images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+						$logoutImage = $images[array_rand($images)];
+					}
+				?>
+
+				<table style="width: 100%">
+					<tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr>
+				</table>
+				
 				<!-- REDIRECT TO LOGIN -->
-				<?php	header( "refresh:3;url=index.php" ); ?>
+				<?php	header( "refresh:10;url=index.php" ); ?>
 
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
