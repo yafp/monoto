@@ -322,8 +322,6 @@
 
 
 
-
-
 <?php
 	include 'conf/config.php';
 
@@ -341,7 +339,6 @@
   			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
 		}
 		echo '<script type="text/javascript">alert("Notification: Tables optimized")</script>';
-		//disconnectFromDB();
 	}
 
 	//
@@ -351,9 +348,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
-
 		echo '<script type="text/javascript">alert("Notification: Table m_log truncated.")</script>';
-		//disconnectFromDB();
 	}
 
 	//
@@ -363,9 +358,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
-
 		echo '<script type="text/javascript">alert("Notification: Table m_notes truncated.")</script>';
-		//disconnectFromDB();
 	}
 
 	//
@@ -425,10 +418,10 @@
 		 						$subject = "monoto-notes invite";
 		 						$body = "Hi,
 		 									\n".$invite_from." invited you to monoto - his web-based notes solution.
-		 									\n\nFeel free to use it as your personal notes keeper as well.
+		 									\nFeel free to use it as your personal notes keeper as well.
 		 									\n\nYou can get some general informations about monoto here: https://github.com/macfidelity/monoto/wiki.
 		 									\n\n\n\nThe login credentials are as follows:
-		 									\n\nUsername: ".$username."
+		 									\nUsername: ".$username."
 		 									\nPassword: ".$password."
 		 									\n\n\nPlease change your password after your first visit at:
 		 									\n".$invite_target."

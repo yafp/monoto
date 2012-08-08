@@ -63,13 +63,13 @@ body
 {
 	margin-right:1em;
 	opacity: 0.9;
-
 	width: 200px;
 	height: 98px;
 	float:right;
 
 	background-position:right;
 	background-image:url('../images/icons/monoto_logo01.png');
+	background-size: 100%;
 	background-repeat:no-repeat;
 }
 

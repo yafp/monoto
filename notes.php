@@ -29,7 +29,7 @@
 	      {
 	        $("#input2").cleditor({
 	          width:        "100%", // width not including margins, borders or padding
-	          height:       400, // height not including margins, borders or padding
+	          height:       250, // height not including margins, borders or padding
 	          controls:     // controls to add to the toolbar
 	                        "bold italic underline strikethrough | font size " +
 	                        "style | color highlight removeformat | bullets numbering | outdent " +
@@ -304,8 +304,10 @@
 		function createNote() 
 		{
 			var newNoteTitle = document.myform.newNoteTitle.value;			// get new title
-			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');		// replace all characters except numbers,letters, space, underscore and -
-											
+			//newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');		// replace all characters except numbers,letters, space, underscore and -
+			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._ ]/g, '');
+
+
 			var newNoteContent = document.myform.input2.value;				// get note content if defined									
 			newNoteContent = $("#input2").val();							// cleanup html stuff of note-content
 

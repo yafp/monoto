@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
-		<title>monoto-notes</title>
-		<style type="text/css" title="currentStyle">
-			@import "css/page.css";
-			@import "css/table.css";
-		</style>
+<?php
+	include 'html_head.php';
+?>
+<!-- continue the header -->
+		<!-- ################### -->
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/page.css" title="default" />
+		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
 	</head>
 	<body id="dt_example">
 		<div id="container">
+			<?php include 'header.php'; ?>
 			<div id="noteContentCo">
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
@@ -62,41 +62,46 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 	include 'scripts/db.php';  							// connect to db
 	connectToDB();
 
-	// get data
-	$username = $_POST['username'];
-	$email = $_POST['email'];
-	$password1 = $_POST['password1'];
-	$password2 = $_POST['password2'];
-	$username = mysql_real_escape_string($username);
-
-	// compare passwords
-	if($password1 == $password2)											// both passwords do match
+	// check if user has already manually created the tables: m_users
+	$val = mysql_query('select 1 from `m_users`')
+	if($val !== FALSE)
 	{
-		// playing with hash
-		$hash = hash('sha256', $password1);
-		function createSalt()												// playing with salt - creates a 3 character sequence
+   		// table m_users EXISTS!
+   		// get data
+		$username = $_POST['username'];
+		$email = $_POST['email'];
+		$password1 = $_POST['password1'];
+		$password2 = $_POST['password2'];
+		$username = mysql_real_escape_string($username);
+
+		// compare passwords
+		if($password1 == $password2)											// both passwords do match
 		{
-	    	$string = md5(uniqid(rand(), true));
-	    	return substr($string, 0, 3);
+			// playing with hash
+			$hash = hash('sha256', $password1);
+			function createSalt()												// playing with salt - creates a 3 character sequence
+			{
+		    	$string = md5(uniqid(rand(), true));
+		    	return substr($string, 0, 3);
+			}
+			$salt = createSalt();
+			$hash = hash('sha256', $salt . $hash);
+
+			$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
+			mysql_query($query);
+			mysql_close($con); 													// close sql connection
+			echo '<script type="text/javascript">alert("Ńotification: Admin account created. You will be redirected to monoto now.")</script>';
+			header('Location: index.php');										// redirect to main page
 		}
-		$salt = createSalt();
-		$hash = hash('sha256', $salt . $hash);
-
-		/*
-		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		// connect to mysql	
-		if (!$con){ die('Could not connect: ' . mysql_error()); }
-		mysql_select_db($mysql_db, $con);									// select db
-		*/
-
-		$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
-		mysql_query($query);
-		mysql_close($con); 													// close sql connection
-		echo '<script type="text/javascript">alert("Ńotification: Admin account created. You will be redirected to monoto now.")</script>';
-		header('Location: index.php');										// redirect to main page
+		else 																	// Password mismatch
+		{
+			echo '<script type="text/javascript">alert("Error: Password mismatch. Canceling setup script at this point.")</script>';
+		}
 	}
-	else 																	// Password mismatch
+	else
 	{
-		echo '<script type="text/javascript">alert("Error: Password mismatch. Canceling setup script at this point.")</script>';
-	}
+    	// mysql tables dont exist
+    	echo '<script type="text/javascript">alert("Error: Table m_users does not exist.")</script>';
+	}	
 }
 ?>
