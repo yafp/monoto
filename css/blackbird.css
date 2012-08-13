@@ -75,7 +75,7 @@
 			
 #blackbird .errorHidden li.error,	#blackbird .warnHidden li.warn,	#blackbird .infoHidden li.info,	#blackbird .debugHidden li.debug,	#blackbird .profileHidden li.profile { display:none; }
 
-#blackbird .main div.right { background:url(..images/blackbird_panel.png) no-repeat 100% -30px; width:17px; _width:0; }
+#blackbird .main div.right { background:url(../images/blackbird_panel.png) no-repeat 100% -30px; width:17px; _width:0; }
 
 #blackbird .footer div { height:50px; float:left; _background-color:#000; _height:30px; }
 #blackbird .footer div.left { background-position:bottom left; _width:100%  !important; }
