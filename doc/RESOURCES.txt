@@ -10,6 +10,7 @@ Used technologies:
 --- styleswitcher
 --- digitalspaghetti.password
 --- jPopUp http://www.jquerypopup.com
+--- blackbird logging: http://www.gscottolson.com/blackbirdjs/
 
 - patterns:
 --- http://subtlepatterns.com
