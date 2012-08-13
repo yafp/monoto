@@ -392,6 +392,7 @@
 					<tr><td>(Shift) + Alt + i</td><td>Loads info page per accesskey.</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey.</td><td>all pages</td><td>should work</td></tr>
 					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey.</td><td>all pages</td><td>should work</td></tr>
+
 					<tr><td><b>notes page specific</b></td></tr>
 					<tr><td>ESC</td><td>Resets all input fields and sets the focus back to search.</td><td>notes</td><td>works</td></tr>
 					<tr><td>F5</td><td>Reloads all notes from db.</td><td>notes</td><td>works</td></tr>
@@ -401,7 +402,11 @@
 					<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td><td>notes</td><td>DUMMY</td></tr>
 					<tr><td>Arrow Up (in seach)</td><td>Moves the focus to newNoteTitle.</td><td>notes</td><td>works</td></tr>
 					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td><td>notes</td><td>DUMMY</td></tr>
-					
+
+					<tr><td><b>blackbird logging (dev)</b></td></tr>
+					<tr><td>F2</td><td>Toggles the visibility of the monoto blackbird logging window.</td><td>all pages</td><td>works</td></tr>
+					<tr><td>F2 + Shift</td><td>Toggles the position of the monoto blackbird logging window.</td><td>all pages</td><td>works</td></tr>
+					<tr><td>F2 + Shift + Alt</td><td>Clears the blackbird log</td><td>all pages</td><td>works</td></tr>
 				</tbody>
 			</table>
 

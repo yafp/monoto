@@ -369,8 +369,18 @@
 		connectToDB();  // connect to mysql
 
 		$invite_from 	= $_SESSION['username'];
-		$invite_target 	= $_SERVER['SERVER_NAME'];
-		
+		// need  full page url for link in the invite mail 
+		$pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+		if ($_SERVER["SERVER_PORT"] != "80")
+		{
+    		$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+		} 
+		else 
+		{
+    		$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
+		//$invite_target 	= $_SERVER['SERVER_NAME'];
+		$invite_target 	= $pageURL;
 		// store values on vars
 		$newPassword1 	= $_POST['newPassword1'];
 		$newPassword2 	= $_POST['newPassword2'];

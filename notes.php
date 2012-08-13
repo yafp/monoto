@@ -65,7 +65,7 @@
 
 		<!-- main js for table etc -->
 		<script type="text/javascript">
-			var currentRow = -1;
+			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
 
 			var oTable;
 			var giRedraw = false;
@@ -303,6 +303,8 @@
 		//
 		function createNote() 
 		{
+			log.debug( 'blackbird test - createNote launched.' );							// testing blackbird js logging
+
 			var newNoteTitle = document.myform.newNoteTitle.value;			// get new title
 			//newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');		// replace all characters except numbers,letters, space, underscore and -
 			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._ ]/g, '');
