@@ -1,9 +1,5 @@
 <?php include 'html_head.php'; ?>
 
-	<!-- jquery -->
-	<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
-	<!--  m_disableRightClick-->
-	<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
 	</head>
 	
 	<!-- BODY -->

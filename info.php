@@ -115,12 +115,13 @@
 			?>
 
 			<!-- VERSION -->
+			
 			<h2><a name="version">version</a></h2>
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-				<table style="width: 100%">
+				<table style="width: 100%">				
 					<tr>
-						<td colspan="4"><img src="images/icons/monoto_logo.png" alt="monoto logo"></td></tr>
-					<tr>
+						<td colspan="4"><div ID="logo2"><img src="images/icons/transparent.gif" width="200px" height="98px"></div></td></tr>
+					<tr>					
 					<tr>
 						<td>build:</td>
 						<td><span><?php echo $m_build; ?></span></td>
@@ -163,6 +164,7 @@
 					</tr>
 				</table>
 			</form>
+			
 
 			
 			<!-- SPACER -->
@@ -609,12 +611,11 @@ if ( isset($_POST["doUpdateCheck"]) )
 	}
 	else if ($update)
 	{
-		echo '<script type="text/javascript">alert("There is an update available.");</script>';
-		//echo '<script type="text/javascript">document.getElementById("content").innerHTML = "whatever";</script>';
+		echo '<script type="text/javascript">log.info( "There is an update available.");</script>';
 	}
 	else // uptodate
 	{
-		echo '<script type="text/javascript">alert("You are using the latest version. Well done.");</script>';
+		echo '<script type="text/javascript">log.info( "You are running the latest version.");</script>';
 	}
 
 	// update div with stable informations
@@ -655,11 +656,11 @@ if ( isset($_POST["doUpdateCheck"]) )
 		}
 		else if ($update)
 		{ 
-			echo '<script type="text/javascript">alert("There is an dev update available.");</script>'; 
+			echo '<script type="text/javascript">log.info( "There is a dev update available.");</script>'; 
 		}
 		else // uptodate
 		{ 
-			echo '<script type="text/javascript">alert("You are using the latest dev version. Thanks for testing.");</script>'; 
+			echo '<script type="text/javascript">log.info( "You are running the latest dev version. Thanks for testing.");</script>'; 
 		}
 
 		// update div with unstable informations

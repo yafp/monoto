@@ -74,6 +74,20 @@ body
 }
 
 
+
+/* logo on settings.php */
+#dt_example #logo2
+{
+	width: 200px;
+	height: 98px;
+
+	background-image:url('../images/icons/monoto_logo01.png');
+	background-size: 100%;
+	background-repeat:no-repeat;
+}
+
+
+
 /* header random welcome text */
 #dt_example #welcome 
 {	
