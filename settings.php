@@ -151,9 +151,6 @@
 				<div class="spacer">&nbsp;</div>
 			</div>
 		</div>
-
-		<!-- back to top -->
-		<div id="message"><a href="#container">scroll to top</a></div>
 		
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>

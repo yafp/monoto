@@ -543,9 +543,6 @@
 					<tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
 				</table>
 
-				<!-- back to top -->
-				<div id="message"><a href="#container">scroll to top</a></div>
-
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 		</div>

@@ -305,7 +305,7 @@
 			log.debug( 'blackbird test - createNote launched.' );							// testing blackbird js logging
 
 			var newNoteTitle = document.myform.newNoteTitle.value;							// get new title
-			//newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');					// replace all characters except numbers,letters, space, underscore and -
+			//newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');					// replace all characters except numbers,letters, space, underscore and - .
 			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._ ]/g, '');
 
 
@@ -338,6 +338,7 @@
 			// reload page - trying to ignore post data
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
+    		log.debug('reloadNote() executed.');													// blackbird js logging
 		}
 
 
@@ -417,9 +418,6 @@
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 		</div>
-
-		<!-- back to top -->
-		<div id="message"><a href="#container">scroll to top</a></div>
 
 		<!--  FOOTER -->
 		<?php include 'footer.php'; ?>

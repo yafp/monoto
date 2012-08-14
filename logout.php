@@ -26,7 +26,7 @@
 
 	disconnectFromDB();
 
-	$_SESSION = array(); //destroy all of the session variables
+	$_SESSION = array(); 				//destroy all of the session variables
     session_destroy();
 
     include 'html_head.php';			// include the new header
