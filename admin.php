@@ -280,9 +280,9 @@
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
 					<input type="submit" name="doOptimize" value="Optimize" style="width:200px" />This will optimize your entire monoto mysql database.
 					<br><br>
-					<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" /> This will delete all entries from the table: m_events.
+					<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" /> Warning: This will delete <b>ALL events</b> from the table: m_events.
 					<br>
-					<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" /> This will delete all notes from the table: m_notes.
+					<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
 				</form>
 
 				<!-- SPACER -->
@@ -338,7 +338,7 @@
 		{
   			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
 		}
-		echo '<script type="text/javascript">alert("Notification: Tables optimized")</script>';
+		echo '<script type="text/javascript">log.info("MySQL tables optimized.");</script>';					// blackbird js logging
 	}
 
 	//
@@ -348,7 +348,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
-		echo '<script type="text/javascript">alert("Notification: Table m_log truncated.")</script>';
+		echo '<script type="text/javascript">log.info("Table m_log truncated.");</script>';					// blackbird js logging
 	}
 
 	//
@@ -358,7 +358,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
-		echo '<script type="text/javascript">alert("Notification: Table m_notes truncated.")</script>';
+		echo '<script type="text/javascript">log.info("Table m_notes truncated. Insane.");</script>';					// blackbird js logging
 	}
 
 	//
@@ -398,7 +398,7 @@
 			{
 				if($row[0] == 0)  // username is free
 				{
-					// check if we got an emailadress
+					// check if we got an emailaddress
 					if(strlen($newUserMail) > 0)
 					{
 						// create the new user account
@@ -415,7 +415,7 @@
 
 						$query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
 						mysql_query($query);
-						echo '<script type="text/javascript">alert("Notification: New account successfully created.")</script>';
+						echo '<script type="text/javascript">log.info("New user account created");</script>';					// blackbird js logging
 
 						// we should log that to m_notes -> admin only.
 
@@ -438,30 +438,29 @@
 		 									\n\nHave fun.";
 		 						if (mail($to, $subject, $body)) 
 		 						{
-		   							echo '<script type="text/javascript">alert("Notification: Mail was sent.")</script>';
+		   							echo '<script type="text/javascript">log.info("Invite mail sent.");</script>';					// blackbird js logging
 		  						} 
 		  						else 
 		  						{
-		   							echo '<script type="text/javascript">alert("Error: Mail was NOT sent.")</script>';
+		   							echo '<script type="text/javascript">log.warn("Sending invite mail failed.");</script>';					// blackbird js logging
 		  						}
 							}
 						}
 					}
 					else // no usermail-adress defined while trying to create new account
 					{
-						echo '<script type="text/javascript">alert("Error: No email defined.")</script>';
+						echo '<script type="text/javascript">log.error("No mail address defined.");</script>';					// blackbird js logging
 					}
 				}
 				else // username already in use - cancel and inform the admin
 				{
-					echo '<script type="text/javascript">alert("Error: Username already exists.")</script>';
+					echo '<script type="text/javascript">log.error("Username already exists.");</script>';					// blackbird js logging
 				}
 			}
 		}	
 		else // passwords not matching
 		{
-			echo '<script type="text/javascript">alert("Error: You need to submit a password twice - not 2 different passwords. Classic typo i guess.")</script>';
+			echo '<script type="text/javascript">log.error("You need to submit a password twice - not 2 different passwords. Classic typo i guess.");</script>';					// blackbird js logging
 		}
-		//disconnectFromDB();				// disconnect from mysql
 	}
 ?>

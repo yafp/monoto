@@ -114,8 +114,6 @@ if ( isset($_POST["doLogin"]) )
 	//incorrect password
 	if($hash != $userData['password']) 
 	{
-		//echo '<script type="text/javascript">alert("Error: Wrong password.")</script>';			// notify user about wrong password
-
 		// log incorrect login attempt - date
 		$sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$_SESSION['username']."' ";
 		$result = mysql_query($sql);
@@ -190,7 +188,7 @@ if ( isset($_POST["doLogin"]) )
 		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 		$result = mysql_query($sql);
 
-    	//header('Location: notes.php');												// redirect to the main page ...seems broken right now ...whyever
+    	header('Location: notes.php');												// redirect to the main page ...seems broken right now ...whyever
     	echo '<script type="text/javascript">window.location="notes.php"</script>';		// whyever that works - but header not anymore. must be related to our header rework
 	}
 }

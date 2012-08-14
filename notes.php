@@ -191,14 +191,11 @@
 		{
 			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();	// get amount of records after filter
 
-			//alert(currentRow);
-
-			if( parseInt(currentRow) < (parseInt(amountOfRecordsAfterFilter) -1))					// check if moving down makes sense at all
+			if( parseInt(currentRow) < (parseInt(amountOfRecordsAfterFilter) -1))		// check if moving down makes sense at all
 			{
-			    currentRow = parseInt(currentRow) + 1;
+			    currentRow = parseInt(currentRow) + 1;									// update row-position
 			
-				// unselect all records
-			    $(oTable.fnSettings().aoData).each(function ()
+			    $(oTable.fnSettings().aoData).each(function ()							// unselect all records
 				{
 					$(this.nTr).removeClass('row_selected');
 				});
@@ -214,20 +211,19 @@
 		//
 		function selectUpperRow( )
 		{
-			// change currentRow
-			if(currentRow > 0)
+			
+			if(currentRow > 0)															// change currentRow
 			{
 				currentRow = currentRow - 1;
 			}
 
-			// unselect all records
-			$(oTable.fnSettings().aoData).each(function ()
+			$(oTable.fnSettings().aoData).each(function ()								// unselect all records
 			{
 				$(this.nTr).removeClass('row_selected');
 			});
 
-			$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
-		    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
+			$('#example tbody tr:eq('+currentRow+')').click(); 							// select the top record
+		    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');			// change background as well
 		}
 
 
@@ -237,22 +233,23 @@
 		//
 		function saveNote() 
 		{
-			var modifiedNoteID = document.myform.noteID.value;					// get the note id
-			var modifiedNoteTitle = document.myform.noteTitle.value;			// get the note title 
-			var modifiedNoteContent = document.myform.input2.value;			// get the NEW note content
-			var modifiedNoteCounter = document.myform.noteVersion.value;		// get current save-counter/version
+			var modifiedNoteID = document.myform.noteID.value;							// get the note id
+			var modifiedNoteTitle = document.myform.noteTitle.value;					// get the note title 
+			var modifiedNoteContent = document.myform.input2.value;						// get the NEW note content
+			var modifiedNoteCounter = document.myform.noteVersion.value;				// get current save-counter/version
 			// get text of cleditor
 			var html = $("#input2").val();
 			modifiedNoteContent = html;
-			// if we have a note-id - save the change to db
-			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))
+			
+			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
 				$.post("scripts/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				reloadNote();
+				log.info('Note saved.');
 			}
-			else
-			{ 
-				alert("Error while trying to save a note. Please select a record first and try again."); 
+			else 																		// should never happen as the save button is not always enabled.
+			{  
+				log.debug('Error while trying to save a note. Please select a record first and try again.');
 			}
 		}
 
@@ -262,12 +259,12 @@
 		//
 		function deleteNote() 
 		{
-			// get the note id
+			// get the note id etc
 			var deleteID = document.myform.noteID.value;
 			var deleteTitle = document.myform.noteTitle.value;
 			var deleteContent = document.myform.input2.value;
 
-			// if we have a note id to delete - do it
+			// if we have a note id to delete - try to do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
 			{	
 				<?php
@@ -279,7 +276,8 @@
 						if (answer)
 						{
 							$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-							reloadNote();	
+							reloadNote();
+							log.info('Note deleted.');							// blackbird js logging	
 						}
 				<?php
 					}
@@ -287,14 +285,15 @@
 					{
 				?>
 						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-						reloadNote();	
+						reloadNote();
+						log.info('Note deleted.');								// blackbird js logging	
 				<?php
 					}
 				?>
 			}
-			else
+			else // should never happen as the delete button is disabled if no note is selected
 			{ 
-				alert("Error while trying to delete a note. Please select a record first and try again."); 
+				log.error('Error while trying to delete a note. Please select a record first and try again.');		// blackbird js logging	
 			}	
 		}
 
@@ -305,27 +304,28 @@
 		{
 			log.debug( 'blackbird test - createNote launched.' );							// testing blackbird js logging
 
-			var newNoteTitle = document.myform.newNoteTitle.value;			// get new title
-			//newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');		// replace all characters except numbers,letters, space, underscore and -
+			var newNoteTitle = document.myform.newNoteTitle.value;							// get new title
+			//newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');					// replace all characters except numbers,letters, space, underscore and -
 			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._ ]/g, '');
 
 
-			var newNoteContent = document.myform.input2.value;				// get note content if defined									
-			newNoteContent = $("#input2").val();							// cleanup html stuff of note-content
+			var newNoteContent = document.myform.input2.value;								// get note content if defined									
+			newNoteContent = $("#input2").val();											// cleanup html stuff of note-content
 
-			if (newNoteTitle.length > 0)									// if we have a note title - create the new note (content is not needed so far)
+			if (newNoteTitle.length > 0)													// if we have a note title - create the new note (content is not needed so far)
 		  	{
-		  		if(newNoteContent.length == 0)								// check if user defined note-content or not
+		  		if(newNoteContent.length == 0)												// check if user defined note-content or not
 		  		{
 		  			newNoteContent = "Placeholder content - as no note-content was defined while creating this note.";			// define dummy content as user didnt
 		  		}
 		  		
 		  		$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
 				//reloadNote();
+				log.info('Note created.');													// blackbird js logging
 		  	}
 			else
 			{ 
-				alert("Error while trying to create a new note. Please enter a note title and try again."); 
+				log.error('Error while trying to create a new note. Please enter a note title and try again.');		// blackbird js logging
 			}
 		}
 
@@ -373,7 +373,6 @@
 							<td width="40px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
 							<td colspan="1"><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
-							
 						<!-- NEW NOTE CONTENT using clEditor -->
 						<tr>
 							<td colspan="2" width="95%"><textarea id="input2" name="input2" cols="110" ></textarea></td>
@@ -389,10 +388,7 @@
 						</tr>
 					</table>
 				</form>
-
-				<!-- SPACER -->
 				
-
 				<!--  NEW CUSTOM SEARCH FIELD -->
 				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
 
@@ -413,7 +409,6 @@
 							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
 							$rowID = $rowID +1;
 						}
-						//disconnectFromDB();
 					?>
 					</tbody>
 					<tfoot align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>

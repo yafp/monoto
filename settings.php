@@ -211,7 +211,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 	}
 	else // User entered 2 different password - cant change pw like that.
 	{
-		echo '<script type="text/javascript">alert("Error - Password mismatch while trying to change.");</script>';
+		echo '<script type="text/javascript">log.error("Password mismatch while trying to change.");</script>';					// blackbird js logging
 	}
 	//disconnectFromDB();
 }
@@ -256,7 +256,6 @@ if ( isset($_POST["doDelAllEvents"]) )
 	$details = "All user events deleted with eraser.";
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
-	//disconnectFromDB();
 }
 
 
@@ -366,7 +365,6 @@ if ( isset($_POST["doImport"]) )
 				</script>
 			<?php
 		}
-		//disconnectFromDB();
 } 
 
 
@@ -389,16 +387,14 @@ if ( isset($_POST["doChangeUserIcon"]) )
         $data = fread($fp, filesize($tmpName));
         $data = addslashes($data);
         fclose($fp);
-          
-		// update user record     
-        $query = "UPDATE m_users SET  user_icon='$data' WHERE username='$owner'";
+             
+        $query = "UPDATE m_users SET  user_icon='$data' WHERE username='$owner'";						// update user record 
 		mysql_query($query);
 	}
 	else // no image defined.
 	{
-   		echo '<script type="text/javascript">alert("Error - no image defined");</script>';
+   		echo '<script type="text/javascript">log.error("No image defined.");</script>';					// blackbird js logging
 	}
-	//disconnectFromDB();
 }
 
 ?>

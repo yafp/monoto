@@ -1,7 +1,7 @@
 <?php
 	include 'html_head.php';
 ?>
-<!-- continue the header -->
+		<!-- continue the header -->
 		<!-- ################### -->
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
@@ -21,26 +21,11 @@
 
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 					<table border="0">
-						<tr>
-							<td>Adminname:</td>
-							<td><input type="text" name="username" placeholder="Username" /></td>
-						</tr>
-						<tr>
-							<td>Mail:</td>
-							<td><input type="text" name="email" placeholder="Email" /></td>
-						</tr>
-						<tr>
-							<td>Password:</td>
-							<td><input type="password" name="password1" placeholder="Password" /></td>
-						</tr>
-						<tr>
-							<td>Repeat Password:</td>
-							<td><input type="password" name="password2" placeholder="Password" /></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input type="submit" value="Create" name="doCreateAdminAccount" /></td>
-						</tr>
+						<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" /></td></tr>
+						<tr><td>Mail:</td><td><input type="text" name="email" placeholder="Email" /></td></tr>
+						<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" /></td></tr>
+						<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" /></td></tr>
+						<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
 					</table>
 				</form>
 
@@ -66,8 +51,7 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 	$val = mysql_query('select 1 from `m_users`')
 	if($val !== FALSE)
 	{
-   		// table m_users EXISTS!
-   		// get data
+   		// table m_users EXISTS - get the data
 		$username = $_POST['username'];
 		$email = $_POST['email'];
 		$password1 = $_POST['password1'];
@@ -90,18 +74,17 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 			$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
 			mysql_query($query);
 			mysql_close($con); 													// close sql connection
-			echo '<script type="text/javascript">alert("Ńotification: Admin account created. You will be redirected to monoto now.")</script>';
+			echo '<script type="text/javascript">log.infd("Admin account created. You will be redirected to monoto now.");</script>';					// blackbird js logging
 			header('Location: index.php');										// redirect to main page
 		}
 		else 																	// Password mismatch
 		{
-			echo '<script type="text/javascript">alert("Error: Password mismatch. Canceling setup script at this point.")</script>';
+			echo '<script type="text/javascript">log.error("Password mismatch, canceling setup script.");</script>';					// blackbird js logging
 		}
 	}
-	else
+	else // mysql tables dont exist
 	{
-    	// mysql tables dont exist
-    	echo '<script type="text/javascript">alert("Error: Table m_users does not exist.")</script>';
+    	echo '<script type="text/javascript">log.error("Table m_users does not exist.");</script>';					// blackbird js logging
 	}	
 }
 ?>

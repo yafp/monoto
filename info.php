@@ -115,7 +115,6 @@
 			?>
 
 			<!-- VERSION -->
-			
 			<h2><a name="version">version</a></h2>
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 				<table style="width: 100%">				
@@ -123,18 +122,16 @@
 						<td colspan="4"><div ID="logo2"><img src="images/icons/transparent.gif" width="200px" height="98px"></div></td></tr>
 					<tr>					
 					<tr>
-						<td>build:</td>
-						<td><span><?php echo $m_build; ?></span></td>
-						<td><?php if($m_stable == false) { echo "<font color='red'>Development Version (unstable)</font>"; } ?></td>
+						<td><b>build:</b></td>
+						<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
 					<tr>
-						<td>milestone:</td>
-						<td colspan="2"><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
+						<td><b>milestone:</b></td>
+						<td><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
 					</tr>
 					<tr>
 						<td colspan="3">&nbsp;</td>
 					</tr>
 					<tr>
-						<td>&nbsp;</td>
 						<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
 						<td>
 							<?php 
@@ -150,31 +147,26 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="3">&nbsp;</td>
-					</tr>
-					<tr>
-						<td>current stable:</td>
+						<td><b>current stable:</b></td>
 						<td><div id="curStable01"><i>please run the check</i></div></td>
-						<td><div id="curStable02"><i>please run the check</i></div></td>
+						<td><div id="curStable02"><i>&nbsp;</i></div></td>
 					</tr>
 					<tr>
-						<td>current unstable:</td>
+						<td><b>current unstable:</b></td>
 						<td><div id="curUnstable01"><i>please run the check</i></div></td>
-						<td><div id="curUnstable02"><i>please run the check</i></div></td>
+						<td><div id="curUnstable02"><i>&nbsp;</i></div></td>
+						<td style="width: 30%">&nbsp;</td>
 					</tr>
 				</table>
 			</form>
 			
-
-			
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
-
 
 			<!-- CHANGELOG-->
 			<b>changelog</b>
 			<textarea name="changes" style="width:100%" rows=20 disabled>
-			<?=file_get_contents ('doc/CHANGELOG.txt');?>	
+			<?=file_get_contents ('doc/CHANGELOG.txt');?>					
 			</textarea>
 				
 			<!-- SPACER -->
@@ -208,7 +200,6 @@
 							else
 							{
 								echo "- You have <span>".$row[0]." notes</span> in your monoto database<br>"; 	// output amount of notes
-
 								// SQL-SECTION
 								//
 								// amount of activity-events
@@ -367,8 +358,8 @@
 								echo "- Those can be devided into <span>".$stats_amount_of_creates." notes creations</span>, <span>".$stats_amount_of_changes." note-editings</span> and <span>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
 								echo "- In addition to those numbers your account has <span>".$stats_amount_of_imports." note-import events</span> logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
 								echo "- Plus <span>".$stats_amount_of_creates_errors."</span> failed create errors.<br>";
-								echo "- Your highest note id is currently <span>".$stats_highest_note_version_id."</span>, with the title <span>".$stats_highest_note_version_title."</span>. This specific note has <span>revision number ".$stats_highest_note_version_versions."</span>.<br>";
 								echo "- Well in case numbers still dont match up - add <span>".$stats_amount_of_logins." logins</span> and <span>".$stats_amount_of_logouts." logouts</span>.<br>";
+								echo "- Your highest note id is currently <span>".$stats_highest_note_version_id."</span>, with the title <span>".$stats_highest_note_version_title."</span>. This specific note has <span>revision number ".$stats_highest_note_version_versions."</span>.<br>";
 								echo "- Your shortest note so far is note <span>number ".$stats_note_with_shortest_content_id."</span>, it is <span>using ".$stats_note_with_shortest_content_chars." chars</span> for its entire content.<br>";
 								echo "- Lets compare that with your longest note which has the <span>id ".$stats_note_with_longest_content_id."</span> and is <span>".$stats_note_with_longest_content_chars." long</span>.<br>";
 								echo "- Looking for dates? Let's face it: your oldest note has an <span>age of ".$stats_oldest_created_note_age." days</span>. It was created <span>".$stats_oldest_created_note_date."</span> with the <span>id ".$stats_oldest_created_note_id."</span>.<br>";
@@ -581,6 +572,8 @@ if ( isset($_POST["doUpdateCheck"]) )
 {
 	session_start();
 	include 'conf/config.php';
+
+	echo '<script type="text/javascript">log.debug("Executing update check.");</script>';					// blackbird js logging
 	
 	// assume everything is good
 	$critical = FALSE;
@@ -620,7 +613,9 @@ if ( isset($_POST["doUpdateCheck"]) )
 
 	// update div with stable informations
 	echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
-	echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$read[3].'";</script>';
+	//echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$read[3].'";</script>';
+	$urlDLStable = "<a href='$read[3]'>Download</a>";
+	echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$urlDLStable.'";</script>';
 
 	//
 	// check for unstable versions as well
@@ -631,11 +626,11 @@ if ( isset($_POST["doUpdateCheck"]) )
 		$critical = FALSE;
 		$update = FALSE;
 
-		//$url = "https://raw.github.com/macfidelity/monoto/master/vDev.csv";
+		// check the csv file
 		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vDev.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);
-		fclose ($fp); //always a good idea to close the file connection
+		fclose ($fp); 																//always a good idea to close the file connection
 
 		// its critical
 		if (($read[0] > $m_build) && ($read[2] == "1")) 
@@ -665,7 +660,11 @@ if ( isset($_POST["doUpdateCheck"]) )
 
 		// update div with unstable informations
 		echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
-		echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$read[3].'";</script>';
+		//echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$read[3].'";</script>';
+		$urlDLUnstable = "<a href='$read[3]'>Download</a>";
+		echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
 	}
+
+	echo '<script type="text/javascript">log.debug("Finished update check.");</script>';					// blackbird js logging
 }
 ?>
