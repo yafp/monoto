@@ -228,9 +228,10 @@
 			var modifiedNoteContent = document.myform.input2.value;						// get the NEW note content
 			var modifiedNoteCounter = document.myform.noteVersion.value;				// get current save-counter/version
 			// get text of cleditor
-			var html = $("#input2").val();
-			modifiedNoteContent = html;
-			
+			var modifiedNoteContent = $("#input2").val();
+			// cleanup note content
+			modifiedNoteContent=modifiedNoteContent.replace(/\'/g,'&#39;')				// replace: ' 	with &#39;
+
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
 				$.post("scripts/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
@@ -299,8 +300,8 @@
 
 			//var newNoteContent = document.myform.input2.value;								// get note content if defined									
 			var newNoteContent = $("#input2").val();											// get note content if defined	
-			//alert(newNoteContent);
-
+			// cleanup note content
+			newNoteContent=newNoteContent.replace(/\'/g,'&#39;')								// replace: ' 	with &#39;
 
 			if (newNoteTitle.length > 0)													// if we have a note title - create the new note (content is not needed so far)
 		  	{
