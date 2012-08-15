@@ -8,5 +8,6 @@ function reallyLogout()
 	else
 	{
 		//alert("Thats why you enabled that function in the first place right?")
+		log.info( 'Logout attempt stopped.' );
 	}
 }

@@ -27,6 +27,7 @@
 	$s_user_icon_path			= "images/icons/user-14.png";
 	// info.php:
 	$s_enable_info_about_section= true;				// show about oninfo page
+	//
 	$s_enable_welcome_message 	= true;				// should all users see a welcome message defined by you? 
 	$s_welcome_message_to_all_users = "This is an example welcome message displayed for all users. It is adjustable by the admin.";
 	
@@ -38,6 +39,6 @@
 	$m_name						= "monoto";						// name of your notes system
 	$m_milestone				= "3";							// current milestone number
 	$m_milestone_title			= "pimping the workflow";		// current milestone name
-	$m_build					= "20120814.02";				// build-date and day's version
+	$m_build					= "20120815.01";				// build-date and day's version
 	$m_stable					= false;						// defined if that is a milestone release
 ?>

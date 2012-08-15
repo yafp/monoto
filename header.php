@@ -1,11 +1,5 @@
 <!-- MONOTO ICON -->
-<div ID="logo">
-	<!--
-	<a href="notes.php"><img src="images/icons/transparent.gif" width="100px" height="49px"></a>
--->
-	<a href="notes.php"><img src="images/icons/transparent.gif" width="200px" height="98px"></a>
-</div>
-
+<div ID="logo"><a href="notes.php"><img src="images/icons/transparent.gif" width="200px" height="98px"></a></div>
 
 <!-- MONOTO NAVI -->
 <?php 
@@ -40,10 +34,17 @@
       	echo '</ul></li>';
 
       	// logout
-		echo '<li><a accesskey="l" href="logout.php"> ...<b>l</b>ogout <b>'.$owner.'</b></a></li></ul>';
+		if($s_enable_really_logout == false)
+		{
+			echo '<li><a accesskey="l" href="logout.php"> ...<b>l</b>ogout <b>'.$owner.'</b></a></li></ul>';
+		}
+		else // we need to ask the reallyLogout question
+		{
+			echo '<li><a accesskey="l" href="#" onclick="reallyLogout();"> ...<b>l</b>ogout <b>'.$owner.'</b></a></li></ul>';
+		}
 
-	
 		// random welcome message to user
+		/*
 		echo '<div ID="welcome">';
 			$welcomeArray = array("Hello", "ahoy", "welcome", "Hallo", "bonjour", "welkom", "velkommen", "Willkommen", "aloha", "shalom", "benvenuto", "Bienvenido", "Merhaba", "Välkommen", "Wellkumma", "Bonvenon", "Salve", "Bun venit" );
 			$relation = array("english", "czech", "english", "german", "french", "dutch", "Norwegian", "german", "hawai", "hebrew", "italian", "spanish", "turkish", "swedish", "Wellkumma", "esperanto", "romanian", "romania" );
@@ -52,6 +53,7 @@
 			echo $welcomeArray[$myRandomPick]." ".$owner."<br>" ;	// show the random text and the related language
 			echo "<small><i>... that's ".$myRandomPickLanguage."</i></small>";
 		echo '</div>';
+		*/
 	}
 	else // no valid session: display login only
 	{

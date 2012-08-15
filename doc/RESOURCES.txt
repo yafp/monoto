@@ -1,16 +1,19 @@
 Used technologies:
 ##################
-- html, php, css, javascript, mysql
-
-- jQuery/DataTables/cleditor/flot: 
---- http://jquery.com/
---- http://datatables.net/
---- http://premiumsoftware.net/cleditor/
---- http://code.google.com/p/flot/
---- styleswitcher
---- digitalspaghetti.password
---- jPopUp http://www.jquerypopup.com
---- blackbird logging: http://www.gscottolson.com/blackbirdjs/
+- html
+- php
+- css 
+- mysql
+- javascript 
+--- http://jquery.com/												// anything to say?
+--- http://datatables.net/											// Almost perfect tables
+--- http://premiumsoftware.net/cleditor/							// Editor
+--- http://code.google.com/p/flot/									// Generating charts
+--- styleswitcher													// CSS toggle
+--- digitalspaghetti.password										// Password-Strength
+--- jPopUp http://www.jquerypopup.com								// PopUp - used for keyboard-info in header
+--- blackbird logging: http://www.gscottolson.com/blackbirdjs/		// Logging 
+--- LAB.js: http://labjs.com										// Loading multiple js files at once
 
 - patterns:
---- http://subtlepatterns.com
+--- http://subtlepatterns.com										// background images

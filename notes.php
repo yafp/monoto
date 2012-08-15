@@ -7,20 +7,12 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
-		<!-- jquery -->
-		<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+			<!-- jquery -->
+<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
-		<!--  m_reallyLogout-->
-		<script type="text/javascript" language="javascript" src="js/m_reallyLogout.js"></script>
-		<!--  m_disableRightClick-->
-		<script type="text/javascript" language="javascript" src="js/m_disableRightClick.js"></script>
-		<!-- scroll up -->
-		<script type="text/javascript" language="javascript" src="js/m_scrollUp.js"></script>
-		<!-- styleswitcher -->
-		<script type="text/javascript" language="javascript" src="js/styleswitcher.js"></script>
 		<!--  CLEditor -->
 		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
 		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>

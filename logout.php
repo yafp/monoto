@@ -61,13 +61,10 @@
 					}
 				?>
 
-				<table style="width: 100%">
-					<tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr>
-				</table>
-				
+				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
 				<!-- REDIRECT TO LOGIN -->
-				<?php header( "refresh:10;url=index.php" ); ?>
-
+				<?php header("refresh:10;url=index.php"); ?>
+				
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
 			</div>

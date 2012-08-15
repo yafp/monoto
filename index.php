@@ -14,12 +14,14 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
+
 		<!-- fade in on pageload via jquery -->
 		<script type="text/javascript" language="javascript">
 			$(document).ready(function(){	
 				$('#page_effect').fadeIn(1500);
 			});
 		</script>
+
 	</head>
 
 	<!-- BODY -->

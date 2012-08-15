@@ -67,6 +67,7 @@ function KeyCheck(e)
 
 		// Arrow Down
 		case 40:
+			//alert("down");
 			log.debug( 'Arrow-Down key was pressed' );				// log to blackbird logging
 
 		   	// specialcase: if focus in search -> jump to first record in table
