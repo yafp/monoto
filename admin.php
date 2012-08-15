@@ -7,12 +7,12 @@
 		<!-- continue the header -->
 		<!-- ################### -->
 		<!-- datatables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- flot graphs -->
-		<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
-    	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.js"></script>
+		<script language="javascript" type="text/javascript" src="js/jquery.flot.min.js"></script>
+    	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.min.js"></script>
 		<!-- Example: http://datatables.net/release-datatables/examples/api/select_single_row.html -->
 		<script type="text/javascript">
 			var oTable;

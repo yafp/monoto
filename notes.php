@@ -10,7 +10,7 @@
 			<!-- jquery -->
 <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
 		<!-- datatables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!--  CLEditor -->
@@ -90,7 +90,6 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-					/* "sDom": '<"wrapper"flipt>, <l<t>ip>', */		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"oSearch": {"sSearch": ""}, 
 					"sRowSelect": "single",
@@ -132,7 +131,7 @@
 					{
 						$(this.nTr).removeClass('row_selected');
 					});
-*/
+					*/
 
 				    // specialcase - only 1 record
 	      			if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
@@ -203,7 +202,6 @@
 		//
 		function selectUpperRow( )
 		{
-			
 			if(currentRow > 0)															// change currentRow
 			{
 				currentRow = currentRow - 1;
@@ -297,12 +295,12 @@
 			log.debug( 'blackbird test - createNote launched.' );							// testing blackbird js logging
 
 			var newNoteTitle = document.myform.newNoteTitle.value;							// get new title
-			//newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9 _-]/g,'');					// replace all characters except numbers,letters, space, underscore and - .
-			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._ ]/g, '');
+			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._ ]/g, '');					// replace all characters except numbers,letters, space, underscore and - .
 
+			//var newNoteContent = document.myform.input2.value;								// get note content if defined									
+			var newNoteContent = $("#input2").val();											// get note content if defined	
+			//alert(newNoteContent);
 
-			var newNoteContent = document.myform.input2.value;								// get note content if defined									
-			newNoteContent = $("#input2").val();											// cleanup html stuff of note-content
 
 			if (newNoteTitle.length > 0)													// if we have a note title - create the new note (content is not needed so far)
 		  	{

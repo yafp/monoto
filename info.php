@@ -7,7 +7,7 @@
 		<!-- continue the header -->
 		<!-- ################### -->
 		<!-- data tables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- main js for table etc -->

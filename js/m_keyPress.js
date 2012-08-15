@@ -82,8 +82,9 @@ function KeyCheck(e)
 		case 46:
 			log.debug( 'Del key was pressed' );				// log to blackbird logging
 			// missing: we should do that only if a row in datatables is selected 
-			// if focus is not in new title & in search
-			if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "myInputTextField"))	
+			// if focus is not in new title & in search & in noteTitle
+			//if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "myInputTextField") && (document.activeElement.id != "noteTitle"))	
+			if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "noteTitle"))	
 			{
 				deleteNote();								// execute delete function
 			}
