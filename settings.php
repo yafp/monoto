@@ -23,16 +23,16 @@
 					if($s_enable_toc == true)
 					{
 						?>
-							<h2><a name="desc">settings</a></h2>
+							<h2><a name="desc" title="the monoto settings page">settings</a></h2>
 							<div class="accordion">
 							<h3>profile [<a href="#profile">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#profile">profile</a> section displays a quick overview about your user account. You can change your monoto password here and upload an user image.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the profile-section" width="40" style="float:right">the <a href="#profile">profile</a> section displays a quick overview about your user account. You can change your monoto password here and upload an user image.</p>
 							<h3>importer [<a href="#importer">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#importer">importer</a> section allows you to import single or multiple text notes.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the importer-section" width="40" style="float:right">the <a href="#importer">importer</a> section allows you to import single or multiple text notes.</p>
 							<h3>exporter [<a href="#exporter">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#exporter">exporter</a> section allows you to export your notes to a single, tab-separated csv-file. This included only the note-ids, -titles and content.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the exporter-section" width="40" style="float:right">the <a href="#exporter">exporter</a> section allows you to export your notes to a single, tab-separated csv-file. This included only the note-ids, -titles and content.</p>
 							<h3>eraser [<a href="#eraser">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events. The eraser event itself will be your first new log entry.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the eraser-section" width="40" style="float:right">the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events. The eraser event itself will be your first new log entry.</p>
 							</div>
 						<?php
 					}
@@ -42,10 +42,10 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- PROFILE -->
-				<h2><a name="profile">profile</a></h2>
+				<h2><a name="profile" title="the profile-section">profile</a></h2>
 				<table style="width: 100%">
 					<tr>
-						<td style="width:25%" colspan="2"><img src="images/icons/user-14.png" alt="user icon"></td>
+						<td style="width:25%" colspan="2"><img src="images/icons/user-14.png" alt="dummy user icon" title="Dummy user-profile-image"></td>
 						<td style="width:5%"></td>
 						<td rowspan="5">
 							<!-- CHANGE USER PASSWORD BUTTON -->
@@ -54,14 +54,14 @@
 										<input type="password" id="newPassword1" name="newPassword1" placeholder="Please enter your new password" />
 										<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" />
 										<script type="text/javascript">jQuery('#newPassword1').pstrength();</script><br>
-										<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" />					
+										<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />					
 							</form>
 							<!-- CHANGE USER ICON BUTTON -->
 							<br><b>Changing the user icon:</b><br>Select your new user icon via the <span>Browse...</span> button and confirm that change by pressing the <span>Upload</span> button. This will store your image in the users-table - but the image itself is not used so far.
 							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 										<input name="MAX_FILE_SIZE" value="102400" type="hidden">
 										<input name="image" accept="image/jpeg" type="file"><br>
-										<input value="Upload" type="submit" name="doChangeUserIcon" style="width:140px" >					
+										<input value="Upload" type="submit" name="doChangeUserIcon" style="width:140px" title="Starts the user icon image upload function if the user provided a valid path to an image." >					
 							</form>
 						</td>
 					</tr>
@@ -122,9 +122,9 @@
 
 				<!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data" name="importerForm">
-					<h2><a name="importer">importer</a></h2>
+					<h2><a name="importer" title="the importer-section">importer</a></h2>
 						<input type="file" name="file[]" multiple id="file[]" /><br>
-						<input type="submit" name="doImport" value="Import"  style="width:140px"/>
+						<input type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." />
 						<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
 				</form>
 				
@@ -133,8 +133,8 @@
 
 				<!-- EXPORTER -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-					<h2><a name="exporter">exporter</a></h2>
-						<input type="submit" name="doExport" value="Export" style="width:140px" />
+					<h2><a name="exporter" title="the exporter-section">exporter</a></h2>
+						<input type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" />
 				</form>
 
 				<!-- SPACER -->
@@ -142,9 +142,9 @@
 
 				<!-- ERASER -->
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-					<h2><a name="eraser">eraser</a></h2>
-					<input type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" /><br>
-					<input type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" />
+					<h2><a name="eraser" title="the eraser-section">eraser</a></h2>
+					<input type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" title="Deletes all notes from your account. Be careful with that" /><br>
+					<input type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" title="Deletes all log events from your account. Be careful with that too" />
 				</form>
 			
 				<!-- SPACER -->

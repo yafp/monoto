@@ -7,8 +7,8 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
-			<!-- jquery -->
-<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+		<!-- jquery -->
+		<!--<script type="text/javascript" language="javascript" src="js/jquery.js"></script>-->
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!--  m_keyPress-->
@@ -357,7 +357,7 @@
 			<?php include 'header.php'; ?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-				<h2>notes</h2>
+				<h2 title="the monoto-notes page">notes</h2>
 				<form name="myform" method="post" action="<?php echo $PHP_SELF;?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->

@@ -65,20 +65,20 @@
 					if($s_enable_toc == true)
 					{
 				?>
-					<h2><a name="desc">admin</a></h2>
+					<h2><a name="desc" title="the monoto admin page">admin</a></h2>
 						<div class="accordion">
 							<h3>admin settings [<a href="#basic">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the admin-settings-section" width="40" style="float:right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
 							<h3>notes [<a href="#notes">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the notes-section" width="40" style="float:right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
 							<h3>user list [<a href="#users">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the info-section" width="40" style="float:right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
 							<h3>invites [<a href="#invites">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the invite-section" width="40" style="float:right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
 							<h3>mysql [<a href="#mysql">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the mysql-section" width="40" style="float:right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
 							<h3>misc [<a href="#misc">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the misc-sction" width="40" style="float:right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
 						</div>
 				<?php
 					}
@@ -93,7 +93,7 @@
 				?>
 				
 				<!-- BASICS -->
-				<h2><a name="basic">admin settings</a></h2>
+				<h2><a name="basic" title="the admin-settings-section">admin settings</a></h2>
 					<table style="width: 100%">
 					<tbody>
 						<tr>
@@ -137,7 +137,7 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- USERS -->
-				<h2><a name="notes">notes</a></h2>
+				<h2><a name="notes" title="the notes-section">notes</a></h2>
 				<?php
 					// User: amount of all notes 
 					$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
@@ -171,50 +171,50 @@
 				<!-- generate our flot pie chart -->
 				<script type="text/javascript">
 
-				arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
-				arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
+					arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
+					arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
 
-				var data = [];
-				var series = 10;
+					var data = [];
+					var series = 10;
 
-				for( var i = 0; i<series; i++)
-				{
-					data[i] = { 
-							label: arr01[i],
-							data: parseFloat(arr02[i])
-							}
-				}
+					for( var i = 0; i<series; i++)
+					{
+						data[i] = { 
+								label: arr01[i],
+								data: parseFloat(arr02[i])
+								}
+					}
 
-				// PLOT
-				$.plot($("#placeholder"), data, {
-				    series: {
-				        pie: {
-				            show: true,
-				            radius: 1,
-				            label: {
-				                show: true,
-				                radius: 1,
-				                formatter: function(label, series) {
-				                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
-				                },
-				                background: {
-				                    opacity: 0.8,
-				                    color: '#444'
-				                }
-				            }
-				        }
-				    },
-				    legend: {
-				        show: false
-				    }
-				});
+					// PLOT
+					$.plot($("#placeholder"), data, {
+					    series: {
+					        pie: {
+					            show: true,
+					            radius: 1,
+					            label: {
+					                show: true,
+					                radius: 1,
+					                formatter: function(label, series) {
+					                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+					                },
+					                background: {
+					                    opacity: 0.8,
+					                    color: '#444'
+					                }
+					            }
+					        }
+					    },
+					    legend: {
+					        show: false
+					    }
+					});
 				</script>
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
 				<!-- USERS -->
-				<h2><a name="users">users</a></h2>
+				<h2><a name="users" title="the users-section">users</a></h2>
 				<!--
 				<p><a href="javascript:void(0)" id="delete">Dummy: Delete selected user (only hides it right now)</a></p>
 				-->
@@ -237,13 +237,13 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- INVITES -->
-				<h2><a name="invites">invites</a></h2>
+				<h2><a name="invites" title="the invites-section">invites</a></h2>
 					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
 						<table style="width: 100%">
 							<tr>
 								<td width='30%'>Username:</td> 
 								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" /></td>
-								<td rowspan="6"><img src="images/default_user_icon_trans.png" alt="user_icon"></td>
+								<td rowspan="6"><img src="images/default_user_icon_trans.png" alt="user_icon" title="another dummy user-icon"></td>
 							</tr>
 							<tr>
 								<td>Mail:</td> 
@@ -266,7 +266,7 @@
 								<td><input type="text" name="newUserNote" placeholder="Optional - note about user" /></td>
 							</tr>
 							<tr>
-								<td><input type="submit" name="doCreateNewUserAccount" value="Invite" /></td> 
+								<td><input type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided." /></td> 
 								<td></td>
 							</tr>
 						</table>
@@ -276,20 +276,20 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- MYSQL -->
-				<h2><a name="mysql">mysql</a></h2>
+				<h2><a name="mysql" title="the mysql-section">mysql</a></h2>
 				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
-					<input type="submit" name="doOptimize" value="Optimize" style="width:200px" />This will optimize your entire monoto mysql database.
+					<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
 					<br><br>
-					<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" /> Warning: This will delete <b>ALL events</b> from the table: m_events.
+					<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
 					<br>
-					<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
+					<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
 				</form>
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
 				<!-- MYSQL -->
-				<h2><a name="misc">misc</a></h2>
+				<h2><a name="misc" title="the misc-section">misc</a></h2>
 					<!-- SHOW jquery version -->
 					jquery version
 					<div id="myResults"></div>

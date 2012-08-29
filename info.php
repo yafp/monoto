@@ -48,20 +48,20 @@
 					if($s_enable_toc == true)
 					{
 			?>
-						<h2><a name="desc">info</a></h2>
+						<h2><a name="desc" title="the monoto info page">info</a></h2>
 						<div class="accordion">
 							<h3>welcome [<a href="#welcome">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the welcome-section" width="40" style="float:right">the <a href="#welcome">welcome</a> section displays a server-wide welcomemessage configured by the monoto-admin.</p>
 							<h3>about [<a href="#about">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#about">about</a> section lists a short description of monoto.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the about-section" width="40" style="float:right">the <a href="#about">about</a> section lists a short description of monoto.</p>
 							<h3>version [<a href="#version">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the version-section" width="40" style="float:right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
 							<h3>stats [<a href="#stats">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the statistics-section" width="40" style="float:right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
 							<h3>keyboard shortcuts [<a href="#keyboard">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the keyboard-section" width="40" style="float:right">the <a href="#keyboard">keyboard shortcuts </a>section lists all existing keyboard shortcuts.</p>
 							<h3>log [<a href="#log">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" width="40" style="float:right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the logging-section" width="40" style="float:right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
 						</div>
 			<?php
 					}
@@ -71,7 +71,7 @@
 			<div class="spacer">&nbsp;</div>
 
 			<!-- WELCOME MESSAGE -->
-			<h2><a name="welcome">welcome</a></h2>
+			<h2><a name="welcome" title="the welcome-section">welcome</a></h2>
 			<?php 
 				if($s_enable_welcome_message == true)								// check if welcome message is configured 
 				{
@@ -94,14 +94,14 @@
 				if($s_enable_info_about_section == true)
 				{
 			?>
-					<h2><a name="about">about</a></h2>
+					<h2><a name="about" title="the about-section">about</a></h2>
 			<?php 
 					include 'conf/config.php';
 					echo "<b>".$m_name."</b>"; 
 			?>
 				is an open-source web-based notes-keeper. You can create, edit, rename and delete text-based notes - but the most important function is for sure the search.				
-				The basic workflow is somehow inspired by <a href="http://notational.net/" target="_new">Notational Velocity</a>.
-				Wanna know <a href="https://github.com/macfidelity/monoto/wiki/About-the-monoto-history">more</a>?
+				The basic workflow is somehow inspired by <a href="http://notational.net/" target="_new" title="visit the Notational Velocity page">Notational Velocity</a>.
+				Wanna know <a href="https://github.com/macfidelity/monoto/wiki/About-the-monoto-history" title="visit the monoto wiki at github and read the some details about the software">more</a>?
 
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -115,11 +115,11 @@
 			?>
 
 			<!-- VERSION -->
-			<h2><a name="version">version</a></h2>
+			<h2><a name="version" title="the version-section">version</a></h2>
 			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 				<table style="width: 100%">				
 					<tr>
-						<td colspan="4"><div ID="logo2"><img src="images/icons/transparent.gif" width="200px" height="98px"></div></td></tr>
+						<td colspan="4"><div ID="logo2"><img src="images/icons/transparent.gif" alt="monoto logo" width="200px" height="98px"></div></td></tr>
 					<tr>					
 					<tr>
 						<td><b>build:</b></td>
@@ -174,7 +174,7 @@
 
 			<!-- STATS -->
 			<?php
-					echo '<h2><a name="stats">stats</a></h2>';
+					echo '<h2><a name="stats" title="the stats-section">stats</a></h2>';
 					include ('scripts/db.php');  	// connect to db
 					connectToDB();
 					$owner = $_SESSION['username'];
@@ -375,7 +375,7 @@
 			<div class="spacer">&nbsp;</div>
 
 			<!-- KEYBOARD SHORTCUT -->
-			<h2><a name="keyboard">keyboard shortcuts</a></h2>
+			<h2><a name="keyboard" title="the keyboard-shortcuts-section">keyboard shortcuts</a></h2>
 			<table style="width:100%">
 				<tbody>
 					<tr><td><b>general</b></td></tr>
@@ -407,7 +407,7 @@
 			<div class="spacer">&nbsp;</div>
 			
 			<!-- LOG -->
-			<h2><a name="log">log</a></h2>
+			<h2><a name="log" title="the logging-section">log</a></h2>
 				<table style="width:100%">
 				<thead><tr><th style="float:left" style="width:20%">event</th><th style="float:left" style="width:60%">description</th><th style="float:left" style="width:20%">count</th></tr></thead>
 				<tbody>

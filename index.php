@@ -28,7 +28,6 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			
 			<?php include 'header.php'; ?>
 
 			<!-- CONTENT -->

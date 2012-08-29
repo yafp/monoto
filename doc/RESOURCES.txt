@@ -14,6 +14,7 @@ Used technologies:
 --- jPopUp http://www.jquerypopup.com								// PopUp - used for keyboard-info in header
 --- blackbird logging: http://www.gscottolson.com/blackbirdjs/		// Logging 
 --- LAB.js: http://labjs.com										// Loading multiple js files at once
+--- jquery tools http://jquerytools.org/							// right now only the tooltip section
 
 - patterns:
 --- http://subtlepatterns.com										// background images
