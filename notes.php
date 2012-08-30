@@ -359,6 +359,11 @@
 			<div id="noteContentCo">
 				<h2 title="the monoto-notes page">notes</h2>
 				<form name="myform" method="post" action="<?php echo $PHP_SELF;?>">
+
+					<!--
+					<div id="lastAction">...notes loaded</div>
+					-->
+
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
@@ -376,7 +381,7 @@
 						<!-- newTitle AND create buttons -->
 						<tr>
 							<td colspan="2"><input type="text" style="width:100%"  placeholder="Enter title for your new note and press the 'create' button."  id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
-							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled">							</td>
+							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"></td>
 						</tr>
 					</table>
 				</form>

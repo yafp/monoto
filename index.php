@@ -55,8 +55,8 @@
 				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 					<div id="page_effect" style="display:none;"> <!-- blend in -->
 					<table style="width: 100%">
-						<tr><td style="text-align: center;"><input type="text" name="username" placeholder="Username" /></td></tr>
-						<tr><td style="text-align: center;"><input type="password" name="password" placeholder="Password" /></td></tr>
+						<tr><td style="text-align: center;"><input type="text" name="username" placeholder="Username" required="required" /></td></tr>
+						<tr><td style="text-align: center;"><input type="password" name="password" placeholder="Password" required="required" /></td></tr>
 						<tr><td style="text-align: center;"><input type="submit" value="Login" name="doLogin" /></td></tr>
 						<tr><td>&nbsp;</td></tr>
 						<tr><td style="text-align: center;"><img src="images/icons/firefox1.png" width="70" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>

@@ -10,6 +10,14 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
+		<!-- jquery tools - form validation -->
+		<script>
+		$(document).ready(function() {
+			/*
+  			$("#inviteForm").validator();
+  			*/
+  		});	
+		</script>
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.min.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.min.js"></script>
@@ -238,24 +246,29 @@
 
 				<!-- INVITES -->
 				<h2><a name="invites" title="the invites-section">invites</a></h2>
-					<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
+					<form id="inviteForm" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
 						<table style="width: 100%">
 							<tr>
 								<td width='30%'>Username:</td> 
-								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" /></td>
+								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" required="required" /></td>
 								<td rowspan="6"><img src="images/default_user_icon_trans.png" alt="user_icon" title="another dummy user-icon"></td>
 							</tr>
 							<tr>
 								<td>Mail:</td> 
-								<td><input type="text" name="newUserMail" placeholder="Required - Insert email" /></td>
+								<td>
+									<!--
+									<input type="text" name="newUserMail" placeholder="Required - Insert email" />
+									-->
+									<input type="email" name="newUserMail" placeholder="Required - Insert email" required="required" />
+								</td>
 							</tr>
 							<tr>
 								<td>Password:</td> 
-								<td><input type="password" name="newPassword1" placeholder="Required - Please enter the new password" /></td>
+								<td><input type="password" name="newPassword1" placeholder="Required - Please enter the new password" required="required" /></td>
 							</tr>
 							<tr>
 								<td>Repeat Password:</td> 
-								<td><input type="password" name="newPassword2" placeholder="Required - Please enter the new password again" /></td>
+								<td><input type="password" name="newPassword2" placeholder="Required - Please enter the new password again" required="required" /></td>
 							</tr>
 							<tr>
 								<td>Send notification mail to new user: (optional)</td> 

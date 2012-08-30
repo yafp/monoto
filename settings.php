@@ -10,6 +10,15 @@
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- password -->
 		<script type="text/javascript" language="javascript" src="js/digitalspaghetti.password.js"></script>
+		<!-- jquery tools - form validation -->
+		<script>
+		$(document).ready(function() {
+  			/*
+  			$("#changePassword").validator();
+  			$("#changeIcon").validator();
+  			*/
+  		});	
+		</script>
 	</head>
 	<!-- BODY -->
 	<body id="dt_example">
@@ -50,15 +59,15 @@
 						<td rowspan="5">
 							<!-- CHANGE USER PASSWORD BUTTON -->
 							<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.
-							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-										<input type="password" id="newPassword1" name="newPassword1" placeholder="Please enter your new password" />
-										<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" />
+							<form id="changePassword" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+										<input type="password" id="newPassword1" name="newPassword1" placeholder="Please enter your new password" required="required" />
+										<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" />
 										<script type="text/javascript">jQuery('#newPassword1').pstrength();</script><br>
 										<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />					
 							</form>
 							<!-- CHANGE USER ICON BUTTON -->
 							<br><b>Changing the user icon:</b><br>Select your new user icon via the <span>Browse...</span> button and confirm that change by pressing the <span>Upload</span> button. This will store your image in the users-table - but the image itself is not used so far.
-							<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+							<form id="changeIcon" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 										<input name="MAX_FILE_SIZE" value="102400" type="hidden">
 										<input name="image" accept="image/jpeg" type="file"><br>
 										<input value="Upload" type="submit" name="doChangeUserIcon" style="width:140px" title="Starts the user icon image upload function if the user provided a valid path to an image." >					
