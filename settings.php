@@ -6,6 +6,8 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
+		<!--  m_keyPressAll-->
+		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
 		<!-- m_accordionToc -->
 		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- password -->
@@ -59,7 +61,7 @@
 						<td rowspan="5">
 							<!-- CHANGE USER PASSWORD BUTTON -->
 							<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.
-							<form id="changePassword" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+							<form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 										<input type="password" id="newPassword1" name="newPassword1" placeholder="Please enter your new password" required="required" />
 										<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" />
 										<script type="text/javascript">jQuery('#newPassword1').pstrength();</script><br>
@@ -67,7 +69,7 @@
 							</form>
 							<!-- CHANGE USER ICON BUTTON -->
 							<br><b>Changing the user icon:</b><br>Select your new user icon via the <span>Browse...</span> button and confirm that change by pressing the <span>Upload</span> button. This will store your image in the users-table - but the image itself is not used so far.
-							<form id="changeIcon" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+							<form id="changeIcon" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 										<input name="MAX_FILE_SIZE" value="102400" type="hidden">
 										<input name="image" accept="image/jpeg" type="file"><br>
 										<input value="Upload" type="submit" name="doChangeUserIcon" style="width:140px" title="Starts the user icon image upload function if the user provided a valid path to an image." >					
@@ -130,7 +132,7 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
-				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data" name="importerForm">
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 					<h2><a name="importer" title="the importer-section">importer</a></h2>
 						<input type="file" name="file[]" multiple id="file[]" /><br>
 						<input type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." />
@@ -141,7 +143,7 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- EXPORTER -->
-				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<h2><a name="exporter" title="the exporter-section">exporter</a></h2>
 						<input type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" />
 				</form>
@@ -150,7 +152,7 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- ERASER -->
-				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<h2><a name="eraser" title="the eraser-section">eraser</a></h2>
 					<input type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" title="Deletes all notes from your account. Be careful with that" /><br>
 					<input type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" title="Deletes all log events from your account. Be careful with that too" />

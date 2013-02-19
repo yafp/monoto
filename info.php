@@ -6,6 +6,8 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
+		<!--  m_keyPressAll-->
+		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
 		<!-- data tables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!-- m_accordionToc -->
@@ -116,7 +118,7 @@
 
 			<!-- VERSION -->
 			<h2><a name="version" title="the version-section">version</a></h2>
-			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+			<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<table style="width: 100%">				
 					<tr>
 						<td colspan="4"><div ID="logo2"><img src="images/icons/transparent.gif" alt="monoto logo" width="200px" height="98px"></div></td></tr>

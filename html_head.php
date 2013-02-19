@@ -25,7 +25,16 @@
 		   $LAB
 		   .script("js/m_reallyLogout.js") 			// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")		// disabled the right-click contextmenu
+
+		  	/*
 		   .script("js/m_keyPressAll.js")			// handle key-presses for shortcuts
+		   */
+
+		   /*
+		   .script("js/m_keyPress.js")
+		   */
+		   
+
 		   .script("js/blackbird.js")				// 3rd: logging window via F2
 		   .script("js/styleswitcher.js")			// 3rd: css toggle
 		   .script("js/m_menu.js")					// main-menu

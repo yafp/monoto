@@ -6,6 +6,8 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
+		<!--  m_keyPressAll-->
+		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!-- m_accordionToc -->
@@ -144,7 +146,7 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-				<!-- USERS -->
+				<!-- NOTES -->
 				<h2><a name="notes" title="the notes-section">notes</a></h2>
 				<?php
 					// User: amount of all notes 
@@ -223,9 +225,7 @@
 
 				<!-- USERS -->
 				<h2><a name="users" title="the users-section">users</a></h2>
-				<!--
-				<p><a href="javascript:void(0)" id="delete">Dummy: Delete selected user (only hides it right now)</a></p>
-				-->
+				
 				<!-- datatables showing our users -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
 					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
@@ -241,12 +241,49 @@
 					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
 				</table>
 
+				<!-- DELETE USER -->
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<br><br>
+
+				
+
+				<b>Delete existing account</b><br>	
+				<table style="width: 100%">
+					<tr>
+						<td width='30%'>Select a user:</td> 
+						<td>
+							<select name="userDeleteSelector">
+							<?php
+							$result = mysql_query("SELECT id, username  FROM m_users ORDER by id ");
+							while($row = mysql_fetch_array($result))   // fill user-select box
+							{
+								//echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
+								echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+							}
+							?>
+				</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Enter CONFIRM</td> 
+						<td><input type="text" name="confirmDeleteUser" placeholder="no"></td>
+					</tr>
+					<tr>
+						<td>Press the delete button</td> 
+						<td><button type="submit" name="doDeleteUser">Delete</button> </td>
+					</tr>
+				</table>
+				</form>
+
+
+
+
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
 				<!-- INVITES -->
 				<h2><a name="invites" title="the invites-section">invites</a></h2>
-					<form id="inviteForm" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
+					<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
 						<table style="width: 100%">
 							<tr>
 								<td width='30%'>Username:</td> 
@@ -290,7 +327,7 @@
 
 				<!-- MYSQL -->
 				<h2><a name="mysql" title="the mysql-section">mysql</a></h2>
-				<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">	
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
 					<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
 					<br><br>
 					<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
@@ -334,6 +371,43 @@
 
 <?php
 	include 'conf/config.php';
+
+
+	//
+	// DELETE USER
+	//
+	if ( isset($_POST["doDeleteUser"]) ) 
+	{
+		$userID 		= $_POST['userDeleteSelector'];
+		$confirmText	= $_POST['confirmDeleteUser'];
+
+		if($confirmText == "CONFIRM")
+		{
+			// delete user
+			$sql="DELETE FROM m_users WHERE id='$userID'";
+			$result = mysql_query($sql);
+			if (!$result) 
+			{
+	    		die('Error: ' . mysql_error());
+			}
+			else  // update m_log
+			{
+				$event = "User delete";
+				$details = "User: <b>".$userID." </b>is now gone.";
+				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+				$result = mysql_query($sql);
+			}
+			mysql_close($con); 								// close sql connection
+		}
+		else // user hasnt entered CONFIRM
+		{
+			echo '<script>alert("Enter CONFIRM and try it again.");</script>';		// alert user that he hasnt entered CONFIRM
+		}
+
+		// reload page
+	}
+
+
 
 	//
 	// OPTIMIZE MYSQL TABLES

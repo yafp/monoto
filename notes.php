@@ -7,8 +7,6 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
-		<!-- jquery -->
-		<!--<script type="text/javascript" language="javascript" src="js/jquery.js"></script>-->
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!--  m_keyPress-->
@@ -76,6 +74,7 @@
 					// enable the sidebar buttons - as we have selected a note
 					document.myform.save.disabled=false;
 					document.myform.delete.disabled=false;
+
 					// enable note title field
 					document.myform.noteTitle.disabled=false;
 				});
@@ -153,7 +152,7 @@
 					document.myform.noteID.value = sData[1]											// fill id field
 					document.myform.noteTitle.value = sData[2]										// fill title field
 					document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
-					//currentRow = sData[0];															// correct current row - as its on the initial value but user select a note via mouse
+					//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
 					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 				});
 			} );
@@ -235,7 +234,7 @@
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
 				$.post("scripts/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-				reloadNote();
+				//reloadNote();
 				log.info('Note saved.');
 			}
 			else 																		// should never happen as the save button is not always enabled.
@@ -267,7 +266,7 @@
 						if (answer)
 						{
 							$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-							reloadNote();
+							//reloadNote();
 							log.info('Note deleted.');							// blackbird js logging	
 						}
 				<?php
@@ -276,7 +275,7 @@
 					{
 				?>
 						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-						reloadNote();
+						//reloadNote();
 						log.info('Note deleted.');								// blackbird js logging	
 				<?php
 					}
@@ -293,24 +292,22 @@
 		//
 		function createNote() 
 		{
-			log.debug( 'blackbird test - createNote launched.' );							// testing blackbird js logging
-
-			var newNoteTitle = document.myform.newNoteTitle.value;							// get new title
-			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._ ]/g, '');					// replace all characters except numbers,letters, space, underscore and - .
-
-			//var newNoteContent = document.myform.input2.value;								// get note content if defined									
-			var newNoteContent = $("#input2").val();											// get note content if defined	
+			var newNoteTitle = document.myform.newNoteTitle.value;					// get new title
+			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');		// replace all characters except numbers,letters, space, underscore and - .
+									
+			var newNoteContent = $("#input2").val();								// get note content if defined	
 			// cleanup note content
-			newNoteContent=newNoteContent.replace(/\'/g,'&#39;')								// replace: ' 	with &#39;
+			newNoteContent=newNoteContent.replace(/\'/g,'&#39;')					// replace: ' 	with &#39;
 
-			if (newNoteTitle.length > 0)													// if we have a note title - create the new note (content is not needed so far)
+			if (newNoteTitle.length > 0)											// if we have a note title - create the new note (content is not needed so far)
 		  	{
-		  		if(newNoteContent.length == 0)												// check if user defined note-content or not
+		  		if(newNoteContent.length == 0)										// check if user defined note-content or not
 		  		{
 		  			newNoteContent = "Placeholder content - as no note-content was defined while creating this note.";			// define dummy content as user didnt
 		  		}
 		  		
 		  		$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
+				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				//reloadNote();
 				log.info('Note created.');													// blackbird js logging
 		  	}
@@ -339,6 +336,7 @@
 		function enableCreateButton()
 		{
 			document.myform.createNoteButton.disabled=false;	// enable Create new note button
+
 			// lets clean up the main interface
 			document.myform.noteID.value = "";					// empty ID of previously selected note
 			document.myform.noteTitle.value = "";				// empty title of previously selected note
@@ -358,11 +356,10 @@
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<h2 title="the monoto-notes page">notes</h2>
-				<form name="myform" method="post" action="<?php echo $PHP_SELF;?>">
 
-					<!--
-					<div id="lastAction">...notes loaded</div>
-					-->
+				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
+
+					<!-- <div id="lastAction">...notes loaded</div> -->
 
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->

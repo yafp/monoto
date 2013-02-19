@@ -11,13 +11,13 @@ function KeyCheck(e)
 	var KeyID = (window.event) ? event.keyCode : e.keyCode;
 	switch(KeyID)
 	{
+		
 		// F1 - Open online help/docs - SPECIAL ONE - is in KeyPressAll aswell ... another ugly hack as m_keyPressAll is not working inside notes.php sofar.
 		case 112:
 			log.debug( 'F1 key was pressed ' );				// log to blackbird logging	
 			window.open('https://github.com/macfidelity/monoto/wiki');
 			log.debug( 'Finished starting the monoto online help.' );
 		break;
-
 
 
 		// ESC

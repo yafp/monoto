@@ -1,6 +1,5 @@
 <?php
-	session_start();
-	
+	session_start();	
 	// check if the user-session is valid or not
 	if($_SESSION['valid'] == 1)
 	{

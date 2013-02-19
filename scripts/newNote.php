@@ -22,7 +22,7 @@
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result)>0) 
 		{
-			// update m_log
+			// cant create - as this title is already in use - update m_log with error entry
 			$newNoteContentSummary = substr($newNoteContent, 0, 10);
 			$event = "create error";
 			$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b> failed to create as there was already a note with this title.</b>";
@@ -38,6 +38,8 @@
 			if (!$result) 
 			{
 		    	die('Error: ' . mysql_error());
+		    	// display error output
+		    	// BAUSTELLE
 			}
 			else // update m_log
 			{

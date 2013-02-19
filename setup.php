@@ -19,7 +19,7 @@
 				<h2><a name="core">create your monoto admin-user-account</a></h2>
 				This script is supposed to be used to create your first monoto-user account.<br>Please delete this file after having setup your monoto-server.<br><br><br>
 
-				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+				<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<table border="0">
 						<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" /></td></tr>
 						<tr><td>Mail:</td><td><input type="text" name="email" placeholder="Email" /></td></tr>

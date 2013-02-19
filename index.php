@@ -52,7 +52,7 @@
 			?>
 				<!-- LOGIN -->
 				<h2><a name="core">login</a></h2>
-				<form name="login" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+				<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<div id="page_effect" style="display:none;"> <!-- blend in -->
 					<table style="width: 100%">
 						<tr><td style="text-align: center;"><input type="text" name="username" placeholder="Username" required="required" /></td></tr>
@@ -143,8 +143,8 @@ if ( isset($_POST["doLogin"]) )
 	}
 	else //login successful
 	{	
-		session_start();
-		session_regenerate_id (); 											//this is a security measure ..is it?
+		//session_start();
+		//session_regenerate_id (); 											//this is a security measure ..is it?
     	$_SESSION['valid'] = 1;
 		ini_set('session.gc_maxlifetime', '3600');							// sec
 
@@ -189,7 +189,7 @@ if ( isset($_POST["doLogin"]) )
 		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 		$result = mysql_query($sql);
 
-    	header('Location: notes.php');												// redirect to the main page ...seems broken right now ...whyever
+    	//header('Location: notes.php');												    // redirect to the main page ...seems broken right now ...whyever
     	echo '<script type="text/javascript">window.location="notes.php"</script>';		// whyever that works - but header not anymore. must be related to our header rework
 	}
 }
