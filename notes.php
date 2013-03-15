@@ -234,7 +234,8 @@
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
 				$.post("scripts/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-				//reloadNote();
+				alert("Note saves with title: "+modifiedNoteTitle+".");
+				reloadNote();
 				log.info('Note saved.');
 			}
 			else 																		// should never happen as the save button is not always enabled.
@@ -266,7 +267,8 @@
 						if (answer)
 						{
 							$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-							//reloadNote();
+							alert("Note with ID: "+deleteID+" deleted");
+							reloadNote();
 							log.info('Note deleted.');							// blackbird js logging	
 						}
 				<?php
@@ -275,7 +277,8 @@
 					{
 				?>
 						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-						//reloadNote();
+						alert("Note with ID: "+deleteID+" deleted");
+						reloadNote();
 						log.info('Note deleted.');								// blackbird js logging	
 				<?php
 					}

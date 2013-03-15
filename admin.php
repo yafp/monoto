@@ -269,7 +269,7 @@
 						<td><input type="text" name="confirmDeleteUser" placeholder="no"></td>
 					</tr>
 					<tr>
-						<td>Press the delete button</td> 
+						<td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td> 
 						<td><button type="submit" name="doDeleteUser">Delete</button> </td>
 					</tr>
 				</table>
@@ -383,6 +383,14 @@
 
 		if($confirmText == "CONFIRM")
 		{
+			// get username to selected ID
+			$query = "SELECT username FROM m_users WHERE id = '$userID';";
+			$result = mysql_query($query);
+			while($row = mysql_fetch_array($result)) 					
+			{
+				$usernameToDelete = $row[0];
+			}
+
 			// delete user
 			$sql="DELETE FROM m_users WHERE id='$userID'";
 			$result = mysql_query($sql);
@@ -395,6 +403,14 @@
 				$event = "User delete";
 				$details = "User: <b>".$userID." </b>is now gone.";
 				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+				$result = mysql_query($sql);
+
+				// delete his notes as well
+				$sql="DELETE FROM m_notes WHERE owner='$usernameToDelete'";
+				$result = mysql_query($sql);
+
+				// delete his log as well
+				$sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
 				$result = mysql_query($sql);
 			}
 			mysql_close($con); 								// close sql connection
