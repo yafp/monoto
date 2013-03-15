@@ -2,7 +2,7 @@
 	session_start();
 	if($_SESSION['valid'] == 1) 			// check if the user-session is valid or not
 	{
-		include 'html_head.php';			// include the new header
+		include 'inc/html_head.php';			// include the new header
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
@@ -42,7 +42,7 @@
 <body id="dt_example">
 	<div id="container">
 		<!-- HEADER & NAV -->
-		<?php include 'header.php';  ?>
+		<?php include 'inc/header.php';  ?>
 		<!-- CONTENT -->
 		<div id="noteContentCo">
 			<?php
@@ -177,7 +177,7 @@
 			<!-- STATS -->
 			<?php
 					echo '<h2><a name="stats" title="the stats-section">stats</a></h2>';
-					include ('scripts/db.php');  	// connect to db
+					include ('inc/db.php');  	// connect to db
 					connectToDB();
 					$owner = $_SESSION['username'];
 						
@@ -550,7 +550,7 @@
 		</div>
 	</div>
 	<!--  FOOTER -->
-	<?php include 'footer.php'; ?>
+	<?php include 'inc/footer.php'; ?>
 	</body>
 </html>
 

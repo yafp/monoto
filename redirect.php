@@ -1,12 +1,12 @@
-<?php include 'html_head.php'; ?>
+<?php include 'inc/html_head.php'; ?>
 
 	</head>
-	
+
 	<!-- BODY -->
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php include 'header.php'; ?>
+			<?php include 'inc/header.php'; ?>
 			<div id="noteContentCo">
 				
 				<!-- SPACER -->
@@ -26,6 +26,6 @@
 			</div>
 		</div>
 		<!--  FOOTER -->
-		<?php include 'footer.php'; ?>
+		<?php include 'inc/footer.php'; ?>
 	</body>
 </html>

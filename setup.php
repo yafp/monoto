@@ -1,5 +1,5 @@
 <?php
-	include 'html_head.php';
+	include 'inc/html_head.php';
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
@@ -10,7 +10,7 @@
 	</head>
 	<body id="dt_example">
 		<div id="container">
-			<?php include 'header.php'; ?>
+			<?php include 'inc/header.php'; ?>
 			<div id="noteContentCo">
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<!--  FOOTER -->
-		<?php include 'footer.php'; ?>
+		<?php include 'inc/footer.php'; ?>
 	</body>
 </html>
 
@@ -44,7 +44,7 @@
 if ( isset($_POST["doCreateAdminAccount"]) ) 
 {
 	include 'conf/config.php';
-	include 'scripts/db.php';  							// connect to db
+	include 'inc/db.php';  							// connect to db
 	connectToDB();
 
 	// check if user has already manually created the tables: m_users

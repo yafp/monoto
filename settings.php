@@ -2,7 +2,7 @@
 	session_start();
 	if($_SESSION['valid'] == 1)		// check if the user-session is valid or not
 	{
-		include 'html_head.php';			// include the new header
+		include 'inc/html_head.php';			// include the new header
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
@@ -26,7 +26,7 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php include 'header.php'; ?>
+			<?php include 'inc/header.php'; ?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<?php
@@ -85,7 +85,7 @@
 						<td>mail:</td>
 						<td>
 							<?php
-								include 'scripts/db.php';						// connect to db
+								include 'inc/db.php';						// connect to db
 								connectToDB();
 
 								$sql="SELECT email FROM m_users WHERE username='".$_SESSION['username']."' ";				// mail
@@ -164,7 +164,7 @@
 		</div>
 		
 		<!--  FOOTER -->
-		<?php include 'footer.php'; ?>
+		<?php include 'inc/footer.php'; ?>
 	</body>
 </html>
 
@@ -272,7 +272,7 @@ if ( isset($_POST["doDelAllEvents"]) )
 //
 if ( isset($_POST["doExport"]) ) 
 {
-	echo '<script type="text/javascript" language="javascript">window.open("scripts/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';				
+	echo '<script type="text/javascript" language="javascript">window.open("inc/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';				
 }
 
 

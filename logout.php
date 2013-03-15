@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	include 'conf/config.php';
-	include 'scripts/db.php';
+	include 'inc/db.php';
 	connectToDB();
 	$owner = $_SESSION['username'];
 
@@ -29,7 +29,7 @@
 	$_SESSION = array(); 				//destroy all of the session variables
     session_destroy();
 
-    include 'html_head.php';			// include the new header
+    include 'inc/html_head.php';			// include the new header
 ?>
 
 	</head>
@@ -37,7 +37,7 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php include 'header.php'; ?>
+			<?php include 'inc/header.php'; ?>
 			<div id="noteContentCo">
 				
 				<!-- SPACER -->
@@ -70,6 +70,6 @@
 			</div>
 		</div>
 		<!--  FOOTER -->
-		<?php include 'footer.php'; ?>
+		<?php include 'inc/footer.php'; ?>
 	</body>
 </html>

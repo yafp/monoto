@@ -6,7 +6,7 @@
 	}
 	else 									// no valid session - show login form
 	{
-		include 'html_head.php';			// include the new header
+		include 'inc/html_head.php';			// include the new header
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
@@ -21,14 +21,13 @@
 				$('#page_effect').fadeIn(1500);
 			});
 		</script>
-
 	</head>
 
 	<!-- BODY -->
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php include 'header.php'; ?>
+			<?php include 'inc/header.php'; ?>
 
 			<!-- CONTENT -->
 			<div id="noteContentCo">
@@ -75,7 +74,7 @@
 		</div>
 
 		<!--  FOOTER -->
-		<?php include 'footer.php'; ?>
+		<?php include 'inc/footer.php'; ?>
 	</body>
 </html>
 
@@ -90,7 +89,7 @@
 if ( isset($_POST["doLogin"]) ) 
 {
 	include 'conf/config.php';
-	include 'scripts/db.php';		// connect to db
+	include 'inc/db.php';		// connect to db
 	connectToDB();
 
 	// get data
@@ -112,12 +111,6 @@ if ( isset($_POST["doLogin"]) )
 	$userData = mysql_fetch_array($result, MYSQL_ASSOC);
 	$hash = hash('sha256', $userData['salt'] . hash('sha256', $password) );
 
-
-
-
-
-
-
 	// check if user-account is locked already cause it had 3 failed logins in a row
 	$sql="SELECT failed_logins_in_a_row FROM m_users WHERE username='".$_SESSION['username']."'  ";
 	$result = mysql_query($sql);
@@ -125,13 +118,9 @@ if ( isset($_POST["doLogin"]) )
 	{
 		$failCounterInARow = $row[0];
 	}
-	//echo "Failed logins in a row are currently at: ".$failCounterInARow;
 
-
-	if($failCounterInARow < 3)
+	if($failCounterInARow < 3)		// try to login
 	{
-		// try to login
-
 		//check for incorrect password
 		if($hash != $userData['password']) 
 		{
@@ -139,7 +128,6 @@ if ( isset($_POST["doLogin"]) )
 			$sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$_SESSION['username']."' ";
 			$result = mysql_query($sql);
 
-			// log failed logins via counter
 			// get current fail-login-count
 	    	$sql="SELECT failed_logins FROM m_users WHERE username='".$_SESSION['username']."'  ";
 			$result = mysql_query($sql);
@@ -168,8 +156,6 @@ if ( isset($_POST["doLogin"]) )
 		}
 		else //login successful
 		{	
-			//session_start();
-			//session_regenerate_id (); 											//this is a security measure ..is it?
 	    	$_SESSION['valid'] = 1;
 			ini_set('session.gc_maxlifetime', '3600');							// sec
 
@@ -218,13 +204,11 @@ if ( isset($_POST["doLogin"]) )
 			$sql="UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$_SESSION['username']."' ";
 			$result = mysql_query($sql);
 
-	    	//header('Location: notes.php');												    // redirect to the main page ...seems broken right now ...whyever
 	    	echo '<script type="text/javascript">window.location="notes.php"</script>';		// whyever that works - but header not anymore. must be related to our header rework
 		}
 	} 
-	else
+	else 		// login is not possible anymore - admin must remove the login lock
 	{
-		// login is not possible anymore - admin must remove the login lock
 		echo("<script language=javascript>alert('This account is locked, please contact your monoto-admin.');</script>");
 	}
 }

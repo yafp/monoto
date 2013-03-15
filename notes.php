@@ -3,7 +3,7 @@
 	include 'conf/config.php';
 	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
 	{
-		include 'html_head.php';			// include the new header
+		include 'inc/html_head.php';			// include the new header
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
@@ -233,10 +233,11 @@
 
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
-				$.post("scripts/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
+				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				alert("Note saves with title: "+modifiedNoteTitle+".");
 				reloadNote();
 				log.info('Note saved.');
+				updateLastActionInformation("note saved");								// show last action
 			}
 			else 																		// should never happen as the save button is not always enabled.
 			{  
@@ -266,20 +267,22 @@
 						var answer = confirm("Do you really want to delete this note?")
 						if (answer)
 						{
-							$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
+							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							alert("Note with ID: "+deleteID+" deleted");
 							reloadNote();
 							log.info('Note deleted.');							// blackbird js logging	
+							updateLastActionInformation("note deleted");								// show last action
 						}
 				<?php
 					}
 					else
 					{
 				?>
-						$.post("scripts/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
+						$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 						alert("Note with ID: "+deleteID+" deleted");
 						reloadNote();
 						log.info('Note deleted.');								// blackbird js logging	
+						updateLastActionInformation("note deleted");								// show last action
 				<?php
 					}
 				?>
@@ -309,10 +312,11 @@
 		  			newNoteContent = "Placeholder content - as no note-content was defined while creating this note.";			// define dummy content as user didnt
 		  		}
 		  		
-		  		$.post("scripts/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
+		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
 				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				//reloadNote();
 				log.info('Note created.');													// blackbird js logging
+				updateLastActionInformation("note created");								// show last action
 		  	}
 			else
 			{ 
@@ -330,6 +334,7 @@
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
     		log.debug('reloadNote() executed.');													// blackbird js logging
+    		updateLastActionInformation("notes reloaded");								// show last action
 		}
 
 
@@ -349,21 +354,30 @@
 			document.myform.noteTitle.disabled=true;			// disable note title field
 			$('#input2').val('').blur();						// empty cleditor textarea
 		}
+
+
+
+		//
+		// UPDATE LAST ACTION INFO
+		//
+		function updateLastActionInformation(lastActionText)
+		{
+			//document.getElementById("lastAction").innerHTML = lastActionText;
+			document.getElementById("lastAction").innerHTML = '<span>'+lastActionText+'</span>';
+		}
 		</script>
 	</head>
 
 	<body id="dt_example" class="ex_highlight_row">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php include 'header.php'; ?>
+			<?php include 'inc/header.php'; ?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
+				<div id="lastAction"></div>		<!-- div to show last action - strings are loaded via js function -->
+				
 				<h2 title="the monoto-notes page">notes</h2>
-
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
-
-					<!-- <div id="lastAction">...notes loaded</div> -->
-
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
@@ -396,7 +410,7 @@
 
 					<?php
 						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
-						include 'scripts/db.php';  							// connect to db
+						include 'inc/db.php';  							// connect to db
 						connectToDB();
 						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user
@@ -416,7 +430,7 @@
 		</div>
 
 		<!--  FOOTER -->
-		<?php include 'footer.php'; ?>
+		<?php include 'inc/footer.php'; ?>
 	</body>
 </html>
 
