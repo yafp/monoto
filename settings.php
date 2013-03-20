@@ -219,7 +219,6 @@ if ( isset($_POST["doChangeUserPW"]) )
 	}
 	else // User entered 2 different password - cant change pw like that.
 	{
-		echo '<script type="text/javascript">log.error("Password mismatch while trying to change.");</script>';					// blackbird js logging
 	}
 	//disconnectFromDB();
 }
@@ -401,7 +400,6 @@ if ( isset($_POST["doChangeUserIcon"]) )
 	}
 	else // no image defined.
 	{
-   		echo '<script type="text/javascript">log.error("No image defined.");</script>';					// blackbird js logging
 	}
 }
 

@@ -74,17 +74,14 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 			$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
 			mysql_query($query);
 			mysql_close($con); 													// close sql connection
-			echo '<script type="text/javascript">log.infd("Admin account created. You will be redirected to monoto now.");</script>';					// blackbird js logging
 			header('Location: index.php');										// redirect to main page
 		}
 		else 																	// Password mismatch
 		{
-			echo '<script type="text/javascript">log.error("Password mismatch, canceling setup script.");</script>';					// blackbird js logging
 		}
 	}
 	else // mysql tables dont exist
 	{
-    	echo '<script type="text/javascript">log.error("Table m_users does not exist.");</script>';					// blackbird js logging
 	}	
 }
 ?>

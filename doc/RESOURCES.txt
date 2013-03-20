@@ -7,10 +7,9 @@ Used technologies:
 - javascript 
 --- http://jquery.com/												// anything to say?
 --- http://datatables.net/											// Almost perfect tables
---- http://premiumsoftware.net/cleditor/							// Editor
+--- http://ckeditor.com/											// Editor
 --- http://code.google.com/p/flot/									// Generating charts
 --- styleswitcher													// CSS toggle
 --- digitalspaghetti.password										// Password-Strength
 --- jPopUp http://www.jquerypopup.com								// PopUp - used for keyboard-info in header
---- blackbird logging: http://www.gscottolson.com/blackbirdjs/		// Logging 
 --- LAB.js: http://labjs.com										// Loading multiple js files at once

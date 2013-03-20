@@ -228,17 +228,17 @@
 				
 				<!-- datatables showing our users -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
-					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
+					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
 					<tbody>
 					<?php
-							$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note  FROM m_users ORDER by id "); // m_log
+							$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note, failed_logins_in_a_row  FROM m_users ORDER by id "); // m_log
 							while($row = mysql_fetch_array($result))   // fill datatable
 							{
-								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
+								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[12].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
 							}
 					?>
 					</tbody>
-					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
+					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
 				</table>
 
 				<!-- DELETE USER -->
@@ -438,7 +438,6 @@
 		{
   			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
 		}
-		echo '<script type="text/javascript">log.info("MySQL tables optimized.");</script>';					// blackbird js logging
 	}
 
 	//
@@ -448,7 +447,6 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
-		echo '<script type="text/javascript">log.info("Table m_log truncated.");</script>';					// blackbird js logging
 	}
 
 	//
@@ -458,7 +456,6 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
-		echo '<script type="text/javascript">log.info("Table m_notes truncated. Insane.");</script>';					// blackbird js logging
 	}
 
 	//
@@ -515,7 +512,6 @@
 
 						$query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
 						mysql_query($query);
-						echo '<script type="text/javascript">log.info("New user account created");</script>';					// blackbird js logging
 
 						// we should log that to m_notes -> admin only.
 
@@ -538,29 +534,24 @@
 		 									\n\nHave fun.";
 		 						if (mail($to, $subject, $body)) 
 		 						{
-		   							echo '<script type="text/javascript">log.info("Invite mail sent.");</script>';					// blackbird js logging
 		  						} 
 		  						else 
 		  						{
-		   							echo '<script type="text/javascript">log.warn("Sending invite mail failed.");</script>';					// blackbird js logging
 		  						}
 							}
 						}
 					}
 					else // no usermail-adress defined while trying to create new account
 					{
-						echo '<script type="text/javascript">log.error("No mail address defined.");</script>';					// blackbird js logging
 					}
 				}
 				else // username already in use - cancel and inform the admin
 				{
-					echo '<script type="text/javascript">log.error("Username already exists.");</script>';					// blackbird js logging
 				}
 			}
 		}	
 		else // passwords not matching
 		{
-			echo '<script type="text/javascript">log.error("You need to submit a password twice - not 2 different passwords. Classic typo i guess.");</script>';					// blackbird js logging
 		}
 	}
 ?>

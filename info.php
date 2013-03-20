@@ -397,11 +397,6 @@
 					<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td><td>notes</td><td>DUMMY</td></tr>
 					<tr><td>Arrow Up (in seach)</td><td>Moves the focus to newNoteTitle.</td><td>notes</td><td>works</td></tr>
 					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td><td>notes</td><td>DUMMY</td></tr>
-
-					<tr><td><b>blackbird logging (dev)</b></td></tr>
-					<tr><td>F2</td><td>Toggles the visibility of the monoto blackbird logging window.</td><td>all pages</td><td>works</td></tr>
-					<tr><td>F2 + Shift</td><td>Toggles the position of the monoto blackbird logging window.</td><td>all pages</td><td>works</td></tr>
-					<tr><td>F2 + Shift + Alt</td><td>Clears the blackbird log</td><td>all pages</td><td>works</td></tr>
 				</tbody>
 			</table>
 
@@ -571,8 +566,6 @@ if ( isset($_POST["doUpdateCheck"]) )
 {
 	session_start();
 	include 'conf/config.php';
-
-	echo '<script type="text/javascript">log.debug("Executing update check.");</script>';					// blackbird js logging
 	
 	// assume everything is good
 	$critical = FALSE;
@@ -664,6 +657,5 @@ if ( isset($_POST["doUpdateCheck"]) )
 		echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
 	}
 
-	echo '<script type="text/javascript">log.debug("Finished update check.");</script>';					// blackbird js logging
 }
 ?>

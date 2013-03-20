@@ -11,48 +11,9 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
-		<!--  CLEditor -->
-		<link rel="stylesheet" type="text/css" href="jquery.cleditor.css" />
-		<script type="text/javascript" src="js/jquery.cleditor.min.js"></script>
- 		<script type="text/javascript">		
-	      $(document).ready(function() 
-	      {
-	        $("#input2").cleditor({
-	          width:        "100%", // width not including margins, borders or padding
-	          height:       250, // height not including margins, borders or padding
-	          controls:     // controls to add to the toolbar
-	                        "bold italic underline strikethrough | font size " +
-	                        "style | color highlight removeformat | bullets numbering | outdent " +
-	                        "indent | alignleft center alignright justify | undo redo | " +
-	                        "rule image link unlink | cut copy paste pastetext | print source",
-	          colors:       // colors in the color popup
-	                        "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
-	                        "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
-	                        "BBB F00 F90 FC6 FF0 3F3 6CC 3CF 66C C6C " +
-	                        "999 C00 F60 FC3 FC0 3C0 0CC 36F 63F C3C " +
-	                        "666 900 C60 C93 990 090 399 33F 60C 939 " +
-	                        "333 600 930 963 660 060 366 009 339 636 " +
-	                        "000 300 630 633 330 030 033 006 309 303",    
-	          fonts:        // font names in the font popup
-	                        "Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
-	                        "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
-	          sizes:        // sizes in the font size popup
-	                        "1,2,3,4,5,6,7",
-	          styles:       // styles in the style popup
-	                        [["Paragraph", "<p>"], ["Header 1", "<h1>"], ["Header 2", "<h2>"],
-	                        ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"],
-	                        ["Header 6","<h6>"]],
-	          useCSS:       false, // use CSS to style HTML when possible (not supported in ie)
-	          docType:      // Document type contained within the editor
-	                        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
-	          docCSSFile:   // CSS file used to style the document contained within the editor
-	                        "", 
-	          bodyStyle:    // style to assign to document body contained within the editor
-	                        "margin:4px; font:10pt Arial,Verdana; cursor:text"
-	        });
-	      });
-    	</script>
-
+		<!-- ckeditor - new -->
+		<script src="js/ckeditor-4.0.2_standard/ckeditor.js"></script>
+		
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
@@ -62,6 +23,11 @@
 
 			$(document).ready(function() 
 			{
+				// START CKEDITOR
+				CKEDITOR.replace( 'editor1');
+				// END CKEDITOR
+
+
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
 				{
@@ -148,7 +114,8 @@
 					var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
 					var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
 					var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
-					$('#input2').val(sData[3]).blur();												// fill html richtext cleditor with text of selected note
+					CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
+
 					document.myform.noteID.value = sData[1]											// fill id field
 					document.myform.noteTitle.value = sData[2]										// fill title field
 					document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
@@ -224,10 +191,9 @@
 		{
 			var modifiedNoteID = document.myform.noteID.value;							// get the note id
 			var modifiedNoteTitle = document.myform.noteTitle.value;					// get the note title 
-			var modifiedNoteContent = document.myform.input2.value;						// get the NEW note content
+			var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
 			var modifiedNoteCounter = document.myform.noteVersion.value;				// get current save-counter/version
-			// get text of cleditor
-			var modifiedNoteContent = $("#input2").val();
+
 			// cleanup note content
 			modifiedNoteContent=modifiedNoteContent.replace(/\'/g,'&#39;')				// replace: ' 	with &#39;
 
@@ -254,7 +220,7 @@
 			// get the note id etc
 			var deleteID = document.myform.noteID.value;
 			var deleteTitle = document.myform.noteTitle.value;
-			var deleteContent = document.myform.input2.value;
+			var deleteContent = document.myform.editor1.value;
 
 			// if we have a note id to delete - try to do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
@@ -270,7 +236,6 @@
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							alert("Note with ID: "+deleteID+" deleted");
 							reloadNote();
-							log.info('Note deleted.');							// blackbird js logging	
 							updateLastActionInformation("note deleted");								// show last action
 						}
 				<?php
@@ -281,7 +246,6 @@
 						$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 						alert("Note with ID: "+deleteID+" deleted");
 						reloadNote();
-						log.info('Note deleted.');								// blackbird js logging	
 						updateLastActionInformation("note deleted");								// show last action
 				<?php
 					}
@@ -289,7 +253,6 @@
 			}
 			else // should never happen as the delete button is disabled if no note is selected
 			{ 
-				log.error('Error while trying to delete a note. Please select a record first and try again.');		// blackbird js logging	
 			}	
 		}
 
@@ -301,7 +264,8 @@
 			var newNoteTitle = document.myform.newNoteTitle.value;					// get new title
 			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');		// replace all characters except numbers,letters, space, underscore and - .
 									
-			var newNoteContent = $("#input2").val();								// get note content if defined	
+			var newNoteContent = CKEDITOR.instances.editor1.getData();				// get note content if defined
+
 			// cleanup note content
 			newNoteContent=newNoteContent.replace(/\'/g,'&#39;')					// replace: ' 	with &#39;
 
@@ -315,12 +279,10 @@
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
 				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				//reloadNote();
-				log.info('Note created.');													// blackbird js logging
 				updateLastActionInformation("note created");								// show last action
 		  	}
 			else
 			{ 
-				log.error('Error while trying to create a new note. Please enter a note title and try again.');		// blackbird js logging
 			}
 		}
 
@@ -333,7 +295,6 @@
 			// reload page - trying to ignore post data
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
-    		log.debug('reloadNote() executed.');													// blackbird js logging
     		updateLastActionInformation("notes reloaded");								// show last action
 		}
 
@@ -352,7 +313,7 @@
 			document.myform.save.disabled=true;					// disable the save button
 			document.myform.delete.disabled=true;				// disable the delete button
 			document.myform.noteTitle.disabled=true;			// disable note title field
-			$('#input2').val('').blur();						// empty cleditor textarea
+			$('#editor1').val('').blur();						// empty cleditor textarea
 		}
 
 
@@ -375,18 +336,18 @@
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<div id="lastAction"></div>		<!-- div to show last action - strings are loaded via js function -->
-				
 				<h2 title="the monoto-notes page">notes</h2>
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td width="40px"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
-							<td colspan="1"><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
+							<td width="5%"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
+							<td><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
-						<!-- NEW NOTE CONTENT using clEditor -->
+						</tr>	
+						<!-- NEW NOTE CONTENt using CKeditor -->
 						<tr>
-							<td colspan="2" width="95%"><textarea id="input2" name="input2" cols="110" ></textarea></td>
+							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
 								<input type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
 								<input type="button" style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled">
@@ -399,7 +360,7 @@
 						</tr>
 					</table>
 				</form>
-				
+
 				<!--  NEW CUSTOM SEARCH FIELD -->
 				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
 
