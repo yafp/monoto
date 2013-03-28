@@ -31,7 +31,6 @@
 
     include 'inc/html_head.php';			// include the new header
 ?>
-
 	</head>
 	<!-- BODY -->
 	<body id="dt_example">
@@ -45,7 +44,6 @@
 
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">logout</a></h2>
-
 
 				<?php
 					// define logout image

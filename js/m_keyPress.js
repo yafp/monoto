@@ -34,6 +34,8 @@ function KeyCheck(e)
 			document.getElementById('myInputTextField').focus();			// set focus to search
 			enableCreateButton();											// run enableCreateButton from notes.php to reload buttons status etc. 
 			document.myform.createNoteButton.disabled=true;					// disable create new note button afterwards to end up with a clean interface
+			// empty the editor
+			CKEDITOR.instances['editor1'].setData("");
 		break;
 
 

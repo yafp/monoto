@@ -5,6 +5,7 @@
 	<!-- BODY -->
 	<body id="dt_example">
 		<div id="container">
+
 			<!-- HEADER & NAV -->
 			<?php include 'inc/header.php'; ?>
 			<div id="noteContentCo">
@@ -25,6 +26,7 @@
 				<div id="spacer">&nbsp;</div>
 			</div>
 		</div>
+		
 		<!--  FOOTER -->
 		<?php include 'inc/footer.php'; ?>
 	</body>

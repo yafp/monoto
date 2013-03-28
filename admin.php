@@ -77,8 +77,10 @@
 				?>
 					<h2><a name="desc" title="the monoto admin page">admin</a></h2>
 						<div class="accordion">
-							<h3>admin settings [<a href="#basic">...</a>]</h3>
+							<h3>monoto server settings [<a href="#basic">...</a>]</h3>
 							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the admin-settings-section" width="40" style="float:right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
+							<h3>version [<a href="#version">...</a>]</h3>
+							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the version-section" width="40" style="float:right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
 							<h3>notes [<a href="#notes">...</a>]</h3>
 							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the notes-section" width="40" style="float:right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
 							<h3>user list [<a href="#users">...</a>]</h3>
@@ -103,7 +105,7 @@
 				?>
 				
 				<!-- BASICS -->
-				<h2><a name="basic" title="the admin-settings-section">admin settings</a></h2>
+				<h2><a name="basic" title="the admin-settings-section">monoto server settings</a></h2>
 					<table style="width: 100%">
 					<tbody>
 						<tr>
@@ -113,14 +115,14 @@
 						<tr>
 							<td style="width:30%">- enable toc:</td>
 							<td style="width:20%"><?php if($s_enable_toc == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-							<td style="width:30%">- enable about section on info page:</td>
-							<td style="width:20%"><?php if($s_enable_info_about_section == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td style="width:30%"></td>
+							<td style="width:20%"></td>
 						</tr>
 						<tr>
 							<td>- enable really delete question:</td>
 							<td><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-							<td>- enable welcome message on info page:</td>
-							<td><?php if($s_enable_welcome_message == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>- enable really logout question:</td>
@@ -145,6 +147,72 @@
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
+
+
+				<!-- VERSION -->
+			<h2><a name="version" title="the version-section">version</a></h2>
+			<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<table style="width: 100%">				
+					<tr>
+						<td colspan="4"><div ID="logo2"><img src="images/icons/transparent.gif" alt="monoto logo" width="200px" height="98px"></div></td></tr>
+					<tr>					
+					<tr>
+						<td><b>build:</b></td>
+						<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
+					<tr>
+						<td><b>milestone:</b></td>
+						<td><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
+					</tr>
+					<tr>
+						<td colspan="3">&nbsp;</td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+						<td>
+							<?php 
+								if($s_enable_UnstableSources == true)
+								{
+									echo "Searching for <span>stable</span> and <span>unstable</span> versions";
+								}
+								else
+								{
+									echo "Searching only for <span>stable</span> versions.";
+								}
+						 	?>
+						</td>
+					</tr>
+					<tr>
+						<td><b>current stable:</b></td>
+						<td><div id="curStable01"><i>please run the check</i></div></td>
+						<td><div id="curStable02"><i>&nbsp;</i></div></td>
+					</tr>
+					<tr>
+						<td><b>current unstable:</b></td>
+						<td><div id="curUnstable01"><i>please run the check</i></div></td>
+						<td><div id="curUnstable02"><i>&nbsp;</i></div></td>
+						<td style="width: 30%">&nbsp;</td>
+					</tr>
+				</table>
+			</form>
+
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
+
+			<!-- CHANGELOG-->
+			<b>changelog</b>
+			<textarea name="changes" style="width:100%" rows=20 disabled>
+			<?=file_get_contents ('doc/CHANGELOG.txt');?>					
+			</textarea>
+
+
+
+
+
+
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+
 
 				<!-- NOTES -->
 				<h2><a name="notes" title="the notes-section">notes</a></h2>
@@ -371,6 +439,107 @@
 
 <?php
 	include 'conf/config.php';
+
+	// UpdateCheck
+//
+// http://wuxiaotian.com/2009/09/php-check-for-updates-script/
+if ( isset($_POST["doUpdateCheck"]) ) 
+{
+	session_start();
+	include 'conf/config.php';
+	
+	// assume everything is good
+	$critical = FALSE;
+	$update = FALSE;
+
+	//$url = "https://raw.github.com/macfidelity/monoto/master/vStable.csv";
+	$url = "https://raw.github.com/macfidelity/monoto/master/conf/vStable.csv";
+	$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
+	$read = fgetcsv ($fp);
+	fclose ($fp); //always a good idea to close the file connection
+
+	// its critical
+	if (($read[0] > $m_build) && ($read[2] == "1")) 
+	{  $critical = TRUE; }
+		
+	// normal update
+	if ($read[0] > $m_build) 
+	{  $update = TRUE; }
+
+	if ($critical) 
+	{ 
+   		echo '<script type="text/javascript">
+   				var r=confirm("There is a critical update available. Should i download the latest version?")
+				if (r==true)
+  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
+
+		die(); //terminate the script
+	}
+	else if ($update)
+	{
+
+	}
+	else // uptodate
+	{
+
+	}
+
+	// update div with stable informations
+	echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
+	//echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$read[3].'";</script>';
+	$urlDLStable = "<a href='$read[3]'>Download</a>";
+	echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$urlDLStable.'";</script>';
+
+	//
+	// check for unstable versions as well
+	//
+	if($s_enable_UnstableSources == true)
+	{
+		// assume everything is good
+		$critical = FALSE;
+		$update = FALSE;
+
+		// check the csv file
+		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vDev.csv";
+		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
+		$read = fgetcsv ($fp);
+		fclose ($fp); 																//always a good idea to close the file connection
+
+		// its critical
+		if (($read[0] > $m_build) && ($read[2] == "1")) 
+		{ $critical = TRUE; }
+			
+		// normal update
+		if ($read[0] > $m_build) 
+		{ $update = TRUE; }
+
+		if ($critical) 
+		{ 
+	   		echo '<script type="text/javascript">
+	   				var r=confirm("There is a critical dev update available. Should i download the latest version?")
+					if (r==true)
+	  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
+
+			die(); //terminate the script
+		}
+		else if ($update)
+		{ 
+			
+		}
+		else // uptodate
+		{ 
+			
+		}
+
+		// update div with unstable informations
+		echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
+		//echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$read[3].'";</script>';
+		$urlDLUnstable = "<a href='$read[3]'>Download</a>";
+		echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
+	}
+
+}
+
 
 
 	//

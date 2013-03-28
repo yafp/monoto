@@ -201,13 +201,15 @@
 			{
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				alert("Note saves with title: "+modifiedNoteTitle+".");
+
+				alertify.success("Note saved");
+
 				reloadNote();
-				log.info('Note saved.');
 				updateLastActionInformation("note saved");								// show last action
 			}
 			else 																		// should never happen as the save button is not always enabled.
 			{  
-				log.debug('Error while trying to save a note. Please select a record first and try again.');
+				
 			}
 		}
 
@@ -235,6 +237,7 @@
 						{
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							alert("Note with ID: "+deleteID+" deleted");
+							alertify.success("Note deleted");
 							reloadNote();
 							updateLastActionInformation("note deleted");								// show last action
 						}
@@ -245,6 +248,7 @@
 				?>
 						$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 						alert("Note with ID: "+deleteID+" deleted");
+						alertify.success("Note deleted");
 						reloadNote();
 						updateLastActionInformation("note deleted");								// show last action
 				<?php
@@ -278,11 +282,13 @@
 		  		
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
 				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
+				alertify.success("Note created");
 				//reloadNote();
 				updateLastActionInformation("note created");								// show last action
 		  	}
 			else
 			{ 
+				alertify.error("Error: No note title defined");
 			}
 		}
 
@@ -296,6 +302,7 @@
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
     		updateLastActionInformation("notes reloaded");								// show last action
+    		alertify.success("Reloaded all notes");
 		}
 
 
