@@ -8,7 +8,7 @@
 core-colors 
 ############
 #4489c9				blau on both
-#b5d536				green/yellow
+
 
 page 01:
 ########
@@ -139,10 +139,14 @@ body
 /* H1-Hx */
 #dt_example h1 
 {
-	font-size: 1.0em;
-	font-weight: big;
-	color: white;
-	text-align: center;
+	margin-top: 1em;
+	font-size: 1.2em;
+	font-weight: normal;
+	line-height: 1.6em;
+	color: black ;
+	border-bottom: 1px solid silver;
+	clear: both;
+	text-align: left;
 }
 
 #dt_example h2 
@@ -224,9 +228,6 @@ span
     padding-right: 3px;
     padding-top: 3px;
     padding-bottom: 3px;
-    -webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
-	-moz-border-radius: 5px;
 	border-radius: 5px;
 	opacity:0.7;
 }
@@ -240,6 +241,36 @@ span
 
 
 
+/* ############################################################ */ 
+/* secondNav aka toc for single php pages 						*/
+/* ############################################################ */
+#secondNav { 
+	font-size:1.25em; 
+}
+#secondNav ul { 
+	list-style-type: none;
+	margin:0; padding:0; 
+}
+#secondNav li { 
+	list-style: none; 
+	background-color: #4489c9;
+	margin-left: 10px;
+	padding-left: 10px; 
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-radius: 15px;
+	box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.2);
+}
+#secondNav ul li { 
+	display: inline; 
+}
+#secondNav a{
+	color: white;
+}
+#secondNav a:hover{
+	
+}
 
 
 
@@ -256,52 +287,10 @@ span
 
 
 
-/* ############################################################ */ 
-/* TOC ACCORDION												*/
-/* ############################################################ */ 
-.accordion 
-{
-	width: 480px;
-	width: 100%;
-	border-bottom: solid 1px #c4c4c4;
-}
-
-.accordion h3 
-{
-	background: #e9e7e7 url(../images/arrow-square.gif) no-repeat right -51px;
-	padding: 7px 15px;
-	margin: 0;
-	font: bold 120%/100% Arial, Helvetica, sans-serif;
-	border: solid 1px #c4c4c4;
-	border-bottom: none;
-	cursor: pointer;
-}
-
-.accordion h3:hover 
-{
-	background-color: #e3e2e2;
-}
-
-.accordion h3.active 
-{
-	background-position: right 5px;
-}
-
-.accordion p 
-{
-	background: #f7f7f7;
-	margin: 0;
-	padding: 10px 15px 20px;
-	border-left: solid 1px #c4c4c4;
-	border-right: solid 1px #c4c4c4;
-}
-
-
-
 
 
 /* ############################################################ */ 
-/* NAVIGATION													*/
+/* MAIN-NAVIGATION													*/
 /* ############################################################ */ 
 #nav, #nav ul
 {

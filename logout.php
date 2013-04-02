@@ -24,15 +24,13 @@
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '".$_SESSION['username']."' )";
 	$result = mysql_query($sql);
 
-	disconnectFromDB();
-
 	$_SESSION = array(); 				//destroy all of the session variables
     session_destroy();
 
     include 'inc/html_head.php';			// include the new header
 ?>
 	</head>
-	<!-- BODY -->
+
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
@@ -60,6 +58,7 @@
 				?>
 
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
+				
 				<!-- REDIRECT TO LOGIN -->
 				<?php header("refresh:10;url=index.php"); ?>
 				

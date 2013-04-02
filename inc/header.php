@@ -9,11 +9,8 @@
 	{
 		//session_start();
 		$owner = $_SESSION['username'];
-		echo "&nbsp;&nbsp;&nbsp;&nbsp;<a class='modal' href='javascript:void(0);''><img src='images/icons/keyboard.png' alt='keyboard shortcuts popup' title='keyboard shortcuts' width='25px'></a>";
-		echo "<br>";
-		echo '<ul id="nav">
-		    	<li><a accesskey="n" href="notes.php"><b>n</b>otes</a></li>
-		    	<li><a accesskey="m" href="settings.php"><b>m</b>y monoto</a></li>';
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;<a class='modal' href='javascript:void(0);''><img src='images/icons/keyboard.png' alt='keyboard shortcuts popup' title='keyboard shortcuts' width='25px'></a><br>";
+		echo '<ul id="nav"><li><a accesskey="n" href="notes.php"><b>n</b>otes</a></li><li><a accesskey="m" href="settings.php"><b>m</b>y monoto</a></li>';
 		// admin-section
 		if($_SESSION['admin'] == 1)
 		{	

@@ -4,6 +4,30 @@ Milestone 3 - Pimping the workflow - Build NOT YET DEFINED
 ##########################################################
 = current dev version 
 
+- changed html editor from cleditor to ckeditor
+- count failed logins and lock account after 3 failed attempts in a row
+- support for umlauts
+- note-title now support / and .
+- added a keyboard-shortcuts popup 
+- ESC unselected a selected note
+- importer improvements
+- add password-strength javascript checker
+- admin: added random logout picutes function
+- admin: added delete user & his notes function
+- admin: added maintenace mode
+- admin: now show jquery version in admin.php
+- admin: added optimize mysql table function
+- admin: added truncate table functions
+- removed jquery tools
+- using alertify.js for alerts 
+- updated jquery version to 1.9.1
+- updated datatables to 1.9.3
+- added lab.js for js performance 
+- show last action
+- ...
+- tons of small/minor improvements and cleanups
+
+
 Check the github issue tracker for details or wait 
 for the stable milestone release which will come 
 with a changelog.
@@ -12,6 +36,7 @@ DB Structure Updates:
 m_users -> 2 new fields:
 -- failed_logins
 -- date_last_login_fail
+-- and some more ;)
 
 
 

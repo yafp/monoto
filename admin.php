@@ -10,16 +10,6 @@
 		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-		<!-- m_accordionToc -->
-		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
-		<!-- jquery tools - form validation -->
-		<script>
-		$(document).ready(function() {
-			/*
-  			$("#inviteForm").validator();
-  			*/
-  		});	
-		</script>
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.min.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.min.js"></script>
@@ -70,53 +60,38 @@
 			<?php include 'inc/header.php'; ?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
+
+				<div id="secondNav">
+					<h1>sections</h1>
+					<ul>
+						<li><a href="#basic">settings</a></li>
+						<li><a href="#version">version</a></li>
+						<li><a href="#notes">notes</a></li>
+						<li><a href="#users">user list</a></li>
+						<li><a href="#invites">invites</a></li>
+						<li><a href="#mysql">mysql</a></li>
+						<li><a href="#misc">misc</a></li>
+					</ul>
+				</div>
+
 				<?php
 					include 'conf/config.php';
-					if($s_enable_toc == true)
-					{
-				?>
-					<h2><a name="desc" title="the monoto admin page">admin</a></h2>
-						<div class="accordion">
-							<h3>monoto server settings [<a href="#basic">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the admin-settings-section" width="40" style="float:right">the <a href="#basic">admin</a> section shows all server-wide monoto-settings. Those settings are configurable by the admin only and apply to all user accounts. The admin can modify those settings via 'conf/config.php'.</p>
-							<h3>version [<a href="#version">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the version-section" width="40" style="float:right">the <a href="#version">version</a> section displays the current milestone, the build-version and in addition an online update-check-function. In addition it features the monoto changelog (listing all important milestone changes).</p>
-							<h3>notes [<a href="#notes">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the notes-section" width="40" style="float:right">the <a href="#basic">notes</a> section gives a quick overview about the total amount of notes in the mysql database.</p>
-							<h3>user list [<a href="#users">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the info-section" width="40" style="float:right">the <a href="#users">users</a> section lists all existing user accounts. The table features the user-id, username, amout of logins and logouts, the invite date, the date of the first and the last login.</p>
-							<h3>invites [<a href="#invites">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the invite-section" width="40" style="float:right">the <a href="#invites">invites</a> section allows you to create new user accounts. The admin can optional send a notification mail to the new user.</p>
-							<h3>mysql [<a href="#mysql">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the mysql-section" width="40" style="float:right">the <a href="#mysql">mysql</a> section allows you to to optimize or truncate your tables.</p>
-							<h3>misc [<a href="#misc">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the misc-sction" width="40" style="float:right">the <a href="#mysql">misc</a> section collects unsorted stuff.</p>
-						</div>
-				<?php
-					}
-				?>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<?php
 					include ('inc/db.php');		// connect to db
 					connectToDB();
+
+					if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
+					{
+						echo "<br><font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
+					}
 				?>
 				
 				<!-- BASICS -->
-				<h2><a name="basic" title="the admin-settings-section">monoto server settings</a></h2>
+				<h2><a name="basic" title="the admin-settings-section">settings (conf/config.php)</a></h2>
 					<table style="width: 100%">
 					<tbody>
 						<tr>
 							<td colspan="2" style="width:50%"><b>General</b></td>
 							<td colspan="2" style="width:50%"><b>Page specific</b></td>
-						</tr>
-						<tr>
-							<td style="width:30%">- enable toc:</td>
-							<td style="width:20%"><?php if($s_enable_toc == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-							<td style="width:30%"></td>
-							<td style="width:20%"></td>
 						</tr>
 						<tr>
 							<td>- enable really delete question:</td>
@@ -152,10 +127,7 @@
 				<!-- VERSION -->
 			<h2><a name="version" title="the version-section">version</a></h2>
 			<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-				<table style="width: 100%">				
-					<tr>
-						<td colspan="4"><div ID="logo2"><img src="images/icons/transparent.gif" alt="monoto logo" width="200px" height="98px"></div></td></tr>
-					<tr>					
+				<table style="width: 100%">									
 					<tr>
 						<td><b>build:</b></td>
 						<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
@@ -204,29 +176,23 @@
 			<?=file_get_contents ('doc/CHANGELOG.txt');?>					
 			</textarea>
 
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
 
 
+			<!-- NOTES -->
+			<h2><a name="notes" title="the notes-section">notes</a></h2>
+			<?php
+				// User: amount of all notes 
+				$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
+				while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
+				{
+					echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
+				}
+			?>
 
-
-
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-
-				<!-- NOTES -->
-				<h2><a name="notes" title="the notes-section">notes</a></h2>
-				<?php
-					// User: amount of all notes 
-					$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
-					while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
-					{
-						echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
-					}
-				?>
-
-				<table style="width: 20%">
-					<tr style="float:left"><th>notes</td><th>creator</td></tr>
+			<table style="width: 20%">
+				<tr style="float:left"><th>notes</td><th>creator</td></tr>
 					<!-- get notes count per user -->
 					<?php
 						$whatArray = array();			// define arrays for our flot pie graph
@@ -241,51 +207,50 @@
 							array_push($howMuchArray, $row[1]);
 						}
 					?>
-				</table>
+			</table>
 
-				<!-- placeholder for flot pie-chart -->
-				<div id="placeholder" style="height:200px;"></div>
+			<!-- placeholder for flot pie-chart -->
+			<div id="placeholder" style="height:200px;"></div>
 
-				<!-- generate our flot pie chart -->
-				<script type="text/javascript">
+			<!-- generate our flot pie chart -->
+			<script type="text/javascript">
+				arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
+				arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
 
-					arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
-					arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
+				var data = [];
+				var series = 10;
 
-					var data = [];
-					var series = 10;
-
-					for( var i = 0; i<series; i++)
-					{
-						data[i] = { 
-								label: arr01[i],
-								data: parseFloat(arr02[i])
-								}
+				for( var i = 0; i<series; i++)
+				{
+					data[i] = { 
+						label: arr01[i],
+						data: parseFloat(arr02[i])
 					}
+				}
 
-					// PLOT
-					$.plot($("#placeholder"), data, {
-					    series: {
-					        pie: {
-					            show: true,
-					            radius: 1,
-					            label: {
-					                show: true,
-					                radius: 1,
-					                formatter: function(label, series) {
-					                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
-					                },
-					                background: {
-					                    opacity: 0.8,
-					                    color: '#444'
-					                }
-					            }
-					        }
-					    },
-					    legend: {
-					        show: false
-					    }
-					});
+				// PLOT
+				$.plot($("#placeholder"), data, {
+				    series: {
+				        pie: {
+				            show: true,
+				            radius: 1,
+				            label: {
+				                show: true,
+				                radius: 1,
+				                formatter: function(label, series) {
+				                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+				                },
+				                background: {
+				                    opacity: 0.8,
+				                    color: '#444'
+				                }
+				            }
+				        }
+				    },
+				    legend: {
+				        show: false
+				    }
+				});
 				</script>
 
 				<!-- SPACER -->
@@ -299,7 +264,7 @@
 					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
 					<tbody>
 					<?php
-							$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note, failed_logins_in_a_row  FROM m_users ORDER by id "); // m_log
+							$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note, failed_logins_in_a_row FROM m_users ORDER by id "); // m_log
 							while($row = mysql_fetch_array($result))   // fill datatable
 							{
 								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[12].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
@@ -312,9 +277,6 @@
 				<!-- DELETE USER -->
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<br><br>
-
-				
-
 				<b>Delete existing account</b><br>	
 				<table style="width: 100%">
 					<tr>
@@ -343,9 +305,6 @@
 				</table>
 				</form>
 
-
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
@@ -356,16 +315,10 @@
 							<tr>
 								<td width='30%'>Username:</td> 
 								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" required="required" /></td>
-								<td rowspan="6"><img src="images/default_user_icon_trans.png" alt="user_icon" title="another dummy user-icon"></td>
 							</tr>
 							<tr>
 								<td>Mail:</td> 
-								<td>
-									<!--
-									<input type="text" name="newUserMail" placeholder="Required - Insert email" />
-									-->
-									<input type="email" name="newUserMail" placeholder="Required - Insert email" required="required" />
-								</td>
+								<td><input type="email" name="newUserMail" placeholder="Required - Insert email" required="required" /></td>
 							</tr>
 							<tr>
 								<td>Password:</td> 
@@ -385,7 +338,7 @@
 							</tr>
 							<tr>
 								<td><input type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided." /></td> 
-								<td></td>
+								<td>&nbsp;</td>
 							</tr>
 						</table>
 					</form>
@@ -433,113 +386,106 @@
 		header('Location: redirect.php');
 	}
    
-?>
 
 
-
-<?php
 	include 'conf/config.php';
 
 	// UpdateCheck
-//
-// http://wuxiaotian.com/2009/09/php-check-for-updates-script/
-if ( isset($_POST["doUpdateCheck"]) ) 
-{
-	session_start();
-	include 'conf/config.php';
-	
-	// assume everything is good
-	$critical = FALSE;
-	$update = FALSE;
-
-	//$url = "https://raw.github.com/macfidelity/monoto/master/vStable.csv";
-	$url = "https://raw.github.com/macfidelity/monoto/master/conf/vStable.csv";
-	$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
-	$read = fgetcsv ($fp);
-	fclose ($fp); //always a good idea to close the file connection
-
-	// its critical
-	if (($read[0] > $m_build) && ($read[2] == "1")) 
-	{  $critical = TRUE; }
+	//
+	// http://wuxiaotian.com/2009/09/php-check-for-updates-script/
+	if ( isset($_POST["doUpdateCheck"]) ) 
+	{
+		session_start();
+		include 'conf/config.php';
 		
-	// normal update
-	if ($read[0] > $m_build) 
-	{  $update = TRUE; }
-
-	if ($critical) 
-	{ 
-   		echo '<script type="text/javascript">
-   				var r=confirm("There is a critical update available. Should i download the latest version?")
-				if (r==true)
-  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
-
-		die(); //terminate the script
-	}
-	else if ($update)
-	{
-
-	}
-	else // uptodate
-	{
-
-	}
-
-	// update div with stable informations
-	echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
-	//echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$read[3].'";</script>';
-	$urlDLStable = "<a href='$read[3]'>Download</a>";
-	echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$urlDLStable.'";</script>';
-
-	//
-	// check for unstable versions as well
-	//
-	if($s_enable_UnstableSources == true)
-	{
 		// assume everything is good
 		$critical = FALSE;
 		$update = FALSE;
 
-		// check the csv file
-		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vDev.csv";
+		//$url = "https://raw.github.com/macfidelity/monoto/master/vStable.csv";
+		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vStable.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);
-		fclose ($fp); 																//always a good idea to close the file connection
+		fclose ($fp); //always a good idea to close the file connection
 
 		// its critical
 		if (($read[0] > $m_build) && ($read[2] == "1")) 
-		{ $critical = TRUE; }
+		{  $critical = TRUE; }
 			
 		// normal update
 		if ($read[0] > $m_build) 
-		{ $update = TRUE; }
+		{  $update = TRUE; }
 
 		if ($critical) 
 		{ 
 	   		echo '<script type="text/javascript">
-	   				var r=confirm("There is a critical dev update available. Should i download the latest version?")
+	   				var r=confirm("There is a critical update available. Should i download the latest version?")
 					if (r==true)
 	  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
 
 			die(); //terminate the script
 		}
 		else if ($update)
-		{ 
-			
+		{
+
 		}
 		else // uptodate
-		{ 
-			
+		{
+
 		}
 
-		// update div with unstable informations
-		echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
-		//echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$read[3].'";</script>';
-		$urlDLUnstable = "<a href='$read[3]'>Download</a>";
-		echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
+		// update div with stable informations
+		echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
+		$urlDLStable = "<a href='$read[3]'>Download</a>";
+		echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$urlDLStable.'";</script>';
+
+		//
+		// check for unstable versions as well
+		//
+		if($s_enable_UnstableSources == true)
+		{
+			// assume everything is good
+			$critical = FALSE;
+			$update = FALSE;
+
+			// check the csv file
+			$url = "https://raw.github.com/macfidelity/monoto/master/conf/vDev.csv";
+			$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
+			$read = fgetcsv ($fp);
+			fclose ($fp); 																//always a good idea to close the file connection
+
+			// its critical
+			if (($read[0] > $m_build) && ($read[2] == "1")) 
+			{ $critical = TRUE; }
+				
+			// normal update
+			if ($read[0] > $m_build) 
+			{ $update = TRUE; }
+
+			if ($critical) 
+			{ 
+		   		echo '<script type="text/javascript">
+		   				var r=confirm("There is a critical dev update available. Should i download the latest version?")
+						if (r==true)
+		  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
+
+				die(); //terminate the script
+			}
+			else if ($update)
+			{ 
+				
+			}
+			else // uptodate
+			{ 
+				
+			}
+
+			// update div with unstable informations
+			echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
+			$urlDLUnstable = "<a href='$read[3]'>Download</a>";
+			echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
+		}
 	}
-
-}
-
 
 
 	//
@@ -588,10 +534,8 @@ if ( isset($_POST["doUpdateCheck"]) )
 		{
 			echo '<script>alert("Enter CONFIRM and try it again.");</script>';		// alert user that he hasnt entered CONFIRM
 		}
-
 		// reload page
 	}
-
 
 
 	//

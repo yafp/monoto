@@ -1,5 +1,4 @@
 <?php
-
 	//
 	// connect to mySQL
 	//
@@ -14,16 +13,4 @@
 		}
 		mysql_select_db($mysql_db, $con);										// select db
 	}
-
-
-	//
-	// disconnect from mySQL
-	//
-	function disconnectFromDB() 
-	{
-		//include 'conf/config.php';
-	   	//mysql_close($con);				// disconnect from mysql db 
-	}
-
-
 ?>

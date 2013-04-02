@@ -11,9 +11,6 @@
 		<!-- continue the header -->
 		<!-- ################### -->
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
-		<link rel="alternate stylesheet" type="text/css" href="css/page02.css" title="alt" />
 
 		<!-- fade in on pageload via jquery -->
 		<script type="text/javascript" language="javascript">
@@ -23,7 +20,6 @@
 		</script>
 	</head>
 
-	<!-- BODY -->
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
@@ -79,7 +75,6 @@
 </html>
 
 <?php
-
 }
 
 
@@ -152,7 +147,7 @@ if ( isset($_POST["doLogin"]) )
 			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 			$result = mysql_query($sql);
 
-		    header('Location: redirect.php');														// redirect user 
+		    header('Location: redirect.php');									// redirect user 
 		}
 		else //login successful
 		{	

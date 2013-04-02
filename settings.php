@@ -10,20 +10,8 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!--  m_keyPressAll-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
-		<!-- m_accordionToc -->
-		<script type="text/javascript" language="javascript" src="js/m_accordionToc.js"></script>
 		<!-- password -->
 		<script type="text/javascript" language="javascript" src="js/digitalspaghetti.password.js"></script>
-		<!-- jquery tools - form validation -->
-		<script>
-		$(document).ready(function() {
-  			/*
-  			$("#changePassword").validator();
-  			$("#changeIcon").validator();
-  			*/
-  		});	
-		</script>
-
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var oTable;
@@ -50,39 +38,28 @@
 		} );
 		</script>
 	</head>
-	<!-- BODY -->
+
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'inc/header.php'; ?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
+				<div id="secondNav">
+					<h1>sections</h1>
+					<ul>
+						<li><a href="#profile">profile</a></li>
+						<li><a href="#stats">stats</a></li>
+						<li><a href="#log">log</a></li>
+						<li><a href="#importer">importer</a></li>
+						<li><a href="#exporter">exporter</a></li>
+						<li><a href="#eraser">eraser</a></li>
+					</ul>
+				</div>
+
 				<?php
 					include ('conf/config.php');
-					if($s_enable_toc == true)
-					{
-						?>
-							<h2><a name="desc" title="the monoto settings page">my monoto</a></h2>
-							<div class="accordion">
-							<h3>profile [<a href="#profile">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the profile-section" width="40" style="float:right">the <a href="#profile">profile</a> section displays a quick overview about your user account. You can change your monoto password here and upload an user image.</p>
-							<h3>stats [<a href="#stats">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the statistics-section" width="40" style="float:right">the <a href="#stats">stats</a> section offers a small list of stats about your notes.</p>
-							<h3>log [<a href="#log">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the logging-section" width="40" style="float:right">the <a href="#log">log</a> section allows you to  search all your events. This includes notes creation, editing, deleting. Importing and exporting, the usage of the eraser and last but not least logins and logouts.</p>
-							<h3>importer [<a href="#importer">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the importer-section" width="40" style="float:right">the <a href="#importer">importer</a> section allows you to import single or multiple text notes.</p>
-							<h3>exporter [<a href="#exporter">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the exporter-section" width="40" style="float:right">the <a href="#exporter">exporter</a> section allows you to export your notes to a single, tab-separated csv-file. This included only the note-ids, -titles and content.</p>
-							<h3>eraser [<a href="#eraser">...</a>]</h3>
-							<p><img src="images/info_icon.png" alt="info icon" title="Informations about the eraser-section" width="40" style="float:right">the <a href="#eraser">eraser</a> section allows you to delete your notes and your log events. The eraser event itself will be your first new log entry.</p>
-							</div>
-						<?php
-					}
 				?>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
 
 				<!-- PROFILE -->
 				<h2><a name="profile" title="the profile-section">profile</a></h2>
@@ -163,11 +140,9 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-
 				<!-- STATS -->
-			<?php
+				<?php
 					echo '<h2><a name="stats" title="the stats-section">stats</a></h2>';
-					//include ('inc/db.php');  	// connect to db
 					connectToDB();
 					$owner = $_SESSION['username'];
 						
@@ -273,22 +248,18 @@
 									$stats_last_edited_note_title = $row[3];
 									$stats_last_edited_note_date = $row[1];
 								}
-
-								//
 								//  overall_note_content_words
 								$result = mysql_query("SELECT SUM( LENGTH( content ) - LENGTH( REPLACE( content, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									$stats_overall_content_words = $row[0];
 								}
-								//
 								//  overall_note_title_words
 								$result = mysql_query("SELECT SUM( LENGTH( title ) - LENGTH( REPLACE( title, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' "); 
 								while($row = mysql_fetch_array($result)) 					
 								{
 									$stats_overall_title_words = $row[0];
 								}
-
 								//  entire db size
 								$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$mysql_db."' "); 
 								while($row = mysql_fetch_array($result)) 					
@@ -362,11 +333,10 @@
 					}
 			?>
 
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
 
-
-				<!-- LOG -->
+			<!-- LOG -->
 			<h2><a name="log" title="the logging-section">log</a></h2>
 				<table style="width:100%">
 				<thead><tr><th style="float:left" style="width:20%">event</th><th style="float:left" style="width:60%">description</th><th style="float:left" style="width:20%">count</th></tr></thead>
@@ -504,8 +474,6 @@
 				</table>
 
 
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
@@ -564,7 +532,6 @@
 // - Do Export
 // - Do Import
 // - Do Change USerpassword
-
 include 'conf/config.php';
 
 if ( isset($_POST["doChangeUserPW"]) ) 
@@ -593,12 +560,10 @@ if ( isset($_POST["doChangeUserPW"]) )
 
 		$query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";			// change pw
 		mysql_query($query);
-		//mysql_close($con); 								// close sql connection
 	}
 	else // User entered 2 different password - cant change pw like that.
 	{
 	}
-	//disconnectFromDB();
 }
 
 
@@ -619,7 +584,6 @@ if ( isset($_POST["doDelAllNotes"]) )
 	$details = "All user notes deleted with eraser.";
 	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
 	$result = mysql_query($sql);
-	//disconnectFromDB();
 }
 
 
@@ -675,12 +639,6 @@ if ( isset($_POST["doImport"]) )
 	   	}
 	    else 
 	    {
-	        //echo "Upload: " . $_FILES["file"]["name"] . "<br />";
-	        //echo "Type: " . $_FILES["file"]["type"] . "<br />";
-	        //echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
-	        //echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
-			//echo "File content: ".file_get_contents($_FILES['file']['tmp_name']); 
-
 			// define insert vars
 			$newNoteTitle = $_FILES["file"]["name"][$key];
 			$newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle);					// we need to cut the extension from filename - ugly hack
@@ -753,7 +711,6 @@ if ( isset($_POST["doImport"]) )
 } 
 
 
-
 //
 // Changing User icon
 //
@@ -780,5 +737,4 @@ if ( isset($_POST["doChangeUserIcon"]) )
 	{
 	}
 }
-
 ?>

@@ -13,11 +13,9 @@
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!-- ckeditor - new -->
 		<script src="js/ckeditor-4.0.2_standard/ckeditor.js"></script>
-		
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
-
 			var oTable;
 			var giRedraw = false;
 
@@ -26,7 +24,6 @@
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1');
 				// END CKEDITOR
-
 
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
@@ -201,9 +198,7 @@
 			{
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				alert("Note saves with title: "+modifiedNoteTitle+".");
-
 				alertify.success("Note saved");
-
 				reloadNote();
 				updateLastActionInformation("note saved");								// show last action
 			}
@@ -283,7 +278,6 @@
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
 				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				alertify.success("Note created");
-				//reloadNote();
 				updateLastActionInformation("note created");								// show last action
 		  	}
 			else

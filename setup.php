@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 	</head>
 	<body id="dt_example">
+		klk
 		<div id="container">
 			<?php include 'inc/header.php'; ?>
 			<div id="noteContentCo">
@@ -15,8 +16,8 @@
 				<div id="spacer">&nbsp;</div>
 
 				<!-- CREATE ADMIN -->
-				<h2><a name="core">create your monoto admin-user-account</a></h2>
-				This script is supposed to be used to create your first monoto-user account.<br>Please delete this file after having setup your monoto-server.<br><br><br>
+				<h2><a name="core">setup</a></h2>
+				This script is supposed to be used to create your first monoto-user account.<br><b>Notice:</b>&nbsp;Please delete this file (setup.php) after having setup your monoto-server.<br><br><br>
 
 				<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<table border="0">
@@ -47,7 +48,7 @@ if ( isset($_POST["doCreateAdminAccount"]) )
 	connectToDB();
 
 	// check if user has already manually created the tables: m_users
-	$val = mysql_query('select 1 from `m_users`')
+	$val = mysql_query('select 1 from `m_users`');
 	if($val !== FALSE)
 	{
    		// table m_users EXISTS - get the data

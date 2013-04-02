@@ -3,7 +3,7 @@ $(document).ready(function()
 	//Change these values to style your modal popup
 	var align = 'center';									//Valid values; left, right, center
 	var top = 100; 											//Use an integer (in pixels)
-	var width = 500; 										//Use an integer (in pixels)
+	var width = 600; 										//Use an integer (in pixels)
 	var padding = 10;										//Use an integer (in pixels)
 	var backgroundColor = '#FFFFFF'; 						//Use any hex code
 	var source = 'doc/keyboardShortcuts.html'; 					//Refer to any page on your server, external pages are not valid e.g. http://www.google.co.uk
@@ -25,6 +25,5 @@ $(document).ready(function()
 		if (e.keyCode == 27) {
 			closePopup(fadeOutTime);
 			}
-	});
-				
+	});			
 });
