@@ -17,7 +17,6 @@
 	// #################################################################################
 	//
 	$s_enable_maintenance_mode	= false;			// true = login is locked.
-	//
 	$s_enable_random_logout_gif = true;			// show a random logout image
 	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
 	$s_enable_really_delete		= false;				// should there be a 'really delete' question before deleting notes?
@@ -32,6 +31,6 @@
 	$m_name						= "monoto";						// name of your notes system
 	$m_milestone				= "3";							// current milestone number
 	$m_milestone_title			= "pimping the workflow";		// current milestone name
-	$m_build					= "20130402.01";				// build-date and day's version
+	$m_build					= "20130403.01";				// build-date and day's version
 	$m_stable					= false;						// defined if that is a milestone release
 ?>
