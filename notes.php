@@ -7,8 +7,6 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
-		<!-- datatables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!-- ckeditor - new -->
@@ -22,7 +20,23 @@
 			$(document).ready(function() 
 			{
 				// START CKEDITOR
-				CKEDITOR.replace( 'editor1');
+				CKEDITOR.replace( 'editor1', {
+					//uiColor: '#4489c9',
+					toolbar:
+					[
+					    { name: 'document',    items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
+					    { name: 'clipboard',   items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+					    { name: 'editing',     items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+					    { name: 'forms',       items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+					    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+					    { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
+					    { name: 'links',       items : [ 'Link','Unlink','Anchor' ] },
+					    { name: 'insert',      items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
+					    { name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
+					    { name: 'colors',      items : [ 'TextColor','BGColor' ] },
+					    { name: 'tools',       items : [ 'Maximize', 'ShowBlocks' ] }
+					]
+				});
 				// END CKEDITOR
 
 				/* Add a click handler to the rows - this could be used as a callback */
@@ -198,13 +212,13 @@
 			{
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				alert("Note saves with title: "+modifiedNoteTitle+".");
-				alertify.success("Note saved");
 				reloadNote();
+				alertify.success("Note saved");
 				updateLastActionInformation("note saved");								// show last action
 			}
 			else 																		// should never happen as the save button is not always enabled.
 			{  
-				
+				alertify.error("Error: Missing ID reference");
 			}
 		}
 
@@ -261,12 +275,11 @@
 		function createNote() 
 		{
 			var newNoteTitle = document.myform.newNoteTitle.value;					// get new title
-			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');		// replace all characters except numbers,letters, space, underscore and - .
+			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');	// replace all characters except numbers,letters, space, underscore and - .
 									
 			var newNoteContent = CKEDITOR.instances.editor1.getData();				// get note content if defined
 
-			// cleanup note content
-			newNoteContent=newNoteContent.replace(/\'/g,'&#39;')					// replace: ' 	with &#39;
+			newNoteContent=newNoteContent.replace(/\'/g,'&#39;')					// cleanup note content replace: ' 	with &#39;
 
 			if (newNoteTitle.length > 0)											// if we have a note title - create the new note (content is not needed so far)
 		  	{
@@ -292,11 +305,9 @@
 		//
 		function reloadNote() 
 		{
-			// reload page - trying to ignore post data
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
     		updateLastActionInformation("notes reloaded");								// show last action
-    		alertify.success("Reloaded all notes");
 		}
 
 
@@ -318,13 +329,11 @@
 		}
 
 
-
 		//
 		// UPDATE LAST ACTION INFO
 		//
 		function updateLastActionInformation(lastActionText)
 		{
-			//document.getElementById("lastAction").innerHTML = lastActionText;
 			document.getElementById("lastAction").innerHTML = '<span>'+lastActionText+'</span>';
 		}
 		</script>
@@ -346,7 +355,7 @@
 							<td><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
 						</tr>	
-						<!-- NEW NOTE CONTENt using CKeditor -->
+						<!-- NOTE CONTENT using CKeditor -->
 						<tr>
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
@@ -362,7 +371,7 @@
 					</table>
 				</form>
 
-				<!--  NEW CUSTOM SEARCH FIELD -->
+				<!--  CUSTOM SEARCH FIELD -->
 				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
 
 				<!-- DATA-TABLE -->

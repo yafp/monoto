@@ -8,8 +8,6 @@
 		<!-- ################### -->
 		<!--  m_keyPressAll-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
-		<!-- datatables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.min.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.min.js"></script>
@@ -67,7 +65,7 @@
 						<li><a href="#basic">settings</a></li>
 						<li><a href="#version">version</a></li>
 						<li><a href="#notes">notes</a></li>
-						<li><a href="#users">user list</a></li>
+						<li><a href="#users">users</a></li>
 						<li><a href="#invites">invites</a></li>
 						<li><a href="#mysql">mysql</a></li>
 						<li><a href="#misc">misc</a></li>
@@ -84,26 +82,21 @@
 						echo "<br><font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
 					}
 				?>
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
 				
 				<!-- BASICS -->
 				<h2><a name="basic" title="the admin-settings-section">settings (conf/config.php)</a></h2>
 					<table style="width: 100%">
 					<tbody>
 						<tr>
-							<td colspan="2" style="width:50%"><b>General</b></td>
-							<td colspan="2" style="width:50%"><b>Page specific</b></td>
-						</tr>
-						<tr>
 							<td>- enable really delete question:</td>
-							<td><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-							<td></td>
-							<td></td>
+							<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable really logout question:</td>
 							<td><?php if($s_enable_really_logout == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-							<td></td>
-							<td></td>
 						</tr>
 						<tr>
 							<td>- enable user icon:</td>
@@ -179,7 +172,6 @@
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 
-
 			<!-- NOTES -->
 			<h2><a name="notes" title="the notes-section">notes</a></h2>
 			<?php
@@ -189,12 +181,12 @@
 				{
 					echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
 				}
-			?>
 
-			<table style="width: 20%">
-				<tr style="float:left"><th>notes</td><th>creator</td></tr>
-					<!-- get notes count per user -->
-					<?php
+
+				// get notes count per user  and display them in a table
+				echo '<table style="width: 20%">';
+				echo "<tr><th>notes</td><th>creator</td></tr>";
+
 						$whatArray = array();			// define arrays for our flot pie graph
 						$howMuchArray = array();
 
@@ -295,7 +287,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Enter CONFIRM</td> 
+						<td>Enter CONFIRM (uppercase)</td> 
 						<td><input type="text" name="confirmDeleteUser" placeholder="no"></td>
 					</tr>
 					<tr>

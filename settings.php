@@ -6,12 +6,8 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
-		<!-- data tables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-		<!--  m_keyPressAll-->
-		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
-		<!-- password -->
-		<script type="text/javascript" language="javascript" src="js/digitalspaghetti.password.js"></script>
+		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>				<!--  m_keyPressAll-->
+		<script type="text/javascript" language="javascript" src="js/digitalspaghetti.password.js"></script>	<!-- password -->
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var oTable;
@@ -60,6 +56,9 @@
 				<?php
 					include ('conf/config.php');
 				?>
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
 
 				<!-- PROFILE -->
 				<h2><a name="profile" title="the profile-section">profile</a></h2>
@@ -166,7 +165,7 @@
 							}
 							else
 							{
-								echo "- You have <span>".$row[0]." notes</span> in your monoto database<br>"; 	// output amount of notes
+								echo "- You have <span>".$row[0]." personal notes</span> in the monoto database<br>"; 	// output amount of notes
 								// SQL-SECTION
 								//
 								// amount of activity-events
