@@ -8,6 +8,16 @@
 		<!-- ################### -->
 		<!--  m_keyPressAll-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
+
+		<link rel="stylesheet" href="js/jquery-ui/jquery-ui.css" />
+		<script src="js/jquery-ui/jquery-ui.js"></script>
+		<script>
+		$(function() {
+		$( "#tabs" ).tabs();
+		});
+		</script>
+
+
 		<!-- flot graphs -->
 		<script language="javascript" type="text/javascript" src="js/jquery.flot.min.js"></script>
     	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.min.js"></script>
@@ -56,21 +66,9 @@
 		<div id="container">
 			<!-- HEADER & NAV -->
 			<?php include 'inc/header.php'; ?>
+
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-
-				<div id="secondNav">
-					<h1>sections</h1>
-					<ul>
-						<li><a href="#basic">settings</a></li>
-						<li><a href="#version">version</a></li>
-						<li><a href="#notes">notes</a></li>
-						<li><a href="#users">users</a></li>
-						<li><a href="#invites">invites</a></li>
-						<li><a href="#mysql">mysql</a></li>
-						<li><a href="#misc">misc</a></li>
-					</ul>
-				</div>
 
 				<?php
 					include 'conf/config.php';
@@ -79,289 +77,281 @@
 
 					if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
 					{
-						echo "<br><font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
+						echo "<br><br><font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
 					}
 				?>
 
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-				
-				<!-- BASICS -->
-				<h2><a name="basic" title="the admin-settings-section">settings (conf/config.php)</a></h2>
-					<table style="width: 100%">
-					<tbody>
-						<tr>
-							<td>- enable really delete question:</td>
-							<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable really logout question:</td>
-							<td><?php if($s_enable_really_logout == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable user icon:</td>
-							<td><?php if($s_enable_user_icon == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable unstable sources:</td>
-							<td><?php if($s_enable_UnstableSources == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable random logout images:</td>
-							<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-					</tbody>
-					</table>
+				<h2>admin</h2>
+				<div id="tabs">
+					<ul>
+						<li><a href="#tabs-1">settings</a></li>
+						<li><a href="#tabs-2">version</a></li>
+						<li><a href="#tabs-3">notes</a></li>
+						<li><a href="#tabs-4">users</a></li>
+						<li><a href="#tabs-5">invites</a></li>
+						<li><a href="#tabs-6">mysql</a></li>
+						<li><a href="#tabs-7">misc</a></li>
+					</ul>
 
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
+					<div id="tabs-1">
+						The following values are based on <i>/conf/config.php</i><br><br>
+						<table style="width: 100%">
+							<tbody>
+								<tr>
+									<td>- enable really delete question:</td>
+									<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+								</tr>
+								<tr>
+									<td>- enable really logout question:</td>
+									<td><?php if($s_enable_really_logout == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+								</tr>
+								<tr>
+									<td>- enable user icon:</td>
+									<td><?php if($s_enable_user_icon == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+								</tr>
+								<tr>
+									<td>- enable unstable sources:</td>
+									<td><?php if($s_enable_UnstableSources == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+								</tr>
+								<tr>
+									<td>- enable random logout images:</td>
+									<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 
+					<div id="tabs-2">
+						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+							<table style="width: 100%">									
+								<tr>
+									<td><b>build:</b></td>
+									<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
+								<tr>
+									<td><b>milestone:</b></td>
+									<td><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
+								</tr>
+								<tr>
+									<td colspan="3">&nbsp;</td>
+								</tr>
+								<tr>
+									<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+									<td>
+										<?php 
+											if($s_enable_UnstableSources == true)
+											{
+												echo "Searching for <span>stable</span> and <span>unstable</span> versions";
+											}
+											else
+											{
+												echo "Searching only for <span>stable</span> versions.";
+											}
+									 	?>
+									</td>
+								</tr>
+								<tr>
+									<td><b>current stable:</b></td>
+									<td><div id="curStable01"><i>please run the check</i></div></td>
+									<td><div id="curStable02"><i>&nbsp;</i></div></td>
+								</tr>
+								<tr>
+									<td><b>current unstable:</b></td>
+									<td><div id="curUnstable01"><i>please run the check</i></div></td>
+									<td><div id="curUnstable02"><i>&nbsp;</i></div></td>
+									<td style="width: 30%">&nbsp;</td>
+								</tr>
+							</table>
+						</form>
 
-				<!-- VERSION -->
-			<h2><a name="version" title="the version-section">version</a></h2>
-			<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-				<table style="width: 100%">									
-					<tr>
-						<td><b>build:</b></td>
-						<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
-					<tr>
-						<td><b>milestone:</b></td>
-						<td><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
-					</tr>
-					<tr>
-						<td colspan="3">&nbsp;</td>
-					</tr>
-					<tr>
-						<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
-						<td>
-							<?php 
-								if($s_enable_UnstableSources == true)
-								{
-									echo "Searching for <span>stable</span> and <span>unstable</span> versions";
-								}
-								else
-								{
-									echo "Searching only for <span>stable</span> versions.";
-								}
-						 	?>
-						</td>
-					</tr>
-					<tr>
-						<td><b>current stable:</b></td>
-						<td><div id="curStable01"><i>please run the check</i></div></td>
-						<td><div id="curStable02"><i>&nbsp;</i></div></td>
-					</tr>
-					<tr>
-						<td><b>current unstable:</b></td>
-						<td><div id="curUnstable01"><i>please run the check</i></div></td>
-						<td><div id="curUnstable02"><i>&nbsp;</i></div></td>
-						<td style="width: 30%">&nbsp;</td>
-					</tr>
-				</table>
-			</form>
+						<!-- SPACER -->
+						<div class="spacer">&nbsp;</div>
 
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
+						<!-- CHANGELOG-->
+						<b>changelog</b>
+						<textarea name="changes" style="width:100%" rows=20 disabled>
+						<?=file_get_contents ('doc/CHANGELOG.txt');?>					
+						</textarea>
+					</div>
 
-			<!-- CHANGELOG-->
-			<b>changelog</b>
-			<textarea name="changes" style="width:100%" rows=20 disabled>
-			<?=file_get_contents ('doc/CHANGELOG.txt');?>					
-			</textarea>
-
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
-
-			<!-- NOTES -->
-			<h2><a name="notes" title="the notes-section">notes</a></h2>
-			<?php
-				// User: amount of all notes 
-				$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
-				while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
-				{
-					echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
-				}
-
-
-				// get notes count per user  and display them in a table
-				echo '<table style="width: 20%">';
-				echo "<tr><th>notes</td><th>creator</td></tr>";
-
-						$whatArray = array();			// define arrays for our flot pie graph
-						$howMuchArray = array();
-
-						$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
-						while($row = mysql_fetch_array($result))   // fill datatable
-						{
-							echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';		// fill table
-
-							array_push($whatArray, $row[0]);								// fill array for graph
-							array_push($howMuchArray, $row[1]);
-						}
-					?>
-			</table>
-
-			<!-- placeholder for flot pie-chart -->
-			<div id="placeholder" style="height:200px;"></div>
-
-			<!-- generate our flot pie chart -->
-			<script type="text/javascript">
-				arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
-				arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
-
-				var data = [];
-				var series = 10;
-
-				for( var i = 0; i<series; i++)
-				{
-					data[i] = { 
-						label: arr01[i],
-						data: parseFloat(arr02[i])
-					}
-				}
-
-				// PLOT
-				$.plot($("#placeholder"), data, {
-				    series: {
-				        pie: {
-				            show: true,
-				            radius: 1,
-				            label: {
-				                show: true,
-				                radius: 1,
-				                formatter: function(label, series) {
-				                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
-				                },
-				                background: {
-				                    opacity: 0.8,
-				                    color: '#444'
-				                }
-				            }
-				        }
-				    },
-				    legend: {
-				        show: false
-				    }
-				});
-				</script>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<!-- USERS -->
-				<h2><a name="users" title="the users-section">users</a></h2>
-				
-				<!-- datatables showing our users -->
-				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
-					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
-					<tbody>
-					<?php
-							$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note, failed_logins_in_a_row FROM m_users ORDER by id "); // m_log
-							while($row = mysql_fetch_array($result))   // fill datatable
+					<div id="tabs-3">
+						<?php
+							// User: amount of all notes 
+							$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
+							while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
 							{
-								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[12].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
+								echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
 							}
-					?>
-					</tbody>
-					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
-				</table>
 
-				<!-- DELETE USER -->
-				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-				<br><br>
-				<b>Delete existing account</b><br>	
-				<table style="width: 100%">
-					<tr>
-						<td width='30%'>Select a user:</td> 
-						<td>
-							<select name="userDeleteSelector">
+
+							// get notes count per user  and display them in a table
+							echo '<table style="width: 20%">';
+							echo "<tr><th>notes</td><th>creator</td></tr>";
+
+									$whatArray = array();			// define arrays for our flot pie graph
+									$howMuchArray = array();
+
+									$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
+									while($row = mysql_fetch_array($result))   // fill datatable
+									{
+										echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';		// fill table
+
+										array_push($whatArray, $row[0]);								// fill array for graph
+										array_push($howMuchArray, $row[1]);
+									}
+								?>
+						</table>
+
+						<!-- placeholder for flot pie-chart -->
+						<div id="placeholder" style="height:200px;"></div>
+
+						<!-- generate our flot pie chart -->
+						<script type="text/javascript">
+							arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
+							arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
+
+							var data = [];
+							var series = 10;
+
+							for( var i = 0; i<series; i++)
+							{
+								data[i] = { 
+									label: arr01[i],
+									data: parseFloat(arr02[i])
+								}
+							}
+
+							// PLOT
+							$.plot($("#placeholder"), data, {
+							    series: {
+							        pie: {
+							            show: true,
+							            radius: 1,
+							            label: {
+							                show: true,
+							                radius: 1,
+							                formatter: function(label, series) {
+							                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+							                },
+							                background: {
+							                    opacity: 0.8,
+							                    color: '#444'
+							                }
+							            }
+							        }
+							    },
+							    legend: {
+							        show: false
+							    }
+							});
+							</script>
+					</div>
+
+					<div id="tabs-4">
+						<!-- datatables showing our users -->
+						<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
+							<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
+							<tbody>
 							<?php
-							$result = mysql_query("SELECT id, username  FROM m_users ORDER by id ");
-							while($row = mysql_fetch_array($result))   // fill user-select box
-							{
-								//echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
-								echo '<option value="'.$row[0].'">'.$row[1].'</option>';
-							}
+									$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note, failed_logins_in_a_row FROM m_users ORDER by id "); // m_log
+									while($row = mysql_fetch_array($result))   // fill datatable
+									{
+										echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[12].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
+									}
 							?>
-				</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Enter CONFIRM (uppercase)</td> 
-						<td><input type="text" name="confirmDeleteUser" placeholder="no"></td>
-					</tr>
-					<tr>
-						<td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td> 
-						<td><button type="submit" name="doDeleteUser">Delete</button> </td>
-					</tr>
-				</table>
-				</form>
+							</tbody>
+							<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
+						</table>
 
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<!-- INVITES -->
-				<h2><a name="invites" title="the invites-section">invites</a></h2>
-					<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
+						<!-- DELETE USER -->
+						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+						<br><br>
+						<b>Delete existing account</b><br>	
 						<table style="width: 100%">
 							<tr>
-								<td width='30%'>Username:</td> 
-								<td><input type="text" name="newUsername" placeholder="Required - Insert new username" required="required" /></td>
+								<td width='30%'>Select a user:</td> 
+								<td>
+									<select name="userDeleteSelector">
+									<?php
+									$result = mysql_query("SELECT id, username  FROM m_users ORDER by id ");
+									while($row = mysql_fetch_array($result))   // fill user-select box
+									{
+										//echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
+										echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+									}
+									?>
+						</select>
+								</td>
 							</tr>
 							<tr>
-								<td>Mail:</td> 
-								<td><input type="email" name="newUserMail" placeholder="Required - Insert email" required="required" /></td>
+								<td>Enter CONFIRM (uppercase)</td> 
+								<td><input type="text" name="confirmDeleteUser" placeholder="no"></td>
 							</tr>
 							<tr>
-								<td>Password:</td> 
-								<td><input type="password" name="newPassword1" placeholder="Required - Please enter the new password" required="required" /></td>
-							</tr>
-							<tr>
-								<td>Repeat Password:</td> 
-								<td><input type="password" name="newPassword2" placeholder="Required - Please enter the new password again" required="required" /></td>
-							</tr>
-							<tr>
-								<td>Send notification mail to new user: (optional)</td> 
-								<td><input type="checkbox" name="sendNotification" value="sendNotification" /></td>
-							</tr>
-							<tr>
-								<td>Admin note about this invite or user: (optional)</td> 
-								<td><input type="text" name="newUserNote" placeholder="Optional - note about user" /></td>
-							</tr>
-							<tr>
-								<td><input type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided." /></td> 
-								<td>&nbsp;</td>
+								<td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td> 
+								<td><button type="submit" name="doDeleteUser">Delete</button> </td>
 							</tr>
 						</table>
-					</form>
-					
+						</form>
+					</div>
+
+					<div id="tabs-5">
+						<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
+							<table style="width: 100%">
+								<tr>
+									<td width='30%'>Username:</td> 
+									<td><input type="text" name="newUsername" placeholder="Required - Insert new username" required="required" /></td>
+								</tr>
+								<tr>
+									<td>Mail:</td> 
+									<td><input type="email" name="newUserMail" placeholder="Required - Insert email" required="required" /></td>
+								</tr>
+								<tr>
+									<td>Password:</td> 
+									<td><input type="password" name="newPassword1" placeholder="Required - Please enter the new password" required="required" /></td>
+								</tr>
+								<tr>
+									<td>Repeat Password:</td> 
+									<td><input type="password" name="newPassword2" placeholder="Required - Please enter the new password again" required="required" /></td>
+								</tr>
+								<tr>
+									<td>Send notification mail to new user: (optional)</td> 
+									<td><input type="checkbox" name="sendNotification" value="sendNotification" /></td>
+								</tr>
+								<tr>
+									<td>Admin note about this invite or user: (optional)</td> 
+									<td><input type="text" name="newUserNote" placeholder="Optional - note about user" /></td>
+								</tr>
+								<tr>
+									<td><input type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided." /></td> 
+									<td>&nbsp;</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+
+					<div id="tabs-6">
+						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
+							<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
+							<br><br>
+							<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
+							<br>
+							<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
+						</form>
+					</div>
+
+					<div id="tabs-7">
+						<!-- SHOW jquery version -->
+						jquery version
+						<div id="myResults"></div>
+						<script type="text/javascript">
+							$("#myResults").html(jQuery.fn.jquery);
+						</script>
+					</div>
+				</div>
+
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
-				<!-- MYSQL -->
-				<h2><a name="mysql" title="the mysql-section">mysql</a></h2>
-				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
-					<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
-					<br><br>
-					<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
-					<br>
-					<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
-				</form>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<!-- MYSQL -->
-				<h2><a name="misc" title="the misc-section">misc</a></h2>
-					<!-- SHOW jquery version -->
-					jquery version
-					<div id="myResults"></div>
-					<script type="text/javascript">
-						$("#myResults").html(jQuery.fn.jquery);
-					</script>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>	
+		
 			</div>
 		</div>
 

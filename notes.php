@@ -9,7 +9,7 @@
 		<!-- ################### -->
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
-		<!-- ckeditor - new -->
+		<!-- ckeditor -->
 		<script src="js/ckeditor-4.0.2_standard/ckeditor.js"></script>
 		<!-- main js for table etc -->
 		<script type="text/javascript">

@@ -217,49 +217,6 @@ span {
 }
 
 
-
-
-
-/* ############################################################ */ 
-/* secondNav aka toc for single php pages 						*/
-/* ############################################################ */
-#secondNav { 
-	font-size:1.25em; 
-}
-
-#secondNav ul { 
-	list-style-type: none;
-	margin:0; padding:0; 
-}
-
-#secondNav li { 
-	list-style: none; 
-	background-color: #4489c9;
-	margin-left: 10px;
-	padding-left: 10px; 
-	padding-right: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	border-radius: 15px;
-	box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.2);
-}
-
-#secondNav ul li { 
-	display: inline; 
-}
-
-#secondNav a{
-	color: white;
-}
-
-#secondNav a:hover{
-	
-}
-
-
-
-
-
 /* ############################################################ */ 
 /* lastAction info field on notes.php 							*/
 /* ############################################################ */

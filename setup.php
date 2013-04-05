@@ -1,6 +1,4 @@
-<?php
-	include 'inc/html_head.php';
-?>
+<?php include 'inc/html_head.php'; ?>
 
 	<!-- continue the header -->
 	<!-- ################### -->
@@ -16,30 +14,32 @@
 		
 		<div id="noteContentCo">
 
-		<!-- SPACER -->
-		<div id="spacer">&nbsp;</div>
+			<!-- SPACER -->
+			<div id="spacer">&nbsp;</div>
 
-		<!-- CREATE ADMIN -->
-		<h2><a name="core">setup</a></h2>
-		This script is supposed to be used to create your first monoto-user account.<br><b>Notice:</b>&nbsp;Please delete this file (setup.php) after having setup your monoto-server.<br><br><br>
+			<!-- CREATE ADMIN -->
+			<h2><a name="core">setup</a></h2>
+			This script is supposed to be used to create your first monoto-user account.<br><b>Notice:</b>&nbsp;Please delete this file (setup.php) after having setup your monoto-server.<br><br><br>
 
-		<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-		<table border="0">
-		<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" /></td></tr>
-		<tr><td>Mail:</td><td><input type="text" name="email" placeholder="Email" /></td></tr>
-		<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" /></td></tr>
-		<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" /></td></tr>
-		<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
-		</table>
-		</form>
+			<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<table border="0">
+					<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" /></td></tr>
+					<tr><td>Mail:</td><td><input type="text" name="email" placeholder="Email" /></td></tr>
+					<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" /></td></tr>
+					<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" /></td></tr>
+					<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
+				</table>
+			</form>
 
-		<!-- SPACER -->
-		<div id="spacer">&nbsp;</div>
+			<!-- SPACER -->
+			<div id="spacer">&nbsp;</div>
 		</div>
-		</div>
-		<!-- FOOTER -->
-		<?php include 'inc/footer.php'; ?>
-	</body>
+	</div>
+
+	<!-- FOOTER -->
+	<?php include 'inc/footer.php'; ?>
+
+</body>
 </html>
 
 

@@ -10,7 +10,6 @@
 ?>
 		<!-- continue the header -->
 		<!-- ################### -->
-		<!-- CSS -->
 
 		<!-- fade in on pageload via jquery -->
 		<script type="text/javascript" language="javascript">
