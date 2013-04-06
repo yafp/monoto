@@ -52,9 +52,7 @@
 			<?php include 'inc/header.php'; ?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-				
 				<?php include ('conf/config.php'); ?>
-
 				<h2>my monoto</h2>
 				<div id="tabs">
 					<ul>
@@ -66,8 +64,8 @@
 						<li><a href="#tabs-6">eraser</a></li>
 					</ul>
 
+					<!-- PROFILE -->
 					<div id="tabs-1">
-						<!-- PROFILE -->
 						<table style="width: 100%">
 							<tr>
 								<td style="width:25%" colspan="2"><img src="images/icons/user-14.png" alt="dummy user icon" title="Dummy user-profile-image"></td>
@@ -142,7 +140,8 @@
 							</tr>
 						</table>
 					</div>
-
+					
+					<!-- STATS -->
 					<div id="tabs-2">
 						<?php
 							connectToDB();
@@ -152,6 +151,8 @@
 							$result = mysql_query("SELECT count(*) FROM m_notes WHERE owner='".$owner."' "); 					// run the mysql query
 							while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
 							{
+									echo "Some facts about your notes:<br><br>";
+
 									// If current User < 1 note - is it worth displaying the stats at all?
 									if($row[0] == 0)
 									{
@@ -336,9 +337,10 @@
 					?>
 					</div>
 
+					<!-- LOGS -->
 					<div id="tabs-3">
 						<table style="width:100%">
-						<thead><tr><th style="float:left" style="width:20%">event</th><th style="float:left" style="width:60%">description</th><th style="float:left" style="width:20%">count</th></tr></thead>
+						<thead><tr><th style="width:20%">event</th><th style="width:60%">description</th><th style="width:20%">count</th></tr></thead>
 						<tbody>
 							<tr>
 								<td>create</td>
@@ -474,8 +476,10 @@
 
 					</div>
 
+					<!-- IMPORTER -->
 					<div id="tabs-4">
 						<!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
+						<p>You can import plain-text files. Select a folder and press the 'Import' button.</p>
 						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 							<input type="file" name="file[]" multiple id="file[]" /><br>
 							<input type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." />
@@ -483,27 +487,27 @@
 						</form>
 					</div>
 
+					<!-- EXPORTER -->
 					<div id="tabs-5">
+						<p>You can export your notes in .csv format. Press the 'Export' button.</p>
 						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<input type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" />
 						</form>
 					</div>
 
+					<!-- ERASER -->
 					<div id="tabs-6">
+						<p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
 						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<input type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" title="Deletes all notes from your account. Be careful with that" /><br>
 							<input type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" title="Deletes all log events from your account. Be careful with that too" />
 						</form>
 					</div>
-
-
 				</div>
-
+				<!-- ENDE TABS -->
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
-				
 			</div>
 		</div>
 		

@@ -2,15 +2,10 @@
  * General page setup
  */
 
-
 /* 
-core-colors 
-############
-#4489c9				blau on both
-
-page 01:
-########
-background-color: #EBEBEB;
+	core-colors 
+	############
+	#4489c9				core-blue
 
 */
 
@@ -110,16 +105,18 @@ body{
 #dt_example a {
 	color: #4489c9;	
 	text-decoration: none;
-	padding-right: 1px;
-	padding-left: 1px;
+	padding-right: 5px;
+	padding-left: 5px;
 }
 
 #dt_example a:hover {
 	text-decoration: underline;
+	/*
 	padding-right: 1px;
 	padding-left: 1px;
 	padding-top: 2px;
 	padding-bottom: 2px;
+	*/
 }
 
 /* LISTS */
@@ -149,12 +146,6 @@ blockquote {
 visibility: true;
 } 
 
-/* SPACER class */
-.spacer {
-  	height: 40px;
-	clear: both;
-}
-
 span { 
 	color: white;
 	background-color: #4489c9;
@@ -167,21 +158,23 @@ span {
 	/* opacity:0.7; */
 }
 
-
 #myInputTextField {
     background: white url(../images/icons/search.jpg) right no-repeat;
     padding-right: 16px;
 }
 
-
+/* SPACER class */
+.spacer {
+  	height: 40px;
+	clear: both;
+}
 
 
 
 /* ############################################################ */ 
 /* MAIN-NAVIGATION													*/
 /* ############################################################ */ 
-#nav, #nav ul
-{
+#nav, #nav ul {
      margin:0;
      padding:0;
      list-style-type:none;
@@ -190,8 +183,7 @@ span {
      line-height:1.5em;
  }
 
- #nav a:link, #nav a:active, #nav a:visited
- {
+#nav a:link, #nav a:active, #nav a:visited {
     display:block;
     padding:0px 5px;
     border:0px solid #333;
@@ -204,14 +196,12 @@ span {
     padding-bottom: 1px;
 }
 
-#nav a:hover
-{
+#nav a:hover {
     background-color:#fff;
     color:#333;
 }
 
-#nav li
-{
+#nav li {
     float:left;
     position:relative;
 }
@@ -220,8 +210,7 @@ span {
 /* ############################################################ */ 
 /* lastAction info field on notes.php 							*/
 /* ############################################################ */
-#lastAction  
-{
+#lastAction  {
 	font: 10px normal helvetica, sans-serif;
 	color: grey;
 	text-align: center;
@@ -234,9 +223,9 @@ span {
 /* alertify														*/
 /* ############################################################ */
 .alertify-logs {
-        position: fixed; 
-        z-index: 5000;
-        bottom: 10px;
-        right: 10px;
-        width: 300px;
-    }
+    position: fixed; 
+    z-index: 5000;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+}
