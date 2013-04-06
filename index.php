@@ -36,8 +36,6 @@
 					<table style="width: 100%">
 						<tr><td style="text-align: center;">This monoto installation is currently in maintenance mode. User-logins are disabled. Shit happens.</td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td style="text-align: center;"><img src="images/icons/firefox1.png" width="70" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
-						<tr><td>&nbsp;</td></tr>
 					</table>
 			<?php
 				}
@@ -53,7 +51,6 @@
 						<tr><td style="text-align: center;"><input type="password" name="password" placeholder="Password" required="required" /></td></tr>
 						<tr><td style="text-align: center;"><input type="submit" value="Login" name="doLogin" /></td></tr>
 						<tr><td>&nbsp;</td></tr>
-						<tr><td style="text-align: center;"><img src="images/icons/firefox1.png" width="70" title="monoto is only tested with Mozillas Firefox so far. If you realize issues feel free to report them via github." onmouseover="this.src='images/icons/firefox2.png'" onmouseout="this.src='images/icons/firefox1.png'"></td></tr>
 					</table>
 					</div>
 				</form>
