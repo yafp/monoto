@@ -342,7 +342,15 @@
 	<body id="dt_example" class="ex_highlight_row">
 		<div id="container">
 			<!-- HEADER & NAV -->
-			<?php include 'inc/header.php'; ?>
+			<?php 
+				include 'inc/header.php'; 
+
+				/*
+				$temp = get_cfg_var('max_execution_time'); 
+				echo "temp server-side timeout value;".$temp;
+				*/
+
+			?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<div id="lastAction"></div>		<!-- div to show last action - strings are loaded via js function -->

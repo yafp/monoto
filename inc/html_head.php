@@ -21,7 +21,7 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<script type='text/javascript' src='js/LAB.js'></script>
 
-		<!-- loading the other scripts via LAB.js  ... without loading-blocking so far -->
+		<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 		<script>
 		   $LAB
 		   .script("js/alertify.js-shim-0.3.8/alertify.min.js")	// alertify for notifications etc
@@ -32,3 +32,27 @@
 		</script>
 	
 		<!-- closing </head> inside each single php file to be able to load other js files inside the head -->
+
+		
+		<!-- SESSION TIMEOUT WARNING -->
+		<script type="text/javascript">
+			var lefttime = "<?php echo get_cfg_var('max_execution_time');  ?>"; /* get server-sided php timeout value in minutes */
+			var interval;
+			interval = setInterval('change()',60000);
+
+			function change()
+			{
+			   lefttime--;
+			   if(lefttime<=0)
+			   	{		
+			   		window.location = "logout.php"
+			   	}
+			   	else
+			   	{
+			   		if(lefttime<=1) 
+				   	{
+				   		alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
+				   	}
+			   	}
+			}
+		</script>
