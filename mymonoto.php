@@ -26,6 +26,15 @@
 
 			$(document).ready(function() 
 			{
+				// alert
+				// information
+				// error
+				// warning
+				// notification
+				// success
+				//
+				var n = noty({text: 'Loaded my monoto', type: 'notification'});
+
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 

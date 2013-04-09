@@ -19,7 +19,7 @@ Milestone 3 - Pimping the workflow - Build NOT YET DEFINED
 - admin: added optimize mysql table function
 - admin: added truncate table functions
 - removed jquery tools
-- using alertify.js for alerts 
+- using noty.js for alerts 
 - updated jquery version to 1.9.1
 - updated datatables to 1.9.3
 - added lab.js for js performance 

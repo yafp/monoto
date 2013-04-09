@@ -149,16 +149,6 @@ if ( isset($_POST["doLogin"]) )
 		{	
 	    	$_SESSION['valid'] = 1;
 
-
-
-
-	    	$_SESSION['lastAction'] = time(); // taking now logged in time
-			$_SESSION['expire'] = get_cfg_var('max_execution_time'); 
-
-
-
-
-
 			ini_set('session.gc_maxlifetime', '3600');							// sec
 
 	    	// if user is admin - add the info to our session 

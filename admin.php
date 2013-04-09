@@ -27,6 +27,15 @@
 	 
 			$(document).ready(function() 
 			{
+				// alert
+				// information
+				// error
+				// warning
+				// notification
+				// success
+				//
+				var n = noty({text: 'Loaded admin', type: 'notification'});
+
 			    /* Add a click handler to the rows - this could be used as a callback */
 			    $("#example tbody tr").click( function( e ) {
 			        if ( $(this).hasClass('row_selected') ) {

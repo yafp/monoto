@@ -205,27 +205,3 @@ span {
     float:left;
     position:relative;
 }
-
-
-/* ############################################################ */ 
-/* lastAction info field on notes.php 							*/
-/* ############################################################ */
-#lastAction  {
-	font: 10px normal helvetica, sans-serif;
-	color: grey;
-	text-align: center;
-}
-
-
-
-
-/* ############################################################ */ 
-/* alertify														*/
-/* ############################################################ */
-.alertify-logs {
-    position: fixed; 
-    z-index: 5000;
-    bottom: 10px;
-    right: 10px;
-    width: 300px;
-}

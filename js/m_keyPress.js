@@ -28,6 +28,8 @@ function KeyCheck(e)
 				$(this.nTr).removeClass('row_selected');
 			});
 
+			var n = noty({text: 'Unselected current note', type: 'notification'});
+
 			// refresh the gui
 			document.activeElement.value = "";								// reset newNoteTitle
 			document.activeElement.blur(); 									// lose focus from newNotetitle

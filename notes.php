@@ -39,6 +39,17 @@
 				});
 				// END CKEDITOR
 
+
+				// alert
+				// information
+				// error
+				// warning
+				// notification
+				// success
+				//
+				var n = noty({text: 'Loaded all notes', type: 'notification'});
+
+
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
 				{
@@ -132,6 +143,8 @@
 					document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
 					//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
 					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
+
+					var n = noty({text: 'Loaded '+sData[2]+' into editor', type: 'notification'});
 				});
 			} );
 
@@ -213,12 +226,10 @@
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				alert("Note saves with title: "+modifiedNoteTitle+".");
 				reloadNote();
-				alertify.success("Note saved");
-				updateLastActionInformation("note saved");								// show last action
 			}
 			else 																		// should never happen as the save button is not always enabled.
 			{  
-				alertify.error("Error: Missing ID reference");
+				var n = noty({text: 'Error: Missing ID reference', type: 'error'});
 			}
 		}
 
@@ -246,9 +257,7 @@
 						{
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							alert("Note with ID: "+deleteID+" deleted");
-							alertify.success("Note deleted");
 							reloadNote();
-							updateLastActionInformation("note deleted");								// show last action
 						}
 				<?php
 					}
@@ -257,15 +266,14 @@
 				?>
 						$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 						alert("Note with ID: "+deleteID+" deleted");
-						alertify.success("Note deleted");
 						reloadNote();
-						updateLastActionInformation("note deleted");								// show last action
 				<?php
 					}
 				?>
 			}
 			else // should never happen as the delete button is disabled if no note is selected
 			{ 
+				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
 			}	
 		}
 
@@ -289,13 +297,13 @@
 		  		}
 		  		
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
-				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
-				alertify.success("Note created");
-				updateLastActionInformation("note created");								// show last action
+				//alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
+				//var n = noty({text: 'Note created'});
+				var n = noty({text: 'Note created', type: 'success'});
 		  	}
 			else
 			{ 
-				alertify.error("Error: No note title defined");
+				var n = noty({text: 'Error: No note title', type: 'error'});
 			}
 		}
 
@@ -307,7 +315,6 @@
 		{
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
-    		updateLastActionInformation("notes reloaded");								// show last action
 		}
 
 
@@ -327,15 +334,6 @@
 			document.myform.noteTitle.disabled=true;			// disable note title field
 			$('#editor1').val('').blur();						// empty cleditor textarea
 		}
-
-
-		//
-		// UPDATE LAST ACTION INFO
-		//
-		function updateLastActionInformation(lastActionText)
-		{
-			document.getElementById("lastAction").innerHTML = '<span>'+lastActionText+'</span>';
-		}
 		</script>
 	</head>
 
@@ -353,7 +351,6 @@
 			?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-				<div id="lastAction"></div>		<!-- div to show last action - strings are loaded via js function -->
 				<h2 title="the monoto-notes page">notes</h2>
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">

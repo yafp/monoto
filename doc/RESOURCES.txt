@@ -5,7 +5,7 @@ Used technologies:
 --- http://jquery.com/												// anything to say?
 --- http://datatables.net/											// Almost perfect tables
 --- http://ckeditor.com/											// Editor
---- http://fabien-d.github.com/alertify.js/							// alerts, notifications etc
+--- http://needim.github.io/noty/									// notifications
 --- http://code.google.com/p/flot/									// Generating charts
 --- digitalspaghetti.password										// Password-Strength
 --- jPopUp http://www.jquerypopup.com								// PopUp - used for keyboard-info in header

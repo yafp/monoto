@@ -9,10 +9,6 @@
 		<!-- general -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="js/alertify.js-shim-0.3.8/themes/alertify.default.css" />
-		<!--
-		<link rel="stylesheet" href="js/alertify.js-shim-0.3.8/themes/alertify.bootstrap.css" />
-		-->
 				
 		<!-- JS which apply to all pages -->
 		<!-- ########################### -->
@@ -21,10 +17,45 @@
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<script type='text/javascript' src='js/LAB.js'></script>
 
+		<script type='text/javascript' src='js/noty/jquery.noty.js'></script>
+		<script type="text/javascript" src="js/noty/layouts/top.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/topCenter.js"></script>
+		<!-- You can add more layouts if you want -->
+		<script type="text/javascript" src="js/noty/themes/default.js"></script>
+		<!-- init noty -->
+		<script>
+		$.noty.defaults = {
+		  layout: 'topCenter',
+		  theme: 'defaultTheme',
+		  type: 'alert',
+		  text: '',
+		  dismissQueue: true, // If you want to use queue feature set this true
+		  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+		  animation: {
+		    open: {height: 'toggle'},
+		    close: {height: 'toggle'},
+		    easing: 'swing',
+		    speed: 500 // opening & closing animation speed
+		  },
+		  timeout: 5000, // delay for closing event. Set false for sticky notifications
+		  force: false, // adds notification to the beginning of queue when set to true
+		  modal: false,
+		  closeWith: ['click'], // ['click', 'button', 'hover']
+		  callback: {
+		    onShow: function() {},
+		    afterShow: function() {},
+		    onClose: function() {},
+		    afterClose: function() {}
+		  },
+		  buttons: false // an array of buttons
+		};
+		</script>
+
+
+
 		<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 		<script>
 		   $LAB
-		   .script("js/alertify.js-shim-0.3.8/alertify.min.js")	// alertify for notifications etc
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
 		   .script("js/modal.popup.js")							// 3rd: keyboard shortcuts popup
@@ -33,26 +64,34 @@
 	
 		<!-- closing </head> inside each single php file to be able to load other js files inside the head -->
 
-		
-		<!-- SESSION TIMEOUT WARNING -->
-		<script type="text/javascript">
+		<?php
+		if($_SESSION['valid'] == 1)				// check if the user-session is valid or not
+		{
+		?>
+			<!-- SESSION TIMEOUT WARNING -->
+			<script type="text/javascript">
 			var lefttime = "<?php echo get_cfg_var('max_execution_time');  ?>"; /* get server-sided php timeout value in minutes */
 			var interval;
 			interval = setInterval('change()',60000);
 
 			function change()
 			{
-			   lefttime--;
-			   if(lefttime<=0)
+				lefttime--;
+				//alert(lefttime);
+			   	if(lefttime<=0)
 			   	{		
 			   		window.location = "logout.php"
 			   	}
 			   	else
 			   	{
-			   		if(lefttime<=1) 
+			   		if(lefttime == 2) 
 				   	{
 				   		alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
 				   	}
 			   	}
 			}
-		</script>
+			</script>
+		<?php
+		}
+		?>
+		
