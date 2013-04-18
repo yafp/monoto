@@ -28,12 +28,13 @@ function KeyCheck(e)
 				$(this.nTr).removeClass('row_selected');
 			});
 
-			var n = noty({text: 'Unselected current note', type: 'notification'});
+			var n = noty({text: 'Pressed ESC', type: 'notification'});
 
 			// refresh the gui
 			document.activeElement.value = "";								// reset newNoteTitle
 			document.activeElement.blur(); 									// lose focus from newNotetitle
 			document.getElementById('myInputTextField').focus();			// set focus to search
+			document.activeElement.value = "";
 			enableCreateButton();											// run enableCreateButton from notes.php to reload buttons status etc. 
 			document.myform.createNoteButton.disabled=true;					// disable create new note button afterwards to end up with a clean interface
 			// empty the editor

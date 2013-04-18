@@ -161,6 +161,7 @@ span {
 #myInputTextField {
     background: white url(../images/icons/search.jpg) right no-repeat;
     padding-right: 16px;
+    width: 100%;
 }
 
 /* SPACER class */

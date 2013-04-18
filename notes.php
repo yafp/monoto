@@ -56,7 +56,7 @@
 				// notification
 				// success
 				//
-				var n = noty({text: 'Loaded all notes', type: 'notification'});
+				var n = noty({text: 'All notes loaded.', type: 'notification'});
 
 
 				/* Add a click handler to the rows - this could be used as a callback */
@@ -153,7 +153,7 @@
 					//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
 					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 
-					var n = noty({text: 'Loaded '+sData[2]+' into editor', type: 'notification'});
+					var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
 				});
 			} );
 
@@ -363,34 +363,40 @@
 			?>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-				<h2 title="the monoto-notes page">notes</h2>
+				<h2 title="the monoto-notes page">search</h2>
+				<input type="search" id="myInputTextField" placeholder="enter search term here. you can search for multiple terms for sure. pressing ESC twice erases your current search. ARROW DOWN jumps to the first note in the notes list." style="width:99%;">
+
+
+				<h2 title="the monoto-notes page">note</h2>
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td width="5%"><input type="text"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" /></td>
-							<td><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
+							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
 						</tr>	
 						<!-- NOTE CONTENT using CKeditor -->
 						<tr>
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
+								<input type="hidden"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" />
 								<input type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
 								<input type="button" style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled">
 							</td>
 						</tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" style="width:100%"  placeholder="Enter title for your new note and press the 'create' button."  id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
+							<td colspan="2"><input type="text" style="width:100%"  placeholder="enter title for your new note and press the 'create' button. you can rename selected notes using this field as well."  id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
 							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"></td>
 						</tr>
 					</table>
 				</form>
 
 				<!--  CUSTOM SEARCH FIELD -->
-				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">					
-
+				<!--
+				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">	
+				-->				
+				<h2 title="the monoto-notes page">notes list</h2>
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>

@@ -149,6 +149,8 @@ if ( isset($_POST["doLogin"]) )
 		{	
 	    	$_SESSION['valid'] = 1;
 
+	    	echo '<script language=javascript>$.cookie("lastAction", "Logged in.");</script>';	// store last Action in cookie
+
 	    	// if user is admin - add the info to our session 
 			$query = "SELECT is_admin FROM m_users WHERE username = '$username';";
 			$result = mysql_query($query);
