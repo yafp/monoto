@@ -11,6 +11,7 @@
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
 		<!-- ckeditor -->
 		<script src="js/ckeditor-4.0.2_standard/ckeditor.js"></script>
+
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
@@ -19,6 +20,14 @@
 
 			$(document).ready(function() 
 			{
+				// is something written in the cookie as lastAction?
+				// if yes - show it as a noty notification & reset the value 
+				if($.cookie("lastAction") != "")
+				{
+					var n = noty({text: $.cookie("lastAction"), type: 'notification'});
+					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
+				}
+
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
 					//uiColor: '#4489c9',
@@ -225,6 +234,7 @@
 			{
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				alert("Note saves with title: "+modifiedNoteTitle+".");
+				$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");	// store last Action in cookie
 				reloadNote();
 			}
 			else 																		// should never happen as the save button is not always enabled.
@@ -257,6 +267,7 @@
 						{
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							alert("Note with ID: "+deleteID+" deleted");
+							$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
 							reloadNote();
 						}
 				<?php
@@ -266,6 +277,7 @@
 				?>
 						$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 						alert("Note with ID: "+deleteID+" deleted");
+						$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
 						reloadNote();
 				<?php
 					}
@@ -297,8 +309,8 @@
 		  		}
 		  		
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
-				//alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
-				//var n = noty({text: 'Note created'});
+				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
+				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
 				var n = noty({text: 'Note created', type: 'success'});
 		  	}
 			else

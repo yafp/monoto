@@ -13,6 +13,8 @@
 		<!-- JS which apply to all pages -->
 		<!-- ########################### -->
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		<script type='text/javascript' src='js/LAB.js'></script>

@@ -149,8 +149,6 @@ if ( isset($_POST["doLogin"]) )
 		{	
 	    	$_SESSION['valid'] = 1;
 
-			ini_set('session.gc_maxlifetime', '3600');							// sec
-
 	    	// if user is admin - add the info to our session 
 			$query = "SELECT is_admin FROM m_users WHERE username = '$username';";
 			$result = mysql_query($query);
