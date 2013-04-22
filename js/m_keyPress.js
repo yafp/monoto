@@ -28,7 +28,7 @@ function KeyCheck(e)
 				$(this.nTr).removeClass('row_selected');
 			});
 
-			var n = noty({text: 'Pressed ESC', type: 'notification'});
+			var n = noty({text: 'Resetted notes interface', type: 'notification'});
 
 			// refresh the gui
 			document.activeElement.value = "";								// reset newNoteTitle
