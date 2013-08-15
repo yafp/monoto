@@ -171,6 +171,10 @@ span {
 }
 
 
+#dt_example #randomImage a {
+	background-color: #EBEBEB;
+}
+
 
 /* ############################################################ */ 
 /* MAIN-NAVIGATION													*/

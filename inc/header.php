@@ -14,6 +14,13 @@
 		{	
 			echo '<li><a accesskey="d" href="admin.php">a<b>d</b>min</a></li>';		
 		}
+
+		if($s_enable_random_image == true) // really logout question or not
+		{
+			echo '<ul id="nav"><li><a accesskey="r" href="random.php"><b>r</b>andom image</a></li>';
+		}
+
+
 		if($s_enable_really_logout == false) // really logout question or not
 		{
 			echo '<li><a accesskey="l" href="logout.php"> ...<b>l</b>ogout <b>'.$owner.'</b></a></li></ul>';

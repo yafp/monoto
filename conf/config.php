@@ -22,6 +22,8 @@
 	$s_enable_really_delete		= true;			// should there be a 'really delete' question before deleting notes?
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
 	$s_enable_user_icon			= true;				// enable user-icon in nav
+	$s_enable_random_image		= true;				// enable random image page
+	
 	$s_user_icon_path			= "images/icons/user-14.png";
 
 	// #################################################################################
@@ -31,6 +33,6 @@
 	$m_name						= "monoto";						// name of your notes system
 	$m_milestone				= "3";							// current milestone number
 	$m_milestone_title			= "pimping the workflow";		// current milestone name
-	$m_build					= "20130422.01";				// build-date and day's version
+	$m_build					= "20130815.01";				// build-date and day's version
 	$m_stable					= false;						// defined if that is a milestone release
 ?>
