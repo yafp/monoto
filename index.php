@@ -21,11 +21,19 @@
 
 	<body id="dt_example">
 		<div id="container">
+
+			<div id="newHead">
 			<!-- HEADER & NAV -->
 			<?php include 'inc/header.php'; ?>
 
+			</div> <!-- end of new head -->
+
 			<!-- CONTENT -->
 			<div id="noteContentCo">
+
+				<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
+			
 			<?php
 				include 'conf/config.php';	
 				if($s_enable_maintenance_mode == true)			// show maintenance mode
@@ -43,7 +51,6 @@
 				{
 			?>
 				<!-- LOGIN -->
-				<h2><a name="core">login</a></h2>
 				<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<div id="page_effect" style="display:none;"> <!-- blend in -->
 					<table style="width: 100%">
@@ -96,6 +103,7 @@ if ( isset($_POST["doLogin"]) )
 	if(mysql_num_rows($result) < 1)  										//no such user exists
 	{
 	    header('Location: redirect.php');
+	    echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
 	}
 
 	// user exists
@@ -144,6 +152,9 @@ if ( isset($_POST["doLogin"]) )
 			$result = mysql_query($sql);
 
 		    header('Location: redirect.php');									// redirect user 
+		    echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
+
+
 		}
 		else //login successful
 		{	
@@ -201,6 +212,7 @@ if ( isset($_POST["doLogin"]) )
 	} 
 	else 		// login is not possible anymore - admin must remove the login lock
 	{
+		echo '<script type="text/javascript">var n = noty({text: "Account is locked.", type: "error"});</script>';
 		echo("<script language=javascript>alert('This account is locked, please contact your monoto-admin.');</script>");
 	}
 }

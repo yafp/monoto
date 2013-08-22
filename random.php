@@ -13,12 +13,15 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
+			<div id="newHead">
 			<?php include 'inc/header.php'; ?>
+			</div>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<?php include ('conf/config.php'); ?>
-				<h2>random image</h2>
-				
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
 				<?php
 						$imagesDir = 'images/random_logout/';
 						$images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
@@ -28,7 +31,11 @@
 				<div id="randomImage">
 					<a href="random.php">
 						<img src="images/icons/reload_icon.png" width="50" align="right">
+						<center>
 						<img src="<?php echo $logoutImage; ?>">
+						<br>
+						<a href="<?php echo $logoutImage; ?>">Download</a>
+						</center>
 					</a>
 				</div>
 
@@ -41,7 +48,6 @@
 		<?php include 'inc/footer.php'; ?>
 	</body>
 </html>
-
 
 <?php
 	}

@@ -34,7 +34,9 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
+			<div id="newHead">
 			<?php include 'inc/header.php'; ?>
+		</div>
 			<div id="noteContentCo">
 				
 				<!-- SPACER -->

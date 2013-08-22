@@ -81,7 +81,7 @@ function KeyCheck(e)
 			// missing: we should do that only if a row in datatables is selected 
 			// if focus is not in new title & in search & in noteTitle
 			//if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "myInputTextField") && (document.activeElement.id != "noteTitle"))	
-			if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "noteTitle"))	
+			if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "noteTitle") && (document.activeElement.id != "myInputTextField"))	
 			{
 				deleteNote();								// execute delete function
 			}

@@ -9,7 +9,9 @@
 
 <body id="dt_example">
 	<div id="container">
+		<div id="newHead">
 		<?php include 'inc/header.php'; ?>
+	</div>
 		<div id="noteContentCo">
 			<!-- SPACER -->
 			<div id="spacer">&nbsp;</div>

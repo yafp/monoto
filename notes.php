@@ -56,6 +56,7 @@
 				// notification
 				// success
 				//
+				// BAUSTELLE
 				var n = noty({text: 'All notes loaded.', type: 'notification'});
 
 
@@ -86,7 +87,11 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-					"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+					//"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+					"sDom": '<"wrapper"lipt>, <l<t>p>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+
+
+
 					"oSearch": {"sSearch": ""}, 
 					"sRowSelect": "single",
 					"bLengthChange": false,
@@ -350,9 +355,18 @@
 	</head>
 
 	<body id="dt_example" class="ex_highlight_row">
+
+
+
 		<div id="container">
 			<!-- HEADER & NAV -->
+
+			<div id="newHead">
+				<!--
+				<input type="search" id="myInputTextField" placeholder="enter search term">
+			-->
 			<?php 
+
 				include 'inc/header.php'; 
 
 				/*
@@ -361,18 +375,32 @@
 				*/
 
 			?>
+
+			
+			<div id="newSearch">
+
+				<input type="search" id="myInputTextField" placeholder="enter search term" style="width:100%;">
+			</div>
+		
+			
+
+
+
+
+			</div> <!-- end of new head -->
+
+
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-				<h2 title="the monoto-notes page">search</h2>
-				<input type="search" id="myInputTextField" placeholder="enter search term here. you can search for multiple terms for sure. pressing ESC twice erases your current search. ARROW DOWN jumps to the first note in the notes list." style="width:99%;">
 
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
 
-				<h2 title="the monoto-notes page">note</h2>
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="Please select a note to see its title here. you can rename selected notes using this field as well." disabled style="width:100%; " /></td>
+							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="nothing selected" disabled style="width:100%; " /></td>
 							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
 						</tr>	
 						<!-- NOTE CONTENT using CKeditor -->
@@ -386,7 +414,7 @@
 						</tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" style="width:100%"  placeholder="enter title for your new note and press the 'create' button."  id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
+							<td colspan="2"><input type="text" style="width:100%"  placeholder="enter title for your new note"  id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
 							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"></td>
 						</tr>
 					</table>
@@ -395,8 +423,13 @@
 				<!--  CUSTOM SEARCH FIELD -->
 				<!--
 				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">	
-				-->				
-				<h2 title="the monoto-notes page">notes list</h2>
+				-->		
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+
+
+	
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
@@ -416,7 +449,9 @@
 						}
 					?>
 					</tbody>
+					<!--
 					<tfoot align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>
+				-->
 				</table>
 			</div>
 			<!-- SPACER -->

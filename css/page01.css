@@ -6,55 +6,86 @@
 	core-colors 
 	############
 	#4489c9				core-blue
+	#171717				grey (dark - for header)
 
 */
 
 body{
-	background-image:url('../images/patterns/low_contrast_linen.png');		
-	background-repeat:repeat;
+
 } 
 
-/* main background */
 #dt_example {
 	font: 12px/22px normal helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
 	color: #333;
-	background-color: #bdd4de;
+	background-color: #EBEBEB;
 }
 
 /* content block */
 #dt_example #container {
-	width: 96%;
-	margin: 20px auto;
+	width: 100%;
+	margin: 0px auto;
 	padding: 0;
-	border-radius: 20px;
-	border-color: #4489c9;
-	border-style:solid;
-	border-width:3px;
 	background-color: #EBEBEB;
+	/* background-color:white; */
 }
 
-/* header logo */
+
+
+
+
+/* 
+################################################
+#
+# HEADER-AREA
+#
+################################################ 
+*/
+
+#dt_example #newHead {
+	background-color: #171717;
+	/* background-color: yellow; */
+	height: 90px;
+	border-bottom: solid;
+	border-color: #4489c9;
+}
+
+#dt_example #neuNav {
+	/* background-color: #171717; */
+	float:right
+}
+
+#dt_example #newSearch {
+	margin: 0 auto;
+	width:30%;
+}
+
+#myInputTextField {
+    background: white url(../images/icons/search.jpg) right no-repeat;
+    margin-top: 35px; 
+}
+
 #dt_example #logo{
 	margin-right:1em;
 	opacity: 0.9;
 	width: 200px;
-	height: 98px;
-	float:right;
+	height: 82px;
+	float:left;
 	background-position:right;
 	background-image:url('../images/icons/monoto_logo01.png');
 	background-size: 100%;
 	background-repeat:no-repeat;
 }
 
-/* footer */
-#dt_example #footer {
-	font: 10px/22px normal helvetica, sans-serif;
-	margin: 20px auto 0 auto;
-	padding: 0;
-	color: #808080;
-}
+
+/* 
+################################################
+#
+# CONTENT-AREA
+#
+################################################ 
+*/
 
 #dt_example #noteContentCo {
 	margin-left: 1em;
@@ -158,11 +189,7 @@ span {
 	/* opacity:0.7; */
 }
 
-#myInputTextField {
-    background: white url(../images/icons/search.jpg) right no-repeat;
-    padding-right: 16px;
-    width: 100%;
-}
+
 
 /* SPACER class */
 .spacer {
@@ -174,6 +201,25 @@ span {
 #dt_example #randomImage a {
 	background-color: #EBEBEB;
 }
+
+
+/* 
+################################################
+#
+# FOOTER-AREA
+#
+################################################ 
+*/
+
+
+#dt_example #footer {
+	font: 10px/22px normal helvetica, sans-serif;
+	margin: 20px auto 0 auto;
+	padding: 0;
+	color: #808080;
+}
+
+
 
 
 /* ############################################################ */ 
@@ -194,7 +240,7 @@ span {
     border:0px solid #333;
     color:#fff;
     text-decoration:none;
-    background-color:#4489c9;
+    background-color:#171717;
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 10px;
@@ -209,4 +255,7 @@ span {
 #nav li {
     float:left;
     position:relative;
+
+    border-left: solid;
+	border-color: #4489c9;
 }

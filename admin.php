@@ -74,7 +74,9 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
+			<div id="newHead">
 			<?php include 'inc/header.php'; ?>
+			</div>
 
 			<!-- CONTENT -->
 			<div id="noteContentCo">
@@ -89,8 +91,9 @@
 						echo "<br><br><font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
 					}
 				?>
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
 
-				<h2>admin</h2>
 				<div id="tabs">
 					<ul>
 						<li><a href="#tabs-1">settings</a></li>

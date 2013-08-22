@@ -58,11 +58,16 @@
 	<body id="dt_example">
 		<div id="container">
 			<!-- HEADER & NAV -->
+			<div id="newHead">
 			<?php include 'inc/header.php'; ?>
+			</div>
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<?php include ('conf/config.php'); ?>
-				<h2>my monoto</h2>
+<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+
+
 				<div id="tabs">
 					<ul>
 						<li><a href="#tabs-1">profile</a></li>
