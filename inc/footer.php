@@ -1,7 +1,7 @@
 <!--  FOOTER -->
 <div id="footer" class="clear" style="text-align:center;">
 	<?php 
-		include 'conf/config.php';
+		include 'conf/build.php';
 
 		echo "<b>".$m_name."</b> - milestone: ".$m_milestone."  '<i>".$m_milestone_title."</i>' - build: ".$m_build." - status: "; 
 		if($m_stable == false)

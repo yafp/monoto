@@ -22,16 +22,13 @@
 	<body id="dt_example">
 		<div id="container">
 
-			<div id="newHead">
-			<!-- HEADER & NAV -->
-			<?php include 'inc/header.php'; ?>
-
+			<div id="newHead">		<!-- HEADER & NAV -->
+				<?php include 'inc/header.php'; ?>
 			</div> <!-- end of new head -->
 
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-
-				<!-- SPACER -->
+			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
 			
 			<?php
@@ -153,13 +150,10 @@ if ( isset($_POST["doLogin"]) )
 
 		    header('Location: redirect.php');									// redirect user 
 		    echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
-
-
 		}
 		else //login successful
 		{	
 	    	$_SESSION['valid'] = 1;
-
 	    	echo '<script language=javascript>$.cookie("lastAction", "Logged in.");</script>';	// store last Action in cookie
 
 	    	// if user is admin - add the info to our session 

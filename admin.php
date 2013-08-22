@@ -82,7 +82,8 @@
 			<div id="noteContentCo">
 
 				<?php
-					include 'conf/config.php';
+					include 'conf/config.php';	// db informations
+					include 'conf/build.php';	// version informations
 					include ('inc/db.php');		// connect to db
 					connectToDB();
 
@@ -384,8 +385,6 @@
 		header('Location: redirect.php');
 	}
    
-
-
 	include 'conf/config.php';
 
 	// UpdateCheck
@@ -399,8 +398,7 @@
 		// assume everything is good
 		$critical = FALSE;
 		$update = FALSE;
-
-		//$url = "https://raw.github.com/macfidelity/monoto/master/vStable.csv";
+		
 		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vStable.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);

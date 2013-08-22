@@ -38,10 +38,8 @@
 			<?php include 'inc/header.php'; ?>
 		</div>
 			<div id="noteContentCo">
-				
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
-
 				<!-- CORE SETTINGS -->
 				<h2><a name="core">logout</a></h2>
 
@@ -51,7 +49,7 @@
 					{
 						$logoutImage = "images/icons/logout.gif";
 					}
-					else // pick random from folder
+					else // or ...pick random from folder
 					{
 						$imagesDir = 'images/random_logout/';
 						$images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
@@ -63,7 +61,6 @@
 				
 				<!-- REDIRECT TO LOGIN -->
 				<?php header("refresh:10;url=index.php"); ?>
-				
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
 			</div>

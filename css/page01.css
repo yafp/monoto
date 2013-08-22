@@ -21,16 +21,13 @@ body{
 	color: #333;
 	background-color: #EBEBEB;
 }
-
 /* content block */
 #dt_example #container {
 	width: 100%;
 	margin: 0px auto;
 	padding: 0;
 	background-color: #EBEBEB;
-	/* background-color:white; */
 }
-
 
 
 
@@ -42,17 +39,14 @@ body{
 #
 ################################################ 
 */
-
 #dt_example #newHead {
 	background-color: #171717;
-	/* background-color: yellow; */
 	height: 90px;
 	border-bottom: solid;
 	border-color: #4489c9;
 }
 
 #dt_example #neuNav {
-	/* background-color: #171717; */
 	float:right
 }
 
@@ -86,7 +80,6 @@ body{
 #
 ################################################ 
 */
-
 #dt_example #noteContentCo {
 	margin-left: 1em;
 	margin-right:1em;
@@ -142,12 +135,6 @@ body{
 
 #dt_example a:hover {
 	text-decoration: underline;
-	/*
-	padding-right: 1px;
-	padding-left: 1px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	*/
 }
 
 /* LISTS */
@@ -190,10 +177,9 @@ span {
 }
 
 
-
 /* SPACER class */
 .spacer {
-  	height: 40px;
+  	height: 30px;
 	clear: both;
 }
 
@@ -210,15 +196,12 @@ span {
 #
 ################################################ 
 */
-
-
 #dt_example #footer {
 	font: 10px/22px normal helvetica, sans-serif;
 	margin: 20px auto 0 auto;
 	padding: 0;
 	color: #808080;
 }
-
 
 
 

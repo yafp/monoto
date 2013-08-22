@@ -38,7 +38,6 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-				/* "oSearch": {"sSearch": "Initial search"}, */
 				"sPaginationType": "full_numbers",
 				"iDisplayLength": 50,									/* default rows */
 				"bLengthChange": false,
@@ -64,9 +63,8 @@
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<?php include ('conf/config.php'); ?>
-<!-- SPACER -->
+				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 
 				<div id="tabs">
 					<ul>

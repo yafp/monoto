@@ -4,6 +4,7 @@ Milestone 3 - Pimping the workflow - Build NOT YET DEFINED
 ##########################################################
 = current dev version 
 
+- ui-redesign (black header)
 - changed html editor from cleditor to ckeditor
 - count failed logins and lock account after 3 failed attempts in a row
 - support for umlauts
@@ -24,6 +25,7 @@ Milestone 3 - Pimping the workflow - Build NOT YET DEFINED
 - updated datatables to 1.9.3
 - added lab.js for js performance 
 - show last action
+- random image function 
 - ...
 - tons of small/minor improvements and cleanups
 

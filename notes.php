@@ -56,7 +56,6 @@
 				// notification
 				// success
 				//
-				// BAUSTELLE
 				var n = noty({text: 'All notes loaded.', type: 'notification'});
 
 
@@ -69,12 +68,9 @@
 					});
 					$(event.target.parentNode).addClass('row_selected');
 
-					// enable the sidebar buttons - as we have selected a note
-					document.myform.save.disabled=false;
-					document.myform.delete.disabled=false;
-
-					// enable note title field
-					document.myform.noteTitle.disabled=false;
+					document.myform.save.disabled=false;			// enable the save button
+					document.myform.delete.disabled=false;			// enable the delete button
+					document.myform.noteTitle.disabled=false;		// enable note title field
 				});
 
 				/* Add a click handler for the delete row - we dont use that so far */
@@ -87,11 +83,7 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-					//"sDom": '<"wrapper"lipt>, <l<t>ip>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"sDom": '<"wrapper"lipt>, <l<t>p>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
-
-
-
 					"oSearch": {"sSearch": ""}, 
 					"sRowSelect": "single",
 					"bLengthChange": false,
@@ -360,42 +352,18 @@
 
 		<div id="container">
 			<!-- HEADER & NAV -->
-
 			<div id="newHead">
-				<!--
-				<input type="search" id="myInputTextField" placeholder="enter search term">
-			-->
-			<?php 
-
-				include 'inc/header.php'; 
-
-				/*
-				$temp = get_cfg_var('max_execution_time'); 
-				echo "temp server-side timeout value;".$temp;
-				*/
-
-			?>
-
-			
-			<div id="newSearch">
-
-				<input type="search" id="myInputTextField" placeholder="enter search term" style="width:100%;">
-			</div>
-		
-			
-
-
-
-
+				<?php include 'inc/header.php'; ?>
+				<div id="newSearch">
+					<input type="search" id="myInputTextField" placeholder="enter search term" style="width:100%;">
+				</div>
 			</div> <!-- end of new head -->
 
 
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
@@ -419,22 +387,14 @@
 						</tr>
 					</table>
 				</form>
-
-				<!--  CUSTOM SEARCH FIELD -->
-				<!--
-				<input style="float:right" type="search" id="myInputTextField" placeholder="enter search term here">	
-				-->		
-
+	
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-
-	
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
 					<tbody>
-
 					<?php
 						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
 						include 'inc/db.php';  							// connect to db
@@ -449,9 +409,6 @@
 						}
 					?>
 					</tbody>
-					<!--
-					<tfoot align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></tfoot>
-				-->
 				</table>
 			</div>
 			<!-- SPACER -->
