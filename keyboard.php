@@ -56,6 +56,20 @@
 					</button>
 					<a class="navbar-brand" href="notes.php">monoto</a>
 				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
+						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
+						<li class="active"><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						<?php
+							if($_SESSION['admin'] == 1) // show admin-section
+							{
+								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
+							}
+						?>
+						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">
@@ -67,27 +81,29 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-
-				<?php
-					// define logout image
-					if($s_enable_random_logout_gif == false)
-					{
-						$logoutImage = "images/icons/logout.gif";
-					}
-					else // or ...pick random from folder
-					{
-						$imagesDir = 'images/random_logout/';
-						$images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-						$logoutImage = $images[array_rand($images)];
-					}
-				?>
-
-				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
-				
-				<!-- REDIRECT TO LOGIN -->
-				<?php header("refresh:10;url=index.php"); ?>
-				<!-- SPACER -->
-				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
+				<span>monoto-wide</span>
+				<table style="width:100%">
+					<tr><th>Key</th><th style="float:left">Function</th></tr>
+					<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
+					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey.</td></tr>
+					<tr><td>(Shift) + Alt + m</td><td>Loads my monoto per accesskey.</td></tr>
+					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey.</td></tr>
+					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey.</td></tr>
+				</table>
+				<br><br>
+				<span>notes page</span>
+				<table style="width:100%">
+					<tr><th>Key</th><th style="float:left">Function</th></tr>
+					<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
+	
+					<tr><td>F5</td><td>Reloads all notes from db.</td></tr>
+					<tr><td>F9</td><td>Saves a selected note.</td></tr>
+					<tr><td>Del</td><td>Deletes the selected note.</td></tr>
+					<tr><td>Arrow Down (in search)</td><td>Selects the top record.</td></tr>
+					<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td></tr>
+					<tr><td>Arrow Up (in search)</td><td>Moves the focus to newNoteTitle.</td></tr>
+					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td></tr>
+				</table>
 			</div>
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -152,7 +168,7 @@
 		// notification
 		// success
 		//
-		var n = noty({text: 'Logout ... redirecting to login page.', type: 'notification'});
+		var n = noty({text: 'Loaded Keyboard section.', type: 'notification'});
 	</script>
 
 	</body>

@@ -56,6 +56,16 @@
 					</button>
 					<a class="navbar-brand" href="notes.php">monoto</a>
 				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
+						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
+						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>
+						<li class="active"><a href="template.php"><i class="fa fa-cogs fa-1x"></i> Template</a></li>
+						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">
@@ -67,27 +77,7 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-
-				<?php
-					// define logout image
-					if($s_enable_random_logout_gif == false)
-					{
-						$logoutImage = "images/icons/logout.gif";
-					}
-					else // or ...pick random from folder
-					{
-						$imagesDir = 'images/random_logout/';
-						$images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-						$logoutImage = $images[array_rand($images)];
-					}
-				?>
-
-				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
-				
-				<!-- REDIRECT TO LOGIN -->
-				<?php header("refresh:10;url=index.php"); ?>
-				<!-- SPACER -->
-				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
+				<p>Dummy</p>
 			</div>
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -152,7 +142,7 @@
 		// notification
 		// success
 		//
-		var n = noty({text: 'Logout ... redirecting to login page.', type: 'notification'});
+		var n = noty({text: 'Dummy.', type: 'notification'});
 	</script>
 
 	</body>

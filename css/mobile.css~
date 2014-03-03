@@ -1,0 +1,16 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * General page setup
+ */
+
+/* 
+	core-colors 
+	############
+	#4489c9				core-blue
+	#171717				grey (dark - for header)
+
+*/
+
+.ui-input-text
+{
+width: 750px !important;
+}

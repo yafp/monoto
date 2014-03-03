@@ -1,3 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>monoto notes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.php">monoto</a>
+        </div>
+        <div class="navbar-collapse collapse">
+        
+        	<!-- Login Form -->
+          <form class="navbar-form navbar-right" role="form" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control" name="username" required="required">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password" required="required">
+            </div>
+            <button type="submit" class="btn btn-success" name="doLogin">Sign in</button>
+          </form>
+          
+          
+          
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+      <br><br>
+      <!--
+        <h1>Welcome to monoto</h1>
+        
+        <p>monoto is on open source web based notes software....</p>
+        -->
+
+        <center>
+			<img src="images/random_logout/bomb.gif" width="400">
+			</center>
+			
+			
+
+			<!--
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+        -->
+      </div>
+    </div>
+
+    <div class="container">
+    
+    
+      <!-- Example row of columns -->
+      <!--
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Fulltext search</h2>
+          
+          <p>monoto notes is offering a full-text features search function over your entire text-based notes </p>
+
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+
+        </div>
+        <div class="col-md-4">
+          <h2>Rich text editor</h2>
+          <p>CKEditor is a ready-for-use HTML text editor designed to simplify web content creation. It's a WYSIWYG editor that brings common word processor features directly to your web pages. Enhance your website experience with our community maintained editor.</p>
+
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+
+       </div>
+        <div class="col-md-4">
+          <h2>Open source</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+
+        </div>
+        
+      </div>
+      -->
+
+      <hr>
+
+      <footer>
+        <?php include 'inc/footer.php'; ?>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+
+
+
 <?php
 	session_start();
 	if($_SESSION['valid'] == 1)				// check if the user-session is valid or not
@@ -7,77 +140,12 @@
 	else 									// no valid session - show login form
 	{
 		include 'inc/html_head.php';			// include the new header
+	}
 ?>
-		<!-- continue the header -->
-		<!-- ################### -->
 
-		<!-- fade in on pageload via jquery -->
-		<script type="text/javascript" language="javascript">
-			$(document).ready(function(){	
-				$('#page_effect').fadeIn(1500);
-			});
-		</script>
-	</head>
 
-	<body id="dt_example">
-		<div id="container">
-
-			<div id="newHead">		<!-- HEADER & NAV -->
-				<?php include 'inc/header.php'; ?>
-			</div> <!-- end of new head -->
-
-			<!-- CONTENT -->
-			<div id="noteContentCo">
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
-			
-			<?php
-				include 'conf/config.php';	
-				if($s_enable_maintenance_mode == true)			// show maintenance mode
-				{
-			?>
-				<!-- MAINTENANCE -->
-				<h2><a name="core">maintenance mode</a></h2>
-					<table style="width: 100%">
-						<tr><td style="text-align: center;">This monoto installation is currently in maintenance mode. User-logins are disabled. Shit happens.</td></tr>
-						<tr><td>&nbsp;</td></tr>
-					</table>
-			<?php
-				}
-				else 											 // show real login form
-				{
-			?>
-				<!-- LOGIN -->
-				<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-					<div id="page_effect" style="display:none;"> <!-- blend in -->
-					<table style="width: 100%">
-						<tr><td style="text-align: center;"><input type="text" name="username" placeholder="Username" required="required" /></td></tr>
-						<tr><td style="text-align: center;"><input type="password" name="password" placeholder="Password" required="required" /></td></tr>
-						<tr><td style="text-align: center;"><input type="submit" value="Login" name="doLogin" /></td></tr>
-						<tr><td>&nbsp;</td></tr>
-					</table>
-					</div>
-				</form>
-				
-			<?php
-				}
-			?>	
-			<noscript>monoto heavily depends on Javascript, which seems to be disabled in your browser. consider enabling it to use monoto.</noscript>
-			</div>
-
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
-		</div>
-
-		<!--  FOOTER -->
-		<?php include 'inc/footer.php'; ?>
-	</body>
-</html>
 
 <?php
-}
-
-
 //
 // try to login
 //
@@ -93,7 +161,8 @@ if ( isset($_POST["doLogin"]) )
 	$username = mysql_real_escape_string($username);
 	$_SESSION['username'] = $username;									// add session-info
 	$owner = $_SESSION['username'];
-
+	
+	
 	// check if there is a user with matching data
 	$query = "SELECT password, salt FROM m_users WHERE username = '$username';";
 	$result = mysql_query($query);
@@ -164,7 +233,7 @@ if ( isset($_POST["doLogin"]) )
 				if($row[0] == 1)
 				{ 
 					$_SESSION['admin'] = 1; 
-				}						
+				}
 			}
 
 	    	// get current login-count
@@ -202,6 +271,7 @@ if ( isset($_POST["doLogin"]) )
 			$result = mysql_query($sql);
 
 	    	echo '<script type="text/javascript">window.location="notes.php"</script>';		// whyever that works - but header not anymore. must be related to our header rework
+	    	echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
 		}
 	} 
 	else 		// login is not possible anymore - admin must remove the login lock

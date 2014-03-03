@@ -1,222 +1,221 @@
 <?php
 	session_start();
-	if(($_SESSION['valid'] == 1)	&& ($_SESSION['admin'] == 1))	// check if the user-session is valid or not AND if its an admin account.
+	include 'conf/config.php';
+	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
-		include 'inc/html_head.php';			// include the new header
+		header('Location: redirect.php');
+	}
+	
+	if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
+	{
+		echo "<br><br><br><br>";
+		echo "<font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
+	}
+	
+	include 'conf/config.php';	// db informations
+	include 'conf/build.php';	// version informations
+	include ('inc/db.php');		// connect to db
+	connectToDB();
+
 ?>
-		<!-- continue the header -->
-		<!-- ################### -->
-		<!--  m_keyPressAll-->
-		<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>
 
-		<link rel="stylesheet" href="js/jquery-ui/jquery-ui.css" />
-		<script src="js/jquery-ui/jquery-ui.js"></script>
-		<script>
-		$(function() {
-		$( "#tabs" ).tabs();
-		});
-		</script>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<title>monoto notes</title>
+		
+		<!-- META STUFF -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap theme -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="theme.css" rel="stylesheet">
+		<!-- Just for debugging purposes. Don't actually copy this line! -->
+		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
-		<!-- flot graphs -->
-		<script language="javascript" type="text/javascript" src="js/jquery.flot.min.js"></script>
-    	<script language="javascript" type="text/javascript" src="js/jquery.flot.pie.min.js"></script>
-		<!-- Example: http://datatables.net/release-datatables/examples/api/select_single_row.html -->
-		<script type="text/javascript">
-			var oTable;
-	 
-			$(document).ready(function() 
-			{
-				// alert
-				// information
-				// error
-				// warning
-				// notification
-				// success
-				//
-				var n = noty({text: 'Loaded admin', type: 'notification'});
-
-			    /* Add a click handler to the rows - this could be used as a callback */
-			    $("#example tbody tr").click( function( e ) {
-			        if ( $(this).hasClass('row_selected') ) {
-			            $(this).removeClass('row_selected');
-			        }
-			        else {
-			            oTable.$('tr.row_selected').removeClass('row_selected');
-			            $(this).addClass('row_selected');
-			        }
-			    });
-			     
-			    /* Add a click handler for the delete row */
-			    $('#delete').click( function() {
-			        var anSelected = fnGetSelected( oTable );
-			        if ( anSelected.length !== 0 ) 
-			        {
-			            oTable.fnDeleteRow( anSelected[0] );
-			            // mysql part is missing to really delete the user
-			        }
-			    } );
-			     
-			    /* Init the table */
-			    oTable = $('#example').dataTable( );
-			} );
-			 
-			 
-			/* Get the rows which are currently selected */
-			function fnGetSelected( oTableLocal )
-			{
-			    return oTableLocal.$('tr.row_selected');
-			}
-		</script>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
 	</head>
 
-	<!-- BODY -->
-	<body id="dt_example">
-		<div id="container">
-			<!-- HEADER & NAV -->
-			<div id="newHead">
-			<?php include 'inc/header.php'; ?>
+
+
+	<body role="document">
+		<!-- Fixed navbar -->
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="notes.php">monoto</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
+						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
+						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						<?php
+							if($_SESSION['admin'] == 1) // show admin-section
+							{
+								echo '<li class="active"><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
+							}
+						?>
+						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+					</ul>
+				</div>
 			</div>
+		</div>
+		<div class="container theme-showcase" role="main">
 
-			<!-- CONTENT -->
+
+
+		<div id="container">
 			<div id="noteContentCo">
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>
+				
+				<h3>Server configuration</h3>
+				<hr>
+				The following values are based on <i>/conf/config.php</i><br><br>
+				<table style="width: 100%">
+					<tbody>
+						<tr>
+							<td>- enable really delete question:</td>
+							<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
+						<tr>
+							<td>- enable really logout question:</td>
+							<td><?php if($s_enable_really_logout == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
+						<tr>
+							<td>- enable user icon:</td>
+							<td><?php if($s_enable_user_icon == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
+						<tr>
+							<td>- enable unstable sources:</td>
+							<td><?php if($s_enable_UnstableSources == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
+						<tr>
+							<td>- enable random logout images:</td>
+							<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
+						<tr>
+							<td>- enable random images:</td>
+							<td><?php if($s_enable_random_image == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<?php
-					include 'conf/config.php';	// db informations
-					include 'conf/build.php';	// version informations
-					include ('inc/db.php');		// connect to db
-					connectToDB();
 
-					if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
-					{
-						echo "<br><br><font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
-					}
-				?>
+
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-				<div id="tabs">
-					<ul>
-						<li><a href="#tabs-1">settings</a></li>
-						<li><a href="#tabs-2">version</a></li>
-						<li><a href="#tabs-3">notes</a></li>
-						<li><a href="#tabs-4">users</a></li>
-						<li><a href="#tabs-5">invites</a></li>
-						<li><a href="#tabs-6">mysql</a></li>
-						<li><a href="#tabs-7">misc</a></li>
-					</ul>
 
-					<div id="tabs-1">
-						The following values are based on <i>/conf/config.php</i><br><br>
-						<table style="width: 100%">
-							<tbody>
-								<tr>
-									<td>- enable really delete question:</td>
-									<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-								</tr>
-								<tr>
-									<td>- enable really logout question:</td>
-									<td><?php if($s_enable_really_logout == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-								</tr>
-								<tr>
-									<td>- enable user icon:</td>
-									<td><?php if($s_enable_user_icon == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-								</tr>
-								<tr>
-									<td>- enable unstable sources:</td>
-									<td><?php if($s_enable_UnstableSources == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-								</tr>
-								<tr>
-									<td>- enable random logout images:</td>
-									<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-								</tr>
-								<tr>
-									<td>- enable random images:</td>
-									<td><?php if($s_enable_random_image == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-					<div id="tabs-2">
-						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-							<table style="width: 100%">									
-								<tr>
-									<td><b>build:</b></td>
-									<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
-								<tr>
-									<td><b>milestone:</b></td>
-									<td><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
-								</tr>
-								<tr>
-									<td colspan="3">&nbsp;</td>
-								</tr>
-								<tr>
-									<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
-									<td>
-										<?php 
-											if($s_enable_UnstableSources == true)
-											{
-												echo "Searching for <span>stable</span> and <span>unstable</span> versions";
-											}
-											else
-											{
-												echo "Searching only for <span>stable</span> versions.";
-											}
-									 	?>
-									</td>
-								</tr>
-								<tr>
-									<td><b>current stable:</b></td>
-									<td><div id="curStable01"><i>please run the check</i></div></td>
-									<td><div id="curStable02"><i>&nbsp;</i></div></td>
-								</tr>
-								<tr>
-									<td><b>current unstable:</b></td>
-									<td><div id="curUnstable01"><i>please run the check</i></div></td>
-									<td><div id="curUnstable02"><i>&nbsp;</i></div></td>
-									<td style="width: 30%">&nbsp;</td>
-								</tr>
-							</table>
-						</form>
-
-						<!-- SPACER -->
-						<div class="spacer">&nbsp;</div>
-
-						<!-- CHANGELOG-->
-						<b>changelog</b>
-						<textarea name="changes" style="width:100%" rows=20 disabled>
-						<?=file_get_contents ('doc/CHANGELOG.txt');?>					
-						</textarea>
-					</div>
-
-					<div id="tabs-3">
-						<?php
-							// User: amount of all notes 
-							$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
-							while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
-							{
-								echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
-							}
-
-
-							// get notes count per user  and display them in a table
-							echo '<table style="width: 20%">';
-							echo "<tr><th>notes</td><th>creator</td></tr>";
-
-									$whatArray = array();			// define arrays for our flot pie graph
-									$howMuchArray = array();
-
-									$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
-									while($row = mysql_fetch_array($result))   // fill datatable
+				<h3>Version informations</h3>
+				<hr>
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+					<table style="width: 100%">
+						<tr>
+							<td><b>build:</b></td>
+							<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
+						</tr>
+						<tr>
+							<td><b>milestone:</b></td>
+							<td><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
+						</tr>
+						<tr>
+							<td colspan="3">&nbsp;</td>
+						</tr>
+						<tr>
+							<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+							<td>
+								<?php 
+									if($s_enable_UnstableSources == true)
 									{
-										echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';		// fill table
+										echo "Searching for <span>stable</span> and <span>unstable</span> versions";
+									}
+									else
+									{
+										echo "Searching only for <span>stable</span> versions.";
+									}
+							 	?>
+							</td>
+						</tr>
+						<tr>
+							<td><b>current stable:</b></td>
+							<td><div id="curStable01"><i>please run the check</i></div></td>
+							<td><div id="curStable02"><i>&nbsp;</i></div></td>
+						</tr>
+						<tr>
+							<td><b>current unstable:</b></td>
+							<td><div id="curUnstable01"><i>please run the check</i></div></td>
+							<td><div id="curUnstable02"><i>&nbsp;</i></div></td>
+							<td style="width: 30%">&nbsp;</td>
+						</tr>
+					</table>
+				</form>
 
+
+
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+
+
+
+				<!-- CHANGELOG-->
+				<h3>Changelog</h3>
+				<hr>
+				<b>changelog</b>
+				<textarea name="changes" style="width:100%" rows=20 disabled>
+					<?=file_get_contents ('doc/CHANGELOG.txt');?>					
+				</textarea>
+
+
+
+				<?php
+					// User: amount of all notes 
+					$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
+					while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
+					{
+						echo 'Your entire monoto installation has currently <span>'.$row[0].'</span> notes.<br>';
+					}
+
+					// get notes count per user  and display them in a table
+					echo '<table style="width: 20%">';
+					echo "<tr><th>notes</td><th>creator</td></tr>";
+
+					$whatArray = array();			// define arrays for our flot pie graph
+					$howMuchArray = array();
+
+					$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
+					while($row = mysql_fetch_array($result))   // fill datatable
+					{
+						echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';		// fill table
 										array_push($whatArray, $row[0]);								// fill array for graph
 										array_push($howMuchArray, $row[1]);
-									}
-								?>
-						</table>
+					}
+				?>
+				</table>
 
 						<!-- placeholder for flot pie-chart -->
 						<div id="placeholder" style="height:200px;"></div>
@@ -261,12 +260,22 @@
 							    }
 							});
 							</script>
-					</div>
 
-					<div id="tabs-4">
-						<!-- datatables showing our users -->
-						<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
-							<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
+
+
+
+					<!-- SPACER -->
+					<div class="spacer">&nbsp;</div>
+
+
+
+
+					<!-- USERS -->
+					<h3>Users</h3>
+					<hr>
+					<!-- datatables showing our users -->
+					<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
+						<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
 							<tbody>
 							<?php
 									$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note, failed_logins_in_a_row FROM m_users ORDER by id "); // m_log
@@ -277,7 +286,8 @@
 							?>
 							</tbody>
 							<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
-						</table>
+					</table>
+
 
 						<!-- DELETE USER -->
 						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
@@ -346,45 +356,121 @@
 						</form>
 					</div>
 
-					<div id="tabs-6">
-						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
-							<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
-							<br><br>
-							<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
-							<br>
-							<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
-						</form>
-					</div>
 
-					<div id="tabs-7">
-						<!-- SHOW jquery version -->
+
+
+					<!-- SPACER -->
+					<div class="spacer">&nbsp;</div>
+
+
+					<!-- ADMIN-TASKS -->
+					<h3>Tasks</h3>
+					<hr>
+					<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
+						<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
+						<br><br>
+						<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
+						<br>
+						<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
+					</form>
+
+
+
+					<!-- SPACER -->
+					<div class="spacer">&nbsp;</div>
+
+
+
+					<!-- JQUERY VERSION -->
+					<h3>jQuery Version</h3>
+					<hr>
+					<!-- SHOW jquery version -->
 						jquery version
 						<div id="myResults"></div>
 						<script type="text/javascript">
 							$("#myResults").html(jQuery.fn.jquery);
 						</script>
 					</div>
-				</div>
 
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-		
+				
+				
+				
+				
 			</div>
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
 		</div>
+	</div> <!-- /container -->
 
-		<!--  FOOTER -->
-		<?php include 'inc/footer.php'; ?>
+
+	<!-- JS-->
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/docs.min.js"></script>
+	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
+	<script type="text/javascript" src="js/LAB.js"></script>
+	<script>
+		$LAB
+		.script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
+		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
+		.script("js/m_keyPress.js")					// keyboard shortcuts
+	</script>
+	
+	<!-- noty - notifications -->
+	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+	<script type="text/javascript" src="js/noty/themes/default.js"></script>
+	<!-- init noty -->
+	<script>
+		$.noty.defaults = {
+		  layout: 'topRight',
+		  theme: 'defaultTheme',
+		  type: 'alert',
+		  text: '',
+		  dismissQueue: true, // If you want to use queue feature set this true
+		  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+		  animation: {
+		    open: {height: 'toggle'},
+		    close: {height: 'toggle'},
+		    easing: 'swing',
+		    speed: 500 // opening & closing animation speed
+		  },
+		  timeout: 5000, // delay for closing event. Set false for sticky notifications
+		  force: false, // adds notification to the beginning of queue when set to true
+		  modal: false,
+		  closeWith: ['click'], // ['click', 'button', 'hover']
+		  callback: {
+		    onShow: function() {},
+		    afterShow: function() {},
+		    onClose: function() {},
+		    afterClose: function() {}
+		  },
+		  buttons: false // an array of buttons
+		};
+	</script>
+	
+	<script type="text/javascript">
+		// alert
+		// information
+		// error
+		// warning
+		// notification
+		// success
+		//
+		var n = noty({text: 'Loaded Admin section.', type: 'notification'});
+	</script>
+
 	</body>
 </html>
 
 
+
+
 <?php
-	}
-	else  //session is NOT valid
-	{
-		header('Location: redirect.php');
-	}
-   
+
 	include 'conf/config.php';
 
 	// UpdateCheck
@@ -664,3 +750,7 @@
 		}
 	}
 ?>
+
+
+
+

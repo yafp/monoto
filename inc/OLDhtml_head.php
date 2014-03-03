@@ -9,6 +9,7 @@
 		<!-- general -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
 				
 		<!-- JS which apply to all pages -->
 		<!-- ########################### -->
@@ -17,11 +18,11 @@
 
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-		<script type='text/javascript' src='js/LAB.js'></script>
+		<script type="text/javascript" src="js/LAB.js"></script>
 
-		<script type='text/javascript' src='js/noty/jquery.noty.js'></script>
+		<!-- noty - notifications -->
+		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/bottom.js"></script>
-		<!-- You can add more layouts if you want -->
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 		<!-- init noty -->
 		<script>
@@ -53,14 +54,11 @@
 		</script>
 
 
-
 		<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 		<script>
 		   $LAB
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		   .script("js/modal.popup.js")							// 3rd: keyboard shortcuts popup
-		   .script("js/m_keyboardPopup.js")						// 3rd: keyboard shortcuts popup part2
 		</script>
 	
 		<!-- closing </head> inside each single php file to be able to load other js files inside the head -->
@@ -94,5 +92,4 @@
 			</script>
 		<?php
 		}
-		?>
-		
+		?>	

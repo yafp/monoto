@@ -1,14 +1,94 @@
 <?php
 	session_start();
 	include 'conf/config.php';
-	if($_SESSION['valid'] == 1)			// check if the user-session is valid or not
+	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
-		include 'inc/html_head.php';			// include the new header
+		header('Location: redirect.php');
+	}
+
 ?>
-		<!-- continue the header -->
-		<!-- ################### -->
-		<!--  m_keyPress-->
-		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<title>monoto notes</title>
+		
+		<!-- META STUFF -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+
+		<!-- JS-->
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<!-- datatables -->
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+
+		<!-- noty - notifications -->
+		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/top.js"></script>
+		<script type="text/javascript" src="js/noty/themes/default.js"></script>
+		<!-- init noty -->
+		<script>
+		$.noty.defaults = {
+		  layout: 'top',
+		  theme: 'defaultTheme',
+		  type: 'alert',
+		  text: '',
+		  dismissQueue: true, // If you want to use queue feature set this true
+		  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+		  animation: {
+		    open: {height: 'toggle'},
+		    close: {height: 'toggle'},
+		    easing: 'swing',
+		    speed: 500 // opening & closing animation speed
+		  },
+		  timeout: 1000, // delay for closing event. Set false for sticky notifications
+		  force: false, // adds notification to the beginning of queue when set to true
+		  modal: false,
+		  closeWith: ['click'], // ['click', 'button', 'hover']
+		  callback: {
+		    onShow: function() {},
+		    afterShow: function() {},
+		    onClose: function() {},
+		    afterClose: function() {}
+		  },
+		  buttons: false // an array of buttons
+		};
+		</script>
+
+
+
+
+
+    	<!-- Bootstrap core CSS -->
+    	<link href="css/bootstrap.min.css" rel="stylesheet">
+    	<!-- Bootstrap theme -->
+    	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+
+    	<!-- Custom styles for this template -->
+    	<link href="theme.css" rel="stylesheet">
+
+    	<!-- Just for debugging purposes. Don't actually copy this line! -->
+    	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+
+
+
+		
 		<!-- ckeditor -->
 		<script src="js/ckeditor-4.0.2_standard/ckeditor.js"></script>
 
@@ -22,24 +102,25 @@
 			{
 				// is something written in the cookie as lastAction?
 				// if yes - show it as a noty notification & reset the value 
+
 				if($.cookie("lastAction") != "")
 				{
 					var n = noty({text: $.cookie("lastAction"), type: 'notification'});
 					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
 				}
 
+
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
-					//uiColor: '#4489c9',
+
+					height: '200px',
 					toolbar:
 					[
 					    { name: 'document',    items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
-					    { name: 'clipboard',   items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-					    { name: 'editing',     items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
 					    { name: 'forms',       items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
 					    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 					    { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
-					    { name: 'links',       items : [ 'Link','Unlink','Anchor' ] },
+					    { name: 'links',       items : [ 'Link','Unlink' ] },
 					    { name: 'insert',      items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
 					    { name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
 					    { name: 'colors',      items : [ 'TextColor','BGColor' ] },
@@ -94,20 +175,16 @@
       							{ "bSortable": false, "aTargets": [ 1 ] },
       							{ "bSortable": false, "aTargets": [ 2 ] },
       							{ "bSortable": false, "aTargets": [ 3 ] },
-      							{ "bSortable": false, "aTargets": [ 4 ] },
-      							{ "bSortable": false, "aTargets": [ 5 ] },
-      							{ "bSortable": false, "aTargets": [ 6 ] },
-      							{ "bSortable": false, "aTargets": [ 7 ] },
+      							{ "bSortable": false, "aTargets": [ 4 ] }
+
     								], 
 					"aoColumns"   : [																/* visible columns */
 								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
 								{ "bSearchable": true, "bVisible": true, "sWidth": "5%" }, 							/* note-id */
 								{ "bSearchable": true, "bVisible": true, "sWidth": "50%" },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
-								{ "bSearchable": false, "bVisible": false },						/* tags */
-								{ "bSearchable": true, "bVisible": true }, 							/* last edit */
-								{ "bSearchable": true, "bVisible": true },							/* created */
-								{ "bSearchable": true, "bVisible": true, "sWidth": "5%" }							/* save_counter */
+								{ "bSearchable": false, "bVisible": false }					/* tags */
+							/* created */
 							],
 				} );
 
@@ -308,11 +385,11 @@
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
 				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
-				var n = noty({text: 'Note created', type: 'success'});
+				//var n = noty({text: 'Note created', type: 'success'});
 		  	}
 			else
 			{ 
-				var n = noty({text: 'Error: No note title', type: 'error'});
+				//var n = noty({text: 'Error: No note title', type: 'error'});
 			}
 		}
 
@@ -344,67 +421,109 @@
 			$('#editor1').val('').blur();						// empty cleditor textarea
 		}
 		</script>
-	</head>
-
-	<body id="dt_example" class="ex_highlight_row">
+	</head>  
 
 
 
-		<div id="container">
-			<!-- HEADER & NAV -->
-			<div id="newHead">
-				<?php include 'inc/header.php'; ?>
-				<div id="newSearch">
-					<input type="search" id="myInputTextField" placeholder="enter search term" style="width:100%;">
+
+
+	<body role="document">
+		<!-- Fixed navbar -->
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="notes.php">monoto</a>
 				</div>
-			</div> <!-- end of new head -->
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
+						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
+						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						
+						<?php
+							if($_SESSION['admin'] == 1) // show admin-section
+							{
+								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
+							}
+						?>
+						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+		<div class="container theme-showcase" role="main">
 
 
+	<br>
+
+
+
+
+	<!-- SEARCH FIELD -->
+      <div class="page-header">
+		<input type="search" id="myInputTextField" placeholder="search your notes here" style="width:100%;">
+      </div>
+      
+      
+
+	<div id="container">
+			
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
+			
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="nothing selected" disabled style="width:100%; " /></td>
-							<td><input type="button"  style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
-						</tr>	
+							<td><input type="button" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
+						</tr>
 						<!-- NOTE CONTENT using CKeditor -->
 						<tr>
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
-								<input type="hidden"  style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID"  onkeyup="javascript:enableSaveButton()" />
-								<input type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
-								<input type="button" style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled">
+							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
+							<input type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
+							<input type="button" style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled">
 							</td>
 						</tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" style="width:100%"  placeholder="enter title for your new note"  id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
-							<td><input type="submit"  style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"></td>
+							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
+							<td><input type="submit" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"></td>
 						</tr>
 					</table>
 				</form>
+	
 	
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
-					<thead align="left"><tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th><th>modified</th><th>created</th><th>version</th></tr></thead>
+					<thead align="left">
+						<tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th></tr>
+					</thead>
 					<tbody>
+					
 					<?php
 						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
 						include 'inc/db.php';  							// connect to db
 						connectToDB();
 						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user
-						$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ORDER by date_mod DESC ");
+						//$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ORDER by date_mod DESC ");
+						$result = mysql_query("SELECT id, title, content FROM m_notes WHERE owner='".$owner."' ORDER by date_mod DESC ");
 						while($row = mysql_fetch_array($result))
 						{
-							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
+							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+							//echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
 							$rowID = $rowID +1;
 						}
 					?>
@@ -415,15 +534,28 @@
 			<div class="spacer">&nbsp;</div>
 		</div>
 
-		<!--  FOOTER -->
-		<?php include 'inc/footer.php'; ?>
-	</body>
+
+
+
+
+
+
+    </div> <!-- /container -->
+
+
+		<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
+		<script type="text/javascript" src="js/LAB.js"></script>
+		<script>
+		   $LAB
+		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
+		   .script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
+		</script>
+		<!-- Bootstrap core JavaScript -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/docs.min.js"></script>
+		<!--  m_keyPress-->
+		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
+  </body>
 </html>
 
-<?php
-	}
-	else  	//session is NOT valid
-	{
-		header('Location: redirect.php');
-	}
-?>
