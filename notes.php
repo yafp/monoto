@@ -34,12 +34,12 @@
 
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-		<script type="text/javascript" src="js/noty/layouts/top.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 		<!-- init noty -->
 		<script>
 		$.noty.defaults = {
-		  layout: 'top',
+		  layout: 'topRight',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
@@ -452,7 +452,7 @@
 								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
 							}
 						?>
-						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>

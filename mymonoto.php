@@ -67,7 +67,7 @@
 								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
 							}
 						?>
-						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
 					</ul>
 				</div>
 			</div>

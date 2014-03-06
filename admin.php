@@ -5,16 +5,10 @@
 	{
 		header('Location: redirect.php');
 	}
-	
-	if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
-	{
-		echo "<br><br><br><br>";
-		echo "<font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font>";
-	}
-	
+
 	include 'conf/config.php';	// db informations
 	include 'conf/build.php';	// version informations
-	include ('inc/db.php');		// connect to db
+	include 'inc/db.php';		// connect to db
 	connectToDB();
 
 ?>
@@ -78,7 +72,7 @@
 								echo '<li class="active"><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
 							}
 						?>
-						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -95,16 +89,22 @@
 				
 				<h3>Server configuration</h3>
 				<hr>
+				
+				<?php
+					if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
+					{
+						echo "<font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font><br><br>";
+					}
+				?>
+				
+				
+				
 				The following values are based on <i>/conf/config.php</i><br><br>
 				<table style="width: 100%">
 					<tbody>
 						<tr>
 							<td>- enable really delete question:</td>
 							<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable really logout question:</td>
-							<td><?php if($s_enable_really_logout == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable user icon:</td>
@@ -117,10 +117,6 @@
 						<tr>
 							<td>- enable random logout images:</td>
 							<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable random images:</td>
-							<td><?php if($s_enable_random_image == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -204,62 +200,16 @@
 					echo '<table style="width: 20%">';
 					echo "<tr><th>notes</td><th>creator</td></tr>";
 
-					$whatArray = array();			// define arrays for our flot pie graph
-					$howMuchArray = array();
 
 					$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
 					while($row = mysql_fetch_array($result))   // fill datatable
 					{
 						echo '<tr><td>'.$row[1].'</td><td>'.$row[0].'</td></tr>';		// fill table
-										array_push($whatArray, $row[0]);								// fill array for graph
-										array_push($howMuchArray, $row[1]);
 					}
 				?>
 				</table>
 
-						<!-- placeholder for flot pie-chart -->
-						<div id="placeholder" style="height:200px;"></div>
-
-						<!-- generate our flot pie chart -->
-						<script type="text/javascript">
-							arr01 = ["<?php echo implode ('","', $whatArray); ?>"]
-							arr02 = ["<?php echo implode ('","', $howMuchArray); ?>"]
-
-							var data = [];
-							var series = 10;
-
-							for( var i = 0; i<series; i++)
-							{
-								data[i] = { 
-									label: arr01[i],
-									data: parseFloat(arr02[i])
-								}
-							}
-
-							// PLOT
-							$.plot($("#placeholder"), data, {
-							    series: {
-							        pie: {
-							            show: true,
-							            radius: 1,
-							            label: {
-							                show: true,
-							                radius: 1,
-							                formatter: function(label, series) {
-							                    return '<div style="font-size:11px; text-align:center; padding:2px; color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
-							                },
-							                background: {
-							                    opacity: 0.8,
-							                    color: '#444'
-							                }
-							            }
-							        }
-							    },
-							    legend: {
-							        show: false
-							    }
-							});
-							</script>
+						
 
 
 
@@ -381,15 +331,7 @@
 
 
 
-					<!-- JQUERY VERSION -->
-					<h3>jQuery Version</h3>
-					<hr>
-					<!-- SHOW jquery version -->
-						jquery version
-						<div id="myResults"></div>
-						<script type="text/javascript">
-							$("#myResults").html(jQuery.fn.jquery);
-						</script>
+
 					</div>
 
 				

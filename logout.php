@@ -5,7 +5,6 @@
 	{
 		header('Location: redirect.php');
 	}
-
 ?>
 
 <!DOCTYPE html>
@@ -85,9 +84,14 @@
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
 				
 				<!-- REDIRECT TO LOGIN -->
-				<?php header("refresh:10;url=index.php"); ?>
+				<?php 
+					session_destroy();
+					header("refresh:10;url=index.php"); 
+				?>
+				
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
+				
 			</div>
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
