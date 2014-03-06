@@ -6,19 +6,46 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+		<link rel="shortcut icon" href="images/favicon.ico">
 		<title>monoto notes</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!-- Custom styles for this template -->
-		<link href="jumbotron.css" rel="stylesheet">
-		<!-- Just for debugging purposes. Don't actually copy this line! -->
-		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
+
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<!-- noty - notifications -->
+		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+		<script type="text/javascript" src="js/noty/themes/default.js"></script>
+		<!-- init noty -->
+		<script>
+		$.noty.defaults = {
+		  layout: 'topRight',
+		  theme: 'defaultTheme',
+		  type: 'alert',
+		  text: '',
+		  dismissQueue: true, // If you want to use queue feature set this true
+		  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+		  animation: {
+		    open: {height: 'toggle'},
+		    close: {height: 'toggle'},
+		    easing: 'swing',
+		    speed: 500 // opening & closing animation speed
+		  },
+		  timeout: 1000, // delay for closing event. Set false for sticky notifications
+		  force: false, // adds notification to the beginning of queue when set to true
+		  modal: false,
+		  closeWith: ['click'], // ['click', 'button', 'hover']
+		  callback: {
+		    onShow: function() {},
+		    afterShow: function() {},
+		    onClose: function() {},
+		    afterClose: function() {}
+		  },
+		  buttons: false // an array of buttons
+		};
+		</script>
+		
+		
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -81,10 +108,6 @@
 	if($_SESSION['valid'] == 1)				// check if the user-session is valid or not
 	{	
 		header('Location: notes.php');		// if session is valid - redirect to main-notes interface.
-	}
-	else 									// no valid session - show login form
-	{
-		//include 'inc/html_head.php';			// include the new header
 	}
 ?>
 
@@ -162,7 +185,7 @@ if ( isset($_POST["doLogin"]) )
 			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 			$result = mysql_query($sql);
 
-			header('Location: redirect.php');									// redirect user 
+			//header('Location: redirect.php');									// redirect user 
 			echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
 		}
 		else //login successful

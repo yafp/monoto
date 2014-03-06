@@ -74,17 +74,6 @@
     	<!-- Bootstrap theme -->
     	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 
-    	<!-- Custom styles for this template -->
-    	<link href="theme.css" rel="stylesheet">
-
-    	<!-- Just for debugging purposes. Don't actually copy this line! -->
-    	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    	<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    	<![endif]-->
 
 
 
@@ -458,11 +447,7 @@
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">
-
-
 	<br>
-
-
 
 
 	<!-- SEARCH FIELD -->
@@ -534,15 +519,7 @@
 			<div class="spacer">&nbsp;</div>
 		</div>
 
-
-
-
-
-
-
     </div> <!-- /container -->
-
-
 		<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 		<script type="text/javascript" src="js/LAB.js"></script>
 		<script>
@@ -553,7 +530,6 @@
 		<!-- Bootstrap core JavaScript -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/docs.min.js"></script>
 		<!--  m_keyPress-->
 		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
   </body>

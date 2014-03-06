@@ -6,19 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+		<link rel="shortcut icon" href="images/favicon.ico">
 		<title>monoto notes</title>
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!-- Custom styles for this template -->
-		<link href="jumbotron.css" rel="stylesheet">
-		<!-- Just for debugging purposes. Don't actually copy this line! -->
-		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -46,10 +37,10 @@
 			This script is supposed to be used to create your first monoto-user account.<br><b>Notice:</b>&nbsp;Please delete this file (setup.php) after having setup your monoto-server.<br><br><br>
 			<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<table border="0">
-					<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" /></td></tr>
-					<tr><td>Mail:</td><td><input type="text" name="email" placeholder="Email" /></td></tr>
-					<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" /></td></tr>
-					<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" /></td></tr>
+					<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" required="required"/></td></tr>
+					<tr><td>Mail:</td><td><input type="email" name="email" placeholder="Email" required="required" /></td></tr>
+					<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" required="required" /></td></tr>
+					<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" required="required" /></td></tr>
 					<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
 				</table>
 			</form>
@@ -68,7 +59,6 @@
 		<!-- Bootstrap core JavaScript
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
