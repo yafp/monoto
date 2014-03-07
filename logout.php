@@ -17,17 +17,15 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 	</head>
 
 
@@ -75,7 +73,7 @@
 				
 				<!-- REDIRECT TO LOGIN -->
 				<?php 
-					session_destroy();
+					session_destroy(); // destroy the user session
 					header("refresh:10;url=index.php"); 
 				?>
 				

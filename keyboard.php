@@ -18,17 +18,15 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 	</head>
 
 
@@ -71,9 +69,10 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-				<span>monoto-wide</span>
+				<h3>monoto-wide</h3>
+				<hr>
 				<table style="width:100%">
-					<tr><th>Key</th><th style="float:left">Function</th></tr>
+					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
 					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey.</td></tr>
 					<tr><td>(Shift) + Alt + m</td><td>Loads my monoto per accesskey.</td></tr>
@@ -81,9 +80,10 @@
 					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey.</td></tr>
 				</table>
 				<br><br>
-				<span>notes page</span>
+				<h3>notes-page</h3>
+				<hr>
 				<table style="width:100%">
-					<tr><th>Key</th><th style="float:left">Function</th></tr>
+					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
 	
 					<tr><td>F5</td><td>Reloads all notes from db.</td></tr>

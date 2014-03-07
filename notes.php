@@ -18,8 +18,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
@@ -68,12 +68,8 @@
 
 
 
-
-    	<!-- Bootstrap core CSS -->
-    	<link href="css/bootstrap.min.css" rel="stylesheet">
-    	<!-- Bootstrap theme -->
-    	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-
+    	<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
+    	<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 
 
 
@@ -91,7 +87,6 @@
 			{
 				// is something written in the cookie as lastAction?
 				// if yes - show it as a noty notification & reset the value 
-
 				if($.cookie("lastAction") != "")
 				{
 					var n = noty({text: $.cookie("lastAction"), type: 'notification'});
@@ -102,14 +97,15 @@
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
 
-					height: '200px',
+					height: '250px',
 					toolbar:
 					[
 					    { name: 'document',    items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
 					    { name: 'forms',       items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
 					    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
 					    { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
-					    { name: 'links',       items : [ 'Link','Unlink' ] },
+					    /* { name: 'links',       items : [ 'Link','Unlink' ] }, */
+					    { name: 'links',       items : [ 'Link' ] },
 					    { name: 'insert',      items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
 					    { name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
 					    { name: 'colors',      items : [ 'TextColor','BGColor' ] },

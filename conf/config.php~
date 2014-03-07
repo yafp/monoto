@@ -18,10 +18,8 @@
 	//
 	$s_enable_maintenance_mode	= false;				// true = login is locked.
 	$s_enable_random_logout_gif 	= true;				// show a random logout image
-	$s_enable_really_logout		= true;				// should there be a really logout question before doing it
 	$s_enable_really_delete		= true;				// should there be a 'really delete' question before deleting notes?
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
-	$s_enable_user_icon			= true;				// enable user-icon in nav
 	
 	$s_user_icon_path			= "images/icons/user-14.png";
 ?>

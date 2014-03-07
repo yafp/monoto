@@ -23,17 +23,24 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
+		
+				<!-- JS-->
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>		<!-- jquery itself -->
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>		<!-- datatables -->
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').dataTable();
+			} );
+		</script>
 	</head>
 
 
@@ -83,7 +90,9 @@
 				<?php
 					if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
 					{
-						echo "<font color='red'><b>Warning:</b>&nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.</font><br><br>";
+						echo '<div class="alert alert-danger">';
+							echo '<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.';
+						echo '</div>';
 					}
 				?>
 				
@@ -95,10 +104,6 @@
 						<tr>
 							<td>- enable really delete question:</td>
 							<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td>- enable user icon:</td>
-							<td><?php if($s_enable_user_icon == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td>- enable unstable sources:</td>
@@ -168,16 +173,8 @@
 
 
 
-				<!-- CHANGELOG-->
-				<h3>Changelog</h3>
+				<h3>Notes</h3>
 				<hr>
-				<b>changelog</b>
-				<textarea name="changes" style="width:100%" rows=20 disabled>
-					<?=file_get_contents ('doc/CHANGELOG.txt');?>					
-				</textarea>
-
-
-
 				<?php
 					// User: amount of all notes 
 					$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
@@ -199,45 +196,40 @@
 				?>
 				</table>
 
-						
 
 
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
 
 
-					<!-- SPACER -->
-					<div class="spacer">&nbsp;</div>
-
-
-
-
-					<!-- USERS -->
-					<h3>Users</h3>
-					<hr>
-					<!-- datatables showing our users -->
-					<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
-						<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
-							<tbody>
-							<?php
+				<!-- USERS -->
+				<h3>Users</h3>
+				<hr>
+				<!-- datatables showing our users -->
+				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
+					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
+					<tbody>
+						<?php
 									$result = mysql_query("SELECT id, username, login_counter, logout_counter, failed_logins, date_invite, date_first_login, date_last_login, date_last_login_fail, email, is_admin, admin_note, failed_logins_in_a_row FROM m_users ORDER by id "); // m_log
 									while($row = mysql_fetch_array($result))   // fill datatable
 									{
 										echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[12].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
 									}
 							?>
-							</tbody>
-							<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
-					</table>
+					</tbody>
+					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
+				</table>
 
 
-						<!-- DELETE USER -->
-						<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-						<br><br>
-						<b>Delete existing account</b><br>	
-						<table style="width: 100%">
-							<tr>
-								<td width='30%'>Select a user:</td> 
-								<td>
-									<select name="userDeleteSelector">
+				<!-- DELETE USER -->
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<br><br>
+				<b>Delete existing account</b><br>	
+				<table style="width: 100%">
+					<tr>
+						<td width='30%'>Select a user:</td> 
+						<td>
+							<select name="userDeleteSelector">
 									<?php
 									$result = mysql_query("SELECT id, username  FROM m_users ORDER by id ");
 									while($row = mysql_fetch_array($result))   // fill user-select box
@@ -319,15 +311,7 @@
 					<!-- SPACER -->
 					<div class="spacer">&nbsp;</div>
 
-
-
-
 					</div>
-
-				
-				
-				
-				
 			</div>
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -336,7 +320,6 @@
 
 
 	<!-- JS-->
-	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->

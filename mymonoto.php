@@ -17,17 +17,24 @@
 		<!-- META STUFF -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
+		
+		<!-- JS-->
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>		<!-- jquery itself -->
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>		<!-- datatables -->
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#example').dataTable();
+			} );
+		</script>
 	</head>
 
 
@@ -73,9 +80,9 @@
 				<!-- PROFILE -->
 				<h3>Profile</h3>
 				<hr>
-				<table style="width: 100%">
+				<table style="width: 100%" border="0"">
 					<tr>
-						<td style="width:25%" colspan="2"><img src="images/icons/user-14.png" alt="dummy user icon" title="Dummy user-profile-image"></td>
+						<td style="width:25%" colspan="2"><i class="fa fa-user fa-4x"></i></td>
 						<td style="width:5%"></td>
 						<td rowspan="5">
 						<!-- CHANGE USER PASSWORD BUTTON -->
@@ -86,13 +93,7 @@
 							<script type="text/javascript">jQuery('#newPassword1').pstrength();</script><br>
 							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />					
 						</form>
-						<!-- CHANGE USER ICON BUTTON -->
-						<br><b>Changing the user icon:</b><br>Select your new user icon via the <span>Browse...</span> button and confirm that change by pressing the <span>Upload</span> button. This will store your image in the users-table - but the image itself is not used so far.
-						<form id="changeIcon" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-							<input name="MAX_FILE_SIZE" value="102400" type="hidden">
-							<input name="image" accept="image/jpeg" type="file"><br>
-							<input value="Upload" type="submit" name="doChangeUserIcon" style="width:140px" title="Starts the user icon image upload function if the user provided a valid path to an image.">
-						</form>
+						
 						</td>
 						</tr>
 						<tr>
@@ -341,7 +342,7 @@
 										echo "- Looking for dates? Let's face it: your oldest note has an <span>age of ".$stats_oldest_created_note_age." days</span>. It was created <span>".$stats_oldest_created_note_date."</span> with the <span>id ".$stats_oldest_created_note_id."</span>.<br>";
 										echo "- In comparison - your latest created note has the <span>age of ".$stats_latest_created_note_age." days</span>, has the <span>id ".$stats_latest_created_note_id."</span>, the title <span>".$stats_latest_created_note_title."</span> and a creation date of <span>".$stats_latest_created_note_date."</span>.<br>";
 										echo "- The last note you actually edited was note <span>".$stats_last_edited_note_id."</span> with the title <span>".$stats_last_edited_note_title."</span>. This edit is <span>".$stats_last_edited_note_age." days</span> old - from <span>".$stats_last_edited_note_date."</span> in case you bother.<br>";
-										echo "- Lets come to the end - the entire monoto db has a size of <span>".$stats_entire_monoto_db_size."  MB</span>.<br>";
+										echo "- Lets come to the end - the entire monoto db of all users has a size of <span>".$stats_entire_monoto_db_size."  MB</span>.<br>";
 									}
 							}
 					?>
@@ -354,134 +355,7 @@
 				<div class="spacer">&nbsp;</div>
 
 
-				<!-- LOGS -->
-				<h3>Logging</h3>
-				<hr>
-				<table style="width:100%">
-					<thead><tr><th style="width:20%">event</th><th style="width:60%">description</th><th style="width:20%">count</th></tr></thead>
-					<tbody>
-						<tr>
-							<td>create</td>
-							<td>Note was created, version counter = 1, date created and modified set</td>
-							<td>
-							<?php
-								$owner = $_SESSION['username'];
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create'  and owner='".$owner."'   "); 
-								while($row = mysql_fetch_array($result))
-								{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>create error</td>
-							<td>Error while trying to create a note. The title was already in use.</td>
-							<td>
-							<?php
-								$owner = $_SESSION['username'];
-								$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'create error'  and owner='".$owner."'   "); 
-								while($row = mysql_fetch_array($result))
-								{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>import</td>
-							<td>Note was imported using the importer, version counter = 1, date created and modified set</td>
-							<td>
-								<?php
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'import' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>save</td>
-							<td>Content was changed, note saved, version counter +1, date modified set</td>
-							<td>
-								<?php
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'save' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>delete</td>
-							<td>Note was deleted, id/number is doomed forever.</td>
-							<td>
-								<?php
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'delete' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>login</td>
-							<td>User login - logincounter +1</td>
-							<td>
-								<?php							
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>login failed </td>
-							<td>User login - failcounter +1</td>
-							<td>
-								<?php							
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'login error' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-								?>
-							</td>
-						</tr>
-						<tr>
-							<td>logout</td>
-							<td>User logout - logoutcounter +1</td>
-							<td>
-								<?php							
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'logout' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>notes eraser</td>
-							<td>All user notes deleted</td>
-							<td>
-								<?php							
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'notes eraser' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-						<tr>
-							<td>events eraser</td>
-							<td>All user events deleted</td>
-							<td>
-								<?php							
-									$result = mysql_query("SELECT count(event) FROM m_log WHERE event = 'events eraser' and owner='".$owner."' "); 
-									while($row = mysql_fetch_array($result))
-									{ echo $row[0]; }
-							?>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				
-				
-				
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-						
-						
-						
+
 				<!-- ACTIVITY/EVENT LOG -->
 				<h3>Activity Log</h3>
 				<hr>
@@ -500,6 +374,69 @@
 					</tbody>
 					<tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
 				</table>
+				<br>
+				<br>
+				<div class="row">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Legend</h3>
+						</div>
+						<div class="panel-body">
+							<table style="width:100%">
+								<thead><tr><th style="width:20%">event</th><th style="width:60%">description</th></tr></thead>
+								<tbody>
+							<tr>
+								<td>create</td>
+								<td>Note was created, version counter = 1, date created and modified set</td>
+							</tr>
+							<tr>
+								<td>create error</td>
+								<td>Error while trying to create a note. The title was already in use.</td>
+							</tr>
+							<tr>
+								<td>import</td>
+								<td>Note was imported using the importer, version counter = 1, date created and modified set</td>
+							</tr>
+							<tr>
+								<td>save</td>
+								<td>Content was changed, note saved, version counter +1, date modified set</td>
+							</tr>
+							<tr>
+								<td>delete</td>
+								<td>Note was deleted, id/number is doomed forever.</td>
+							</tr>
+							<tr>
+								<td>login</td>
+								<td>User login - logincounter +1</td>
+							</tr>
+							<tr>
+								<td>login failed </td>
+								<td>User login - failcounter +1</td>
+							</tr>
+							<tr>
+								<td>logout</td>
+								<td>User logout - logoutcounter +1</td>
+							</tr>
+							<tr>
+								<td>notes eraser</td>
+								<td>All user notes deleted</td>
+							</tr>
+							<tr>
+								<td>events eraser</td>
+								<td>All user events deleted</td>
+							</tr>
+						</tbody>
+				</table>
+			</div>
+			</div>
+		</div><!-- /.col-sm-4 -->
+	</div>
+				
+				
+				
+				
+				
+				
 
 
 
@@ -555,7 +492,6 @@
 
 
 	<!-- JS-->
-	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -613,11 +549,16 @@
 		var n = noty({text: 'Loaded MyMonoto section.', type: 'notification'});
 	</script>
 	
-	<script type="text/javascript" language="javascript" src="js/digitalspaghetti.password.js"></script>	<!-- password -->
 	<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>				<!--  m_keyPressAll-->
 
 	</body>
 </html>
+
+
+
+
+
+
 
 
 
@@ -630,7 +571,7 @@
 // - Do Delete all Events
 // - Do Export
 // - Do Import
-// - Do Change USerpassword
+// - Do Change Userpassword
 include 'conf/config.php';
 
 if ( isset($_POST["doChangeUserPW"]) ) 
@@ -808,33 +749,5 @@ if ( isset($_POST["doImport"]) )
 			<?php
 		}
 } 
-
-
-//
-// Changing User icon
-//
-if ( isset($_POST["doChangeUserIcon"]) ) 
-{
-	connectToDB();
-	$owner = $_SESSION['username'];
-
-	// is there a new file at all?
-	if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) 
-	{ 
-        $tmpName  = $_FILES['image']['tmp_name'];  		// Temporary file name stored on the server
-           
-        // Read the file 
-        $fp     = fopen($tmpName, 'r');
-        $data = fread($fp, filesize($tmpName));
-        $data = addslashes($data);
-        fclose($fp);
-             
-        $query = "UPDATE m_users SET  user_icon='$data' WHERE username='$owner'";						// update user record 
-		mysql_query($query);
-	}
-	else // no image defined.
-	{
-	}
-}
 ?>
 
