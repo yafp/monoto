@@ -165,7 +165,7 @@
     								], 
 					"aoColumns"   : [																/* visible columns */
 								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
-								{ "bSearchable": true, "bVisible": true, "sWidth": "5%" }, 							/* note-id */
+								{ "bSearchable": true, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
 								{ "bSearchable": true, "bVisible": true, "sWidth": "50%" },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
 								{ "bSearchable": false, "bVisible": false }					/* tags */
@@ -212,7 +212,7 @@
 					//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
 					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 
-					var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
+					//var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
 				});
 			} );
 
@@ -423,7 +423,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="notes.php">monoto</a>
+					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo01.png" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">

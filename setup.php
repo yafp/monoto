@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<title>monoto notes</title>
+		
+		<!-- META STUFF -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link rel="shortcut icon" href="images/favicon.ico">
-		<title>monoto notes</title>
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
+		
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
+		
 	</head>
-	<body>
+	
+	<body role="document">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -21,7 +30,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.php">monoto setup</a>
+					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo01.png" height="25"></a>
 				</div>
 			<div class="navbar-collapse collapse">
 				
@@ -33,8 +42,14 @@
 		<!-- ... -->
 		<div class="jumbotron">
 			<div class="container">
-				<br><br>
-			This script is supposed to be used to create your first monoto-user account.<br><b>Notice:</b>&nbsp;Please delete this file (setup.php) after having setup your monoto-server.<br><br><br>
+				<h3>installer</h3>
+				<hr>
+				You can create your first monoto user account using this install script. This account will have admin priviledges.
+				<div class="alert alert-danger">
+					<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.
+				</div>
+			
+			<br>
 			<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<table border="0">
 					<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" required="required"/></td></tr>

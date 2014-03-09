@@ -56,7 +56,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="notes.php">monoto</a>
+					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo01.png" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -253,7 +253,10 @@
 						</form>
 					</div>
 
-					<div id="tabs-5">
+
+
+					<br>
+					<b>Invite new user</b><br>
 						<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
 							<table style="width: 100%">
 								<tr>
@@ -286,7 +289,7 @@
 								</tr>
 							</table>
 						</form>
-					</div>
+					
 
 
 

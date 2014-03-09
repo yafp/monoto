@@ -50,7 +50,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="notes.php">monoto</a>
+					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo01.png" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -90,7 +90,6 @@
 						<form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<input type="password" id="newPassword1" name="newPassword1" placeholder="Please enter your new password" required="required" />
 							<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" />
-							<script type="text/javascript">jQuery('#newPassword1').pstrength();</script><br>
 							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />					
 						</form>
 						

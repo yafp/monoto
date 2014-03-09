@@ -11,7 +11,6 @@
 */
 
 body{
-
 } 
 
 #dt_example {
@@ -39,37 +38,9 @@ body{
 #
 ################################################ 
 */
-#dt_example #newHead {
-	background-color: #171717;
-	height: 40px;
-	border-bottom: solid;
-	border-color: #4489c9;
-}
-
-#dt_example #neuNav {
-	float:right
-}
-
-#dt_example #newSearch {
-	margin: 0 auto;
-	width:25%;
-}
-
 #myInputTextField {
     background: white url(../images/icons/search.jpg) right no-repeat;
     margin-top: 5px; 
-}
-
-#dt_example #logo{
-	margin-right:1em;
-	opacity: 0.9;
-	height: 40px;
-	float:left;
-	background-position:right;
-	background-image:url('../images/icons/monoto_logo01.png');
-	background-size: 100%;
-	background-repeat:no-repeat;
-	margin-left:15px;
 }
 
 
@@ -205,40 +176,3 @@ span {
 
 
 
-/* ############################################################ */ 
-/* MAIN-NAVIGATION													*/
-/* ############################################################ */ 
-#nav, #nav ul {
-     margin:0;
-     padding:0;
-     list-style-type:none;
-     list-style-position:outside;
-     position:relative;
-     line-height:1.5em;
- }
-
-#nav a:link, #nav a:active, #nav a:visited {
-    display:block;
-    padding:0px 5px;
-    border:0px solid #333;
-    color:#fff;
-    text-decoration:none;
-    background-color:#171717;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 1px;
-}
-
-#nav a:hover {
-    background-color:#fff;
-    color:#333;
-}
-
-#nav li {
-    float:left;
-    position:relative;
-
-    /* border-left: solid; 
-	border-color: #4489c9; */
-}

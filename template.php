@@ -44,7 +44,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="notes.php">monoto</a>
+					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo01.png" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -67,6 +67,8 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
+				<h3>template</h3>
+				<hr>
 				<p>Dummy</p>
 			</div>
 			<!-- SPACER -->
@@ -131,7 +133,7 @@
 		// notification
 		// success
 		//
-		var n = noty({text: 'Dummy.', type: 'notification'});
+		var n = noty({text: 'Template loaded', type: 'notification'});
 	</script>
 
 	</body>
