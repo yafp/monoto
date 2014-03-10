@@ -18,19 +18,16 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">	<!-- Bootstrap theme -->
 	</head>
-
 
 
 	<body role="document">
@@ -78,8 +75,9 @@
 
 
 	<!-- JS-->
-	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	
 	<!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
@@ -87,19 +85,19 @@
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
-		.script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
+		.script("js/m_reallyLogout.js") 							// ask really-logout question if configured by admin
 		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/m_keyPress.js")					// keyboard shortcuts
+		.script("js/m_keyPress.js")								// keyboard shortcuts
 	</script>
 	
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<!-- init noty -->
 	<script>
 		$.noty.defaults = {
-		  layout: 'topRight',
+		  layout: 'bottomCenter',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',

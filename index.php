@@ -11,15 +11,15 @@
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 
-		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jquery/jquery-2.1.0.min.js"></script>
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 		<!-- init noty -->
 		<script>
 		$.noty.defaults = {
-		  layout: 'topRight',
+		  layout: 'bottomCenter',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',

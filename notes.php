@@ -5,7 +5,34 @@
 	{
 		header('Location: redirect.php');
 	}
+	else
+	{
+?>
+		<!-- SESSION TIMEOUT WARNING -->
+		<script type="text/javascript">
+			var lefttime = "<?php echo get_cfg_var('max_execution_time');  ?>"; /* get server-sided php timeout value in minutes */
+			var interval;
+			interval = setInterval('change()',60000);
 
+			function change()
+			{
+				lefttime--;
+				//alert(lefttime);
+			   	if(lefttime<=0)
+			   	{		
+			   		window.location = "logout.php"
+			   	}
+			   	else
+			   	{
+			   		if(lefttime == 2) 
+				   	{
+				   		alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
+				   	}
+			   	}
+			}
+			</script>
+<?php
+	}
 ?>
 
 <!DOCTYPE html>
@@ -25,21 +52,23 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
+    	<link rel="stylesheet" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
 
 		<!-- JS-->
-		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<!-- datatables -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 		<!-- init noty -->
 		<script>
 		$.noty.defaults = {
-		  layout: 'topRight',
+		  layout: 'bottomCenter',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
@@ -65,15 +94,6 @@
 		};
 		</script>
 
-
-
-
-    	<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
-    	<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
-
-
-
-		
 		<!-- ckeditor -->
 		<script src="js/ckeditor-4.0.2_standard/ckeditor.js"></script>
 
@@ -96,7 +116,6 @@
 
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
-
 					height: '250px',
 					toolbar:
 					[
@@ -149,6 +168,10 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
+					"oLanguage": {
+            				"sProcessing": "<img src='images/load.gif'>"
+        			},
+				
 					"sDom": '<"wrapper"lipt>, <l<t>p>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"oSearch": {"sSearch": ""}, 
 					"sRowSelect": "single",
@@ -522,6 +545,9 @@
 		   $LAB
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
+		   
+		   
+		   
 		</script>
 		<!-- Bootstrap core JavaScript -->
 		<!-- Placed at the end of the document so the pages load faster -->

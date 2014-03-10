@@ -28,7 +28,7 @@
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 		
 		<!-- JS-->
-		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>		<!-- jquery itself -->
+		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>		<!-- jquery itself -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>		<!-- datatables -->
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
@@ -506,12 +506,12 @@
 	
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<!-- init noty -->
 	<script>
 		$.noty.defaults = {
-		  layout: 'topRight',
+		  layout: 'bottomCenter',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
