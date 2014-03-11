@@ -84,6 +84,7 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
+				<h1><i class="fa fa-cogs fa-1x"></i> Admin</h1>
 				<h3>Server configuration</h3>
 				<hr>
 				
@@ -99,18 +100,26 @@
 				
 				
 				The following values are based on <i>/conf/config.php</i><br><br>
-				<table style="width: 100%">
+				<table style="width: 60%">
 					<tbody>
 						<tr>
-							<td>- enable really delete question:</td>
-							<td style="width: 50%"><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td><i class="fa fa-warning fa-1x"></td>
+							<td>maintenance mode</td>
+							<td style="width: 30%"><?php if($s_enable_maintenance_mode == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
-							<td>- enable unstable sources:</td>
+							<td><i class="fa fa-question fa-1x"></td>
+							<td>really delete question</td>
+							<td><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+						</tr>
+						<tr>
+							<td><i class="fa fa-code-fork fa-1x"></td>
+							<td>unstable sources</td>
 							<td><?php if($s_enable_UnstableSources == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 						<tr>
-							<td>- enable random logout images:</td>
+							<td><i class="fa fa-random fa-1x"></td>
+							<td>random logout images</td>
 							<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
 						</tr>
 					</tbody>
@@ -138,7 +147,9 @@
 							<td colspan="3">&nbsp;</td>
 						</tr>
 						<tr>
-							<td><input type="submit" name="doUpdateCheck" value="Software Update" title="checks online for monoto updates" /></td>
+							<td>
+							<button type="submit" name="doUpdateCheck" value="Software Update" class="btn btn-sm btn-default" style="width:120px" title="checks online for monoto updates"  id="doUpdateCheck"><i class="fa fa-cloud-download fa-1x"></i> Software Update</button>
+							</td>
 							<td>
 								<?php 
 									if($s_enable_UnstableSources == true)
@@ -229,12 +240,12 @@
 					<tr>
 						<td width='30%'>Select a user:</td> 
 						<td>
-							<select name="userDeleteSelector">
+							<select name="userDeleteSelector" required>
+									<option value="" disabled selected>Select a username</option>
 									<?php
 									$result = mysql_query("SELECT id, username  FROM m_users ORDER by id ");
 									while($row = mysql_fetch_array($result))   // fill user-select box
 									{
-										//echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td><td>'.$row[8].'</td><td>'.$row[9].'</td><td>'.$row[10].'</td><td>'.$row[11].'</td></tr>';
 										echo '<option value="'.$row[0].'">'.$row[1].'</option>';
 									}
 									?>
@@ -247,7 +258,7 @@
 							</tr>
 							<tr>
 								<td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td> 
-								<td><button type="submit" name="doDeleteUser">Delete</button> </td>
+								<td><button type="submit" name="doDeleteUser"><i class="fa fa-trash-o fa-1x"></i> Delete</button> </td>
 							</tr>
 						</table>
 						</form>
@@ -495,45 +506,52 @@
 		$userID 		= $_POST['userDeleteSelector'];
 		$confirmText	= $_POST['confirmDeleteUser'];
 
-		if($confirmText == "CONFIRM")
+		if ($userID !="")
 		{
-			// get username to selected ID
-			$query = "SELECT username FROM m_users WHERE id = '$userID';";
-			$result = mysql_query($query);
-			while($row = mysql_fetch_array($result)) 					
+			if($confirmText == "CONFIRM")
 			{
-				$usernameToDelete = $row[0];
-			}
+				// get username to selected ID
+				$query = "SELECT username FROM m_users WHERE id = '$userID';";
+				$result = mysql_query($query);
+				while($row = mysql_fetch_array($result)) 					
+				{
+					$usernameToDelete = $row[0];
+				}
 
-			// delete user
-			$sql="DELETE FROM m_users WHERE id='$userID'";
-			$result = mysql_query($sql);
-			if (!$result) 
+				// delete user
+				$sql="DELETE FROM m_users WHERE id='$userID'";
+				$result = mysql_query($sql);
+				if (!$result) 
+				{
+			 		die('Error: ' . mysql_error());
+				}
+				else  // update m_log
+				{
+					$event = "User delete";
+					$details = "User: <b>".$userID." </b>is now gone.";
+					$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+					$result = mysql_query($sql);
+
+					// delete his notes as well
+					$sql="DELETE FROM m_notes WHERE owner='$usernameToDelete'";
+					$result = mysql_query($sql);
+
+					// delete his log as well
+					$sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
+					$result = mysql_query($sql);
+				}
+				mysql_close($con); 								// close sql connection
+			}
+			else // user hasnt entered CONFIRM
 			{
-	    		die('Error: ' . mysql_error());
+				echo '<script>alert("Enter CONFIRM and try it again.");</script>';		// alert user that he hasnt entered CONFIRM
 			}
-			else  // update m_log
-			{
-				$event = "User delete";
-				$details = "User: <b>".$userID." </b>is now gone.";
-				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-				$result = mysql_query($sql);
-
-				// delete his notes as well
-				$sql="DELETE FROM m_notes WHERE owner='$usernameToDelete'";
-				$result = mysql_query($sql);
-
-				// delete his log as well
-				$sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
-				$result = mysql_query($sql);
-			}
-			mysql_close($con); 								// close sql connection
+			// reload page
 		}
-		else // user hasnt entered CONFIRM
+		else
 		{
-			echo '<script>alert("Enter CONFIRM and try it again.");</script>';		// alert user that he hasnt entered CONFIRM
+			echo '<script>alert("Please select a user first");</script>';		// alert user that he hasnt entered CONFIRM
 		}
-		// reload page
 	}
 
 

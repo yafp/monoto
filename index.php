@@ -63,10 +63,10 @@
 			<!-- Login Form -->
 			<form class="navbar-form navbar-right" role="form" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<div class="form-group">
-					<input type="text" placeholder="Email" class="form-control" name="username" required="required">
+					<input type="text" placeholder="username" class="form-control" name="username" required="required">
 				</div>
 				<div class="form-group">
-					<input type="password" placeholder="Password" class="form-control" name="password" required="required">
+					<input type="password" placeholder="password" class="form-control" name="password" required="required">
 				</div>
 				<button type="submit" class="btn btn-success" name="doLogin">Sign in</button>
 			</form>

@@ -77,12 +77,13 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
+				<h1><i class="fa fa-user fa-1x"></i> MyMonoto</h1>
 				<!-- PROFILE -->
 				<h3>Profile</h3>
 				<hr>
 				<table style="width: 100%" border="0"">
 					<tr>
-						<td style="width:25%" colspan="2"><i class="fa fa-user fa-4x"></i></td>
+						<td style="width:25%" colspan="2"></td>
 						<td style="width:5%"></td>
 						<td rowspan="5">
 						<!-- CHANGE USER PASSWORD BUTTON -->
@@ -450,7 +451,8 @@
 				<!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
 				<p>You can import plain-text files. Select a folder and press the 'Import' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
-					<input type="file" name="file[]" multiple id="file[]" /><br>
+					<input type="file" name="file[]" multiple id="file[]" />
+					<br>
 					<input type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." />
 					<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
 				</form>

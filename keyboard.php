@@ -69,15 +69,12 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
+				<h1><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</h3>
 				<h3>monoto-wide</h3>
 				<hr>
 				<table style="width:100%">
 					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
-					<tr><td>(Shift) + Alt + n</td><td>Loads notes page per accesskey.</td></tr>
-					<tr><td>(Shift) + Alt + m</td><td>Loads my monoto per accesskey.</td></tr>
-					<tr><td>(Shift) + Alt + d</td><td>Loads admin page per accesskey.</td></tr>
-					<tr><td>(Shift) + Alt + l</td><td>Logout from monoto per accesskey.</td></tr>
 				</table>
 				<br><br>
 				<h3>notes-page</h3>

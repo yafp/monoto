@@ -17,16 +17,16 @@
 			function change()
 			{
 				lefttime--;
-				//alert(lefttime);
 			   	if(lefttime<=0)
 			   	{		
 			   		window.location = "logout.php"
 			   	}
 			   	else
 			   	{
-			   		if(lefttime == 2) 
+			   		if(lefttime == 5) 
 				   	{
-				   		alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
+				   		var n = noty({text: 'timeout-reminder.', type: 'warning'});
+				   		//alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
 				   	}
 			   	}
 			}
@@ -450,8 +450,8 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
-						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
+						<li class="active"><a href="notes.php" accesskey="n"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
+						<li><a href="mymonoto.php" accesskey="m"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
 						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
 						
 						<?php
@@ -486,21 +486,42 @@
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="nothing selected" disabled style="width:100%; " /></td>
-							<td><input type="button" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" /></td>
+							<td>
+							<!--
+							<input type="button" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" />
+							-->
+							 <button type="button" class="btn btn-sm btn-default" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" ><i class="fa fa-save fa-1x"></i> save</button>
+							</td>
 						</tr>
 						<!-- NOTE CONTENT using CKeditor -->
 						<tr>
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
+							
+							<!--
 							<input type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
+							-->
+							<button type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();" class="btn btn-sm btn-info"><i class="fa fa-refresh fa-1x"></i> reload</button>
+							
+							<!--
 							<input type="button" style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled">
+							-->
+							
+							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
+							
 							</td>
 						</tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
 							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
-							<td><input type="submit" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"></td>
+							<td>
+							<!--
+							<input type="submit" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled">
+							-->
+							<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
+							</td>
+							
 						</tr>
 					</table>
 				</form>
@@ -545,6 +566,7 @@
 		   $LAB
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
+		   .script("js/m_keyPress.js")					// disabled the right-click contextmenu
 		   
 		   
 		   
@@ -552,8 +574,6 @@
 		<!-- Bootstrap core JavaScript -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="js/bootstrap.min.js"></script>
-		<!--  m_keyPress-->
-		<script type="text/javascript" language="javascript" src="js/m_keyPress.js"></script>
   </body>
 </html>
 

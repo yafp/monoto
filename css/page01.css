@@ -175,4 +175,17 @@ span {
 }
 
 
+h1{
+	background-color: #4489c9;
+	display: inline-block; /* not over full width */
+	text-decoration: none;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 7px;
+	padding-top: 7px;
+	border-radius: 15px;
+	
+}
+
+
 
