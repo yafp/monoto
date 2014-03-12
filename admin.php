@@ -137,11 +137,11 @@
 					<table style="width: 100%">
 						<tr>
 							<td><b>build:</b></td>
-							<td><span><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
+							<td><span class='blue'><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
 						</tr>
 						<tr>
 							<td><b>milestone:</b></td>
-							<td><span><?php echo $m_milestone."</span> <i>aka</i> <span>".$m_milestone_title.""; ?></span></td>
+							<td><span class='blue'><?php echo $m_milestone."</span> <i>aka</i> <span class='blue'>".$m_milestone_title.""; ?></span></td>
 						</tr>
 						<tr>
 							<td colspan="3">&nbsp;</td>
@@ -295,7 +295,9 @@
 									<td><input type="text" name="newUserNote" placeholder="Optional - note about user" /></td>
 								</tr>
 								<tr>
-									<td><input type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided." /></td> 
+									<td>
+									<button type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided."><i class="fa fa-envelope-o fa-1x"></i> Invite</button>
+									</td> 
 									<td>&nbsp;</td>
 								</tr>
 							</table>

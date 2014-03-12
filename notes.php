@@ -117,6 +117,7 @@
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
 					height: '250px',
+					removePlugins: 'elementspath', /*  hide html tags in ckeditors foot*/
 					toolbar:
 					[
 					    { name: 'document',    items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
@@ -453,12 +454,13 @@
 						<li class="active"><a href="notes.php" accesskey="n"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
 						<li><a href="mymonoto.php" accesskey="m"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
 						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
-						
 						<?php
+							
 							if($_SESSION['admin'] == 1) // show admin-section
 							{
 								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
 							}
+							
 						?>
 						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
 					</ul>
@@ -480,6 +482,12 @@
 			
 			<!-- CONTENT -->
 			<div id="noteContentCo">
+			
+			
+			
+			
+			
+			
 			
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
@@ -519,7 +527,7 @@
 							<!--
 							<input type="submit" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled">
 							-->
-							<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
+							<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
 							</td>
 							
 						</tr>
@@ -544,7 +552,7 @@
 						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user
 						//$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ORDER by date_mod DESC ");
-						$result = mysql_query("SELECT id, title, content FROM m_notes WHERE owner='".$owner."' ORDER by date_mod DESC ");
+						$result = mysql_query("SELECT id, title, content FROM m_notes WHERE owner='".$owner."' ORDER by date_mod ASC ");
 						while($row = mysql_fetch_array($result))
 						{
 							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
