@@ -31,8 +31,10 @@
 		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>		<!-- jquery itself -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>		<!-- datatables -->
 		<script type="text/javascript" charset="utf-8">
-			$(document).ready(function() {
-				$('#example').dataTable();
+			$(document).ready( function () {
+			  $('#example').dataTable( {
+				 "bSort": false		// dont sort - trust the sql-select and its sort-order
+			  } );
 			} );
 		</script>
 	</head>
@@ -365,7 +367,7 @@
 					</thead>
 					<tbody>
 						<?php
-							$result = mysql_query("SELECT * FROM m_log WHERE owner='".$owner."' "); // m_log
+							$result = mysql_query("SELECT * FROM m_log WHERE owner='".$owner."' ORDER BY activity_date DESC"); // m_log
 							while($row = mysql_fetch_array($result))   // fill datatable
 							{
 								echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
@@ -453,7 +455,10 @@
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 					<input type="file" name="file[]" multiple id="file[]" />
 					<br>
+					<!--
 					<input type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." />
+					-->
+					<button type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." disabled ><i class="fa fa-sign-in"></i> Import</button>
 					<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
 				</form>
 
@@ -468,7 +473,10 @@
 				<hr>
 				<p>You can export your notes in .csv format. Press the 'Export' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<!--
 					<input type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" />
+					-->
+					<button type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" ><i class="fa fa-sign-out"></i> Export</button>
 				</form>
 
 
@@ -481,8 +489,16 @@
 				<hr>
 				<p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<!--
 					<input type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" title="Deletes all notes from your account. Be careful with that" /><br>
+					-->
+					<button type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" title="Deletes all notes from your account. Be careful with that" ><i class="fa fa-trash-o"></i> Delete Notes</button>
+					
+					
+					<!--
 					<input type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" title="Deletes all log events from your account. Be careful with that too" />
+					-->
+					<button type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" title="Deletes all log events from your account. Be careful with that too" ><i class="fa fa-trash-o"></i> Delete Events</button>
 				</form>
 
 
@@ -664,7 +680,17 @@ if ( isset($_POST["doExport"]) )
 //
 if ( isset($_POST["doImport"]) ) 
 {
-	connectToDB();
+	// TODO: files selected at all????
+	if (empty($_FILES)) 
+	{
+		echo "empty";
+	}
+	else
+	{	
+		echo "filled";
+		
+		
+		connectToDB();
 	$owner = $_SESSION['username'];
 	$good_counter = 0;
 
@@ -749,6 +775,10 @@ if ( isset($_POST["doImport"]) )
 				</script>
 			<?php
 		}
+	
+	}
+	
+	
 } 
 ?>
 

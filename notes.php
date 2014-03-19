@@ -80,7 +80,7 @@
 		    easing: 'swing',
 		    speed: 500 // opening & closing animation speed
 		  },
-		  timeout: 1000, // delay for closing event. Set false for sticky notifications
+		  timeout: 2000, // delay for closing event. Set false for sticky notifications
 		  force: false, // adds notification to the beginning of queue when set to true
 		  modal: false,
 		  closeWith: ['click'], // ['click', 'button', 'hover']
@@ -169,9 +169,8 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-					"oLanguage": {
-            				"sProcessing": "<img src='images/load.gif'>"
-        			},
+					//"bProcessing": true,
+					"oLanguage": { "sProcessing": "<img src='../images/loading.gif'>"},
 				
 					"sDom": '<"wrapper"lipt>, <l<t>p>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"oSearch": {"sSearch": ""}, 
@@ -430,6 +429,10 @@
 			$('#editor1').val('').blur();						// empty cleditor textarea
 		}
 		</script>
+		
+		
+		
+		
 	</head>  
 
 

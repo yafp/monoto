@@ -105,22 +105,22 @@
 						<tr>
 							<td><i class="fa fa-warning fa-1x"></td>
 							<td>maintenance mode</td>
-							<td style="width: 30%"><?php if($s_enable_maintenance_mode == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td style="width: 30%"><?php if($s_enable_maintenance_mode == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td><i class="fa fa-question fa-1x"></td>
 							<td>really delete question</td>
-							<td><?php if($s_enable_really_delete == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td><?php if($s_enable_really_delete == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td><i class="fa fa-code-fork fa-1x"></td>
 							<td>unstable sources</td>
-							<td><?php if($s_enable_UnstableSources == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td><?php if($s_enable_UnstableSources == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td><i class="fa fa-random fa-1x"></td>
 							<td>random logout images</td>
-							<td><?php if($s_enable_random_logout_gif == false){ echo "<span>false</span>";}else{echo "<span>true</span>";} ?></td>
+							<td><?php if($s_enable_random_logout_gif == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -409,7 +409,7 @@
 	if ( isset($_POST["doUpdateCheck"]) ) 
 	{
 		session_start();
-		include 'conf/config.php';
+		//include 'conf/config.php';
 		
 		// assume everything is good
 		$critical = FALSE;

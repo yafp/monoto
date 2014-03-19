@@ -1,8 +1,14 @@
 <?php
-	session_start();	
+/*
+About:			This file acts as script in monoto to delete single/selected notes.
+*/
+
+	session_start();
+	
 	// check if the user-session is valid or not
 	if($_SESSION['valid'] == 1)
 	{
+		// get post data
 		$deleteID = $_POST['deleteID'];
 		$deleteTitle = $_POST['deleteTitle'];
 		$deleteContent = $_POST['deleteContent'];

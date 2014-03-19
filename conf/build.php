@@ -6,6 +6,6 @@
 	$m_name					= "monoto";							// name of your notes system
 	$m_milestone			= "3";								// current milestone number
 	$m_milestone_title	= "pimping the workflow";		// current milestone name
-	$m_build					= "20140312.01";					// build-date and day's version
+	$m_build					= "20140319.01";					// build-date and day's version
 	$m_stable				= false;								// defined if that is a milestone release
 ?>

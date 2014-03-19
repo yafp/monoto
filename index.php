@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>monoto notes</title>
+		
+		<!-- META -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link rel="shortcut icon" href="images/favicon.ico">
-		<title>monoto notes</title>
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<meta name="description" content="monoto notes">
+		<meta name="author" content="florian poeck">
+		
+		<!-- CSS -->
+		<link href="images/favicon.ico" rel="shortcut icon">
+		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
+		<link href="css/page01.css" rel="stylesheet">
 
+		<!-- JS -->
 		<script src="js/jquery/jquery-2.1.0.min.js"></script>
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
@@ -47,7 +52,7 @@
 		
 		
 	</head>
-	<body>
+	<body>		 
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -78,9 +83,37 @@
 		<div class="jumbotron">
 			<div class="container">
 				<br><br>
+			
 				<center>
+					<!--
 					<img src="images/random_logout/bomb.gif" width="400">
+					-->
 				</center>
+				
+				<?php
+				// define array of random notes
+				$array = array();
+
+				// fill array
+				$array[0] = array();
+				$array[0]['name'] = "Edgar Allan Poe";
+				$array[0]['quote'] = "If you wish to forget anything on the spot, make a note that this thing is to be remembered.";
+
+				$array[1] = array();
+				$array[1]['name'] = "Ben Casnocha";
+				$array[1]['quote'] = "If you aren't taking notes, you aren't learning";
+
+				$sizeOfQuotesArray = sizeof($array); // get size of array
+				$sizeOfQuotesArray = $sizeOfQuotesArray -1; // fit counting
+				$randomPick= rand(0, $sizeOfQuotesArray); // pick random quote
+				?>
+
+					<blockquote>
+						<p><?php echo $array[$randomPick]['quote']; ?></p>
+					</blockquote>
+					<cite><?php echo $array[$randomPick]['name']; ?></cite>
+					
+				
 				</div>
 			</div>
 
@@ -130,122 +163,123 @@ if ( isset($_POST["doLogin"]) )
 	$_SESSION['username'] = $username;									// add session-info
 	$owner = $_SESSION['username'];
 	
-	
 	// check if there is a user with matching data
 	$query = "SELECT password, salt FROM m_users WHERE username = '$username';";
 	$result = mysql_query($query);
 	if(mysql_num_rows($result) < 1)  										//no such user exists
 	{
-	    header('Location: redirect.php');
+	    //header('Location: redirect.php');
 	    echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
 	}
-
-	// user exists
-	$userData = mysql_fetch_array($result, MYSQL_ASSOC);
-	$hash = hash('sha256', $userData['salt'] . hash('sha256', $password) );
-
-	// check if user-account is locked already cause it had 3 failed logins in a row
-	$sql="SELECT failed_logins_in_a_row FROM m_users WHERE username='".$_SESSION['username']."'  ";
-	$result = mysql_query($sql);
-	while($row = mysql_fetch_array($result)) 					
+	else // user does not exist
 	{
-		$failCounterInARow = $row[0];
-	}
+		// user exists
+		$userData = mysql_fetch_array($result, MYSQL_ASSOC);
+		$hash = hash('sha256', $userData['salt'] . hash('sha256', $password) );
 
-	if($failCounterInARow < 3)		// try to login
-	{
-		//check for incorrect password
-		if($hash != $userData['password']) 
+		// check if user-account is locked already cause it had 3 failed logins in a row
+		$sql="SELECT failed_logins_in_a_row FROM m_users WHERE username='".$_SESSION['username']."'  ";
+		$result = mysql_query($sql);
+		while($row = mysql_fetch_array($result))
 		{
-			// log incorrect login attempt - date
-			$sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$_SESSION['username']."' ";
-			$result = mysql_query($sql);
-
-			// get current fail-login-count
-	    	$sql="SELECT failed_logins FROM m_users WHERE username='".$_SESSION['username']."'  ";
-			$result = mysql_query($sql);
-			while($row = mysql_fetch_array($result)) 					
-			{
-				$failCounter = $row[0];
-			}
-			$failCounter = $failCounter +1;
-			$failCounterInARow = $failCounterInARow +1;
-
-			// update failcounter
-			$sql="UPDATE m_users SET failed_logins='".$failCounter."' WHERE username='".$_SESSION['username']."' ";
-			$result = mysql_query($sql);
-
-			// update failcounterInARow - for account-lock-checking
-			$sql="UPDATE m_users SET failed_logins_in_a_row='".$failCounterInARow."' WHERE username='".$_SESSION['username']."' ";
-			$result = mysql_query($sql);
-
-			// record to log - that we had a successfull user login
-			$event = "login error";
-			$details = "User: <b>".$username."</b> failed to login.";
-			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
-			$result = mysql_query($sql);
-
-			//header('Location: redirect.php');									// redirect user 
-			echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
+			$failCounterInARow = $row[0]; // get amount of failed-logins-in-a-row of this account
 		}
-		else //login successful
-		{	
-	    	$_SESSION['valid'] = 1;
-	    	echo '<script language=javascript>$.cookie("lastAction", "Logged in.");</script>';	// store last Action in cookie
 
-	    	// if user is admin - add the info to our session 
-			$query = "SELECT is_admin FROM m_users WHERE username = '$username';";
-			$result = mysql_query($query);
-			while($row = mysql_fetch_array($result))
+		if($failCounterInARow < 3)		// try to login
+		{
+			//check for incorrect password
+			if($hash != $userData['password']) 
 			{
-				if($row[0] == 1)
-				{ 
-					$_SESSION['admin'] = 1; 
-				}
-			}
-
-	    	// get current login-count
-	    	$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
-			$result = mysql_query($sql);
-			while($row = mysql_fetch_array($result)) 					
-			{
-				$loginCounter = $row[0];
-			}
-			$loginCounter = $loginCounter +1;
-
-			// check if its first login - if so: save the first login date to db
-			if($loginCounter == 1)
-			{
-				$sql="UPDATE m_users SET date_first_login= now() WHERE username='".$_SESSION['username']."' ";
+				// log incorrect login attempt - date
+				$sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$_SESSION['username']."' ";
 				$result = mysql_query($sql);
+
+				// get current fail-login-count
+	    		$sql="SELECT failed_logins FROM m_users WHERE username='".$_SESSION['username']."'  ";
+				$result = mysql_query($sql);
+				while($row = mysql_fetch_array($result))
+				{
+					$failCounter = $row[0];
+				}
+				$failCounter = $failCounter +1;
+				$failCounterInARow = $failCounterInARow +1;
+
+				// update failcounter
+				$sql="UPDATE m_users SET failed_logins='".$failCounter."' WHERE username='".$_SESSION['username']."' ";
+				$result = mysql_query($sql);
+
+				// update failcounterInARow - for account-lock-checking
+				$sql="UPDATE m_users SET failed_logins_in_a_row='".$failCounterInARow."' WHERE username='".$_SESSION['username']."' ";
+				$result = mysql_query($sql);
+
+				// record to log - that we had a successfull user login
+				$event = "login error";
+				$details = "User: <b>".$username."</b> failed to login.";
+				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
+				$result = mysql_query($sql);
+
+				//header('Location: redirect.php');									// redirect user 
+				echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
 			}
+			else //login successful
+			{	
+	    		$_SESSION['valid'] = 1;
+	    		echo '<script language=javascript>$.cookie("lastAction", "Logged in.");</script>';	// store last Action in cookie
 
-			// update last login date
-			$sql="UPDATE m_users SET date_last_login= now()  WHERE username='".$_SESSION['username']."' ";
-			$result = mysql_query($sql);
+	    		// if user is admin - add the info to our session 
+				$query = "SELECT is_admin FROM m_users WHERE username = '$username';";
+				$result = mysql_query($query);
+				while($row = mysql_fetch_array($result))
+				{
+					if($row[0] == 1)
+					{ 
+						$_SESSION['admin'] = 1; 
+					}
+				}
 
-			// update logincounter
-			$sql="UPDATE m_users SET login_counter='".$loginCounter."' WHERE username='".$_SESSION['username']."' ";
-			$result = mysql_query($sql);
+				// get current login-count
+				$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
+				$result = mysql_query($sql);
+				while($row = mysql_fetch_array($result)) 					
+				{
+					$loginCounter = $row[0];
+				}
+				$loginCounter = $loginCounter +1;
 
-	    	// record to log - that we had a successfull user login
-			$event = "login";
-			$details = "User: <b>".$username."</b> logged in successfully.";
-			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
-			$result = mysql_query($sql);
+				// check if its first login - if so: save the first login date to db
+				if($loginCounter == 1)
+				{
+					$sql="UPDATE m_users SET date_first_login= now() WHERE username='".$_SESSION['username']."' ";
+					$result = mysql_query($sql);
+				}
 
-			// reset failedLoginsInARow entry in database
-			$sql="UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$_SESSION['username']."' ";
-			$result = mysql_query($sql);
+				// update last login date
+				$sql="UPDATE m_users SET date_last_login= now()  WHERE username='".$_SESSION['username']."' ";
+				$result = mysql_query($sql);
 
-	    	echo '<script type="text/javascript">window.location="notes.php"</script>';		// whyever that works - but header not anymore. must be related to our header rework
-	    	echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
+				// update logincounter
+				$sql="UPDATE m_users SET login_counter='".$loginCounter."' WHERE username='".$_SESSION['username']."' ";
+				$result = mysql_query($sql);
+
+				// record to log - that we had a successfull user login
+				$event = "login";
+				$details = "User: <b>".$username."</b> logged in successfully.";
+				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
+				$result = mysql_query($sql);
+
+				// reset failedLoginsInARow entry in database
+				$sql="UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$_SESSION['username']."' ";
+				$result = mysql_query($sql);
+
+				echo '<script type="text/javascript">window.location="notes.php"</script>';		// whyever that works - but header not anymore. must be related to our header rework
+				echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
+			}
 		}
-	} 
-	else 		// login is not possible anymore - admin must remove the login lock
-	{
-		echo '<script type="text/javascript">var n = noty({text: "Account is locked.", type: "error"});</script>';
-		echo("<script language=javascript>alert('This account is locked, please contact your monoto-admin.');</script>");
+		else 		// login is not possible anymore - admin must remove the login lock
+		{
+			echo '<script type="text/javascript">var n = noty({text: "Account is locked.", type: "error"});</script>';
+			//echo("<script language=javascript>alert('This account is locked, please contact your monoto-admin.');</script>");
+		}
 	}
 }
 ?>
