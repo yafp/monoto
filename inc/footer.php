@@ -14,7 +14,10 @@
 		{
 			echo "stable";
 		} 
-		echo '<br><a href="https://github.com/macfidelity/monoto" title="visit monoto at github"><i class="fa fa-github fa-2x"></i></a><br>';
+		echo '<br>';
+		echo '<a href="https://github.com/macfidelity/monoto" title="visit monoto at github"><i class="fa fa-github fa-2x"></i></a>';
+		echo '&nbsp;<i class="fa fa-html5 fa-2x"></i>';
+		echo '&nbsp;<i class="fa fa-css3 fa-2x"></i>';
 		echo "</small>";
 	?>
 </div>

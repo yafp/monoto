@@ -84,6 +84,10 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
+				
+
+				
+				
 				<h1><i class="fa fa-cogs fa-1x"></i> Admin</h1>
 				<h3>Server configuration</h3>
 				<hr>
@@ -105,22 +109,22 @@
 						<tr>
 							<td><i class="fa fa-warning fa-1x"></td>
 							<td>maintenance mode</td>
-							<td style="width: 30%"><?php if($s_enable_maintenance_mode == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
+							<td style="width: 30%"><?php if($s_enable_maintenance_mode == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td><i class="fa fa-question fa-1x"></td>
 							<td>really delete question</td>
-							<td><?php if($s_enable_really_delete == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
+							<td><?php if($s_enable_really_delete == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td><i class="fa fa-code-fork fa-1x"></td>
 							<td>unstable sources</td>
-							<td><?php if($s_enable_UnstableSources == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
+							<td><?php if($s_enable_UnstableSources == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td><i class="fa fa-random fa-1x"></td>
 							<td>random logout images</td>
-							<td><?php if($s_enable_random_logout_gif == false){ echo "<span class='blue'>false</span>";}else{echo "<span class='blue'>true</span>";} ?></td>
+							<td><?php if($s_enable_random_logout_gif == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -137,11 +141,11 @@
 					<table style="width: 100%">
 						<tr>
 							<td><b>build:</b></td>
-							<td><span class='blue'><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
+							<td><span class='badge'><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
 						</tr>
 						<tr>
 							<td><b>milestone:</b></td>
-							<td><span class='blue'><?php echo $m_milestone."</span> <i>aka</i> <span class='blue'>".$m_milestone_title.""; ?></span></td>
+							<td><span class='badge'><?php echo $m_milestone."</span> <i>aka</i> <span class='badge'>".$m_milestone_title.""; ?></span></td>
 						</tr>
 						<tr>
 							<td colspan="3">&nbsp;</td>
@@ -272,19 +276,19 @@
 							<table style="width: 100%">
 								<tr>
 									<td width='30%'>Username:</td> 
-									<td><input type="text" name="newUsername" placeholder="Required - Insert new username" required="required" /></td>
+									<td><input type="text" name="newUsername" placeholder="Username" required="required" /></td>
 								</tr>
 								<tr>
 									<td>Mail:</td> 
-									<td><input type="email" name="newUserMail" placeholder="Required - Insert email" required="required" /></td>
+									<td><input type="email" name="newUserMail" placeholder="Email" required="required" /></td>
 								</tr>
 								<tr>
 									<td>Password:</td> 
-									<td><input type="password" name="newPassword1" placeholder="Required - Please enter the new password" required="required" /></td>
+									<td><input type="password" name="newPassword1" placeholder="Password" required="required" autocomplete="off" /></td>
 								</tr>
 								<tr>
 									<td>Repeat Password:</td> 
-									<td><input type="password" name="newPassword2" placeholder="Required - Please enter the new password again" required="required" /></td>
+									<td><input type="password" name="newPassword2" placeholder="Repeat password" required="required" autocomplete="off" /></td>
 								</tr>
 								<tr>
 									<td>Send notification mail to new user: (optional)</td> 
@@ -292,7 +296,7 @@
 								</tr>
 								<tr>
 									<td>Admin note about this invite or user: (optional)</td> 
-									<td><input type="text" name="newUserNote" placeholder="Optional - note about user" /></td>
+									<td><input type="text" name="newUserNote" placeholder="Comment" /></td>
 								</tr>
 								<tr>
 									<td>

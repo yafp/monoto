@@ -102,6 +102,11 @@
 				$array[1] = array();
 				$array[1]['name'] = "Ben Casnocha";
 				$array[1]['quote'] = "If you aren't taking notes, you aren't learning";
+				
+				$array[2] = array();
+				$array[2]['name'] = "Antonin Sertillanges";
+				$array[2]['quote'] = "Very often, gleams of light come in a few minutes' sleeplessness, in a second
+perhaps; you must fix them. To entrust them to the relaxed brain is like writing on water; there is every chance that on the morrow there will be no slightest trace left of any happening";
 
 				$sizeOfQuotesArray = sizeof($array); // get size of array
 				$sizeOfQuotesArray = $sizeOfQuotesArray -1; // fit counting

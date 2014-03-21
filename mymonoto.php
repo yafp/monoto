@@ -37,6 +37,39 @@
 			  } );
 			} );
 		</script>
+		
+		
+		<script type="text/javascript">
+			//
+			// Delete user events
+			//
+			function deleteAllMyUserEvents() 
+			{
+				var answer = confirm("Do you really want to delete all your events?")
+				if (answer)
+				{
+					$.post("inc/delMyUserEvents.php");
+					$.cookie("lastAction", "Deleted all your event-entries.");	// store last Action in cookie
+					location.reload();
+				}
+			}
+		
+		
+			//
+			// Delete user notes
+			//
+			function deleteAllMyUserNotes() 
+			{
+				var answer = confirm("Do you really want to delete all your notes?")
+				if (answer)
+				{
+					$.post("inc/delMyUserNotes.php");
+					$.cookie("lastAction", "Deleted all your notes");	// store last Action in cookie
+					location.reload();
+				}
+			}
+		</script>
+		
 	</head>
 
 
@@ -91,8 +124,8 @@
 						<!-- CHANGE USER PASSWORD BUTTON -->
 						<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.
 						<form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-							<input type="password" id="newPassword1" name="newPassword1" placeholder="Please enter your new password" required="required" />
-							<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" />
+							<input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
+							<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
 							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />					
 						</form>
 						
@@ -100,7 +133,7 @@
 						</tr>
 						<tr>
 							<td>name:</td>
-							<td><?php echo "<span class='blue'>".$_SESSION['username']."</span>" ?></td>
+							<td><?php echo "<span class='badge'>".$_SESSION['username']."</span>" ?></td>
 							<td></td>
 						</tr>
 						<tr>
@@ -113,7 +146,7 @@
 									$result = mysql_query($sql);
 									while($row = mysql_fetch_array($result)) 					
 									{
-										echo "<span class='blue'>".$row[0]."</span>";
+										echo "<span class='badge'>".$row[0]."</span>";
 									}
 								?>
 							</td>
@@ -127,7 +160,7 @@
 									$result = mysql_query($sql);
 									while($row = mysql_fetch_array($result)) 					
 									{
-										echo "<span class='blue'>".$row[0]."</span>";
+										echo "<span class='badge'>".$row[0]."</span>";
 									}
 								?>
 							</td>
@@ -141,7 +174,7 @@
 									$result = mysql_query($sql);
 									while($row = mysql_fetch_array($result)) 					
 									{
-										echo "<span class='blue'>".$row[0]."</span>";
+										echo "<span class='badge'>".$row[0]."</span>";
 									}
 								?>
 							</td>
@@ -182,7 +215,7 @@
 									}
 									else
 									{
-										echo "- You have <span class='blue'>".$row[0]." personal notes</span> in the monoto database<br>"; 	// output amount of notes
+										echo "- You have <span class='badge'>".$row[0]." personal notes</span> in the monoto database<br>"; 	// output amount of notes
 										// SQL-SECTION
 										//
 										// amount of activity-events
@@ -332,19 +365,19 @@
 										// - $stats_entire_monoto_db_size
 										//
 										// Use our variables to create some kind of LOG text - should be informative but still funny if possible.
-										echo "- Those notes are using <span class='blue'>".$stats_overall_title_words." words</span> for titles and overall <span class='blue'>".$stats_overall_content_words." words</span> for the content.<br>";
-										echo "- The personal event log has recorded <span class='blue'>".$stats_events_of_current_user." events</span> for this account.<br>";
-										echo "- Those can be devided into <span class='blue'>".$stats_amount_of_creates." notes creations</span>, <span class='blue'>".$stats_amount_of_changes." note-editings</span> and <span class='blue'>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
-										echo "- In addition to those numbers your account has <span class='blue'>".$stats_amount_of_imports." note-import events</span> logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
-										echo "- Plus <span class='blue'>".$stats_amount_of_creates_errors."</span> failed create errors.<br>";
-										echo "- Well in case numbers still dont match up - add <span class='blue'>".$stats_amount_of_logins." logins</span> and <span class='blue'>".$stats_amount_of_logouts." logouts</span>.<br>";
-										echo "- Your highest note id is currently <span class='blue'>".$stats_highest_note_version_id."</span>, with the title <span class='blue'>".$stats_highest_note_version_title."</span>. This specific note has <span class='blue'>revision number ".$stats_highest_note_version_versions."</span>.<br>";
-										echo "- Your shortest note so far is note <span class='blue'>number ".$stats_note_with_shortest_content_id."</span>, it is <span class='blue'>using ".$stats_note_with_shortest_content_chars." chars</span> for its entire content.<br>";
-										echo "- Lets compare that with your longest note which has the <span class='blue'>id ".$stats_note_with_longest_content_id."</span> and is <span class='blue'>".$stats_note_with_longest_content_chars." long</span>.<br>";
-										echo "- Looking for dates? Let's face it: your oldest note has an <span class='blue'>age of ".$stats_oldest_created_note_age." days</span>. It was created <span class='blue'>".$stats_oldest_created_note_date."</span> with the <span class='blue'>id ".$stats_oldest_created_note_id."</span>.<br>";
-										echo "- In comparison - your latest created note has the <span class='blue'>age of ".$stats_latest_created_note_age." days</span>, has the <span class='blue'>id ".$stats_latest_created_note_id."</span>, the title <span class='blue'>".$stats_latest_created_note_title."</span> and a creation date of <span class='blue'>".$stats_latest_created_note_date."</span>.<br>";
-										echo "- The last note you actually edited was note <span class='blue'>".$stats_last_edited_note_id."</span> with the title <span class='blue'>".$stats_last_edited_note_title."</span>. This edit is <span class='blue'>".$stats_last_edited_note_age." days</span> old - from <span class='blue'>".$stats_last_edited_note_date."</span> in case you bother.<br>";
-										echo "- Lets come to the end - the entire monoto db of all users has a size of <span class='blue'>".$stats_entire_monoto_db_size."  MB</span>.<br>";
+										echo "- Those notes are using <span class='badge'>".$stats_overall_title_words." words</span> for titles and overall <span class='badge'>".$stats_overall_content_words." words</span> for the content.<br>";
+										echo "- The personal event log has recorded <span class='badge'>".$stats_events_of_current_user." events</span> for this account.<br>";
+										echo "- Those can be devided into <span class='badge'>".$stats_amount_of_creates." notes creations</span>, <span class='badge'>".$stats_amount_of_changes." note-editings</span> and <span class='badge'>".$stats_amount_of_deletes." notes-deletions</span>.<br>";
+										echo "- In addition to those numbers your account has <span class='badge'>".$stats_amount_of_imports." note-import events</span> logged. But keep in mind that 1 import event can contain more then 1 note.<br>";
+										echo "- Plus <span class='badge'>".$stats_amount_of_creates_errors."</span> failed create errors.<br>";
+										echo "- Well in case numbers still dont match up - add <span class='badge'>".$stats_amount_of_logins." logins</span> and <span class='badge'>".$stats_amount_of_logouts." logouts</span>.<br>";
+										echo "- Your highest note id is currently <span class='badge'>".$stats_highest_note_version_id."</span>, with the title <span class='badge'>".$stats_highest_note_version_title."</span>. This specific note has <span class='badge'>revision number ".$stats_highest_note_version_versions."</span>.<br>";
+										echo "- Your shortest note so far is note <span class='badge'>number ".$stats_note_with_shortest_content_id."</span>, it is <span class='badge'>using ".$stats_note_with_shortest_content_chars." chars</span> for its entire content.<br>";
+										echo "- Lets compare that with your longest note which has the <span class='badge'>id ".$stats_note_with_longest_content_id."</span> and is <span class='badge'>".$stats_note_with_longest_content_chars." long</span>.<br>";
+										echo "- Looking for dates? Let's face it: your oldest note has an <span class='badge'>age of ".$stats_oldest_created_note_age." days</span>. It was created <span class='badge'>".$stats_oldest_created_note_date."</span> with the <span class='badge'>id ".$stats_oldest_created_note_id."</span>.<br>";
+										echo "- In comparison - your latest created note has the <span class='badge'>age of ".$stats_latest_created_note_age." days</span>, has the <span class='badge'>id ".$stats_latest_created_note_id."</span>, the title <span class='badge'>".$stats_latest_created_note_title."</span> and a creation date of <span class='badge'>".$stats_latest_created_note_date."</span>.<br>";
+										echo "- The last note you actually edited was note <span class='badge'>".$stats_last_edited_note_id."</span> with the title <span class='badge'>".$stats_last_edited_note_title."</span>. This edit is <span class='badge'>".$stats_last_edited_note_age." days</span> old - from <span class='badge'>".$stats_last_edited_note_date."</span> in case you bother.<br>";
+										echo "- Lets come to the end - the entire monoto db of all users has a size of <span class='badge'>".$stats_entire_monoto_db_size."  MB</span>.<br>";
 									}
 							}
 					?>
@@ -488,18 +521,11 @@
 				<h3>Eraser</h3>
 				<hr>
 				<p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
-				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-				<!--
-					<input type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" title="Deletes all notes from your account. Be careful with that" /><br>
-					-->
-					<button type="submit" name="doDelAllNotes" value="Delete Notes" style="width:140px" title="Deletes all notes from your account. Be careful with that" ><i class="fa fa-trash-o"></i> Delete Notes</button>
-					
-					
-					<!--
-					<input type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" title="Deletes all log events from your account. Be careful with that too" />
-					-->
-					<button type="submit" name="doDelAllEvents" value="Delete Events" style="width:140px" title="Deletes all log events from your account. Be careful with that too" ><i class="fa fa-trash-o"></i> Delete Events</button>
-				</form>
+				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user events from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserEvents();"><i class="fa fa-trash-o fa-1x"></i> Delete events</button>
+				
+				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user notes from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserNotes();"><i class="fa fa-trash-o fa-1x"></i> Delete notes</button>
+				
+				
 
 
 				<!-- SPACER -->
@@ -623,46 +649,6 @@ if ( isset($_POST["doChangeUserPW"]) )
 	}
 }
 
-
-//
-// delAllNotes - button was pressed
-//                 
-if ( isset($_POST["doDelAllNotes"]) ) 
-{	
-	include ('conf/config.php');			// connect to db
-	connectToDB();
-	$owner = $_SESSION['username'];
-
-	$sql="DELETE FROM m_notes WHERE owner='$owner'";		// update m_notes = delete notes
-	$result = mysql_query($sql);
-
-	// update m_log
-	$event = "notes eraser";
-	$details = "All user notes deleted with eraser.";
-	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-	$result = mysql_query($sql);
-}
-
-
-//
-// delAllEvents - button was pressed
-//                 
-if ( isset($_POST["doDelAllEvents"]) ) 
-{	
-	include ('conf/config.php');
-	connectToDB();
-	$owner = $_SESSION['username'];
-
-	// update m_notes = delete events
-	$sql="DELETE FROM m_log WHERE owner='".$owner."' ";
-	$result = mysql_query($sql);
-
-	// update m_log
-	$event = "events eraser";
-	$details = "All user events deleted with eraser.";
-	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-	$result = mysql_query($sql);
-}
 
 
 //

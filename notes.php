@@ -170,9 +170,19 @@
 				oTable = $('#example').dataTable( 
 				{ 
 					//"bProcessing": true,
-					"oLanguage": { "sProcessing": "<img src='../images/loading.gif'>"},
+					"oLanguage": { 
+						"sProcessing": "<img src='../images/loading.gif'>",
+						"sEmptyTable": "You have 0 notes so far - start writing some..." /* displayed if table is empty */
+					},
 				
-					"sDom": '<"wrapper"lipt>, <l<t>p>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+					/* execute if table is ready */
+					"fnInitComplete": function(oSettings, json) {
+      				/* alert( 'DataTables has finished its initialisation.' ); */
+    				},
+				
+					// "sDom": '<"wrapper"lipt>, <l<t>p>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+					"sDom": '<"wrapper"lit>, <l<t>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
+					
 					"oSearch": {"sSearch": ""}, 
 					"sRowSelect": "single",
 					"bLengthChange": false,
@@ -496,7 +506,7 @@
 					<table style="width: 100%" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="nothing selected" disabled style="width:100%; " /></td>
+							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " /></td>
 							<td>
 							<!--
 							<input type="button" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" />
@@ -509,16 +519,7 @@
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
-							
-							<!--
-							<input type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();">
-							-->
-							<button type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();" class="btn btn-sm btn-info"><i class="fa fa-refresh fa-1x"></i> reload</button>
-							
-							<!--
-							<input type="button" style="width:90px" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled">
-							-->
-							
+							<button type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();" class="btn btn-sm btn-default"><i class="fa fa-refresh fa-1x"></i> reload</button>
 							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
 							
 							</td>
