@@ -30,7 +30,6 @@
 	</head>
 
 
-
 	<body role="document">
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -62,8 +61,6 @@
 		</div>
 		<div class="container theme-showcase" role="main">
 
-
-
 		<div id="container">
 			<div id="noteContentCo">
 				<!-- SPACER -->
@@ -82,7 +79,6 @@
 				<table style="width:100%">
 					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
-	
 					<tr><td>F5</td><td>Reloads all notes from db.</td></tr>
 					<tr><td>F9</td><td>Saves a selected note.</td></tr>
 					<tr><td>Del</td><td>Deletes the selected note.</td></tr>
@@ -159,4 +155,3 @@
 
 	</body>
 </html>
-

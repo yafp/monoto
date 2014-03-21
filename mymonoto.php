@@ -106,7 +106,6 @@
 		<div class="container theme-showcase" role="main">
 
 
-
 		<div id="container">
 			<div id="noteContentCo">
 				<!-- SPACER -->
@@ -383,12 +382,8 @@
 					?>
 
 
-
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 
 
 				<!-- ACTIVITY/EVENT LOG -->
@@ -466,18 +461,10 @@
 			</div>
 		</div><!-- /.col-sm-4 -->
 	</div>
-				
-				
-				
-				
-				
-				
-
 
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 
 
 				<!-- IMPORTER -->
@@ -498,7 +485,6 @@
 
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 
 
 				<!-- EXPORTER -->
@@ -596,13 +582,6 @@
 
 	</body>
 </html>
-
-
-
-
-
-
-
 
 
 
@@ -761,10 +740,6 @@ if ( isset($_POST["doImport"]) )
 				</script>
 			<?php
 		}
-	
 	}
-	
-	
 } 
 ?>
-

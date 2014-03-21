@@ -83,13 +83,6 @@
 		<div class="jumbotron">
 			<div class="container">
 				<br><br>
-			
-				<center>
-					<!--
-					<img src="images/random_logout/bomb.gif" width="400">
-					-->
-				</center>
-				
 				<?php
 				// define array of random notes
 				$array = array();
@@ -118,7 +111,6 @@ perhaps; you must fix them. To entrust them to the relaxed brain is like writing
 					</blockquote>
 					<cite><?php echo $array[$randomPick]['name']; ?></cite>
 					
-				
 				</div>
 			</div>
 
@@ -139,8 +131,6 @@ perhaps; you must fix them. To entrust them to the relaxed brain is like writing
 </html>
 
 
-
-
 <?php
 	session_start();
 	if($_SESSION['valid'] == 1)				// check if the user-session is valid or not
@@ -148,7 +138,6 @@ perhaps; you must fix them. To entrust them to the relaxed brain is like writing
 		header('Location: notes.php');		// if session is valid - redirect to main-notes interface.
 	}
 ?>
-
 
 
 <?php
@@ -283,7 +272,6 @@ if ( isset($_POST["doLogin"]) )
 		else 		// login is not possible anymore - admin must remove the login lock
 		{
 			echo '<script type="text/javascript">var n = noty({text: "Account is locked.", type: "error"});</script>';
-			//echo("<script language=javascript>alert('This account is locked, please contact your monoto-admin.');</script>");
 		}
 	}
 }

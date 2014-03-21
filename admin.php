@@ -84,10 +84,6 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				
-
-				
-				
 				<h1><i class="fa fa-cogs fa-1x"></i> Admin</h1>
 				<h3>Server configuration</h3>
 				<hr>
@@ -100,8 +96,6 @@
 						echo '</div>';
 					}
 				?>
-				
-				
 				
 				The following values are based on <i>/conf/config.php</i><br><br>
 				<table style="width: 60%">
@@ -129,11 +123,8 @@
 					</tbody>
 				</table>
 
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 
 				<h3>Version informations</h3>
 				<hr>
@@ -181,12 +172,8 @@
 					</table>
 				</form>
 
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
-
 
 				<h3>Notes</h3>
 				<hr>
@@ -202,7 +189,6 @@
 					echo '<table style="width: 20%">';
 					echo "<tr><th>notes</td><th>creator</td></tr>";
 
-
 					$result = mysql_query("SELECT distinct owner, count(*) FROM m_notes GROUP by owner ORDER by COUNT(*) DESC LIMIT 0 , 30 "); // m_notes
 					while($row = mysql_fetch_array($result))   // fill datatable
 					{
@@ -211,11 +197,8 @@
 				?>
 				</table>
 
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 
 				<!-- USERS -->
 				<h3>Users</h3>
@@ -234,7 +217,6 @@
 					</tbody>
 					<tfoot><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></tfoot>
 				</table>
-
 
 				<!-- DELETE USER -->
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
@@ -267,9 +249,6 @@
 						</table>
 						</form>
 					</div>
-
-
-
 					<br>
 					<b>Invite new user</b><br>
 						<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
@@ -308,12 +287,8 @@
 						</form>
 					
 
-
-
-
 					<!-- SPACER -->
 					<div class="spacer">&nbsp;</div>
-
 
 					<!-- ADMIN-TASKS -->
 					<h3>Tasks</h3>
@@ -326,11 +301,8 @@
 						<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
 					</form>
 
-
-
 					<!-- SPACER -->
 					<div class="spacer">&nbsp;</div>
-
 					</div>
 			</div>
 			<!-- SPACER -->
@@ -404,9 +376,7 @@
 
 
 <?php
-
 	include 'conf/config.php';
-
 	// UpdateCheck
 	//
 	// http://wuxiaotian.com/2009/09/php-check-for-updates-script/
@@ -691,7 +661,3 @@
 		}
 	}
 ?>
-
-
-
-

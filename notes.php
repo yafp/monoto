@@ -105,8 +105,7 @@
 
 			$(document).ready(function() 
 			{
-				// is something written in the cookie as lastAction?
-				// if yes - show it as a noty notification & reset the value 
+				// is something written in the cookie as lastAction? if yes - show it as a noty notification & reset the value 
 				if($.cookie("lastAction") != "")
 				{
 					var n = noty({text: $.cookie("lastAction"), type: 'notification'});
@@ -134,14 +133,6 @@
 				});
 				// END CKEDITOR
 
-
-				// alert
-				// information
-				// error
-				// warning
-				// notification
-				// success
-				//
 				var n = noty({text: 'All notes loaded.', type: 'notification'});
 
 
@@ -508,9 +499,6 @@
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " /></td>
 							<td>
-							<!--
-							<input type="button" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" />
-							-->
 							 <button type="button" class="btn btn-sm btn-default" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" ><i class="fa fa-save fa-1x"></i> save</button>
 							</td>
 						</tr>
@@ -528,12 +516,8 @@
 						<tr>
 							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
 							<td>
-							<!--
-							<input type="submit" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled">
-							-->
 							<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
 							</td>
-							
 						</tr>
 					</table>
 				</form>
@@ -560,7 +544,6 @@
 						while($row = mysql_fetch_array($result))
 						{
 							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-							//echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td></tr>';
 							$rowID = $rowID +1;
 						}
 					?>
@@ -579,13 +562,10 @@
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
 		   .script("js/m_keyPress.js")					// disabled the right-click contextmenu
-		   
-		   
-		   
+		
 		</script>
 		<!-- Bootstrap core JavaScript -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-
