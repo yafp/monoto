@@ -230,15 +230,32 @@
 					var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
 					CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
 
+
+
+					//counting words of selected note /is not handling muli-line html text so far
+					s = sData[3];
+					s = s.replace(/(^\s*)|(\s*$)/gi,""); 	//exclude  start and end white-space
+					s = s.replace(/[ ]{2,}/gi," "); 			//2 or more space to 1
+					s = s.replace(/\n /,"\n");					// exclude newline with a start spacing
+					s = s.split(' ').length;
+					//document.myform.wordcount.value = s
+					s = ['&nbsp;&nbsp;<span class="badge">',s,' words</span>'].join('\n'); // add span around counting result
+					document.getElementById("wordCount").innerHTML = s // update div with counting result
+
+
+
+
 					document.myform.noteID.value = sData[1]											// fill id field
 					document.myform.noteTitle.value = sData[2]										// fill title field
 					document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
 					//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
 					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 
-					//var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
+					var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
 				});
 			} );
+
+
 
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
@@ -339,37 +356,38 @@
 
 			// if we have a note id to delete - try to do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
-			{	
-				<?php
-					include 'conf/config.php';
-					if($s_enable_really_delete	== true)
-					{
-					?>
-						var answer = confirm("Do you really want to delete this note?")
-						if (answer)
-						{
+			{
+				
+				var x = noty({
+					text: 'Really delete this note?',
+					type: 'confirm',
+					dismissQueue: false,
+					layout: 'bottomCenter',
+					theme: 'defaultTheme',
+					buttons: [
+						{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
+							$noty.close();
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-							alert("Note with ID: "+deleteID+" deleted");
 							$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
+							//reloadNote();
+							
+						}
+						},
+    					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+							$noty.close();
+							noty({text: 'Aborted', type: 'error'});
 							reloadNote();
 						}
-				<?php
 					}
-					else
-					{
-				?>
-						$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-						alert("Note with ID: "+deleteID+" deleted");
-						$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
-						reloadNote();
-				<?php
-					}
-				?>
+					]
+				})	
 			}
 			else // should never happen as the delete button is disabled if no note is selected
 			{ 
 				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
 			}	
+			
+			//reloadNote();
 		}
 
 		//
@@ -392,9 +410,11 @@
 		  		}
 		  		
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
-				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
+				//alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
+				var n = noty({text: 'Note created', type: 'success'});
 				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
 				//var n = noty({text: 'Note created', type: 'success'});
+				reloadNote();
 		  	}
 			else
 			{ 
@@ -480,21 +500,15 @@
 		<input type="search" id="myInputTextField" placeholder="search your notes here" style="width:100%;">
       </div>
       
-      
+
 
 	<div id="container">
 			
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 			
-			
-			
-			
-			
-			
-			
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
-					<table style="width: 100%" cellspacing="0" cellpadding="5">
+					<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " /></td>
@@ -509,9 +523,19 @@
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
 							<button type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();" class="btn btn-sm btn-default"><i class="fa fa-refresh fa-1x"></i> reload</button>
 							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
+							<br>
+							<div id="wordCount">&nbsp;</div>
 							
 							</td>
 						</tr>
+						
+
+						<!--spacer-->
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						
+						
 						<!-- newTitle AND create buttons -->
 						<tr>
 							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>

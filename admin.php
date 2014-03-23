@@ -97,18 +97,13 @@
 					}
 				?>
 				
-				The following values are based on <i>/conf/config.php</i><br><br>
+				The following values are based on <span class='badge'>conf/config.php</span><br><br>
 				<table style="width: 60%">
 					<tbody>
 						<tr>
 							<td><i class="fa fa-warning fa-1x"></td>
 							<td>maintenance mode</td>
 							<td style="width: 30%"><?php if($s_enable_maintenance_mode == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
-						</tr>
-						<tr>
-							<td><i class="fa fa-question fa-1x"></td>
-							<td>really delete question</td>
-							<td><?php if($s_enable_really_delete == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
 						</tr>
 						<tr>
 							<td><i class="fa fa-code-fork fa-1x"></td>

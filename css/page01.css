@@ -41,6 +41,7 @@ body{
 #myInputTextField {
     background: white url(../images/icons/search.jpg) right no-repeat;
     margin-top: 5px; 
+    font: 16px/22px normal helvetica, sans-serif;
 }
 
 

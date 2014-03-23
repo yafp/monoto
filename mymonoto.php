@@ -40,33 +40,60 @@
 		
 		
 		<script type="text/javascript">
-			//
-			// Delete user events
-			//
+
 			function deleteAllMyUserEvents() 
 			{
-				var answer = confirm("Do you really want to delete all your events?")
-				if (answer)
-				{
-					$.post("inc/delMyUserEvents.php");
-					$.cookie("lastAction", "Deleted all your event-entries.");	// store last Action in cookie
-					location.reload();
-				}
+				var x = noty({
+					text: 'Really delete all your events from log?',
+					type: 'confirm',
+					dismissQueue: false,
+					layout: 'bottomCenter',
+					theme: 'defaultTheme',
+					buttons: [
+						{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
+							$noty.close();
+							$.post("inc/delMyUserEvents.php");
+							$.cookie("lastAction", "Deleted all your event-entries.");	// store last Action in cookie
+							noty({text: 'Deleted all events from log', type: 'success'});
+							location.reload();
+						}
+						},
+    					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+							$noty.close();
+							noty({text: 'Aborted', type: 'error'});
+						}
+					}
+					]
+				})
 			}
 		
 		
-			//
-			// Delete user notes
-			//
+		
+
 			function deleteAllMyUserNotes() 
 			{
-				var answer = confirm("Do you really want to delete all your notes?")
-				if (answer)
-				{
-					$.post("inc/delMyUserNotes.php");
-					$.cookie("lastAction", "Deleted all your notes");	// store last Action in cookie
-					location.reload();
-				}
+				var x = noty({
+					text: 'Really delete all your notes?',
+					type: 'confirm',
+					dismissQueue: false,
+					layout: 'bottomCenter',
+					theme: 'defaultTheme',
+					buttons: [
+						{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
+							$noty.close();
+							$.post("inc/delMyUserNotes.php");
+							$.cookie("lastAction", "Deleted all your notes.");	// store last Action in cookie
+							noty({text: 'Deleted all notes', type: 'success'});
+							location.reload();
+						}
+						},
+    					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+							$noty.close();
+							noty({text: 'Aborted', type: 'error'});
+						}
+					}
+					]
+				})
 			}
 		</script>
 		

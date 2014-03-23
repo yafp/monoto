@@ -1,12 +1,23 @@
 function reallyLogout()
 {
-	var answer = confirm("Do you really want to logout?")
-	if (answer)
-	{
-		window.location.href = 'logout.php';
-	}
-	else
-	{
-		//alert("Thats why you enabled that function in the first place right?")
-	}
+	var x = noty({
+		text: 'Do you really want to logout?',
+		type: 'confirm',
+		dismissQueue: false,
+		layout: 'bottomCenter',
+		theme: 'defaultTheme',
+		buttons: [
+			{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
+					$noty.close();
+					//noty({text: 'You clicked "Ok" button', type: 'success'});
+					window.location.href = 'logout.php';
+				}
+			},
+			{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+				$noty.close();
+				noty({text: 'Cancelled logout', type: 'error'});
+				}
+			}
+		]
+	})
 }

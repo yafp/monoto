@@ -18,6 +18,5 @@
 	//
 	$s_enable_maintenance_mode	= false;				// true = login is locked.
 	$s_enable_random_logout_gif 	= true;				// show a random logout image
-	$s_enable_really_delete		= false;				// should there be a 'really delete' question before deleting notes?
 	$s_enable_UnstableSources 	= true;				// if true - UpdateCheck searches for dev releases as well. 
 ?>

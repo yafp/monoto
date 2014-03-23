@@ -84,32 +84,18 @@
 			<div class="container">
 				<br><br>
 				<?php
-				// define array of random notes
-				$array = array();
-
-				// fill array
-				$array[0] = array();
-				$array[0]['name'] = "Edgar Allan Poe";
-				$array[0]['quote'] = "If you wish to forget anything on the spot, make a note that this thing is to be remembered.";
-
-				$array[1] = array();
-				$array[1]['name'] = "Ben Casnocha";
-				$array[1]['quote'] = "If you aren't taking notes, you aren't learning";
-				
-				$array[2] = array();
-				$array[2]['name'] = "Antonin Sertillanges";
-				$array[2]['quote'] = "Very often, gleams of light come in a few minutes' sleeplessness, in a second
-perhaps; you must fix them. To entrust them to the relaxed brain is like writing on water; there is every chance that on the morrow there will be no slightest trace left of any happening";
-
-				$sizeOfQuotesArray = sizeof($array); // get size of array
-				$sizeOfQuotesArray = $sizeOfQuotesArray -1; // fit counting
-				$randomPick= rand(0, $sizeOfQuotesArray); // pick random quote
+					//
+					//quotes 
+					//
+					$f_contents = file("quotes/quotes_de.txt");  				// define quotes source
+		 			$line = $f_contents[rand(0, count($f_contents) - 1)];		// get random line
+		 			list($author, $quote) = explode(';', $line);					// split string
 				?>
 
 					<blockquote>
-						<p><?php echo $array[$randomPick]['quote']; ?></p>
+						<p><?php echo $quote; ?></p>
 					</blockquote>
-					<cite><?php echo $array[$randomPick]['name']; ?></cite>
+					<cite><?php echo $author; ?></cite>
 					
 				</div>
 			</div>
