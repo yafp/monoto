@@ -138,9 +138,21 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-				<h1><i class="fa fa-user fa-1x"></i> MyMonoto</h1>
+				
+				<!-- navigation -->
+				<ol class="breadcrumb">
+					<li class="active"><i class="fa fa-user fa-1x"></i> MyMonoto</li>
+					<li><a href="#profile">Profile</a></li>
+					<li><a href="#stats">Stats</a></li>
+					<li><a href="#activity-log">Activity Log</a></li>
+					<li><a href="#importer">Importer</a></li>
+					<li><a href="#exporter">Exporter</a></li>
+					<li><a href="#eraser">Eraser</a></li>
+				</ol>
+				
+				
 				<!-- PROFILE -->
-				<h3>Profile</h3>
+				<h3 id="profile">Profile</h3>
 				<hr>
 				<table style="width: 100%" border="0"">
 					<tr>
@@ -211,7 +223,7 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				
-				<h3>Stats</h3>
+				<h3 id="stats">Stats</h3>
 				<hr>
 				<!-- STATS -->
 					<div id="tabs-2">
@@ -414,7 +426,7 @@
 
 
 				<!-- ACTIVITY/EVENT LOG -->
-				<h3>Activity Log</h3>
+				<h3 id="activity-log">Activity Log</h3>
 				<hr>
 				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width:100%">
 					<thead>
@@ -495,7 +507,7 @@
 
 
 				<!-- IMPORTER -->
-				<h3>Importer</h3>
+				<h3 id="importer">Importer</h3>
 				<hr>
 				<!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
 				<p>You can import plain-text files. Select a folder and press the 'Import' button.</p>
@@ -515,7 +527,7 @@
 
 
 				<!-- EXPORTER -->
-				<h3>Exporter</h3>
+				<h3 id="exporter">Exporter</h3>
 				<hr>
 				<p>You can export your notes in .csv format. Press the 'Export' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
@@ -531,7 +543,7 @@
 
 
 				<!-- ERASER -->
-				<h3>Eraser</h3>
+				<h3 id="eraser">Eraser</h3>
 				<hr>
 				<p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
 				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user events from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserEvents();"><i class="fa fa-trash-o fa-1x"></i> Delete events</button>

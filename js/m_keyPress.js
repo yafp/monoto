@@ -16,7 +16,15 @@ function KeyCheck(e)
 		case 112:
 			window.open('https://github.com/macfidelity/monoto/wiki');
 		break;
-
+		
+		
+		// F2 - Open online help/docs - SPECIAL ONE - is in KeyPressAll aswell ... another ugly hack as m_keyPressAll is not working inside notes.php sofar.
+		case 113:
+			CKEDITOR.instances.editor1.execCommand( 'maximize' );
+			console.log( CKEDITOR.instances.editor1.commands.maximize.state );
+		break;
+		
+		
 
 		// ESC
 		case 27:

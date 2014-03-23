@@ -36,11 +36,16 @@
 				<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>		<!-- jquery itself -->
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>		<!-- datatables -->
+		
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
 				$('#example').dataTable();
 			} );
 		</script>
+		
+		
+		
+
 	</head>
 
 
@@ -84,8 +89,18 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				<h1><i class="fa fa-cogs fa-1x"></i> Admin</h1>
-				<h3>Server configuration</h3>
+				<!-- navigation -->
+				<ol class="breadcrumb">
+					<li class="active"><i class="fa fa-cogs fa-1x"></i> Admin</li>
+					<li><a href="#server-configuration">Server configuration</a></li>
+					<li><a href="#version-informations">Version informations</a></li>
+					<li><a href="#notes">Notes</a></li>
+					<li><a href="#users">Users</a></li>
+					<li><a href="#tasks">Tasks</a></li>
+				</ol>
+				
+
+				<h3 id="server-configuration">Server configuration</h3>
 				<hr>
 				
 				<?php
@@ -121,7 +136,7 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-				<h3>Version informations</h3>
+				<h3 id="version-informations">Version informations</h3>
 				<hr>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<table style="width: 100%">
@@ -170,7 +185,7 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 
-				<h3>Notes</h3>
+				<h3 id="notes">Notes</h3>
 				<hr>
 				<?php
 					// User: amount of all notes 
@@ -196,7 +211,7 @@
 				<div class="spacer">&nbsp;</div>
 
 				<!-- USERS -->
-				<h3>Users</h3>
+				<h3 id="users">Users</h3>
 				<hr>
 				<!-- datatables showing our users -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
@@ -235,7 +250,7 @@
 							</tr>
 							<tr>
 								<td>Enter CONFIRM (uppercase)</td> 
-								<td><input type="text" name="confirmDeleteUser" placeholder="no"></td>
+								<td><input type="text" name="confirmDeleteUser" placeholder="no" required></td>
 							</tr>
 							<tr>
 								<td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td> 
@@ -286,7 +301,7 @@
 					<div class="spacer">&nbsp;</div>
 
 					<!-- ADMIN-TASKS -->
-					<h3>Tasks</h3>
+					<h3 id="tasks">Tasks</h3>
 					<hr>
 					<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
 						<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
@@ -613,6 +628,11 @@
 
 						$query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
 						mysql_query($query);
+						
+						
+						
+						echo '<script>$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");</script>';		// store last Action in cookie
+						
 
 						// we should log that to m_notes -> admin only.
 

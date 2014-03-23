@@ -163,7 +163,8 @@
 					//"bProcessing": true,
 					"oLanguage": { 
 						"sProcessing": "<img src='../images/loading.gif'>",
-						"sEmptyTable": "You have 0 notes so far - start writing some..." /* displayed if table is empty */
+						"sEmptyTable": "You have 0 notes so far - start writing some...", // displayed if table is initial empty
+						"sZeroRecords": "No notes to display for your search" // displayed if table is filtered to 0 matching records
 					},
 				
 					/* execute if table is ready */
@@ -333,9 +334,10 @@
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-				alert("Note saves with title: "+modifiedNoteTitle+".");
+				//alert("Note saves with title: "+modifiedNoteTitle+".");
+				var n = noty({text: 'Note saved', type: 'success'});
 				$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");	// store last Action in cookie
-				reloadNote();
+				//reloadNote();
 			}
 			else 																		// should never happen as the save button is not always enabled.
 			{  
@@ -390,6 +392,8 @@
 			//reloadNote();
 		}
 
+
+
 		//
 		// CREATE NEW NOTE
 		//
@@ -443,12 +447,14 @@
 			// lets clean up the main interface
 			document.myform.noteID.value = "";					// empty ID of previously selected note
 			document.myform.noteTitle.value = "";				// empty title of previously selected note
-			document.myform.noteVersion.value = "";				// empty hiddeen version of previously selected note
+			document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
 			document.myform.save.disabled=true;					// disable the save button
 			document.myform.delete.disabled=true;				// disable the delete button
 			document.myform.noteTitle.disabled=true;			// disable note title field
-			$('#editor1').val('').blur();						// empty cleditor textarea
+			$('#editor1').val('').blur();							// empty cleditor textarea
 		}
+		
+		
 		</script>
 		
 		
@@ -496,19 +502,39 @@
 
 
 	<!-- SEARCH FIELD -->
-      <div class="page-header">
+	<!--
+	<div class="page-header">
 		<input type="search" id="myInputTextField" placeholder="search your notes here" style="width:100%;">
-      </div>
-      
+	</div>
+	-->
+
+
 
 
 	<div id="container">
-			
+		<!-- SPACER -->
+		<div class="spacer">&nbsp;</div>
+		<div class="spacer">&nbsp;</div>
+
 			<!-- CONTENT -->
 			<div id="noteContentCo">
-			
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
+						<tr>
+							<td colspan="3">
+								<div class="input-group">
+									<input placeholder="search here" id="myInputTextField" type="text" class="form-control">
+									<span class="input-group-btn">
+										<button  class="btn btn-default" type="button" disabled><i class="fa fa-search fa-1x"></i> Search</button>
+									</span>
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+					
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " /></td>
@@ -584,8 +610,8 @@
 		<script>
 		   $LAB
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
-		   .script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		   .script("js/m_keyPress.js")					// disabled the right-click contextmenu
+		   .script("js/m_disableRightClick.js")				// disabled the right-click contextmenu
+		   .script("js/m_keyPress.js")							// disabled the right-click contextmenu
 		
 		</script>
 		<!-- Bootstrap core JavaScript -->

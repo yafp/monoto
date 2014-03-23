@@ -66,19 +66,27 @@
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-				<h1><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</h3>
-				<h3>monoto-wide</h3>
+				
+				<!-- navigation -->
+				<ol class="breadcrumb">
+					<li class="active"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</li>
+					<li><a href="#monoto-wide">monoto-wide</a></li>
+					<li><a href="#notes-page">notes-page</a></li>
+				</ol>
+
+				<h3 id="monoto-wide">monoto-wide</h3>
 				<hr>
 				<table style="width:100%">
 					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
 				</table>
 				<br><br>
-				<h3>notes-page</h3>
+				<h3 id="notes-page">notes-page</h3>
 				<hr>
 				<table style="width:100%">
 					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
+					<tr><td>F2</td><td>Toggle maximize of editor.</td></tr>
 					<tr><td>F5</td><td>Reloads all notes from db.</td></tr>
 					<tr><td>F9</td><td>Saves a selected note.</td></tr>
 					<tr><td>Del</td><td>Deletes the selected note.</td></tr>
