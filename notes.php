@@ -95,7 +95,7 @@
 		</script>
 
 		<!-- ckeditor -->
-		<script src="js/ckeditor-4.0.2_standard/ckeditor.js"></script>
+		<script src="js/ckeditor-4.3.4_standard/ckeditor.js"></script>
 
 		<!-- main js for table etc -->
 		<script type="text/javascript">
@@ -253,6 +253,10 @@
 					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 
 					var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
+					
+					
+					document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
+					
 				});
 			} );
 
@@ -404,7 +408,7 @@
 									
 			var newNoteContent = CKEDITOR.instances.editor1.getData();				// get note content if defined
 
-			newNoteContent=newNoteContent.replace(/\'/g,'&#39;')					// cleanup note content replace: ' 	with &#39;
+			newNoteContent=newNoteContent.replace(/\'/g,'&#39;');					// cleanup note content replace...
 
 			if (newNoteTitle.length > 0)											// if we have a note title - create the new note (content is not needed so far)
 		  	{
@@ -442,24 +446,24 @@
 		//
 		function enableCreateButton()
 		{
-			document.myform.createNoteButton.disabled=false;	// enable Create new note button
-
+			// if we are starting to write a new note - earase the content of noteContent first
+			if(document.myform.newNoteTitle.value.length==1)
+			{
+				CKEDITOR.instances.editor1.editable().setHtml( '' );
+			}
+			
 			// lets clean up the main interface
+			document.myform.createNoteButton.disabled=false;	// enable Create new note button
 			document.myform.noteID.value = "";					// empty ID of previously selected note
 			document.myform.noteTitle.value = "";				// empty title of previously selected note
 			document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
 			document.myform.save.disabled=true;					// disable the save button
 			document.myform.delete.disabled=true;				// disable the delete button
 			document.myform.noteTitle.disabled=true;			// disable note title field
-			$('#editor1').val('').blur();							// empty cleditor textarea
 		}
-		
-		
 		</script>
 		
-		
-		
-		
+
 	</head>  
 
 
@@ -485,12 +489,10 @@
 						<li><a href="mymonoto.php" accesskey="m"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
 						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
 						<?php
-							
 							if($_SESSION['admin'] == 1) // show admin-section
 							{
 								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
 							}
-							
 						?>
 						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
 					</ul>
@@ -501,13 +503,6 @@
 	<br>
 
 
-	<!-- SEARCH FIELD -->
-	<!--
-	<div class="page-header">
-		<input type="search" id="myInputTextField" placeholder="search your notes here" style="width:100%;">
-	</div>
-	-->
-
 
 
 
@@ -515,7 +510,6 @@
 		<!-- SPACER -->
 		<div class="spacer">&nbsp;</div>
 		<div class="spacer">&nbsp;</div>
-
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
@@ -530,11 +524,9 @@
 								</div>
 							</td>
 						</tr>
-						
 						<tr>
 							<td>&nbsp;</td>
 						</tr>
-					
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " /></td>
@@ -554,14 +546,10 @@
 							
 							</td>
 						</tr>
-						
-
 						<!--spacer-->
 						<tr>
 							<td>&nbsp;</td>
 						</tr>
-						
-						
 						<!-- newTitle AND create buttons -->
 						<tr>
 							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
@@ -571,25 +559,20 @@
 						</tr>
 					</table>
 				</form>
-	
-	
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<thead align="left">
 						<tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th></tr>
 					</thead>
 					<tbody>
-					
 					<?php
 						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
 						include 'inc/db.php';  							// connect to db
 						connectToDB();
 						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user
-						//$result = mysql_query("SELECT id, title, content, tags, date_mod, date_create, save_count FROM m_notes WHERE owner='".$owner."' ORDER by date_mod DESC ");
 						$result = mysql_query("SELECT id, title, content FROM m_notes WHERE owner='".$owner."' ORDER by date_mod ASC ");
 						while($row = mysql_fetch_array($result))
 						{
@@ -600,8 +583,7 @@
 					</tbody>
 				</table>
 			</div>
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
+			<div class="spacer">&nbsp;</div>	<!-- SPACER -->
 		</div>
 
     </div> <!-- /container -->
@@ -612,10 +594,9 @@
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")				// disabled the right-click contextmenu
 		   .script("js/m_keyPress.js")							// disabled the right-click contextmenu
-		
 		</script>
 		<!-- Bootstrap core JavaScript -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="js/bootstrap.min.js"></script>
-  </body>
+	</body>
 </html>
