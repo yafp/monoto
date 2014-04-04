@@ -53,7 +53,7 @@
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
-    	<link rel="stylesheet" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
 
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
@@ -115,7 +115,13 @@
 
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
-					height: '250px',
+					height: '300px',
+					extraPlugins : 'wordcount',
+					wordcount : {
+						showCharCount : true,
+						showWordCount : true,
+						countHTML: false
+					},
 					removePlugins: 'elementspath', /*  hide html tags in ckeditors foot*/
 					toolbar:
 					[
@@ -230,21 +236,6 @@
 					var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
 					var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
 					CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
-
-
-
-					//counting words of selected note /is not handling muli-line html text so far
-					s = sData[3];
-					s = s.replace(/(^\s*)|(\s*$)/gi,""); 	//exclude  start and end white-space
-					s = s.replace(/[ ]{2,}/gi," "); 			//2 or more space to 1
-					s = s.replace(/\n /,"\n");					// exclude newline with a start spacing
-					s = s.split(' ').length;
-					//document.myform.wordcount.value = s
-					s = ['&nbsp;&nbsp;<span class="badge">',s,' words</span>'].join('\n'); // add span around counting result
-					document.getElementById("wordCount").innerHTML = s // update div with counting result
-
-
-
 
 					document.myform.noteID.value = sData[1]											// fill id field
 					document.myform.noteTitle.value = sData[2]										// fill title field
@@ -421,7 +412,6 @@
 				//alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				var n = noty({text: 'Note created', type: 'success'});
 				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
-				//var n = noty({text: 'Note created', type: 'success'});
 				reloadNote();
 		  	}
 			else
@@ -541,9 +531,6 @@
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
 							<button type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();" class="btn btn-sm btn-default"><i class="fa fa-refresh fa-1x"></i> reload</button>
 							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
-							<br>
-							<div id="wordCount">&nbsp;</div>
-							
 							</td>
 						</tr>
 						<!--spacer-->
