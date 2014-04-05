@@ -83,6 +83,7 @@
 		  timeout: 2000, // delay for closing event. Set false for sticky notifications
 		  force: false, // adds notification to the beginning of queue when set to true
 		  modal: false,
+		  maxVisible: 3, // you can set max visible notification for dismissQueue true option,
 		  closeWith: ['click'], // ['click', 'button', 'hover']
 		  callback: {
 		    onShow: function() {},
@@ -112,7 +113,6 @@
 					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
 				}
 
-
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
 					height: '300px',
@@ -140,7 +140,6 @@
 				// END CKEDITOR
 
 				var n = noty({text: 'All notes loaded.', type: 'notification'});
-
 
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
@@ -175,10 +174,9 @@
 				
 					/* execute if table is ready */
 					"fnInitComplete": function(oSettings, json) {
-      				/* alert( 'DataTables has finished its initialisation.' ); */
-    				},
+					/* alert( 'DataTables has finished its initialisation.' ); */
+					},
 				
-					// "sDom": '<"wrapper"lipt>, <l<t>p>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					"sDom": '<"wrapper"lit>, <l<t>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
 					
 					"oSearch": {"sSearch": ""}, 
@@ -188,12 +186,11 @@
 					"bScrollCollapse": true,
 					"aaSorting": [[ 5, "desc" ]],													/* default sorting */
 					"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
-      							{ "bSortable": false, "aTargets": [ 1 ] },
-      							{ "bSortable": false, "aTargets": [ 2 ] },
-      							{ "bSortable": false, "aTargets": [ 3 ] },
-      							{ "bSortable": false, "aTargets": [ 4 ] }
-
-    								], 
+									{ "bSortable": false, "aTargets": [ 1 ] },
+									{ "bSortable": false, "aTargets": [ 2 ] },
+									{ "bSortable": false, "aTargets": [ 3 ] },
+									{ "bSortable": false, "aTargets": [ 4 ] }
+									], 
 					"aoColumns"   : [																/* visible columns */
 								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
 								{ "bSearchable": true, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
@@ -209,22 +206,22 @@
 				$('#myInputTextField').keypress(function()
 				{
 					oTable.fnFilter( $(this).val() );												// search the table
-	      			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
+					var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 
-	      			// unselect all records
-	      			/*
-				    $(oTable.fnSettings().aoData).each(function ()
+					// unselect all records
+					/*
+					$(oTable.fnSettings().aoData).each(function ()
 					{
 						$(this.nTr).removeClass('row_selected');
 					});
 					*/
 
-				    // specialcase - only 1 record
-	      			if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
-	      			{
+					// specialcase - only 1 record
+					if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
+					{
 						$('#example tbody tr:eq(0)').click()										// select the only record left after search	
 						$('#example tbody tr:eq(0)').addClass('row_selected');						// change background as well					
-	      			}
+					}
 				})
 
 				document.getElementById('myInputTextField').focus();								// set focus on search field
@@ -245,9 +242,8 @@
 
 					var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
 					
-					
 					document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
-					
+					//editor.focus(); // set focus to ckeditor
 				});
 			} );
 
@@ -279,16 +275,16 @@
 
 			if( parseInt(currentRow) < (parseInt(amountOfRecordsAfterFilter) -1))		// check if moving down makes sense at all
 			{
-			    currentRow = parseInt(currentRow) + 1;									// update row-position
+				currentRow = parseInt(currentRow) + 1;									// update row-position
 			
-			    $(oTable.fnSettings().aoData).each(function ()							// unselect all records
+				$(oTable.fnSettings().aoData).each(function ()							// unselect all records
 				{
 					$(this.nTr).removeClass('row_selected');
 				});
 
-			    $('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
-			    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
-			}			
+				$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
+				$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
+			}
 		}
 
 
@@ -308,7 +304,7 @@
 			});
 
 			$('#example tbody tr:eq('+currentRow+')').click(); 							// select the top record
-		    $('#example tbody tr:eq('+currentRow+')').addClass('row_selected');			// change background as well
+			$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');			// change background as well
 		}
 
 
@@ -329,7 +325,7 @@
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-				//alert("Note saves with title: "+modifiedNoteTitle+".");
+				//alert("Note saved with title: "+modifiedNoteTitle+".");
 				var n = noty({text: 'Note saved', type: 'success'});
 				$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");	// store last Action in cookie
 				//reloadNote();
@@ -354,7 +350,6 @@
 			// if we have a note id to delete - try to do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
 			{
-				
 				var x = noty({
 					text: 'Really delete this note?',
 					type: 'confirm',
@@ -367,7 +362,6 @@
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
 							//reloadNote();
-							
 						}
 						},
     					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
@@ -383,7 +377,6 @@
 			{ 
 				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
 			}	
-			
 			//reloadNote();
 		}
 
@@ -398,7 +391,6 @@
 			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');	// replace all characters except numbers,letters, space, underscore and - .
 									
 			var newNoteContent = CKEDITOR.instances.editor1.getData();				// get note content if defined
-
 			newNoteContent=newNoteContent.replace(/\'/g,'&#39;');					// cleanup note content replace...
 
 			if (newNoteTitle.length > 0)											// if we have a note title - create the new note (content is not needed so far)
@@ -416,7 +408,7 @@
 		  	}
 			else
 			{ 
-				//var n = noty({text: 'Error: No note title', type: 'error'});
+				var n = noty({text: 'Error: No note title', type: 'error'});
 			}
 		}
 
@@ -452,12 +444,7 @@
 			document.myform.noteTitle.disabled=true;			// disable note title field
 		}
 		</script>
-		
-
 	</head>  
-
-
-
 
 
 	<body role="document">
@@ -514,9 +501,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>&nbsp;</td>
-						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " /></td>
@@ -534,9 +519,7 @@
 							</td>
 						</tr>
 						<!--spacer-->
-						<tr>
-							<td>&nbsp;</td>
-						</tr>
+						<tr><td>&nbsp;</td></tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
 							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
@@ -581,9 +564,7 @@
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")				// disabled the right-click contextmenu
 		   .script("js/m_keyPress.js")							// disabled the right-click contextmenu
+		   .script("js/bootstrap.min.js")							// disabled the right-click contextmenu
 		</script>
-		<!-- Bootstrap core JavaScript -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>

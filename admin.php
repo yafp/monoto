@@ -480,6 +480,10 @@
 			echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
 			$urlDLUnstable = "<a href='$read[3]'>Download</a>";
 			echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
+			
+			<script type="text/javascript">
+				var n = noty({text: 'Update informations gathered', type: 'notification'});
+			</script>
 		}
 	}
 
@@ -525,18 +529,22 @@
 					// delete his log as well
 					$sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
 					$result = mysql_query($sql);
+					
+					echo "<script type='text/javascript'>var n = noty({text: 'Deleted user, his notes and the related log entries', type: 'notification'});</script>";	// notification 
 				}
 				mysql_close($con); 								// close sql connection
 			}
 			else // user hasnt entered CONFIRM
 			{
 				echo '<script>alert("Enter CONFIRM and try it again.");</script>';		// alert user that he hasnt entered CONFIRM
+				echo "<script type='text/javascript'>var n = noty({text: 'Error: Please enter CONFIRM in the related field and try it again'});</script>";	// notification 
 			}
 			// reload page
 		}
 		else
 		{
 			echo '<script>alert("Please select a user first");</script>';		// alert user that he hasnt entered CONFIRM
+			echo "<script type='text/javascript'>var n = noty({text: 'Error: Please select a user first', type: 'notification'});</script>";	// notification 
 		}
 	}
 
@@ -554,6 +562,7 @@
 		{
   			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
 		}
+		echo "<script type='text/javascript'>var n = noty({text: 'Database optimized', type: 'notification'});</script>";	// notification 
 	}
 
 	//
@@ -563,6 +572,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
+		echo "<script type='text/javascript'>var n = noty({text: 'Truncated all eventlog entries', type: 'notification'});</script>";	// notification 
 	}
 
 	//
@@ -572,6 +582,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
+		echo "<script type='text/javascript'>var n = noty({text: 'Truncated all user notes', type: 'notification'});</script>";	// notification 
 	}
 
 	//
@@ -629,11 +640,10 @@
 						$query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
 						mysql_query($query);
 						
-						
+						echo "<script type='text/javascript'>var n = noty({text: 'Created new user account', type: 'notification'});</script>";	// notification 
 						
 						echo '<script>$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");</script>';		// store last Action in cookie
 						
-
 						// we should log that to m_notes -> admin only.
 
 						// check if we should send a notification as well
@@ -659,20 +669,25 @@
 		  						else 
 		  						{
 		  						}
+		  						
+		  						echo "<script type='text/javascript'>var n = noty({text: 'Notification mail send', type: 'notification'});</script>";	// notification 
 							}
 						}
 					}
 					else // no usermail-adress defined while trying to create new account
 					{
+						echo "<script type='text/javascript'>var n = noty({text: 'No mail address defined.', type: 'notification'});</script>";	// notification 
 					}
 				}
 				else // username already in use - cancel and inform the admin
 				{
+					echo "<script type='text/javascript'>var n = noty({text: 'This mail-adress is already in use', type: 'notification'});</script>";	// notification 
 				}
 			}
 		}	
 		else // passwords not matching
 		{
+			echo "<script type='text/javascript'>var n = noty({text: 'Error: passwords are not matching', type: 'notification'});</script>";	// notification 
 		}
 	}
 ?>

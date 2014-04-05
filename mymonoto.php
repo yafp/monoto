@@ -160,11 +160,14 @@
 						<td style="width:5%"></td>
 						<td rowspan="5">
 						<!-- CHANGE USER PASSWORD BUTTON -->
-						<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span>Update</span> button.
+						<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span class='badge'>Update</span> button.
 						<form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
 							<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
-							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />					
+							<!--
+							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />
+							-->
+							<button type="submit" name="doChangeUserPW" value="Update"  style="width:140px" title="Starts the change password function if the user provided the new password twice."><i class="fa fa-save"></i> Update</button>
 						</form>
 						
 						</td>
