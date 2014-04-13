@@ -25,11 +25,8 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
-		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
-		
-
-		
+		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">	<!-- Bootstrap theme -->
 	</head>
 
 
@@ -50,19 +47,21 @@
 					<ul class="nav navbar-nav">
 						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
 						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
-						<li class="active"><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
 						<?php
 							if($_SESSION['admin'] == 1) // show admin-section
 							{
 								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
 							}
 						?>
-						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+						<li><a href="logout.php"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">
+
+
 
 		<div id="container">
 			<div id="noteContentCo">
@@ -70,34 +69,23 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				<!-- navigation -->
-				<ol class="breadcrumb">
-					<li class="active"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</li>
-					<li><a href="#monoto-wide">monoto-wide</a></li>
-					<li><a href="#notes-page">notes-page</a></li>
-				</ol>
 				
-				<h3 id="monoto-wide">monoto-wide</h3>
-				<hr>
-				<table style="width:100%">
-					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
-					<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
-				</table>
-				<br><br>
-				<h3 id="notes-page">notes-page</h3>
-				<hr>
-				<table style="width:100%">
-					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
-					<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
-					<tr><td>F2</td><td>Toggle maximize of editor.</td></tr>
-					<tr><td>F5</td><td>Reloads all notes from db.</td></tr>
-					<tr><td>F9</td><td>Saves a selected note.</td></tr>
-					<tr><td>Del</td><td>Deletes the selected note.</td></tr>
-					<tr><td>Arrow Down (in search)</td><td>Selects the top record.</td></tr>
-					<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td></tr>
-					<tr><td>Arrow Up (in search)</td><td>Moves the focus to newNoteTitle.</td></tr>
-					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td></tr>
-				</table>
+				<div class="spacer">&nbsp;</div>
+				<center>
+					<h3>konami code</h3>
+					<img src="images/300px-Konami_Code.svg.png">
+					<div class="spacer">&nbsp;</div>
+					<a href="image.php"><i class="fa fa-refresh fa-2x"></i></a>
+					<div class="spacer">&nbsp;</div>
+					<?php
+						$dir = "images/random_logout/";
+						$images = scandir($dir);
+						$i = rand(2, sizeof($images)-1);
+					?>
+					<a href="image.php"><img src="images/random_logout/<?php echo $images[$i]; ?>" alt="random image" /></a>
+					<div class="spacer">&nbsp;</div>
+					<p>Click the image or the reload icon to jump to the next random image.</p>
+				</center>
 			</div>
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -109,8 +97,6 @@
 	<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	
-	
-	
 	<!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
@@ -118,9 +104,9 @@
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
-		.script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
+		.script("js/m_reallyLogout.js") 							// ask really-logout question if configured by admin
 		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/m_keyPress.js")					// keyboard shortcuts
+		.script("js/m_keyPress.js")								// keyboard shortcuts
 	</script>
 	
 	<!-- noty - notifications -->
@@ -156,11 +142,6 @@
 		};
 	</script>
 	
-	<script type="text/javascript" src="js/konami.js"></script>
-	<script>
-			var easter_egg = new Konami('image.php');
-	</script>
-	
 	<script type="text/javascript">
 		// alert
 		// information
@@ -169,7 +150,7 @@
 		// notification
 		// success
 		//
-		var n = noty({text: 'Loaded Keyboard section.', type: 'notification'});
+		//var n = noty({text: 'Template loaded', type: 'notification'});
 	</script>
 
 	</body>

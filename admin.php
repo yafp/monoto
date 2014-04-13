@@ -460,8 +460,8 @@
 
 			if ($critical) 
 			{ 
-		   		echo '<script type="text/javascript">
-		   				var r=confirm("There is a critical dev update available. Should i download the latest version?")
+					echo '<script type="text/javascript">
+							var r=confirm("There is a critical dev update available. Should i download the latest version?")
 						if (r==true)
 		  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
 
@@ -480,10 +480,7 @@
 			echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
 			$urlDLUnstable = "<a href='$read[3]'>Download</a>";
 			echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
-			
-			<script type="text/javascript">
-				var n = noty({text: 'Update informations gathered', type: 'notification'});
-			</script>
+			echo '<script type="text/javascript">var n = noty({text: "Update informations gathered", type: "notification"});</script>';
 		}
 	}
 

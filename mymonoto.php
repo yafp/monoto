@@ -150,7 +150,6 @@
 					<li><a href="#eraser">Eraser</a></li>
 				</ol>
 				
-				
 				<!-- PROFILE -->
 				<h3 id="profile">Profile</h3>
 				<hr>
