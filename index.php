@@ -91,12 +91,10 @@
 		 			$line = $f_contents[rand(0, count($f_contents) - 1)];		// get random line
 		 			list($author, $quote) = explode(';', $line);					// split string
 				?>
-
 					<blockquote>
 						<p><?php echo $quote; ?></p>
 					</blockquote>
 					<cite><?php echo $author; ?></cite>
-					
 				</div>
 			</div>
 

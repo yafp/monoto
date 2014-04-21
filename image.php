@@ -27,6 +27,30 @@
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">	<!-- Bootstrap theme -->
+		
+		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+		
+		<script>
+		$(document).ready(function() {
+			$('#example').dataTable();
+		
+		
+    $('.tabs .tab-links a').on('click', function(e)  {
+        var currentAttrValue = $(this).attr('href');
+ 
+        // Show/Hide Tabs
+        $('.tabs ' + currentAttrValue).show().siblings().hide();
+ 
+        // Change/remove current tab to active
+        $(this).parent('li').addClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+    });
+});
+</script>
+		
+		
 	</head>
 
 
@@ -74,18 +98,60 @@
 				<center>
 					<h3>konami code</h3>
 					<img src="images/300px-Konami_Code.svg.png">
-					<div class="spacer">&nbsp;</div>
-					<a href="image.php"><i class="fa fa-refresh fa-2x"></i></a>
-					<div class="spacer">&nbsp;</div>
-					<?php
-						$dir = "images/random_logout/";
-						$images = scandir($dir);
-						$i = rand(2, sizeof($images)-1);
-					?>
-					<a href="image.php"><img src="images/random_logout/<?php echo $images[$i]; ?>" alt="random image" /></a>
-					<div class="spacer">&nbsp;</div>
-					<p>Click the image or the reload icon to jump to the next random image.</p>
 				</center>
+				
+					<div class="spacer">&nbsp;</div>
+					
+					<div class="tabs">
+						<ul class="tab-links">
+							<li class="active"><a href="#tab1">Random Image</a></li>
+							<li><a href="#tab2">Quotes</a></li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="tab1" class="tab active">
+								<center>
+								<a href="image.php"><i class="fa fa-refresh fa-2x"></i></a>
+								<div class="spacer">&nbsp;</div>
+								<?php
+									$dir = "images/random_logout/";
+									$images = scandir($dir);
+									$i = rand(2, sizeof($images)-1);
+								?>
+								<a href="image.php"><img src="images/random_logout/<?php echo $images[$i]; ?>" alt="random image" /></a>
+								<div class="spacer">&nbsp;</div>
+								<p>Click the image or the reload icon to jump to the next random image.</p>
+								</center>
+							</div>
+
+							<div id="tab2" class="tab">
+								<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
+									<thead align="left">
+										<tr><th>author</th><th>quote</th></tr>
+									</thead>
+									<tbody>
+										<?php
+											$handle = fopen($s_quotes_file, "r");
+											if ($handle) 
+											{
+												while (($line = fgets($handle)) !== false) 
+												{
+													list($author, $quote) = explode(';', $line);					// split string
+													echo "<tr><td>".$author."</td><td>".$quote."</td></tr>";	// process the line read
+												}
+											} 
+											else 
+											{
+												// error opening the file.
+											} 
+											fclose($handle);
+										?>
+									</tbody>
+								</table>
+								<div class="spacer">&nbsp;</div>
+							</div>
+					</div>
+				</div>
 			</div>
 			<!-- SPACER -->
 			<div class="spacer">&nbsp;</div>
@@ -94,7 +160,7 @@
 
 
 	<!-- JS-->
-	<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
+
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	
 	<!-- Bootstrap core JavaScript -->
