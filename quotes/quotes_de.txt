@@ -1,3 +1,5 @@
+Aristoteles;Jeder kann wütend werden, das ist einfach. Aber wütend auf den Richtigen zu sein, im richtigen Maß, zur richtigen Zeit, zum richtigen Zweck und auf die richtige Art, das ist schwer.
+Aischylos;Im Krieg ist die Wahrheit das erste Opfer.
 Albert Camus;Wollen heißt Widersprüche wecken.
 Albert Camus;Übersetzer = Verwegene Kämpfer, die den Turm von Babel angreifen.
 Albert Camus;Das Leben verlieren ist keine große Sache; aber zuschauen, wie der Sinn des Lebens aufgelöst wird, das ist unerträglich.
@@ -147,6 +149,15 @@ Arthur Schopenhauer;Vermöge seiner Bildung sagt der Mensch nicht, was er denkt,
 Arthur Schopenhauer;Den Ruhm kann man den Winterbirnen vergleichen, die im Sommer wachsen, aber im Winter genossen werden.
 Arthur Schopenhauer;In der Jugend herrscht die Anschauung, im Alter das Denken vor. Daher ist jede die Zeit für Poesie, dieses mehr für Philosophie.
 Arthur Schopenhauer;In der Einsamkeit fühlt der Jämmerliche seine ganze Jämmerlichkeit, der große Geist seine ganze Größe.
+Bertolt Brecht;Wer kämpft, kann verlieren. Wer nicht kämpft, hat schon verloren.
+Dieter Hildebrandt;Jedes Land hat einen natürlichen Bodensatz von zehn Prozent an Vollidioten
+Dennis Ritchie;Unix is basically a simple operating system but you have to be a genius to appreciate the simplicity.
+Don King;Wer weiß, wie viel Geld er hat, hat nicht genug.
+Georg Orwell;Das Geld ist der große Maßstab aller Tugendhaftigkeit.
+Georg Orwell;Das Wesentliche des Menschseins besteht darin, nicht Vollkommenheit anzustreben, sondern bereit zu sein, um Treue zu einem Menschen willen auch Sünde zu begehen, und sich darauf gefasst zu machen, am Ende mit leeren Händen dazustehen, als unvermeidbarer Preis dafür, seine Liebe auf ein anderes Menschenwesen fixiert zu haben.
+Georg Orwell;Der ist der beste Lehrer, der sich nach und nach überflüssig macht.
+Georg Orwell;Der Pöbel bestünde aus solch niedrigen Tieren, dass diese gefährlich werden könnten, wenn sie nichts zu tun hätten, es sei mithin sicherer, sie zu beschäftigen, als sie auf dumme Gedanken kommen zu lassen.
+Georg Orwell;Die Armut befreit von den gewöhnlichen Normen des Verhaltens.
 Helmut Schmidt;Wir leben in einer Fernseh-Demokratie.
 Helmut Schmidt;Intellektuelle neigen immer zu Spinnereien.
 Helmut Schmidt;Wer Berater sein will, sollte wenigstens wissen, was ein Berater ist.
@@ -191,11 +202,19 @@ Immanuel Kant;Es ist nur eine Religion, aber es kann vielerlei Arten des Glauben
 Immanuel Kant;Alles, was die Natur selbst anordnet, ist zu irgendeiner Absicht gut. Die ganze Natur überhaupt ist eigentlich nichts anderes, als ein Zusammenhang von Erscheinungen nach Regeln; und es gibt überall keine Regellosigkeit.
 Immanuel Kant;Über Geschmack lässt sich nicht disputieren.
 Immanuel Kant;Der größte Sinnesgenuss, der gar keine Beimischung von Ekel bei sich führt, ist, im gesunden Zustande, Ruhe nach der Arbeit.
+J. La Fontaine; Mit den Flügeln der Zeit fliegt die Traurigkeit davon.
+J. W. von Goethe;Willst du glücklich sein im Leben, trage bei zu anderer Glück, denn die Freude die wir geben, kehrt ins eigene Herz zurück.
+Lao-tse; Güte in den Worten erzeugt Vertrauen. Güte beim Denken erzeugt Tiefe. Güte beim Verschenken erzeugt Liebe.
+M. Twain;Trauer sorgt für sich selbst, aber um das Glück wirklich auszukosten, musst du jemanden haben, mit dem du es teilst.
+M. Cervantes;Wenn sich eine Tür schließt, öffnet sich eine andere.
+Pablo Picasso;Mit Kunstwerken ist es wie mit den Menschen: Es gibt fast nur Kopien und kaum Originale.
+Platon;Sie werden also sagen: Wenn der Gerechte so gesinnt ist, wird er gegeißelt, gefoltert, in Ketten gelegt, an beiden Augen geblendet werden, und schließlich wird man nach allen Martern ihn ans Kreuz schlagen, damit er zur Einsicht kommt, dass es nicht das Richtige ist in dieser Welt, gerecht zu sein, sondern es nur zu scheinen.
 Roger Willemsen;Liebeskummer ist ein stärkeres Gefühl als die Liebe selbst.
 Roger Willemsen;Am meisten Zukunft haben Menschen ohne Vergangenheit.
 Roger Willemsen;Design ist eine Kunst, die vor allem aus dem Wettbewerb entsteht. Ähnlichen Produkten verpasst sie den Nimbus der Unverwechselbarkeit.
 Roger Willemsen;Im Augenblick, als die Welt ihren Sinn verlor, entdeckte die Werbung die Heilsbotschaft.
 Roger Willemsen;Die Klatschreporter agieren moralisch wie die Ayatollahs des Westens.
+Stalin;Der Tod eines Mannes ist eine Tragödie, aber der Tod von Millionen nur eine Statistik.
 Winston Churchill;Ein kluger Mann macht nicht alle Fehler selbst. Er gibt auch anderen eine Chance.
 Winston Churchill;Die meisten Menschen sind bereit zu lernen, aber nur die wenigsten, sich belehren zu lassen.
 Winston Churchill;Lache nie über die Dummheit der anderen. Sie ist deine Chance.

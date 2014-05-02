@@ -50,7 +50,7 @@
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
 				<!-- REDIRECT TO LOGIN -->
-				<?php header( "refresh:3;url=index.php" ); ?>
+				<?php header( "refresh:1;url=index.php" ); ?>
 				
 				
 				

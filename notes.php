@@ -401,7 +401,7 @@
 		  		}
 		  		
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
-				//alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
+				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				var n = noty({text: 'Note created', type: 'success'});
 				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
 				reloadNote();

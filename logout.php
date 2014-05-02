@@ -74,7 +74,7 @@
 				<!-- REDIRECT TO LOGIN -->
 				<?php 
 					session_destroy(); // destroy the user session
-					header("refresh:10;url=index.php"); 
+					header("refresh:5;url=index.php"); 
 				?>
 				
 				<!-- SPACER -->
