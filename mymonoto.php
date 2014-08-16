@@ -40,7 +40,6 @@
 		
 		
 		<script type="text/javascript">
-
 			function deleteAllMyUserEvents() 
 			{
 				var x = noty({
@@ -96,9 +95,7 @@
 				})
 			}
 		</script>
-		
 	</head>
-
 
 
 	<body role="document">
@@ -132,7 +129,6 @@
 		</div>
 		<div class="container theme-showcase" role="main">
 
-
 		<div id="container">
 			<div id="noteContentCo">
 				<!-- SPACER -->
@@ -163,12 +159,8 @@
 						<form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
 							<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
-							<!--
-							<input type="submit" name="doChangeUserPW" value="Update" style="width:140px" title="Starts the change password function if the user provided the new password twice." />
-							-->
 							<button type="submit" name="doChangeUserPW" value="Update"  style="width:140px" title="Starts the change password function if the user provided the new password twice."><i class="fa fa-save"></i> Update</button>
 						</form>
-						
 						</td>
 						</tr>
 						<tr>
@@ -445,62 +437,6 @@
 					</tbody>
 					<tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
 				</table>
-				<br>
-				<br>
-				<div class="row">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Legend</h3>
-						</div>
-						<div class="panel-body">
-							<table style="width:100%">
-								<thead><tr><th style="width:20%">event</th><th style="width:60%">description</th></tr></thead>
-								<tbody>
-							<tr>
-								<td>create</td>
-								<td>Note was created, version counter = 1, date created and modified set</td>
-							</tr>
-							<tr>
-								<td>create error</td>
-								<td>Error while trying to create a note. The title was already in use.</td>
-							</tr>
-							<tr>
-								<td>import</td>
-								<td>Note was imported using the importer, version counter = 1, date created and modified set</td>
-							</tr>
-							<tr>
-								<td>save</td>
-								<td>Content was changed, note saved, version counter +1, date modified set</td>
-							</tr>
-							<tr>
-								<td>delete</td>
-								<td>Note was deleted, id/number is doomed forever.</td>
-							</tr>
-							<tr>
-								<td>login</td>
-								<td>User login - logincounter +1</td>
-							</tr>
-							<tr>
-								<td>login failed </td>
-								<td>User login - failcounter +1</td>
-							</tr>
-							<tr>
-								<td>logout</td>
-								<td>User logout - logoutcounter +1</td>
-							</tr>
-							<tr>
-								<td>notes eraser</td>
-								<td>All user notes deleted</td>
-							</tr>
-							<tr>
-								<td>events eraser</td>
-								<td>All user events deleted</td>
-							</tr>
-						</tbody>
-				</table>
-			</div>
-			</div>
-		</div><!-- /.col-sm-4 -->
 	</div>
 
 
@@ -516,9 +452,6 @@
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 					<input type="file" name="file[]" multiple id="file[]" />
 					<br>
-					<!--
-					<input type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." />
-					-->
 					<button type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." disabled ><i class="fa fa-sign-in"></i> Import</button>
 					<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
 				</form>
@@ -533,16 +466,11 @@
 				<hr>
 				<p>You can export your notes in .csv format. Press the 'Export' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-				<!--
-					<input type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" />
-					-->
 					<button type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" ><i class="fa fa-sign-out"></i> Export</button>
 				</form>
 
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
 
 				<!-- ERASER -->
 				<h3 id="eraser">Eraser</h3>
@@ -553,8 +481,6 @@
 				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user notes from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserNotes();"><i class="fa fa-trash-o fa-1x"></i> Delete notes</button>
 				
 				
-
-
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 		</div>
@@ -577,12 +503,12 @@
 	
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<!-- init noty -->
 	<script>
 		$.noty.defaults = {
-		  layout: 'bottomCenter',
+		  layout: 'topRight',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
@@ -608,19 +534,7 @@
 		};
 	</script>
 	
-	<script type="text/javascript">
-		// alert
-		// information
-		// error
-		// warning
-		// notification
-		// success
-		//
-		var n = noty({text: 'Loaded MyMonoto section.', type: 'notification'});
-	</script>
-	
 	<script type="text/javascript" language="javascript" src="js/m_keyPressAll.js"></script>				<!--  m_keyPressAll-->
-
 	</body>
 </html>
 

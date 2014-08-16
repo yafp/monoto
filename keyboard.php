@@ -27,11 +27,7 @@
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
-		
-
-		
 	</head>
-
 
 	<body role="document">
 		<!-- Fixed navbar -->
@@ -109,8 +105,6 @@
 	<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	
-	
-	
 	<!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
@@ -125,12 +119,12 @@
 	
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<!-- init noty -->
 	<script>
 		$.noty.defaults = {
-		  layout: 'bottomCenter',
+		  layout: 'topRight',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
@@ -161,16 +155,5 @@
 			var easter_egg = new Konami('image.php');
 	</script>
 	
-	<script type="text/javascript">
-		// alert
-		// information
-		// error
-		// warning
-		// notification
-		// success
-		//
-		var n = noty({text: 'Loaded Keyboard section.', type: 'notification'});
-	</script>
-
 	</body>
 </html>

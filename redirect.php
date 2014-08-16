@@ -38,7 +38,6 @@
 		<div class="container theme-showcase" role="main">
 
 
-
 		<div id="container">
 			<div id="noteContentCo">
 				<!-- SPACER -->
@@ -52,10 +51,8 @@
 				<!-- REDIRECT TO LOGIN -->
 				<?php header( "refresh:1;url=index.php" ); ?>
 				
-				
-				
 			</div>
-			<!-- SPACER -->
+
 			<div class="spacer">&nbsp;</div>
 		</div>
 	</div> <!-- /container -->

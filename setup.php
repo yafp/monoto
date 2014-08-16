@@ -17,7 +17,6 @@
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
-		
 	</head>
 	
 	<body role="document">
@@ -127,6 +126,6 @@
 		else // mysql tables dont exist
 		{
 			alert("Error: MySQL table doesnt exist.");
-		}	
+		}
 	}
 ?>

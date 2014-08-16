@@ -104,12 +104,12 @@
 	
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<!-- init noty -->
 	<script>
 		$.noty.defaults = {
-		  layout: 'bottomCenter',
+		  layout: 'topRight',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
@@ -143,7 +143,7 @@
 		// notification
 		// success
 		//
-		var n = noty({text: 'Logout ... redirecting to login page.', type: 'notification'});
+		var n = noty({text: 'Logout, redirecting to login', type: 'notification'});
 	</script>
 
 	</body>

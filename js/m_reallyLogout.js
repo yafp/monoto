@@ -4,7 +4,7 @@ function reallyLogout()
 		text: 'Do you really want to logout?',
 		type: 'confirm',
 		dismissQueue: false,
-		layout: 'bottomCenter',
+		layout: 'topRight',
 		theme: 'defaultTheme',
 		buttons: [
 			{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {

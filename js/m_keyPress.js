@@ -29,6 +29,13 @@ function KeyCheck(e)
 		// ESC
 		case 27:
 			currentRow = -1;
+			
+			// baustelle
+			// hide new notetitle
+			$("#newNoteTitle").show();
+			$("#createNoteButton").show();
+			// hide delete buttons
+			$("#delete").hide();
 
 			// unselect a maybe selected row in datatable - maybe via redraw.
 			$(oTable.fnSettings().aoData).each(function ()
@@ -39,6 +46,8 @@ function KeyCheck(e)
 			var n = noty({text: 'Resetted notes interface', type: 'notification'});
 
 			// refresh the gui
+			$('#noteTitle').val("");
+	
 			document.activeElement.value = "";								// reset newNoteTitle
 			document.activeElement.blur(); 									// lose focus from newNotetitle
 			document.getElementById('myInputTextField').focus();			// set focus to search

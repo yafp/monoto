@@ -39,6 +39,7 @@ body{
 ################################################ 
 */
 #myInputTextField {
+	width: 100%;
 	/*
     background: white url(../images/icons/search.jpg) right no-repeat;
     margin-top: 5px; 
@@ -323,6 +324,9 @@ content: "\2014 \2009";
         .tab.active {
             display:block;
         }
+
+
+
 
 
 

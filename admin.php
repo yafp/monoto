@@ -42,13 +42,7 @@
 				$('#example').dataTable();
 			} );
 		</script>
-		
-		
-		
-
 	</head>
-
-
 
 	<body role="document">
 		<!-- Fixed navbar -->
@@ -80,7 +74,6 @@
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">
-
 
 
 		<div id="container">
@@ -288,15 +281,12 @@
 									<td><input type="text" name="newUserNote" placeholder="Comment" /></td>
 								</tr>
 								<tr>
-									<td>
-									<button type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided."><i class="fa fa-envelope-o fa-1x"></i> Invite</button>
-									</td> 
+									<td><button type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided."><i class="fa fa-envelope-o fa-1x"></i> Invite</button></td> 
 									<td>&nbsp;</td>
 								</tr>
 							</table>
 						</form>
 					
-
 					<!-- SPACER -->
 					<div class="spacer">&nbsp;</div>
 
@@ -337,12 +327,12 @@
 	
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
+	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<!-- init noty -->
 	<script>
 		$.noty.defaults = {
-		  layout: 'bottomCenter',
+		  layout: 'topRight',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
@@ -368,21 +358,8 @@
 		};
 	</script>
 	
-	<script type="text/javascript">
-		// alert
-		// information
-		// error
-		// warning
-		// notification
-		// success
-		//
-		var n = noty({text: 'Loaded Admin section.', type: 'notification'});
-	</script>
-
 	</body>
 </html>
-
-
 
 
 <?php
@@ -393,7 +370,6 @@
 	if ( isset($_POST["doUpdateCheck"]) ) 
 	{
 		session_start();
-		//include 'conf/config.php';
 		
 		// assume everything is good
 		$critical = FALSE;
@@ -469,11 +445,9 @@
 			}
 			else if ($update)
 			{ 
-				
 			}
 			else // uptodate
 			{ 
-				
 			}
 
 			// update div with unstable informations

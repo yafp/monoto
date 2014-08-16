@@ -17,18 +17,18 @@
 			function change()
 			{
 				lefttime--;
-			   	if(lefttime<=0)
-			   	{		
-			   		window.location = "logout.php"
-			   	}
-			   	else
-			   	{
-			   		if(lefttime == 5) 
-				   	{
-				   		var n = noty({text: 'timeout-reminder.', type: 'warning'});
-				   		//alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
-				   	}
-			   	}
+				if(lefttime <= 0) // session should be dead
+				{		
+					window.location = "logout.php"
+				}
+				else
+				{
+					if(lefttime == 5) 
+					{
+						var n = noty({text: 'timeout-reminder.', type: 'warning'});
+						alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
+					}
+				}
 			}
 			</script>
 <?php
@@ -63,12 +63,12 @@
 
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-		<script type="text/javascript" src="js/noty/layouts/bottomCenter.js"></script>
+		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 		<!-- init noty -->
 		<script>
 		$.noty.defaults = {
-		  layout: 'bottomCenter',
+		  layout: 'topRight',
 		  theme: 'defaultTheme',
 		  type: 'alert',
 		  text: '',
@@ -106,6 +106,8 @@
 
 			$(document).ready(function() 
 			{
+				$("#delete").hide(); // hide the delete button
+				
 				// is something written in the cookie as lastAction? if yes - show it as a noty notification & reset the value 
 				if($.cookie("lastAction") != "")
 				{
@@ -113,9 +115,20 @@
 					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
 				}
 
+				// Defining the editor height
+				monotoEditorHeight = 300; // setting a default value - in case there is non stored in localStorage
+				if(typeof(Storage)!=="undefined") // if localStorage is supported
+				{
+					monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
+				}
+				console.log("On Pageload: Editor Height: "+monotoEditorHeight);
+				
+
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
-					height: '300px',
+					enterMode: CKEDITOR.ENTER_BR, /* prevent <p>aragraphs over and over in note-content */
+					/* height: '250px', */
+					height: monotoEditorHeight,
 					extraPlugins : 'wordcount',
 					wordcount : {
 						showCharCount : true,
@@ -138,7 +151,22 @@
 					]
 				});
 				// END CKEDITOR
-
+				
+				/*
+					SAVE EDITORS HEIGHT ON CHANGE
+				*/
+				CKEDITOR.on('instanceReady',function(ev) 
+				{
+					ev.editor.on('resize',function(reEvent)
+					{
+						// get current height
+						editorHeight = this.ui.space( 'contents' ).getStyle( 'height' ); // e.g. 200px
+						
+						//save to localstorage
+						window.localStorage.setItem("monotoEditorHeight", editorHeight);
+					});
+				});
+				
 				var n = noty({text: 'All notes loaded.', type: 'notification'});
 
 				/* Add a click handler to the rows - this could be used as a callback */
@@ -165,7 +193,6 @@
 				/* Init the table */
 				oTable = $('#example').dataTable( 
 				{ 
-					//"bProcessing": true,
 					"oLanguage": { 
 						"sProcessing": "<img src='../images/loading.gif'>",
 						"sEmptyTable": "You have 0 notes so far - start writing some...", // displayed if table is initial empty
@@ -178,7 +205,6 @@
 					},
 				
 					"sDom": '<"wrapper"lit>, <l<t>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
-					
 					"oSearch": {"sSearch": ""}, 
 					"sRowSelect": "single",
 					"bLengthChange": false,
@@ -203,19 +229,26 @@
 
 
 				/* configure a new search field & its event while typing */
-				$('#myInputTextField').keypress(function()
+				//$('#myInputTextField').keypress(function()
+				$('#myInputTextField').keyup(function()
 				{
+					// filter
 					oTable.fnFilter( $(this).val() );												// search the table
 					var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
-
-					// unselect all records
-					/*
-					$(oTable.fnSettings().aoData).each(function ()
+					
+					// not 1 records as result
+					if(amountOfRecordsAfterFilter != 1)												// if there is only 0 record left - reset ckeditor
 					{
-						$(this.nTr).removeClass('row_selected');
-					});
-					*/
-
+						CKEDITOR.instances['editor1'].setData(""); // reset content of note-editor
+						document.getElementById("noteTitle").value = ''; // reset  note title
+							
+						// unselect all records
+						$(oTable.fnSettings().aoData).each(function ()
+						{
+							$(this.nTr).removeClass('row_selected');
+						});
+					}
+					
 					// specialcase - only 1 record
 					if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
 					{
@@ -228,22 +261,31 @@
 
 				// select a row, highlight it and get the data
 				$('table tr').click(function () 
-				{				
-					var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
-					var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
-					var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
-					CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
+				{		
+					clickedTableID = $(this).closest('table').attr('id')
+					if(clickedTableID == "example") 				// should be triggerd only for datatable
+					{
+						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
+						var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
+						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
+						CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
 
-					document.myform.noteID.value = sData[1]											// fill id field
-					document.myform.noteTitle.value = sData[2]										// fill title field
-					document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
-					//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
-					document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
+						document.myform.noteID.value = sData[1]											// fill id field
+						document.myform.noteTitle.value = sData[2]										// fill title field
+						document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
+						//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
+						document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 
-					var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
-					
-					document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
-					//editor.focus(); // set focus to ckeditor
+						//var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
+						document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
+						//editor.focus(); // set focus to ckeditor
+						
+						// hide new notetitle
+						$("#newNoteTitle").hide();
+						$("#createNoteButton").hide();
+						// show delete buttons
+						$("#delete").show();
+					}
 				});
 			} );
 
@@ -428,20 +470,28 @@
 		//
 		function enableCreateButton()
 		{
-			// if we are starting to write a new note - earase the content of noteContent first
-			if(document.myform.newNoteTitle.value.length==1)
+			// if we are starting to write a new note - erase the content of noteContent first
+			if(document.myform.newNoteTitle.value.length>=1)
 			{
 				CKEDITOR.instances.editor1.editable().setHtml( '' );
+				// hide datatables
+				//$('#example').hide();
+				$('.input-group').hide();
+				document.myform.createNoteButton.disabled=false;	// enable Create new note button
+				
+				// lets clean up the main interface
+				document.myform.noteID.value = "";					// empty ID of previously selected note
+				document.myform.noteTitle.value = "";				// empty title of previously selected note
+				document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
+				document.myform.save.disabled=true;					// disable the save button
+				document.myform.delete.disabled=true;				// disable the delete button
+				document.myform.noteTitle.disabled=true;			// disable note title field
 			}
-			
-			// lets clean up the main interface
-			document.myform.createNoteButton.disabled=false;	// enable Create new note button
-			document.myform.noteID.value = "";					// empty ID of previously selected note
-			document.myform.noteTitle.value = "";				// empty title of previously selected note
-			document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
-			document.myform.save.disabled=true;					// disable the save button
-			document.myform.delete.disabled=true;				// disable the delete button
-			document.myform.noteTitle.disabled=true;			// disable note title field
+			else // got no new note -title ...so cant create new note
+			{
+				$('.input-group').show();
+				document.myform.createNoteButton.disabled=true;	// disable Create new note button
+			}
 		}
 		</script>
 	</head>  
@@ -480,9 +530,6 @@
 	<br>
 
 
-
-
-
 	<div id="container">
 		<!-- SPACER -->
 		<div class="spacer">&nbsp;</div>
@@ -490,21 +537,19 @@
 			<!-- CONTENT -->
 			<div id="noteContentCo">
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
+					<div class="input-group">
+						<input placeholder="search here" id="myInputTextField" type="text" class="form-control">
+						<span class="input-group-btn">
+							<button  class="btn btn-default" type="button" disabled><i class="fa fa-search fa-1x"></i> Search</button>
+						</span>
+					</div>
+				
+				
 					<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
-						<tr>
-							<td colspan="3">
-								<div class="input-group">
-									<input placeholder="search here" id="myInputTextField" type="text" class="form-control">
-									<span class="input-group-btn">
-										<button  class="btn btn-default" type="button" disabled><i class="fa fa-search fa-1x"></i> Search</button>
-									</span>
-								</div>
-							</td>
-						</tr>
-						<tr><td>&nbsp;</td></tr>
+						<tr><td colspan="3">&nbsp;</td></tr>
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " /></td>
+							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " class="form-control" /></td>
 							<td>
 							 <button type="button" class="btn btn-sm btn-default" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" ><i class="fa fa-save fa-1x"></i> save</button>
 							</td>
@@ -514,28 +559,29 @@
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
+							<!--
 							<button type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();" class="btn btn-sm btn-default"><i class="fa fa-refresh fa-1x"></i> reload</button>
+							-->
 							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
 							</td>
 						</tr>
-						<!--spacer-->
-						<tr><td>&nbsp;</td></tr>
 						<!-- newTitle AND create buttons -->
 						<tr>
-							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" /></td>
+							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" class="form-control" /></td>
 							<td>
 							<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
 							</td>
 						</tr>
 					</table>
 				</form>
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
+				
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
+				<!--
 					<thead align="left">
 						<tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th></tr>
 					</thead>
+				-->
 					<tbody>
 					<?php
 						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
@@ -553,7 +599,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="spacer">&nbsp;</div>	<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
 		</div>
 
     </div> <!-- /container -->
