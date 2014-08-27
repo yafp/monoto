@@ -114,11 +114,6 @@
 							<td style="width: 30%"><?php if($s_enable_maintenance_mode == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
 						</tr>
 						<tr>
-							<td><i class="fa fa-code-fork fa-1x"></td>
-							<td>unstable sources</td>
-							<td><?php if($s_enable_UnstableSources == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
-						</tr>
-						<tr>
 							<td><i class="fa fa-random fa-1x"></td>
 							<td>random logout images</td>
 							<td><?php if($s_enable_random_logout_gif == false){ echo "<span class='badge'>false</span>";}else{echo "<span class='badge'>true</span>";} ?></td>
@@ -135,7 +130,7 @@
 					<table style="width: 100%">
 						<tr>
 							<td><b>build:</b></td>
-							<td><span class='badge'><?php echo $m_build; if($m_stable == false) { echo "</span>&nbsp;<font color='red'>Development Version (unstable)</font>"; } ?></td>
+							<td><span class='badge'><?php echo $m_build; ?></td>
 						</tr>
 						<tr>
 							<td><b>milestone:</b></td>
@@ -146,31 +141,14 @@
 						</tr>
 						<tr>
 							<td>
-							<button type="submit" name="doUpdateCheck" value="Software Update" class="btn btn-sm btn-default" style="width:120px" title="checks online for monoto updates"  id="doUpdateCheck"><i class="fa fa-cloud-download fa-1x"></i> Software Update</button>
+							<button type="submit" name="doUpdateCheck" value="Software Update" class="btn btn-sm btn-default" style="width:120px" title="checks online for monoto updates"  id="doUpdateCheck"><i class="fa fa-cloud-download fa-1x"></i> Check for updates </button>
 							</td>
-							<td>
-								<?php 
-									if($s_enable_UnstableSources == true)
-									{
-										echo "Searching for <span>stable</span> and <span>unstable</span> versions";
-									}
-									else
-									{
-										echo "Searching only for <span>stable</span> versions.";
-									}
-							 	?>
-							</td>
+							<td>Searching for newer versions</td>
 						</tr>
 						<tr>
-							<td><b>current stable:</b></td>
+							<td><b>current version:</b></td>
 							<td><div id="curStable01"><i>please run the check</i></div></td>
 							<td><div id="curStable02"><i>&nbsp;</i></div></td>
-						</tr>
-						<tr>
-							<td><b>current unstable:</b></td>
-							<td><div id="curUnstable01"><i>please run the check</i></div></td>
-							<td><div id="curUnstable02"><i>&nbsp;</i></div></td>
-							<td style="width: 30%">&nbsp;</td>
 						</tr>
 					</table>
 				</form>
@@ -375,7 +353,7 @@
 		$critical = FALSE;
 		$update = FALSE;
 		
-		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vStable.csv";
+		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vCurrentVersion.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);
 		fclose ($fp); //always a good idea to close the file connection
@@ -411,51 +389,6 @@
 		$urlDLStable = "<a href='$read[3]'>Download</a>";
 		echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$urlDLStable.'";</script>';
 
-		//
-		// check for unstable versions as well
-		//
-		if($s_enable_UnstableSources == true)
-		{
-			// assume everything is good
-			$critical = FALSE;
-			$update = FALSE;
-
-			// check the csv file
-			$url = "https://raw.github.com/macfidelity/monoto/master/conf/vDev.csv";
-			$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
-			$read = fgetcsv ($fp);
-			fclose ($fp); 																//always a good idea to close the file connection
-
-			// its critical
-			if (($read[0] > $m_build) && ($read[2] == "1")) 
-			{ $critical = TRUE; }
-				
-			// normal update
-			if ($read[0] > $m_build) 
-			{ $update = TRUE; }
-
-			if ($critical) 
-			{ 
-					echo '<script type="text/javascript">
-							var r=confirm("There is a critical dev update available. Should i download the latest version?")
-						if (r==true)
-		  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
-
-				die(); //terminate the script
-			}
-			else if ($update)
-			{ 
-			}
-			else // uptodate
-			{ 
-			}
-
-			// update div with unstable informations
-			echo '<script type="text/javascript">document.getElementById("curUnstable01").innerHTML = "'.$read[0].'";</script>';
-			$urlDLUnstable = "<a href='$read[3]'>Download</a>";
-			echo '<script type="text/javascript">document.getElementById("curUnstable02").innerHTML = "'.$urlDLUnstable.'";</script>';
-			echo '<script type="text/javascript">var n = noty({text: "Update informations gathered", type: "notification"});</script>';
-		}
 	}
 
 

@@ -45,10 +45,6 @@
 			});
 		});
 		</script>
-		
-		<!--
-		<meta http-equiv="refresh" content="10;URL='image.php'">
-		-->
 	</head>
 
 
@@ -100,7 +96,6 @@
 
 						<div class="tab-content">
 							<div id="tab1" class="tab active">
-								reload interval: <input type="number" name="secondsUntilReload" id="secondsUntilReload" value="10">
 								<center>
 								<a href="image.php"><i class="fa fa-refresh fa-2x"></i></a>
 								<div class="spacer">&nbsp;</div>
