@@ -30,12 +30,13 @@ function KeyCheck(e)
 		case 27:
 			currentRow = -1;
 			
-			// baustelle
-			// hide new notetitle
+			// show some elements
 			$("#newNoteTitle").show();
 			$("#createNoteButton").show();
-			// hide delete buttons
+			
+			// hide some elements
 			$("#delete").hide();
+			$("#save").hide();
 
 			// unselect a maybe selected row in datatable - maybe via redraw.
 			$(oTable.fnSettings().aoData).each(function ()

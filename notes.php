@@ -107,6 +107,7 @@
 			$(document).ready(function() 
 			{
 				$("#delete").hide(); // hide the delete button
+				$("#save").hide(); // show save button
 				
 				// is something written in the cookie as lastAction? if yes - show it as a noty notification & reset the value 
 				if($.cookie("lastAction") != "")
@@ -121,13 +122,12 @@
 				{
 					monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
 				}
-				console.log("On Pageload: Editor Height: "+monotoEditorHeight);
+				//console.log("On Pageload: Editor Height: "+monotoEditorHeight);
 				
 
 				// START CKEDITOR
 				CKEDITOR.replace( 'editor1', {
 					enterMode: CKEDITOR.ENTER_BR, /* prevent <p>aragraphs over and over in note-content */
-					/* height: '250px', */
 					height: monotoEditorHeight,
 					extraPlugins : 'wordcount',
 					wordcount : {
@@ -159,15 +159,13 @@
 				{
 					ev.editor.on('resize',function(reEvent)
 					{
-						// get current height
-						editorHeight = this.ui.space( 'contents' ).getStyle( 'height' ); // e.g. 200px
-						
-						//save to localstorage
-						window.localStorage.setItem("monotoEditorHeight", editorHeight);
+						editorHeight = this.ui.space( 'contents' ).getStyle( 'height' ); // get current height
+						window.localStorage.setItem("monotoEditorHeight", editorHeight); //save to localstorage
 					});
 				});
 				
 				var n = noty({text: 'All notes loaded.', type: 'notification'});
+
 
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
@@ -201,7 +199,6 @@
 				
 					/* execute if table is ready */
 					"fnInitComplete": function(oSettings, json) {
-					/* alert( 'DataTables has finished its initialisation.' ); */
 					},
 				
 					"sDom": '<"wrapper"lit>, <l<t>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
@@ -223,16 +220,13 @@
 								{ "bSearchable": true, "bVisible": true, "sWidth": "50%" },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
 								{ "bSearchable": false, "bVisible": false }					/* tags */
-							/* created */
 							],
 				} );
 
 
 				/* configure a new search field & its event while typing */
-				//$('#myInputTextField').keypress(function()
 				$('#myInputTextField').keyup(function()
 				{
-					// filter
 					oTable.fnFilter( $(this).val() );												// search the table
 					var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 					
@@ -242,8 +236,7 @@
 						CKEDITOR.instances['editor1'].setData(""); // reset content of note-editor
 						document.getElementById("noteTitle").value = ''; // reset  note title
 							
-						// unselect all records
-						$(oTable.fnSettings().aoData).each(function ()
+						$(oTable.fnSettings().aoData).each(function () // unselect all records
 						{
 							$(this.nTr).removeClass('row_selected');
 						});
@@ -273,18 +266,13 @@
 						document.myform.noteID.value = sData[1]											// fill id field
 						document.myform.noteTitle.value = sData[2]										// fill title field
 						document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
-						//currentRow = sData[0];														// correct current row - as its on the initial value but user select a note via mouse
 						document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
-
-						//var n = noty({text: 'Loaded note: '+sData[2], type: 'notification'});
 						document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
-						//editor.focus(); // set focus to ckeditor
 						
-						// hide new notetitle
 						$("#newNoteTitle").hide();
 						$("#createNoteButton").hide();
-						// show delete buttons
-						$("#delete").show();
+						$("#delete").show(); // show delete button
+						$("#save").show(); // show save button
 					}
 				});
 			} );
@@ -361,16 +349,13 @@
 			var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
 			var modifiedNoteCounter = document.myform.noteVersion.value;				// get current save-counter/version
 
-			// cleanup note content
-			modifiedNoteContent=modifiedNoteContent.replace(/\'/g,'&#39;')				// replace: ' 	with &#39;
+			modifiedNoteContent=modifiedNoteContent.replace(/\'/g,'&#39;')				// replace: ' 	with &#39; // cleanup note content
 
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-				//alert("Note saved with title: "+modifiedNoteTitle+".");
 				var n = noty({text: 'Note saved', type: 'success'});
 				$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");	// store last Action in cookie
-				//reloadNote();
 			}
 			else 																		// should never happen as the save button is not always enabled.
 			{  
@@ -403,7 +388,6 @@
 							$noty.close();
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
-							//reloadNote();
 						}
 						},
     					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
@@ -419,7 +403,6 @@
 			{ 
 				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
 			}	
-			//reloadNote();
 		}
 
 
@@ -474,9 +457,7 @@
 			if(document.myform.newNoteTitle.value.length>=1)
 			{
 				CKEDITOR.instances.editor1.editable().setHtml( '' );
-				// hide datatables
-				//$('#example').hide();
-				$('.input-group').hide();
+				$('.input-group').hide(); // hides the search field
 				document.myform.createNoteButton.disabled=false;	// enable Create new note button
 				
 				// lets clean up the main interface
@@ -486,6 +467,7 @@
 				document.myform.save.disabled=true;					// disable the save button
 				document.myform.delete.disabled=true;				// disable the delete button
 				document.myform.noteTitle.disabled=true;			// disable note title field
+				$("#save").hide();
 			}
 			else // got no new note -title ...so cant create new note
 			{
@@ -577,11 +559,6 @@
 				
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
-				<!--
-					<thead align="left">
-						<tr><th>m_id</th><th>id</th><th>title</th><th>content</th><th>tags</th></tr>
-					</thead>
-				-->
 					<tbody>
 					<?php
 						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
