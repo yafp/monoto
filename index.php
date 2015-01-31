@@ -89,7 +89,7 @@
 					//
 					$f_contents = file("quotes/quotes_de.txt");  				// define quotes source
 		 			$line = $f_contents[rand(0, count($f_contents) - 1)];		// get random line
-		 			list($author, $quote) = explode(';', $line);					// split string
+		 			list($author, $quote) = explode(';', $line);					// split string into author and quote
 				?>
 					<blockquote>
 						<p><?php echo $quote; ?></p>

@@ -33,8 +33,12 @@
 		
 		<script>
 		$(document).ready(function() {
-			$('#example').dataTable();
-
+			
+			$('#example').dataTable( {
+				"sPaginationType": "full_numbers",
+				"iDisplayLength" : 25
+			} );
+			
 			$('.tabs .tab-links a').on('click', function(e)  {
 				var currentAttrValue = $(this).attr('href');
 				// Show/Hide Tabs

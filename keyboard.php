@@ -66,23 +66,45 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				<!-- navigation -->
-				<ol class="breadcrumb">
-					<li class="active"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</li>
-					<li><a href="#monoto-wide">monoto-wide</a></li>
-					<li><a href="#notes-page">notes-page</a></li>
-				</ol>
 				
-				<h3 id="monoto-wide">monoto-wide</h3>
-				<hr>
-				<table style="width:100%">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">monoto-wide</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+            <table style="width:100%">
 					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
 				</table>
-				<br><br>
-				<h3 id="notes-page">notes-page</h3>
-				<hr>
-				<table style="width:100%">
+            </div>
+            
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">notes-page</a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+            <table style="width:100%">
 					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
 					<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
 					<tr><td>F2</td><td>Toggle maximize of editor.</td></tr>
@@ -94,9 +116,24 @@
 					<tr><td>Arrow Up (in search)</td><td>Moves the focus to newNoteTitle.</td></tr>
 					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td></tr>
 				</table>
+            </div>
+          </div>
+        </div>
+      </div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			</div>
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
+			
 		</div>
 	</div> <!-- /container -->
 

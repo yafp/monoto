@@ -98,6 +98,8 @@
 		<!-- ckeditor -->
 		<script src="js/ckeditor-4.3.4_standard/ckeditor.js"></script>
 
+
+
 		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
@@ -368,20 +370,20 @@
 		// DELETE A NEW NOTE
 		//
 		function deleteNote() 
-		{
+		{		
 			// get the note id etc
 			var deleteID = document.myform.noteID.value;
 			var deleteTitle = document.myform.noteTitle.value;
 			var deleteContent = document.myform.editor1.value;
 
-			// if we have a note id to delete - try to do it
 			if ((deleteID.length > 0) && (deleteID != 'ID' ))
 			{
+				// confirm dialog
 				var x = noty({
 					text: 'Really delete this note?',
 					type: 'confirm',
 					dismissQueue: false,
-					layout: 'bottomCenter',
+					layout: 'topRight',
 					theme: 'defaultTheme',
 					buttons: [
 						{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
@@ -398,11 +400,13 @@
 					}
 					]
 				})	
+				
+				
 			}
 			else // should never happen as the delete button is disabled if no note is selected
-			{ 
+			{
 				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
-			}	
+			}
 		}
 
 
@@ -422,7 +426,7 @@
 		  	{
 		  		if(newNoteContent.length == 0)										// check if user defined note-content or not
 		  		{
-		  			newNoteContent = "Placeholder content - as no note-content was defined while creating this note.";			// define dummy content as user didnt
+		  			newNoteContent = "Placeholder content<br><br>If you see this text - you missed defining a note content while note-creation.";			// define dummy content as user didnt
 		  		}
 		  		
 		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script

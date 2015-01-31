@@ -82,21 +82,26 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				<!-- navigation -->
-				<ol class="breadcrumb">
-					<li class="active"><i class="fa fa-cogs fa-1x"></i> Admin</li>
-					<li><a href="#server-configuration">Server configuration</a></li>
-					<li><a href="#version-informations">Version informations</a></li>
-					<li><a href="#notes">Notes</a></li>
-					<li><a href="#users">Users</a></li>
-					<li><a href="#tasks">Tasks</a></li>
-				</ol>
+				
+				
+				
+				
+				
+				
+				
+				
 				
 
-				<h3 id="server-configuration">Server configuration</h3>
-				<hr>
-				
-				<?php
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Config</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+            <?php
 					if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
 					{
 						echo '<div class="alert alert-danger">';
@@ -120,21 +125,29 @@
 						</tr>
 					</tbody>
 				</table>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<h3 id="version-informations">Version informations</h3>
-				<hr>
-				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Version</a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<table style="width: 100%">
 						<tr>
 							<td><b>build:</b></td>
 							<td><span class='badge'><?php echo $m_build; ?></td>
-						</tr>
-						<tr>
-							<td><b>milestone:</b></td>
-							<td><span class='badge'><?php echo $m_milestone."</span> <i>aka</i> <span class='badge'>".$m_milestone_title.""; ?></span></td>
 						</tr>
 						<tr>
 							<td colspan="3">&nbsp;</td>
@@ -152,13 +165,24 @@
 						</tr>
 					</table>
 				</form>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<h3 id="notes">Notes</h3>
-				<hr>
-				<?php
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Notes</a>
+            </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+            <?php
 					// User: amount of all notes 
 					$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
 					while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
@@ -177,15 +201,26 @@
 					}
 				?>
 				</table>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<!-- USERS -->
-				<h3 id="users">Users</h3>
-				<hr>
-				<!-- datatables showing our users -->
-				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
+            
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Users</a>
+            </h4>
+          </div>
+          <div id="collapse4" class="panel-collapse collapse">
+            <div class="panel-body">
+            <table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
 					<thead><tr><th>id</th><th>username</th><th>logins</th><th>logouts</th><th>failed logins</th><th>current failed logins</th><th>invite date</th><th>first login</th><th>last login</th><th>last failed login</th><th>mail</th><th>admin</th><th>comment</th></tr></thead>
 					<tbody>
 						<?php
@@ -200,6 +235,8 @@
 				</table>
 
 				<!-- DELETE USER -->
+				
+				
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<br><br>
 				<b>Delete existing account</b><br>	
@@ -229,7 +266,10 @@
 							</tr>
 						</table>
 						</form>
-					</div>
+						
+						
+						
+					
 					<br>
 					<b>Invite new user</b><br>
 						<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
@@ -264,27 +304,70 @@
 								</tr>
 							</table>
 						</form>
-					
-					<!-- SPACER -->
-					<div class="spacer">&nbsp;</div>
-
-					<!-- ADMIN-TASKS -->
-					<h3 id="tasks">Tasks</h3>
-					<hr>
-					<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
+           
+           
+           
+           
+            
+            
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Tasks</a>
+            </h4>
+          </div>
+          <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
 						<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
 						<br><br>
 						<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
 						<br>
 						<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
 					</form>
+            
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+      </div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 
-					<!-- SPACER -->
-					<div class="spacer">&nbsp;</div>
+
+
+			
+
+					
+					
+
+					
 					</div>
 			</div>
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
+			
 		</div>
 	</div> <!-- /container -->
 

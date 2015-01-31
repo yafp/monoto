@@ -33,7 +33,8 @@
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready( function () {
 			  $('#example').dataTable( {
-				 "bSort": false		// dont sort - trust the sql-select and its sort-order
+				 "bSort": false,		// dont sort - trust the sql-select and its sort-order
+				 "iDisplayLength" : 25 
 			  } );
 			} );
 		</script>
@@ -135,21 +136,38 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				<!-- navigation -->
-				<ol class="breadcrumb">
-					<li class="active"><i class="fa fa-user fa-1x"></i> MyMonoto</li>
-					<li><a href="#profile">Profile</a></li>
-					<li><a href="#stats">Stats</a></li>
-					<li><a href="#activity-log">Activity Log</a></li>
-					<li><a href="#importer">Importer</a></li>
-					<li><a href="#exporter">Exporter</a></li>
-					<li><a href="#eraser">Eraser</a></li>
-				</ol>
 				
-				<!-- PROFILE -->
-				<h3 id="profile">Profile</h3>
-				<hr>
-				<table style="width: 100%" border="0"">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+
+
+
+      <div class="panel-group" id="accordion">
+      
+      
+      
+      
+      
+      
+      
+      
+      	<!-- Profile-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Profile</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+            <table style="width: 100%" border="0"">
 					<tr>
 						<td style="width:25%" colspan="2"></td>
 						<td style="width:5%"></td>
@@ -213,15 +231,28 @@
 							<td></td>
 						</tr>
 				</table>
-				
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-				
-				<h3 id="stats">Stats</h3>
-				<hr>
-				<!-- STATS -->
-					<div id="tabs-2">
-						<?php
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- Stats-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Stats</a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+            <?php
 							connectToDB();
 							$owner = $_SESSION['username'];
 								
@@ -413,16 +444,30 @@
 									}
 							}
 					?>
-
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-
-				<!-- ACTIVITY/EVENT LOG -->
-				<h3 id="activity-log">Activity Log</h3>
-				<hr>
-				<table cellpadding="0" cellspacing="0" class="display" id="example" style="width:100%">
+            
+            
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+     
+        
+        <!-- Activity Log-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Activity Log</a>
+            </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+           <table cellpadding="0" cellspacing="0" class="display" id="example" style="width:100%">
 					<thead>
 						<tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr>
 					</thead>
@@ -437,17 +482,33 @@
 					</tbody>
 					<tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
 				</table>
-	</div>
-
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-
-				<!-- IMPORTER -->
-				<h3 id="importer">Importer</h3>
-				<hr>
-				<!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
+           
+           
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+			<!-- Importer-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Importer</a>
+            </h4>
+          </div>
+          <div id="collapse4" class="panel-collapse collapse">
+            <div class="panel-body">
+            <!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
 				<p>You can import plain-text files. Select a folder and press the 'Import' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 					<input type="file" name="file[]" multiple id="file[]" />
@@ -455,34 +516,103 @@
 					<button type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." disabled ><i class="fa fa-sign-in"></i> Import</button>
 					<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
 				</form>
-
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-
-				<!-- EXPORTER -->
-				<h3 id="exporter">Exporter</h3>
-				<hr>
-				<p>You can export your notes in .csv format. Press the 'Export' button.</p>
+            
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- Exporter-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Exporter</a>
+            </h4>
+          </div>
+          <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+            <p>You can export your notes in .csv format. Press the 'Export' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<button type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" ><i class="fa fa-sign-out"></i> Export</button>
 				</form>
-
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
-
-				<!-- ERASER -->
-				<h3 id="eraser">Eraser</h3>
-				<hr>
-				<p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
+            
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        <!-- Eraser-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Eraser</a>
+            </h4>
+          </div>
+          <div id="collapse6" class="panel-collapse collapse">
+            <div class="panel-body">
+            <p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
 				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user events from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserEvents();"><i class="fa fa-trash-o fa-1x"></i> Delete events</button>
 				
 				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user notes from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserNotes();"><i class="fa fa-trash-o fa-1x"></i> Delete notes</button>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+        
+      </div>
 				
 				
-				<!-- SPACER -->
-				<div class="spacer">&nbsp;</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+		
+
+
+
+
+
+
 		</div>
 	</div> <!-- /container -->
 
