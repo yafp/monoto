@@ -7,7 +7,7 @@
 		echo "<small>";
 		echo "<b>".$m_name."</b> - build: ".$m_build; 
 		echo '<br>';
-		echo '<a href="https://github.com/macfidelity/monoto" title="visit monoto at github"><i class="fa fa-github fa-2x"></i></a>';
+		echo '<a href="https://github.com/yafp/monoto" title="visit monoto at github"><i class="fa fa-github fa-2x"></i></a>';
 		echo "</small>";
 	?>
 </div>
