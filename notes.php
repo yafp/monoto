@@ -254,12 +254,18 @@
 
 				document.getElementById('myInputTextField').focus();								// set focus on search field
 
+
+
+
+
+
 				// select a row, highlight it and get the data
 				$('table tr').click(function () 
-				{		
-					clickedTableID = $(this).closest('table').attr('id')
+				{	
+					clickedTableID = $(this).closest('table').attr('id') // check the click-source
+										
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
-					{
+					{				
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
 						var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
 						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
@@ -276,8 +282,13 @@
 						$("#delete").show(); // show delete button
 						$("#save").show(); // show save button
 					}
+
 				});
 			} );
+
+
+
+
 
 
 
@@ -313,10 +324,13 @@
 				{
 					$(this.nTr).removeClass('row_selected');
 				});
-
-				$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
-				$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 			}
+			else
+			{
+				// nothing to do
+			}
+			$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
+			$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 		}
 
 
@@ -400,10 +414,9 @@
 					}
 					]
 				})	
-				
-				
+
 			}
-			else // should never happen as the delete button is disabled if no note is selected
+			else // Data to identify note-to-delete are missing - should never happen as the delete button is disabled if no note is selected
 			{
 				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
 			}
@@ -434,6 +447,7 @@
 				var n = noty({text: 'Note created', type: 'success'});
 				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
 				reloadNote();
+				
 		  	}
 			else
 			{ 
@@ -447,9 +461,14 @@
 		//
 		function reloadNote() 
 		{
+			console.log("reloadnote executed");
+			
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
 		}
+
+
+
 
 
 		//
@@ -545,9 +564,6 @@
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
-							<!--
-							<button type="button" style="width:90px;" title="Reloads all notes from database" value="reload" onClick="reloadNote();" class="btn btn-sm btn-default"><i class="fa fa-refresh fa-1x"></i> reload</button>
-							-->
 							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
 							</td>
 						</tr>

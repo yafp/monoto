@@ -39,7 +39,6 @@
 			{
 		    	die('Error: ' . mysql_error());
 		    	// display error output
-		    	// BAUSTELLE
 			}
 			else // update m_log
 			{

@@ -18,15 +18,14 @@ function KeyCheck(e)
 		break;
 		
 		
-		// F2 - Open online help/docs - SPECIAL ONE - is in KeyPressAll aswell ... another ugly hack as m_keyPressAll is not working inside notes.php sofar.
+		// F2 - trigger maximize editor to fullscreen
 		case 113:
 			CKEDITOR.instances.editor1.execCommand( 'maximize' );
-			console.log( CKEDITOR.instances.editor1.commands.maximize.state );
 		break;
 		
 		
 
-		// ESC
+		// ESC - reset the UI
 		case 27:
 			currentRow = -1;
 			
@@ -60,6 +59,8 @@ function KeyCheck(e)
 		break;
 
 
+
+
 		// Arrow Up
 		case 38:
 			// specialcase: if focus in search -> jump to first record in table
@@ -84,6 +85,8 @@ function KeyCheck(e)
 		break;
 
 
+
+
 		// Arrow Down
 		case 40:
 		   	// specialcase: if focus in search -> jump to first record in table
@@ -94,11 +97,13 @@ function KeyCheck(e)
 		break;
 
 
+
+
+
 		// DEL - delete selected note & reloads page
 		case 46:
 			// missing: we should do that only if a row in datatables is selected 
 			// if focus is not in new title & in search & in noteTitle
-			//if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "myInputTextField") && (document.activeElement.id != "noteTitle"))	
 			if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "noteTitle") && (document.activeElement.id != "myInputTextField"))	
 			{
 				deleteNote();								// execute delete function
