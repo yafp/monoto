@@ -230,7 +230,7 @@
 									{ "bSortable": false, "aTargets": [ 4 ] }
 									], 
 					"aoColumns"   : [																/* visible columns */
-								{ "bSearchable": false, "bVisible": true },						/* manually defined row id */
+								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
 								{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
 								{ "bSearchable": true, "bVisible": true, "sWidth": "50%" },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
