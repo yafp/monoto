@@ -2,11 +2,10 @@ Used technologies:
 ##################
 
 - javascript 
---- http://jquery.com/												// anything to say?
---- http://datatables.net/											// Almost perfect tables
---- http://ckeditor.com/											// Editor
---- http://needim.github.io/noty/									// notifications
---- http://code.google.com/p/flot/									// Generating charts
---- digitalspaghetti.password										// Password-Strength
---- jPopUp http://www.jquerypopup.com								// PopUp - used for keyboard-info in header
---- LAB.js: http://labjs.com										// Loading multiple js files at once
+--- http://jquery.com/												// Version: 2.1.3
+--- http://datatables.net/											// Version: 1.10.5
+--- http://ckeditor.com/											// Version: 4.4.7 (Standard)
+--- http://needim.github.io/noty/								// Version: 2.0.3
+--- LAB.js: http://labjs.com										// Version: 2.0.3
+--- Jquery Cookie														// Version: 1.4.1 
+--- Konami.js															// Version: 1.4.2

@@ -28,7 +28,7 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">	<!-- Bootstrap theme -->
 		
-		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 		
 		<script>
@@ -160,7 +160,7 @@
 		$LAB
 		.script("js/m_reallyLogout.js") 							// ask really-logout question if configured by admin
 		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/m_keyPress.js")								// keyboard shortcuts
+		.script("js/m_keyPressAll.js")								// keyboard shortcuts
 	</script>
 	
 	<!-- noty - notifications -->

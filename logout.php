@@ -88,7 +88,7 @@
 
 
 	<!-- JS-->
-	<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<!-- Bootstrap core JavaScript -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -99,7 +99,7 @@
 		$LAB
 		.script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/m_keyPress.js")					// keyboard shortcuts
+		.script("js/m_keyPressAll.js")					// keyboard shortcuts
 	</script>
 	
 	<!-- noty - notifications -->

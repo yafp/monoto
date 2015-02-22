@@ -13,7 +13,7 @@ function KeyCheck(e)
 	{
 		// F1 - Open online help/docs
 		case 112:
-			window.open('https://github.com/macfidelity/monoto/wiki');
+			window.open('https://github.com/yafp/monoto/wiki');
 		break;
    	}
 }

@@ -28,7 +28,7 @@
 			$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b> failed to create as there was already a note with this title.</b>";
 			$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
 			$result = mysql_query($sql);
-
+			
 		}
 		else // do create note and do log it
 		{

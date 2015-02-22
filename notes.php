@@ -50,17 +50,21 @@
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/dataTables.scroller.min.css" />
+		
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
 
 		<!-- JS-->
-		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<!-- datatables -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-
+		
+		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" language="javascript" src="js/datatables/dataTables.scroller.min.js"></script>
+		
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
@@ -96,11 +100,9 @@
 		</script>
 
 		<!-- ckeditor -->
-		<script src="js/ckeditor-4.3.4_standard/ckeditor.js"></script>
+		<script src="js/ckeditor/ckeditor.js"></script>
 
 
-
-		<!-- main js for table etc -->
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
 			var oTable;
@@ -111,12 +113,16 @@
 				$("#delete").hide(); // hide the delete button
 				$("#save").hide(); // show save button
 				
+
 				// is something written in the cookie as lastAction? if yes - show it as a noty notification & reset the value 
 				if($.cookie("lastAction") != "")
 				{
 					var n = noty({text: $.cookie("lastAction"), type: 'notification'});
 					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
 				}
+				
+
+
 
 				// Defining the editor height
 				monotoEditorHeight = 300; // setting a default value - in case there is non stored in localStorage
@@ -124,7 +130,6 @@
 				{
 					monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
 				}
-				//console.log("On Pageload: Editor Height: "+monotoEditorHeight);
 				
 
 				// START CKEDITOR
@@ -140,19 +145,17 @@
 					removePlugins: 'elementspath', /*  hide html tags in ckeditors foot*/
 					toolbar:
 					[
-					    { name: 'document',    items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
-					    { name: 'forms',       items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
-					    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-					    { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
-					    /* { name: 'links',       items : [ 'Link','Unlink' ] }, */
-					    { name: 'links',       items : [ 'Link' ] },
-					    { name: 'insert',      items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
-					    { name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
-					    { name: 'colors',      items : [ 'TextColor','BGColor' ] },
-					    { name: 'tools',       items : [ 'Maximize', 'ShowBlocks' ] }
+						{ name: 'document',    items : [ 'Source' ] },
+						{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','RemoveFormat' ] },
+						{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv' ] },
+						{ name: 'insert',      items : [ 'Link','Image','Flash','Table','HorizontalRule','SpecialChar' ] },
+						{ name: 'styles',      items : [ 'Styles','Format' ] },
+						{ name: 'tools',       items : [ 'Maximize' ] }
 					]
 				});
 				// END CKEDITOR
+				
+				
 				
 				/*
 					SAVE EDITORS HEIGHT ON CHANGE
@@ -166,7 +169,9 @@
 					});
 				});
 				
-				var n = noty({text: 'All notes loaded.', type: 'notification'});
+
+
+
 
 
 				/* Add a click handler to the rows - this could be used as a callback */
@@ -183,12 +188,20 @@
 					document.myform.noteTitle.disabled=false;		// enable note title field
 				});
 
+
+
+
 				/* Add a click handler for the delete row - we dont use that so far */
 				$('#delete').click( function() 
 				{
 					var anSelected = fnGetSelected( oTable );
 					oTable.fnDeleteRow( anSelected[0] );
 				} );
+
+
+
+
+
 
 				/* Init the table */
 				oTable = $('#example').dataTable( 
@@ -198,18 +211,18 @@
 						"sEmptyTable": "You have 0 notes so far - start writing some...", // displayed if table is initial empty
 						"sZeroRecords": "No notes to display for your search" // displayed if table is filtered to 0 matching records
 					},
-				
-					/* execute if table is ready */
-					"fnInitComplete": function(oSettings, json) {
-					},
-				
-					"sDom": '<"wrapper"lit>, <l<t>',		/* resorting the datatable sDom structure - to have search & recordcount - table - recordcount */
-					"oSearch": {"sSearch": ""}, 
+					//"sDom": '<"wrapper"lit>, <l<t>',		// resorting the datatable sDom structure - to have search & recordcount - table - recordcount 
+					//"oSearch": {"sSearch": ""}, 
 					"sRowSelect": "single",
+					"scrollY": "35%", // plugin: scroller
+					"scrollCollapse": true,
+					"oScroller": {"loadingIndicator": true},
+					"dom": "rti",
+					"deferRender": true,
 					"bLengthChange": false,
-					"bPaginate": false , 															/* pagination  - BREAKS SELECTED ROW - copy content function right now*/
+					"bPaginate": false , 															// pagination  - BREAKS SELECTED ROW - copy content function right now*/
 					"bScrollCollapse": true,
-					"aaSorting": [[ 5, "desc" ]],													/* default sorting */
+					"aaSorting": [[ 4, "desc" ]],													/* default sorting */
 					"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
 									{ "bSortable": false, "aTargets": [ 1 ] },
 									{ "bSortable": false, "aTargets": [ 2 ] },
@@ -217,11 +230,11 @@
 									{ "bSortable": false, "aTargets": [ 4 ] }
 									], 
 					"aoColumns"   : [																/* visible columns */
-								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
-								{ "bSearchable": true, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
+								{ "bSearchable": false, "bVisible": true },						/* manually defined row id */
+								{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
 								{ "bSearchable": true, "bVisible": true, "sWidth": "50%" },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
-								{ "bSearchable": false, "bVisible": false }					/* tags */
+								{ "bSearchable": false, "bVisible": false}, 							/* note-modification date */
 							],
 				} );
 
@@ -244,11 +257,14 @@
 						});
 					}
 					
-					// specialcase - only 1 record
+					// specialcase - only 1 record in table - load it to editor
 					if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
 					{
 						$('#example tbody tr:eq(0)').click()										// select the only record left after search	
-						$('#example tbody tr:eq(0)').addClass('row_selected');						// change background as well					
+						$('#example tbody tr:eq(0)').addClass('row_selected');						// change background as well
+						
+	
+						
 					}
 				})
 
@@ -257,19 +273,31 @@
 
 
 
-
-
 				// select a row, highlight it and get the data
 				$('table tr').click(function () 
 				{	
 					clickedTableID = $(this).closest('table').attr('id') // check the click-source
+					
+					
+					
 										
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
-					{				
+					{	
+					
+
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
 						var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
 						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
 						CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
+
+
+
+						curRow =sData[0];
+						//console.log(curRow);
+						rowCount = oTable.fnSettings().fnRecordsTotal();
+						//console.log(rowCount);
+						currentRow = rowCount - curRow -1;
+						//console.log("CurrentRow: "+currentRow);
 
 						document.myform.noteID.value = sData[1]											// fill id field
 						document.myform.noteTitle.value = sData[2]										// fill title field
@@ -282,9 +310,9 @@
 						$("#delete").show(); // show delete button
 						$("#save").show(); // show save button
 					}
-
 				});
 			} );
+
 
 
 
@@ -309,48 +337,78 @@
 		}
 
 
-		//
-		// select next row
-		//
-		function selectNextRow( )
-		{
-			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();	// get amount of records after filter
 
-			if( parseInt(currentRow) < (parseInt(amountOfRecordsAfterFilter) -1))		// check if moving down makes sense at all
+
+		//
+		// unselect/unmark all rows in table
+		// 
+		function unmarkAllTableRows()
+		{
+			console.log("Unmark all Table rows");
+		
+			$(oTable.fnSettings().aoData).each(function ()								// unselect all records
 			{
-				currentRow = parseInt(currentRow) + 1;									// update row-position
+				$(this.nTr).removeClass('row_selected');
+			});
+		}
+		
+		
+		
+		//
+		// select and mark a single row in table
+		//
+		function selectAndMarkTableRow(currentRow)
+		{
+			console.log("Select and mark a specific table row");
 			
-				$(oTable.fnSettings().aoData).each(function ()							// unselect all records
-				{
-					$(this.nTr).removeClass('row_selected');
-				});
-			}
-			else
-			{
-				// nothing to do
-			}
 			$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 			$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 		}
 
 
 		//
+		//
+		//
+		function updateTableScrollbar()
+		{
+			console.log("updating table scrollbar");
+			$(".dataTables_scrollBody").scrollTop(currentRow*10);
+		}
+
+
+
+		//
+		// select next row
+		//
+		function selectNextRow()
+		{
+			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();	// get amount of records after filter
+
+			if( parseInt(currentRow) < (parseInt(amountOfRecordsAfterFilter) -1))		// check if moving down makes sense at all
+			{
+				currentRow = parseInt(currentRow) + 1;									// update row-position
+				unmarkAllTableRows();
+			}
+
+			selectAndMarkTableRow(currentRow);
+			updateTableScrollbar();
+		}
+
+
+
+		//
 		// select other row
 		//
-		function selectUpperRow( )
+		function selectUpperRow()
 		{
-			if(currentRow > 0)															// change currentRow
+			if(currentRow > 0)															// update currentRow variable
 			{
 				currentRow = currentRow - 1;
 			}
 
-			$(oTable.fnSettings().aoData).each(function ()								// unselect all records
-			{
-				$(this.nTr).removeClass('row_selected');
-			});
-
-			$('#example tbody tr:eq('+currentRow+')').click(); 							// select the top record
-			$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');			// change background as well
+			unmarkAllTableRows();
+			selectAndMarkTableRow(currentRow);
+			updateTableScrollbar();
 		}
 
 
@@ -414,13 +472,16 @@
 					}
 					]
 				})	
-
 			}
 			else // Data to identify note-to-delete are missing - should never happen as the delete button is disabled if no note is selected
 			{
 				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
 			}
 		}
+
+
+
+
 
 
 
@@ -442,11 +503,11 @@
 		  			newNoteContent = "Placeholder content<br><br>If you see this text - you missed defining a note content while note-creation.";			// define dummy content as user didnt
 		  		}
 		  		
-		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
+		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script				
 				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
-				var n = noty({text: 'Note created', type: 'success'});
+				//var n = noty({text: 'Note created', type: 'success'});
 				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
-				reloadNote();
+				//reloadNote();
 				
 		  	}
 			else
@@ -454,6 +515,8 @@
 				var n = noty({text: 'Error: No note title', type: 'error'});
 			}
 		}
+
+
 
 
 		//
@@ -586,7 +649,7 @@
 						connectToDB();
 						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user
-						$result = mysql_query("SELECT id, title, content FROM m_notes WHERE owner='".$owner."' ORDER by date_mod ASC ");
+						$result = mysql_query("SELECT id, title, content, date_mod FROM m_notes WHERE owner='".$owner."' ORDER by date_mod ASC ");
 						while($row = mysql_fetch_array($result))
 						{
 							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
@@ -600,13 +663,14 @@
 		</div>
 
     </div> <!-- /container -->
+    
 		<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 		<script type="text/javascript" src="js/LAB.js"></script>
 		<script>
 		   $LAB
 		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		   .script("js/m_disableRightClick.js")				// disabled the right-click contextmenu
-		   .script("js/m_keyPress.js")							// disabled the right-click contextmenu
+		   .script("js/m_keyPressNotes.js")							// disabled the right-click contextmenu
 		   .script("js/bootstrap.min.js")							// disabled the right-click contextmenu
 		</script>
 	</body>

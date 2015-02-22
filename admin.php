@@ -34,8 +34,8 @@
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 		
 				<!-- JS-->
-		<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>		<!-- jquery itself -->
-		<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>		<!-- datatables -->
+		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>		<!-- jquery itself -->
+		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>		<!-- datatables -->
 		
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
@@ -82,15 +82,7 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
 
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -144,24 +136,20 @@
           <div id="collapse2" class="panel-collapse collapse">
             <div class="panel-body">
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-					<table style="width: 100%">
-						<tr>
-							<td><b>build:</b></td>
-							<td><span class='badge'><?php echo $m_build; ?></td>
-						</tr>
-						<tr>
-							<td colspan="3">&nbsp;</td>
-						</tr>
+					<table style="width: 100%">				
 						<tr>
 							<td>
 							<button type="submit" name="doUpdateCheck" value="Software Update" class="btn btn-sm btn-default" style="width:120px" title="checks online for monoto updates"  id="doUpdateCheck"><i class="fa fa-cloud-download fa-1x"></i> Check for updates </button>
 							</td>
-							<td>Searching for newer versions</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td><b>current version:</b></td>
+							<td><b>your version:</b></td>
+							<td><span class='badge'><?php echo $m_build; ?></td>
+						</tr>
+						<tr>
+							<td><b>latest version:</b></td>
 							<td><div id="curStable01"><i>please run the check</i></div></td>
-							<td><div id="curStable02"><i>&nbsp;</i></div></td>
 						</tr>
 					</table>
 				</form>
@@ -304,12 +292,6 @@
 								</tr>
 							</table>
 						</form>
-           
-           
-           
-           
-            
-            
             </div>
           </div>
         </div>
@@ -338,36 +320,10 @@
             </div>
           </div>
         </div>
-        
-        
-        
-        
       </div>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 
-
-
-			
-
-					
-					
-
-					
 					</div>
 			</div>
-			
 		</div>
 	</div> <!-- /container -->
 
@@ -383,7 +339,7 @@
 		$LAB
 		.script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
 		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/m_keyPress.js")					// keyboard shortcuts
+		.script("js/m_keyPressAll.js")					// keyboard shortcuts
 	</script>
 	
 	<!-- noty - notifications -->
@@ -423,6 +379,10 @@
 </html>
 
 
+
+
+
+
 <?php
 	include 'conf/config.php';
 	// UpdateCheck
@@ -436,7 +396,7 @@
 		$critical = FALSE;
 		$update = FALSE;
 		
-		$url = "https://raw.github.com/macfidelity/monoto/master/conf/vCurrentVersion.csv";
+		$url = "https://raw.github.com/yafp/monoto/master/conf/vCurrentVersion.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);
 		fclose ($fp); //always a good idea to close the file connection
@@ -454,7 +414,7 @@
 	   		echo '<script type="text/javascript">
 	   				var r=confirm("There is a critical update available. Should i download the latest version?")
 					if (r==true)
-	  				{ window.location = "https://raw.github.com/macfidelity/monoto/master/versionCheck.csv","_blank"; } </script>';
+	  				{ window.location = "https://raw.github.com/yafp/monoto/master/versionCheck.csv","_blank"; } </script>';
 
 			die(); //terminate the script
 		}
@@ -468,10 +428,16 @@
 		}
 
 		// update div with stable informations
+		//echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
 		echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
+		
 		$urlDLStable = "<a href='$read[3]'>Download</a>";
-		echo '<script type="text/javascript">document.getElementById("curStable02").innerHTML = "'.$urlDLStable.'";</script>';
-
+		
+		// open - tab2
+		echo '<script type="text/javascript">        
+			$("#collapse2").collapse({
+				toggle: true
+			});   </script>';
 	}
 
 
@@ -628,11 +594,9 @@
 						mysql_query($query);
 						
 						echo "<script type='text/javascript'>var n = noty({text: 'Created new user account', type: 'notification'});</script>";	// notification 
-						
 						echo '<script>$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");</script>';		// store last Action in cookie
 						
 						// we should log that to m_notes -> admin only.
-
 						// check if we should send a notification as well
 						if($sendNotification == 'sendNotification' )
 						{
@@ -656,7 +620,6 @@
 		  						else 
 		  						{
 		  						}
-		  						
 		  						echo "<script type='text/javascript'>var n = noty({text: 'Notification mail send', type: 'notification'});</script>";	// notification 
 							}
 						}
