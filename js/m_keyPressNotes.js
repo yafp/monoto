@@ -66,21 +66,7 @@ function KeyCheck(e)
 			// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
-				if(currentRow == -1)			// if no row is selected - moving up doesnt makes sense - offer jump to newNotetitle
-				{
-					// unselect all rows (just to make sure)
-					$(oTable.fnSettings().aoData).each(function ()
-					{
-						$(this.nTr).removeClass('row_selected');
-					});
-
-					// jump to new note title
-					document.getElementById('newNoteTitle').focus();	
-				}
-				else 	// select row/record above
-				{
-					selectUpperRow();
-				}
+				selectUpperRow();
 			}
 		break;
 

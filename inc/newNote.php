@@ -6,6 +6,9 @@
 		$newNoteTitle = $_POST['newNoteTitle'];
 		$newNoteContent = $_POST['newNoteContent'];		
 
+		// Fix for issue: #191 - eating backslashes
+		$newNoteContent = str_replace('\\', '\\\\', $newNoteContent);
+
 		include '../conf/config.php';
  
 		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		// connect to mysql

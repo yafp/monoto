@@ -207,7 +207,8 @@
 				oTable = $('#example').dataTable( 
 				{ 
 					"oLanguage": { 
-						"sProcessing": "<img src='../images/loading.gif'>",
+						"sProcessing": "<img src='../images/loadi_ng.gif'>",
+						//"sProcessing": "DataTables is currently busy",
 						"sEmptyTable": "You have 0 notes so far - start writing some...", // displayed if table is initial empty
 						"sZeroRecords": "No notes to display for your search" // displayed if table is filtered to 0 matching records
 					},
@@ -232,9 +233,10 @@
 					"aoColumns"   : [																/* visible columns */
 								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
 								{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
-								{ "bSearchable": true, "bVisible": true, "sWidth": "50%" },							/* note-title */
+								{ "bSearchable": true, "bVisible": true, "sWidth": "100%" },							/* note-title */
 								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
 								{ "bSearchable": false, "bVisible": false}, 							/* note-modification date */
+								{ "bSearchable": false, "bVisible": false}, 							/* save-count */
 							],
 				} );
 
@@ -262,9 +264,6 @@
 					{
 						$('#example tbody tr:eq(0)').click()										// select the only record left after search	
 						$('#example tbody tr:eq(0)').addClass('row_selected');						// change background as well
-						
-	
-						
 					}
 				})
 
@@ -277,31 +276,73 @@
 				$('table tr').click(function () 
 				{	
 					clickedTableID = $(this).closest('table').attr('id') // check the click-source
-					
-					
-					
-										
+
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
 					{	
-					
-
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
 						var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
 						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
 						CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
 
 
-
+						// baustelle
 						curRow =sData[0];
 						//console.log(curRow);
 						rowCount = oTable.fnSettings().fnRecordsTotal();
 						//console.log(rowCount);
 						currentRow = rowCount - curRow -1;
-						//console.log("CurrentRow: "+currentRow);
+
+
+
+						amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
+
+						curRow =sData[1];
+
+						
+						// get all currently visible rows
+						var filteredrows = $("#example").dataTable()._('tr', {"filter": "applied"});
+
+						for ( var i = 0; i < filteredrows.length; i++ ) {
+							
+							if(filteredrows[i][1]== curRow)
+							{
+								curID=i;
+							}
+						};
+
+						nextID=0;
+						prevID=0;
+
+						switch (filteredrows.length) 
+						{
+							 case 1:
+									//console.log("sonderfall 1");
+								  break;
+							 default:
+								  switch (curID) 
+									{
+										case 0:
+											nextID=curID+1;
+											prevID=amountOfRecordsAfterFilter-1;
+										break;
+				
+										case amountOfRecordsAfterFilter-1:
+											nextID=0;
+											prevID=curID-1;
+										break;
+				
+										default:
+											nextID=curID+1;
+											prevID=curID-1;
+										break;
+									}
+								  break;
+						} 
+
 
 						document.myform.noteID.value = sData[1]											// fill id field
 						document.myform.noteTitle.value = sData[2]										// fill title field
-						document.myform.noteVersion.value = sData[7]									// fill version - not displayed as field is hidden		
+						document.myform.noteVersion.value = sData[5]									// fill version - not displayed as field is hidden		
 						document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
 						document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
 						
@@ -339,12 +380,54 @@
 
 
 
+
+		//
+		// display adesktop notification - if possible
+		//
+		function displayDesktopNotification(notificationText)
+		{
+			// Let's check if the browser supports notifications
+			if (!("Notification" in window)) 
+			{
+				console.log("Warning: This browser does not support desktop notification");
+			}
+
+			// Let's check if the user is okay to get some notification
+			else if (Notification.permission === "granted") 
+			{
+				// If it's okay let's create a notification
+				var notification = new Notification(notificationText);
+			}
+
+			// Otherwise, we need to ask the user for permission
+			else if (Notification.permission !== 'denied') 
+			{
+				Notification.requestPermission(function (permission) 
+				{
+					// If the user is okay, let's create a notification
+					if (permission === "granted") 
+					{
+						var notification = new Notification(notificationText);
+					}
+				});
+			}
+
+			// At last, if the user already denied any notification, and you 
+			// want to be respectful there is no need to bother them any more.
+		}
+
+
+
+
+
+
+
 		//
 		// unselect/unmark all rows in table
 		// 
 		function unmarkAllTableRows()
 		{
-			console.log("Unmark all Table rows");
+			//console.log("Unmark all Table rows");
 		
 			$(oTable.fnSettings().aoData).each(function ()								// unselect all records
 			{
@@ -359,7 +442,7 @@
 		//
 		function selectAndMarkTableRow(currentRow)
 		{
-			console.log("Select and mark a specific table row");
+			//console.log("Select and mark a specific table row");
 			
 			$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 			$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
@@ -367,12 +450,17 @@
 
 
 		//
-		//
+		// Update the scrollbar of the datatable-scroller
 		//
 		function updateTableScrollbar()
 		{
-			console.log("updating table scrollbar");
-			$(".dataTables_scrollBody").scrollTop(currentRow*10);
+			//console.log("updating table scrollbar");
+			
+			scrollPos = (curID / amountOfRecordsAfterFilter) * 300 ;
+			//console.log(curID);
+			//console.log(amountOfRecordsAfterFilter);
+			//console.log("Scroll-Position: "+scrollPos);
+			$(".dataTables_scrollBody").scrollTop(scrollPos);
 		}
 
 
@@ -382,15 +470,13 @@
 		//
 		function selectNextRow()
 		{
-			var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();	// get amount of records after filter
-
-			if( parseInt(currentRow) < (parseInt(amountOfRecordsAfterFilter) -1))		// check if moving down makes sense at all
+			if(typeof nextID === 'undefined') // to handle first jump from searchfield to table
 			{
-				currentRow = parseInt(currentRow) + 1;									// update row-position
-				unmarkAllTableRows();
-			}
-
-			selectAndMarkTableRow(currentRow);
+				nextID=0;
+			};
+			
+			unmarkAllTableRows();
+			selectAndMarkTableRow(nextID);
 			updateTableScrollbar();
 		}
 
@@ -401,13 +487,8 @@
 		//
 		function selectUpperRow()
 		{
-			if(currentRow > 0)															// update currentRow variable
-			{
-				currentRow = currentRow - 1;
-			}
-
 			unmarkAllTableRows();
-			selectAndMarkTableRow(currentRow);
+			selectAndMarkTableRow(prevID);
 			updateTableScrollbar();
 		}
 
@@ -421,15 +502,20 @@
 			var modifiedNoteID = document.myform.noteID.value;							// get the note id
 			var modifiedNoteTitle = document.myform.noteTitle.value;					// get the note title 
 			var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
+			console.log("noteContent: "+modifiedNoteContent);
 			var modifiedNoteCounter = document.myform.noteVersion.value;				// get current save-counter/version
 
-			modifiedNoteContent=modifiedNoteContent.replace(/\'/g,'&#39;')				// replace: ' 	with &#39; // cleanup note content
+			//modifiedNoteContent=modifiedNoteContent.replace(/\'/g,'&#39;')				// replace: ' 	with &#39; // cleanup note content
+			modifiedNoteContent.replace(/'/g , "&#39;");				// replace: ' 	with &#39; // cleanup note content
+
 
 			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
 			{
+				console.log("noteContent for UEbergane an PHP: "+modifiedNoteContent);
 				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 				var n = noty({text: 'Note saved', type: 'success'});
 				$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");	// store last Action in cookie
+				displayDesktopNotification("Note saved");
 			}
 			else 																		// should never happen as the save button is not always enabled.
 			{  
@@ -462,6 +548,7 @@
 							$noty.close();
 							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 							$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
+							displayDesktopNotification("Note deleted");
 						}
 						},
     					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
@@ -507,6 +594,7 @@
 				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 				//var n = noty({text: 'Note created', type: 'success'});
 				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
+				displayDesktopNotification("Note created");
 				//reloadNote();
 				
 		  	}
@@ -549,7 +637,7 @@
 				// lets clean up the main interface
 				document.myform.noteID.value = "";					// empty ID of previously selected note
 				document.myform.noteTitle.value = "";				// empty title of previously selected note
-				document.myform.noteVersion.value = "";			// empty hiddeen version of previously selected note
+				document.myform.noteVersion.value = "";			// empty hidden version of previously selected note
 				document.myform.save.disabled=true;					// disable the save button
 				document.myform.delete.disabled=true;				// disable the delete button
 				document.myform.noteTitle.disabled=true;			// disable note title field
@@ -649,10 +737,10 @@
 						connectToDB();
 						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user
-						$result = mysql_query("SELECT id, title, content, date_mod FROM m_notes WHERE owner='".$owner."' ORDER by date_mod ASC ");
+						$result = mysql_query("SELECT id, title, content, date_mod, save_count FROM m_notes WHERE owner='".$owner."' ORDER by date_mod ASC ");
 						while($row = mysql_fetch_array($result))
 						{
-							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+							echo '<tr class="odd gradeU"><td>'.$rowID.'</td><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td></tr>';
 							$rowID = $rowID +1;
 						}
 					?>
