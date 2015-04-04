@@ -8,4 +8,4 @@ Used technologies:
 --- http://needim.github.io/noty/								// Version: 2.0.3
 --- LAB.js: http://labjs.com										// Version: 2.0.3
 --- Jquery Cookie														// Version: 1.4.1 
---- Konami.js															// Version: 1.4.2
+

@@ -355,12 +355,6 @@
 			} );
 
 
-
-
-
-
-
-
 		/* Get the rows which are currently selected */
 		function fnGetSelected( oTableLocal )
 		{
@@ -376,8 +370,6 @@
 			}
 			return aReturn;
 		}
-
-
 
 
 
@@ -415,11 +407,6 @@
 			// At last, if the user already denied any notification, and you 
 			// want to be respectful there is no need to bother them any more.
 		}
-
-
-
-
-
 
 
 		//
@@ -568,10 +555,6 @@
 
 
 
-
-
-
-
 		//
 		// CREATE NEW NOTE
 		//
@@ -605,8 +588,6 @@
 		}
 
 
-
-
 		//
 		// RELOAD ALL NOTES
 		//
@@ -617,9 +598,6 @@
 			var loc = window.location;
     		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
 		}
-
-
-
 
 
 		//

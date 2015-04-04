@@ -5,7 +5,6 @@
 	{
 		header('Location: redirect.php');
 	}
-
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +38,6 @@
 			} );
 		</script>
 		
-		
 		<script type="text/javascript">
 			function deleteAllMyUserEvents() 
 			{
@@ -67,9 +65,6 @@
 				})
 			}
 		
-		
-		
-
 			function deleteAllMyUserNotes() 
 			{
 				var x = noty({
@@ -97,7 +92,6 @@
 			}
 		</script>
 	</head>
-
 
 	<body role="document">
 		<!-- Fixed navbar -->
@@ -136,30 +130,10 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 
-
-
-      <div class="panel-group" id="accordion">
-      
-      
-      
-      
-      
-      
-      
-      
-      	<!-- Profile-->
-        <div class="panel panel-default">
+				<div class="panel-group" id="accordion">
+				<!-- Profile-->
+				<div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Profile</a>
@@ -235,14 +209,7 @@
           </div>
         </div>
         
-        
-        
-        
-        
-        
-        
-        
-        
+
         <!-- Stats-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -444,19 +411,9 @@
 									}
 							}
 					?>
-            
-            
             </div>
           </div>
         </div>
-        
-        
-        
-        
-        
-        
-        
-     
         
         <!-- Activity Log-->
         <div class="panel panel-default">
@@ -482,21 +439,9 @@
 					</tbody>
 					<tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
 				</table>
-           
-           
             </div>
           </div>
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
 			<!-- Importer-->
@@ -521,16 +466,6 @@
           </div>
         </div>
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <!-- Exporter-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -549,12 +484,6 @@
           </div>
         </div>
         
-        
-        
-        
-        
-        
-        
         <!-- Eraser-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -571,57 +500,17 @@
             </div>
           </div>
         </div>
-        
-        
-        
-        
-        
       </div>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-			
-				
-		
-
-
-
-
-
-
 		</div>
 	</div> <!-- /container -->
 
 
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
 	<!-- Bootstrap core JavaScript -->
-	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
+
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
@@ -699,8 +588,8 @@ if ( isset($_POST["doChangeUserPW"]) )
 		$hash = hash('sha256', $password);								// playing with hash
 		function createSalt() 											// playing with salt - creates a 3 character sequence
 		{
-    		$string = md5(uniqid(rand(), true));
-    		return substr($string, 0, 3);
+			$string = md5(uniqid(rand(), true));
+			return substr($string, 0, 3);
 		}
 		$salt = createSalt();
 		$hash = hash('sha256', $salt . $hash);

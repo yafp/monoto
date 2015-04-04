@@ -28,8 +28,6 @@
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 	</head>
 
-
-
 	<body role="document">
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -47,14 +45,11 @@
 		</div>
 		<div class="container theme-showcase" role="main">
 
-
-
 		<div id="container">
 			<div id="noteContentCo">
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-
 				<?php
 					// define logout image
 					if($s_enable_random_logout_gif == false)
@@ -68,7 +63,6 @@
 						$logoutImage = $images[array_rand($images)];
 					}
 				?>
-
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
 				
 				<!-- REDIRECT TO LOGIN -->
@@ -86,13 +80,13 @@
 		</div>
 	</div> <!-- /container -->
 
-
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
 	<!-- Bootstrap core JavaScript -->
-	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
+
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>

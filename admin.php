@@ -5,12 +5,13 @@
 	{
 		header('Location: redirect.php');
 	}
-
-	include 'conf/config.php';	// db informations
-	include 'conf/build.php';	// version informations
-	include 'inc/db.php';		// connect to db
-	connectToDB();
-
+	else
+	{
+		include 'conf/config.php';	// db informations
+		include 'conf/build.php';	// version informations
+		include 'inc/db.php';		// connect to db
+		connectToDB();
+	}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +34,7 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 		
-				<!-- JS-->
+		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>		<!-- jquery itself -->
 		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>		<!-- datatables -->
 		
@@ -75,34 +76,28 @@
 		</div>
 		<div class="container theme-showcase" role="main">
 
-
 		<div id="container">
 			<div id="noteContentCo">
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-				
 
-
-      <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Config</a>
-            </h4>
-          </div>
-          <div id="collapse1" class="panel-collapse collapse in">
-            <div class="panel-body">
-            <?php
-					if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
-					{
-						echo '<div class="alert alert-danger">';
-							echo '<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.';
-						echo '</div>';
-					}
-				?>
-				
-				The following values are based on <span class='badge'>conf/config.php</span><br><br>
+				<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Config</a></h4>
+						</div>
+						<div id="collapse1" class="panel-collapse collapse in">
+							<div class="panel-body">
+							<?php
+								if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
+								{
+									echo '<div class="alert alert-danger">';
+									echo '<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.';
+									echo '</div>';
+								}
+							?>
+							The following values are based on <span class='badge'>conf/config.php</span><br><br>
 				<table style="width: 60%">
 					<tbody>
 						<tr>
@@ -120,13 +115,8 @@
             </div>
           </div>
         </div>
-        
-        
-        
-        
-        
-        
-        
+
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -157,11 +147,7 @@
           </div>
         </div>
         
-        
-        
-        
-        
-        
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -195,11 +181,6 @@
         </div>
         
         
-        
-        
-        
-        
-        
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -223,8 +204,6 @@
 				</table>
 
 				<!-- DELETE USER -->
-				
-				
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<br><br>
 				<b>Delete existing account</b><br>	
@@ -254,8 +233,6 @@
 							</tr>
 						</table>
 						</form>
-						
-						
 						
 					
 					<br>
@@ -297,10 +274,6 @@
         </div>
         
         
-        
-        
-        
-        
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -330,9 +303,10 @@
 
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
 	<!-- Bootstrap core JavaScript -->
-	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
+
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
@@ -374,10 +348,8 @@
 		  buttons: false // an array of buttons
 		};
 	</script>
-	
 	</body>
 </html>
-
 
 
 
@@ -626,18 +598,18 @@
 					}
 					else // no usermail-adress defined while trying to create new account
 					{
-						echo "<script type='text/javascript'>var n = noty({text: 'No mail address defined.', type: 'notification'});</script>";	// notification 
+						echo "<script type='text/javascript'>var n = noty({text: 'No mail address defined.', type: 'error'});</script>";	// notification 
 					}
 				}
 				else // username already in use - cancel and inform the admin
 				{
-					echo "<script type='text/javascript'>var n = noty({text: 'This mail-adress is already in use', type: 'notification'});</script>";	// notification 
+					echo "<script type='text/javascript'>var n = noty({text: 'This mail-adress is already in use', type: 'error'});</script>";	// notification 
 				}
 			}
 		}	
 		else // passwords not matching
 		{
-			echo "<script type='text/javascript'>var n = noty({text: 'Error: passwords are not matching', type: 'notification'});</script>";	// notification 
+			echo "<script type='text/javascript'>var n = noty({text: 'Error: passwords are not matching', type: 'error'});</script>";	// notification 
 		}
 	}
 ?>

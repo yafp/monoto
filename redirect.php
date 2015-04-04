@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="author" content="florian poeck">
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
@@ -46,8 +46,10 @@
 				
 				<!-- DISPLAY REDIRECT IMAGE AND TEXT -->
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="images/icons/redirect.gif"></td></tr></table>
+				
 				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
+
 				<!-- REDIRECT TO LOGIN -->
 				<?php header( "refresh:1;url=index.php" ); ?>
 				
@@ -61,9 +63,10 @@
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
 	<!-- Bootstrap core JavaScript -->
-	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
+
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
@@ -71,6 +74,5 @@
 		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
 		.script("js/m_keyPress.js")					// keyboard shortcuts
 	</script>
-
 	</body>
 </html>

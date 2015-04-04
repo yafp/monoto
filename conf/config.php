@@ -18,5 +18,5 @@
 	//
 	$s_enable_maintenance_mode		= false;				// true = login is locked.
 	$s_enable_random_logout_gif 	= true;				// show a random logout image
-	$s_quotes_file						= "quotes/quotes_de.txt"; // used for login screen
+	$s_quotes_file					= "quotes/quotes_de.txt"; // used for login screen
 ?>

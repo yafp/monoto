@@ -17,6 +17,7 @@ functions
 --------------
 It can create, edit, rename, import/export and delete text notes and offers a good search function. [more](https://github.com/yafp/monoto/wiki/Functions)
 
+
 keep in mind
 --------------
 This file is static - for current informations/full details consider visiting the project [wiki](https://github.com/yafp/monoto/wiki)

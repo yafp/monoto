@@ -16,7 +16,7 @@
 		<link href="css/page01.css" rel="stylesheet">
 
 		<!-- JS -->
-		<script src="js/jquery/jquery-2.1.0.min.js"></script>
+		<script src="js/jquery/jquery-2.1.3.min.js"></script>
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
@@ -49,8 +49,6 @@
 		  buttons: false // an array of buttons
 		};
 		</script>
-		
-		
 	</head>
 	<body>		 
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -84,16 +82,12 @@
 			<div class="container">
 				<br><br>
 				<?php
-					//
 					//quotes 
-					//
 					$f_contents = file("quotes/quotes_de.txt");  				// define quotes source
 		 			$line = $f_contents[rand(0, count($f_contents) - 1)];		// get random line
 		 			list($author, $quote) = explode(';', $line);					// split string into author and quote
 				?>
-					<blockquote>
-						<p><?php echo $quote; ?></p>
-					</blockquote>
+					<blockquote><p><?php echo $quote; ?></p></blockquote>
 					<cite><?php echo $author; ?></cite>
 				</div>
 			</div>
@@ -105,10 +99,7 @@
 			</footer>
 		</div> <!-- /container -->
 
-
-		<!-- Bootstrap core JavaScript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
+		<!-- Bootstrap core JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>

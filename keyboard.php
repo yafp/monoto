@@ -5,7 +5,6 @@
 	{
 		header('Location: redirect.php');
 	}
-
 ?>
 
 <!DOCTYPE html>
@@ -64,77 +63,51 @@
 			<div id="noteContentCo">
 				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-				<div class="spacer">&nbsp;</div>
+				<div class="spacer">&nbsp;</div>	
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-      <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">monoto-wide</a>
-            </h4>
-          </div>
-          <div id="collapse1" class="panel-collapse collapse in">
-            <div class="panel-body">
-            <table style="width:100%">
-					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
-					<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
-				</table>
-            </div>
-            
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">notes-page</a>
-            </h4>
-          </div>
-          <div id="collapse2" class="panel-collapse collapse">
-            <div class="panel-body">
-            <table style="width:100%">
-					<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
-					<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
-					<tr><td>F2</td><td>Toggle maximize of editor.</td></tr>
-					<tr><td>F5</td><td>Reloads all notes from db.</td></tr>
-					<tr><td>F9</td><td>Saves a selected note.</td></tr>
-					<tr><td>Del</td><td>Deletes the selected note.</td></tr>
-					<tr><td>Arrow Down (in search)</td><td>Selects the top record.</td></tr>
-					<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td></tr>
-					<tr><td>Arrow Up (in search)</td><td>Moves the focus to newNoteTitle.</td></tr>
-					<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td></tr>
-				</table>
-            </div>
-          </div>
-        </div>
-      </div>
-				
-
+				<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">monoto-wide</a></h4></div>
+						<div id="collapse1" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<table style="width:100%">
+									<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
+									<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse2">notes-page</a></h4></div>
+						<div id="collapse2" class="panel-collapse collapse">
+							<div class="panel-body">
+								<table style="width:100%">
+									<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
+									<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
+									<tr><td>F2</td><td>Toggle maximize of editor.</td></tr>
+									<tr><td>F5</td><td>Reloads all notes from db.</td></tr>
+									<tr><td>F9</td><td>Saves a selected note.</td></tr>
+									<tr><td>Del</td><td>Deletes the selected note.</td></tr>
+									<tr><td>Arrow Down (in search)</td><td>Selects the top record.</td></tr>
+									<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td></tr>
+									<tr><td>Arrow Up (in search)</td><td>Moves the focus to newNoteTitle.</td></tr>
+									<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td></tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
 		</div>
 	</div> <!-- /container -->
-
 
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	
 	<!-- Bootstrap core JavaScript -->
-	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="js/bootstrap.min.js"></script>
+
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
@@ -176,11 +149,5 @@
 		  buttons: false // an array of buttons
 		};
 	</script>
-	
-	<script type="text/javascript" src="js/konami.js"></script>
-	<script>
-			var easter_egg = new Konami('image.php');
-	</script>
-	
 	</body>
 </html>
