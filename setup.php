@@ -10,7 +10,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="monoto notes">
 		<meta name="author" content="florian poeck">
-		
+
+		<!-- JS -->
+		<script src="js/jquery/jquery-2.1.3.min.js"></script>
+
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
@@ -36,19 +39,26 @@
 			</form>
 		</div><!--/.navbar-collapse -->
 	</div>
-    </div>
+	</div>
 
 		<!-- ... -->
 		<div class="jumbotron">
 			<div class="container">
 				<h3>installer</h3>
 				<hr>
-				You can create your first monoto user account using this install script. This account will have admin priviledges.
-				<div class="alert alert-danger">
-					<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.
-				</div>
-			
-			<br>
+				This install script creates your first monoto user account (with admin privileges).
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+
+
+				<h4>Step 1: Prepare database</h4>
+				Please create a database and all related tables according to the instructions in <span class="label label-default">doc/INSTALL.txt</span> and adjust the values in  <span class="label label-default">conf/config.php</span> according to it.
+				
+				<!-- SPACER -->
+				<div class="spacer">&nbsp;</div>
+				
+
+			<h4>Step 2: Create user</h4>
 			<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<table border="0">
 					<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" required="required"/></td></tr>
@@ -58,6 +68,13 @@
 					<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
 				</table>
 			</form>
+
+			<!-- SPACER -->
+			<div class="spacer">&nbsp;</div>
+
+			<div class="alert alert-danger">
+				<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.
+			</div>
 
 				</div>
 			</div>
@@ -69,15 +86,10 @@
 			</footer>
 		</div> <!-- /container -->
 
-
-		<!-- Bootstrap core JavaScript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
+		<!-- Bootstrap core JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
-
-
 
 
 
@@ -93,7 +105,7 @@
 		$val = mysql_query('select 1 from `m_users`');
 		if($val !== FALSE)
 		{
-		    // table m_users EXISTS - get the data
+			// table m_users EXISTS - get the data
 			$username = $_POST['username'];
 			$email = $_POST['email'];
 			$password1 = $_POST['password1'];
@@ -116,16 +128,17 @@
 				$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
 				mysql_query($query);
 				mysql_close($con); // close sql connection
+
 				header('Location: index.php');	// redirect to main page
 			}
 			else // Password mismatch
 			{
-				alert("Error: Password mismatch.");
+				echo "<script type=\"text/javascript\">alert('Error: password mismatch');</script>";
 			}
 		}
 		else // mysql tables dont exist
 		{
-			alert("Error: MySQL table doesnt exist.");
+			echo "<script type=\"text/javascript\">alert('Error: mysql table doesnt exist');</script>";
 		}
 	}
 ?>
