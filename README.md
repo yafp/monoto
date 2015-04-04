@@ -10,7 +10,6 @@ monoto is an open-source web-based notes-keeper by florian poeck.
 user-interface
 --------------
 ![ScreenShot](https://raw.githubusercontent.com/yafp/monoto/master/images/screenshots/screenshot_current_milestone.png)
-[more](https://github.com/yafp/monoto/wiki/Milestone-images)
 
 
 functions

@@ -277,10 +277,31 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Tasks</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Broadcast message</a>
             </h4>
           </div>
           <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+			Send an email to all monoto-accounts.
+            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<input type="text" placeholder="Subject" name="broadcastSubject" style="width:100%"><br>
+				<textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br> 
+				<input type="submit" name="doSendBroastcast" value="Send" style="width:200px" title="Sends a broadcast email to all users." />
+			</form>
+            
+            </div>
+          </div>
+        </div>
+
+
+
+<div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Tasks</a>
+            </h4>
+          </div>
+          <div id="collapse6" class="panel-collapse collapse">
             <div class="panel-body">
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
 						<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
@@ -293,6 +314,12 @@
             </div>
           </div>
         </div>
+
+
+
+
+
+
       </div>
 
 					</div>
@@ -357,6 +384,44 @@
 
 <?php
 	include 'conf/config.php';
+
+
+	// Send broastcast to all users (email)
+	//
+	if ( isset($_POST["doSendBroastcast"]) ) 
+	{
+		$messageSubject = $_POST["broadcastSubject"];
+		$messageText 	= $_POST["broadcastMessage"];
+		if (($messageText != "") && ($messageSubject != ""))
+		{
+			// select all users & email-data
+			$query = "SELECT username, email FROM m_users;";
+			$result = mysql_query($query);
+			while($row = mysql_fetch_array($result))
+			{
+				$username = $row[0];
+				$email = $row[1];
+				
+				// try to send notification email
+				if(@mail($email, $messageSubject, $messageText))
+				{
+					echo "<script type='text/javascript'>var n = noty({text: 'Notification email has been sent.', type: 'success'});</script>"; 
+				}
+				else
+				{
+					echo "<script type='text/javascript'>var n = noty({text: 'Unable to sent notification mail.', type: 'error'});</script>"; 	
+				}
+			}
+		}
+		else
+		{
+			echo "<script type='text/javascript'>var n = noty({text: 'Error: Please enter a message text', type: 'error'});</script>";	// notification 
+		}
+	}
+
+
+
+
 	// UpdateCheck
 	//
 	// http://wuxiaotian.com/2009/09/php-check-for-updates-script/
@@ -469,7 +534,7 @@
 		else
 		{
 			echo '<script>alert("Please select a user first");</script>';		// alert user that he hasnt entered CONFIRM
-			echo "<script type='text/javascript'>var n = noty({text: 'Error: Please select a user first', type: 'notification'});</script>";	// notification 
+			echo "<script type='text/javascript'>var n = noty({text: 'Error: Please select a user first', type: 'error'});</script>";	// notification 
 		}
 	}
 
