@@ -94,9 +94,7 @@
 
 			<div class="container">
 			<hr>
-			<footer>
-				<?php include 'inc/footer.php'; ?>
-			</footer>
+			<footer><?php include 'inc/footer.php'; ?></footer>
 		</div> <!-- /container -->
 
 		<!-- Bootstrap core JavaScript -->
