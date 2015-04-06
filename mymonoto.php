@@ -45,7 +45,7 @@
 					text: 'Really delete all your events from log?',
 					type: 'confirm',
 					dismissQueue: false,
-					layout: 'bottomCenter',
+					layout: 'topRight',
 					theme: 'defaultTheme',
 					buttons: [
 						{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
@@ -71,7 +71,7 @@
 					text: 'Really delete all your notes?',
 					type: 'confirm',
 					dismissQueue: false,
-					layout: 'bottomCenter',
+					layout: 'topRight',
 					theme: 'defaultTheme',
 					buttons: [
 						{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
@@ -443,17 +443,20 @@
           </div>
         </div>
         
-        
+
+
+
 			<!-- Importer-->
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Importer</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Importer (Textfiles)</a>
             </h4>
           </div>
           <div id="collapse4" class="panel-collapse collapse">
             <div class="panel-body">
             <!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
+
 				<p>You can import plain-text files. Select a folder and press the 'Import' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 					<input type="file" name="file[]" multiple id="file[]" />
@@ -461,7 +464,29 @@
 					<button type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." disabled ><i class="fa fa-sign-in"></i> Import</button>
 					<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
 				</form>
-            
+            </div>
+          </div>
+        </div>
+
+
+			<!-- Importer-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Importer (.csv)</a>
+            </h4>
+          </div>
+          <div id="collapse5" class="panel-collapse collapse">
+            <div class="panel-body">
+				<!-- Importer V2 -->
+				<p>You can import notes in .csv format (coming from the exporter).</p>
+				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+				<!-- <form action="inc/importer.php" method="post" enctype="multipart/form-data"> -->
+					<input type="file" name="importerFile" id="importerFile"/>
+					<br>
+					<button type="submit" name="doImportCSV" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes."><i class="fa fa-sign-in"></i> Import</button>
+					<textarea class="database" disabled="disabled" id="importLogCSV" style="width:100%" name="importLogCSV" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
+				</form>
             </div>
           </div>
         </div>
@@ -470,10 +495,10 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Exporter</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Exporter (.csv)</a>
             </h4>
           </div>
-          <div id="collapse5" class="panel-collapse collapse">
+          <div id="collapse6" class="panel-collapse collapse">
             <div class="panel-body">
             <p>You can export your notes in .csv format. Press the 'Export' button.</p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
@@ -488,10 +513,10 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Eraser</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Eraser</a>
             </h4>
           </div>
-          <div id="collapse6" class="panel-collapse collapse">
+          <div id="collapse7" class="panel-collapse collapse">
             <div class="panel-body">
             <p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
 				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user events from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserEvents();"><i class="fa fa-trash-o fa-1x"></i> Delete events</button>
@@ -560,6 +585,10 @@
 
 
 
+
+
+
+
 <?php
 // CASES
 //
@@ -570,6 +599,115 @@
 // - Do Change Userpassword
 include 'conf/config.php';
 
+
+// -----------------------------------------------------------------------
+// doImportCSV (START)
+// -----------------------------------------------------------------------
+if ( isset($_POST["doImportCSV"]) ) 
+{
+	// Toggle Importer-Tab (open it)
+	echo '<script type="text/javascript">        
+		$("#collapse5").collapse({
+			toggle: true
+		});   </script>';
+
+	// Toggle Profile (close it - its open by default)
+	echo '<script type="text/javascript">        
+		$("#collapse1").collapse({
+			toggle: true
+		});   </script>';
+
+
+	//include 'conf/config.php';
+
+	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		// connect to mysql
+	if (!$con)
+	{
+		die('Could not connect: ' . mysql_error());
+	}
+	mysql_select_db($mysql_db, $con);						// select db
+
+
+	$owner = $_SESSION['username'];
+	$target_dir = "";
+	$target_file = $target_dir . basename($_FILES["importerFile"]["name"]);
+	$uploadOk = 1;
+	$fileExtension = pathinfo($target_file,PATHINFO_EXTENSION);
+	
+	//echo "trying to process: ".$target_file."<br>";
+
+	if($fileExtension == "csv")
+	{
+		// read linewise and import if note doesnt exist already
+		if(($handle = fopen($_FILES['importerFile']['tmp_name'], 'r')) !== FALSE) 
+		{
+			echo "<hr>";
+			set_time_limit(0);
+			$row = 0;
+			while(($data = fgetcsv($handle, 1000, "\t")) !== FALSE)
+			{
+				// number of fields in the csv
+				$col_count = count($data);
+
+				// get the values from the csv
+				$csv[$row]['col1'] = $data[0];
+				$csv[$row]['col2'] = $data[1];
+				$csv[$row]['col3'] = $data[2];
+
+				$newNoteTitle = $data[1];
+				$newNoteContent = $data[2];
+
+				// TODO:
+				// check if there is already a note with this title
+
+
+				$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
+				$result = mysql_query($sql);
+				if (!$result) 
+				{
+					die('Error: ' . mysql_error());// display error output
+				}
+				else
+				{
+					// write text to textarea
+					echo '<script type="text/javascript">
+							$("#importLogCSV").append("Imported: '.$newNoteTitle.'.\n"); 
+						</script>';
+				}
+					
+
+				// inc the row
+				$row++;
+			}
+			fclose($handle);
+		}
+		else
+		{
+			echo "ERROR - unable to open the file";
+		}
+	}
+	else
+	{
+		echo "Aborting - as file has unexpected format.";
+	}
+
+	// write text to textarea
+	echo '<script type="text/javascript">
+		$("#importLogCSV").append("\n\nFinished importing notes."); 
+ 	</script>';
+}
+// -----------------------------------------------------------------------
+// doImportCSV (END)
+// -----------------------------------------------------------------------
+
+
+
+
+
+
+// -----------------------------------------------------------------------
+// doChangeUserPW (START)
+// -----------------------------------------------------------------------
 if ( isset($_POST["doChangeUserPW"]) ) 
 {
 	include 'conf/config.php';
@@ -601,16 +739,25 @@ if ( isset($_POST["doChangeUserPW"]) )
 	{
 	}
 }
+// -----------------------------------------------------------------------
+// doChangeUserPW (END)
+// -----------------------------------------------------------------------
 
 
 
-//
-// exporter - submit button was pressed - open download in new tab/window
-//
+
+// -----------------------------------------------------------------------
+// doExport (START)
+// -----------------------------------------------------------------------
 if ( isset($_POST["doExport"]) ) 
 {
 	echo '<script type="text/javascript" language="javascript">window.open("inc/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';				
 }
+// -----------------------------------------------------------------------
+// doExport (STOP)
+// -----------------------------------------------------------------------
+
+
 
 
 
