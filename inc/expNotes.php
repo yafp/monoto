@@ -3,12 +3,16 @@
 About:			This file acts as script in monoto to export all existing user-notes to a .csv file.
 */
 
+	$exportDate = date("Ymd-his");
+	$exportFileName = $exportDate."-monoto-export.csv";
+
 	header("Expires: 0");
 	header("Cache-control: private");
 	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 	header("Content-Description: File Transfer");
 	header("Content-Type: application/vnd.ms-excel");
-	header("Content-disposition: attachment; filename=export.csv");
+	//header("Content-disposition: attachment; filename=monoto_export.csv");
+	header("Content-disposition: attachment; filename=".$exportFileName."");
 	
 	session_start();
 	
@@ -65,7 +69,8 @@ About:			This file acts as script in monoto to export all existing user-notes to
 		}
 		else
 		{
-			echo "$data is empty";
+			//echo "$data is empty";
+			echo "$data";
 		}
 	}
 	else
