@@ -27,35 +27,7 @@ function KeyCheck(e)
 
 		// ESC - reset the UI
 		case 27:
-			currentRow = -1;
-			
-			// show some elements
-			$("#newNoteTitle").show();
-			$("#createNoteButton").show();
-			
-			// hide some elements
-			$("#delete").hide();
-			$("#save").hide();
-
-			// unselect a maybe selected row in datatable - maybe via redraw.
-			$(oTable.fnSettings().aoData).each(function ()
-			{
-				$(this.nTr).removeClass('row_selected');
-			});
-
-			var n = noty({text: 'Resetted notes interface', type: 'notification'});
-
-			// refresh the gui
-			$('#noteTitle').val("");
-	
-			document.activeElement.value = "";								// reset newNoteTitle
-			document.activeElement.blur(); 									// lose focus from newNotetitle
-			document.getElementById('myInputTextField').focus();			// set focus to search
-			document.activeElement.value = "";
-			enableCreateButton();											// run enableCreateButton from notes.php to reload buttons status etc. 
-			document.myform.createNoteButton.disabled=true;					// disable create new note button afterwards to end up with a clean interface
-			// empty the editor
-			CKEDITOR.instances['editor1'].setData("");
+			resetNotesUI();
 		break;
 
 
