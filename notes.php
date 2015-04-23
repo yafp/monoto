@@ -41,7 +41,6 @@
 		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 		<title>monoto notes</title>
 		
-		<!-- META STUFF -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,6 +49,7 @@
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/dataTables.scroller.min.css" />
 		
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
@@ -60,15 +60,19 @@
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<!-- ckeditor -->
+		<script src="js/ckeditor/ckeditor.js"></script>
 		<!-- datatables -->
-		
 		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" language="javascript" src="js/datatables/dataTables.scroller.min.js"></script>
-		
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
+
+		<script type="text/javascript" src="js/m_coreFunctions.js"></script>
+		<script type="text/javascript" src="js/m_noteFunctions.js"></script>
+
 		<!-- init noty -->
 		<script>
 		$.noty.defaults = {
@@ -98,11 +102,7 @@
 		  buttons: false // an array of buttons
 		};
 		</script>
-
-		<!-- ckeditor -->
-		<script src="js/ckeditor/ckeditor.js"></script>
-
-
+		
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
 			var oTable;
@@ -110,9 +110,9 @@
 
 			$(document).ready(function() 
 			{
-				$("#delete").hide(); // hide the delete button
-				$("#save").hide(); // show save button
-				
+				$("#bt_delete").hide(); 				// hide the delete button
+				$("#bt_save").hide(); 					// hide the save button
+				$("#bt_createNewNoteButton").hide(); 	// hode the createNewNote button
 
 				// is something written in the cookie as lastAction? if yes - show it as a noty notification & reset the value 
 				if($.cookie("lastAction") != "")
@@ -121,8 +121,6 @@
 					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
 				}
 				
-
-
 
 				// Defining the editor height
 				monotoEditorHeight = 300; // setting a default value - in case there is non stored in localStorage
@@ -153,27 +151,13 @@
 						{ name: 'tools',       items : [ 'Maximize' ] }
 					]
 				});
+
+				saveCKEditorHeightOnChange();
 				// END CKEDITOR
 				
 				
 				
-				/*
-					SAVE EDITORS HEIGHT ON CHANGE
-				*/
-				CKEDITOR.on('instanceReady',function(ev) 
-				{
-					ev.editor.on('resize',function(reEvent)
-					{
-						editorHeight = this.ui.space( 'contents' ).getStyle( 'height' ); // get current height
-						window.localStorage.setItem("monotoEditorHeight", editorHeight); //save to localstorage
-					});
-				});
 				
-
-
-
-
-
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
 				{
@@ -183,19 +167,20 @@
 					});
 					$(event.target.parentNode).addClass('row_selected');
 
-					document.myform.save.disabled=false;			// enable the save button
-					document.myform.delete.disabled=false;			// enable the delete button
-					document.myform.noteTitle.disabled=false;		// enable note title field
+					document.myform.bt_save.disabled=false;				// enable the save button
+					document.myform.bt_delete.disabled=false;			// enable the delete button
+					document.myform.noteTitle.disabled=false;			// enable note title field
 				});
 
 
 
 
 				/* Add a click handler for the delete row - we dont use that so far */
-				$('#delete').click( function() 
+				$('#bt_delete').click( function() 
 				{
-					var anSelected = fnGetSelected( oTable );
-					oTable.fnDeleteRow( anSelected[0] );
+					//console.log("Delete handler");
+					//var anSelected = fnGetSelected( oTable );
+					//oTable.fnDeleteRow( anSelected[0] );
 				} );
 
 
@@ -287,9 +272,9 @@
 
 						// baustelle
 						curRow =sData[0];
-						//console.log(curRow);
+						console.log(curRow);
 						rowCount = oTable.fnSettings().fnRecordsTotal();
-						//console.log(rowCount);
+						console.log(rowCount);
 						currentRow = rowCount - curRow -1;
 
 
@@ -339,17 +324,20 @@
 								  break;
 						} 
 
-
 						document.myform.noteID.value = sData[1]											// fill id field
 						document.myform.noteTitle.value = sData[2]										// fill title field
 						document.myform.noteVersion.value = sData[5]									// fill version - not displayed as field is hidden		
 						document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
-						document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
+						//document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
 						
+						// show some items
+						$("#bt_delete").show();					// show delete button
+						$("#bt_save").show();					// show save button
+
+						// hide some items
 						$("#newNoteTitle").hide();
-						$("#createNoteButton").hide();
-						$("#delete").show(); // show delete button
-						$("#save").show(); // show save button
+						$("#bt_createNewNoteButton").hide();
+						$("#bt_PrepareNoteCreation").hide();
 					}
 				});
 			} );
@@ -370,265 +358,8 @@
 			}
 			return aReturn;
 		}
-
-
-
-		//
-		// display adesktop notification - if possible
-		//
-		function displayDesktopNotification(notificationText)
-		{
-			// Let's check if the browser supports notifications
-			if (!("Notification" in window)) 
-			{
-				console.log("Warning: This browser does not support desktop notification");
-			}
-
-			// Let's check if the user is okay to get some notification
-			else if (Notification.permission === "granted") 
-			{
-				// If it's okay let's create a notification
-				var notification = new Notification(notificationText);
-			}
-
-			// Otherwise, we need to ask the user for permission
-			else if (Notification.permission !== 'denied') 
-			{
-				Notification.requestPermission(function (permission) 
-				{
-					// If the user is okay, let's create a notification
-					if (permission === "granted") 
-					{
-						var notification = new Notification(notificationText);
-					}
-				});
-			}
-
-			// At last, if the user already denied any notification, and you 
-			// want to be respectful there is no need to bother them any more.
-		}
-
-
-		//
-		// unselect/unmark all rows in table
-		// 
-		function unmarkAllTableRows()
-		{
-			//console.log("Unmark all Table rows");
-		
-			$(oTable.fnSettings().aoData).each(function ()								// unselect all records
-			{
-				$(this.nTr).removeClass('row_selected');
-			});
-		}
-		
-		
-		
-		//
-		// select and mark a single row in table
-		//
-		function selectAndMarkTableRow(currentRow)
-		{
-			//console.log("Select and mark a specific table row");
-			
-			$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
-			$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
-		}
-
-
-		//
-		// Update the scrollbar of the datatable-scroller
-		//
-		function updateTableScrollbar()
-		{
-			//console.log("updating table scrollbar");
-			
-			scrollPos = (curID / amountOfRecordsAfterFilter) * 300 ;
-			//console.log(curID);
-			//console.log(amountOfRecordsAfterFilter);
-			//console.log("Scroll-Position: "+scrollPos);
-			$(".dataTables_scrollBody").scrollTop(scrollPos);
-		}
-
-
-
-		//
-		// select next row
-		//
-		function selectNextRow()
-		{
-			if(typeof nextID === 'undefined') // to handle first jump from searchfield to table
-			{
-				nextID=0;
-			};
-			
-			unmarkAllTableRows();
-			selectAndMarkTableRow(nextID);
-			updateTableScrollbar();
-		}
-
-
-
-		//
-		// select other row
-		//
-		function selectUpperRow()
-		{
-			unmarkAllTableRows();
-			selectAndMarkTableRow(prevID);
-			updateTableScrollbar();
-		}
-
-
-
-		//
-		// SAVE A NOTE
-		//
-		function saveNote() 
-		{
-			var modifiedNoteID = document.myform.noteID.value;							// get the note id
-			var modifiedNoteTitle = document.myform.noteTitle.value;					// get the note title 
-			var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
-			console.log("noteContent: "+modifiedNoteContent);
-			var modifiedNoteCounter = document.myform.noteVersion.value;				// get current save-counter/version
-
-			//modifiedNoteContent=modifiedNoteContent.replace(/\'/g,'&#39;')				// replace: ' 	with &#39; // cleanup note content
-			modifiedNoteContent.replace(/'/g , "&#39;");				// replace: ' 	with &#39; // cleanup note content
-
-
-			if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))					// if we have a note-id - save the change to db
-			{
-				console.log("noteContent for UEbergane an PHP: "+modifiedNoteContent);
-				$.post("inc/updNote.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-				var n = noty({text: 'Note saved', type: 'success'});
-				$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");	// store last Action in cookie
-				displayDesktopNotification("Note saved");
-			}
-			else 																		// should never happen as the save button is not always enabled.
-			{  
-				var n = noty({text: 'Error: Missing ID reference', type: 'error'});
-			}
-		}
-
-
-		//
-		// DELETE A NEW NOTE
-		//
-		function deleteNote() 
-		{		
-			// get the note id etc
-			var deleteID = document.myform.noteID.value;
-			var deleteTitle = document.myform.noteTitle.value;
-			var deleteContent = document.myform.editor1.value;
-
-			if ((deleteID.length > 0) && (deleteID != 'ID' ))
-			{
-				// confirm dialog
-				var x = noty({
-					text: 'Really delete this note?',
-					type: 'confirm',
-					dismissQueue: false,
-					layout: 'topRight',
-					theme: 'defaultTheme',
-					buttons: [
-						{addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
-							$noty.close();
-							$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-							$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
-							displayDesktopNotification("Note deleted");
-						}
-						},
-    					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
-							$noty.close();
-							noty({text: 'Aborted', type: 'error'});
-							reloadNote();
-						}
-					}
-					]
-				})	
-			}
-			else // Data to identify note-to-delete are missing - should never happen as the delete button is disabled if no note is selected
-			{
-				var n = noty({text: 'Error: While trying to delete a note', type: 'error'});
-			}
-		}
-
-
-
-		//
-		// CREATE NEW NOTE
-		//
-		function createNote() 
-		{
-			var newNoteTitle = document.myform.newNoteTitle.value;					// get new title
-			newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');	// replace all characters except numbers,letters, space, underscore and - .
-									
-			var newNoteContent = CKEDITOR.instances.editor1.getData();				// get note content if defined
-			newNoteContent=newNoteContent.replace(/\'/g,'&#39;');					// cleanup note content replace...
-
-			if (newNoteTitle.length > 0)											// if we have a note title - create the new note (content is not needed so far)
-		  	{
-		  		if(newNoteContent.length == 0)										// check if user defined note-content or not
-		  		{
-		  			newNoteContent = "Placeholder content<br><br>If you see this text - you missed defining a note content while note-creation.";			// define dummy content as user didnt
-		  		}
-		  		
-		  		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script				
-				alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
-				//var n = noty({text: 'Note created', type: 'success'});
-				$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
-				displayDesktopNotification("Note created");
-				//reloadNote();
-				
-		  	}
-			else
-			{ 
-				var n = noty({text: 'Error: No note title', type: 'error'});
-			}
-		}
-
-
-		//
-		// RELOAD ALL NOTES
-		//
-		function reloadNote() 
-		{
-			console.log("reloadnote executed");
-			
-			var loc = window.location;
-    		window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
-		}
-
-
-		//
-		// ENABLE CREATE NOTE BUTTON
-		//
-		function enableCreateButton()
-		{
-			// if we are starting to write a new note - erase the content of noteContent first
-			if(document.myform.newNoteTitle.value.length>=1)
-			{
-				CKEDITOR.instances.editor1.editable().setHtml( '' );
-				$('.input-group').hide(); // hides the search field
-				document.myform.createNoteButton.disabled=false;	// enable Create new note button
-				
-				// lets clean up the main interface
-				document.myform.noteID.value = "";					// empty ID of previously selected note
-				document.myform.noteTitle.value = "";				// empty title of previously selected note
-				document.myform.noteVersion.value = "";			// empty hidden version of previously selected note
-				document.myform.save.disabled=true;					// disable the save button
-				document.myform.delete.disabled=true;				// disable the delete button
-				document.myform.noteTitle.disabled=true;			// disable note title field
-				$("#save").hide();
-			}
-			else // got no new note -title ...so cant create new note
-			{
-				$('.input-group').show();
-				document.myform.createNoteButton.disabled=true;	// disable Create new note button
-			}
-		}
 		</script>
-	</head>  
+	</head>
 
 
 	<body role="document">
@@ -678,14 +409,15 @@
 						</span>
 					</div>
 				
-				
 					<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
 						<tr><td colspan="3">&nbsp;</td></tr>
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="title of selected note" disabled style="width:100%; " class="form-control" /></td>
+							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="Note title" disabled style="width:100%; " class="form-control" onkeyUp="prepareNewNoteStepTwo();" /></td>
 							<td>
-							 <button type="button" class="btn btn-sm btn-default" style="width:90px" title="Stores the current note to the db." name ="save" id="save" value="save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" ><i class="fa fa-save fa-1x"></i> save</button>
+								<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Enable note creation" name ="bt_PrepareNoteCreation" id="bt_PrepareNoteCreation" onClick="prepareNewNoteStepOne();"><i class="fa fa-plus fa-1x"></i> new</button>
+								<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Stores the current note to the db." name ="bt_save" id="bt_save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" ><i class="fa fa-save fa-1x"></i> save</button>
+								<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="bt_createNewNoteButton" name="bt_createNewNoteButton" onClick="createNewNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
 							</td>
 						</tr>
 						<!-- NOTE CONTENT using CKeditor -->
@@ -693,14 +425,7 @@
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
-							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="delete" id="delete" value="delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
-							</td>
-						</tr>
-						<!-- newTitle AND create buttons -->
-						<tr>
-							<td colspan="2"><input type="text" style="width:100%" placeholder="enter title for your new note" id="newNoteTitle" name="newNoteTitle" onkeyup="javascript:enableCreateButton()" class="form-control" /></td>
-							<td>
-							<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="createNoteButton" name="createNoteButton" value="create" onClick="createNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
+							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="bt_delete" id="bt_delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
 							</td>
 						</tr>
 					</table>
@@ -725,19 +450,17 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="spacer">&nbsp;</div>
 		</div>
+	</div> <!-- /container -->
 
-    </div> <!-- /container -->
-    
-		<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
+		<!-- loading the other scripts via LAB.js - without load-blocking so far -->
 		<script type="text/javascript" src="js/LAB.js"></script>
 		<script>
-		   $LAB
-		   .script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
-		   .script("js/m_disableRightClick.js")				// disabled the right-click contextmenu
-		   .script("js/m_keyPressNotes.js")							// disabled the right-click contextmenu
-		   .script("js/bootstrap.min.js")							// disabled the right-click contextmenu
+			$LAB
+			.script("js/m_reallyLogout.js") 					// ask really-logout question if configured by admin
+			.script("js/m_disableRightClick.js")				// disabled the right-click contextmenu
+			.script("js/m_keyPressNotes.js")					// disabled the right-click contextmenu
+			.script("js/bootstrap.min.js")						// disabled the right-click contextmenu
 		</script>
 	</body>
 </html>
