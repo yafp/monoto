@@ -17,7 +17,7 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 	</head>
@@ -34,12 +34,9 @@
 					</button>
 					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo_white.png" height="25"></a>
 				</div>
-			<div class="navbar-collapse collapse">
-				
-			</form>
-		</div><!--/.navbar-collapse -->
-	</div>
-	</div>
+				<div class="navbar-collapse collapse"></div><!--/.navbar-collapse -->
+			</div>
+		</div>
 
 		<!-- ... -->
 		<div class="jumbotron">
@@ -47,43 +44,28 @@
 				<h3>installer</h3>
 				<hr>
 				This install script creates your first monoto user account (with admin privileges).
-				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-
-
 				<h4>Step 1: Prepare database</h4>
 				Please create a database and all related tables according to the instructions in <span class="label label-default">doc/INSTALL.txt</span> and adjust the values in  <span class="label label-default">conf/config.php</span> according to it.
-				
-				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
-				
-
-			<h4>Step 2: Create user</h4>
-			<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-				<table border="0">
-					<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" required="required"/></td></tr>
-					<tr><td>Mail:</td><td><input type="email" name="email" placeholder="Email" required="required" /></td></tr>
-					<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" required="required" /></td></tr>
-					<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" required="required" /></td></tr>
-					<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
-				</table>
-			</form>
-
-			<!-- SPACER -->
-			<div class="spacer">&nbsp;</div>
-
-			<div class="alert alert-danger">
-				<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.
+				<h4>Step 2: Create user</h4>
+				<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+					<table border="0">
+						<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" required="required"/></td></tr>
+						<tr><td>Mail:</td><td><input type="email" name="email" placeholder="Email" required="required" /></td></tr>
+						<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" required="required" /></td></tr>
+						<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" required="required" /></td></tr>
+						<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
+					</table>
+				</form>
+				<div class="spacer">&nbsp;</div>
+				<div class="alert alert-danger"><strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.</div>
 			</div>
+		</div>
 
-				</div>
-			</div>
-
-			<div class="container">
+		<div class="container">
 			<hr>
-			<footer>
-				<?php include 'inc/footer.php'; ?>
-			</footer>
+			<footer><?php include 'inc/footer.php'; ?></footer>
 		</div> <!-- /container -->
 
 		<!-- Bootstrap core JavaScript -->

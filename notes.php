@@ -53,7 +53,7 @@
 		<link rel="stylesheet" type="text/css" href="css/dataTables.scroller.min.css" />
 		
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
 
@@ -70,8 +70,8 @@
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 
-		<script type="text/javascript" src="js/m_coreFunctions.js"></script>
-		<script type="text/javascript" src="js/m_noteFunctions.js"></script>
+		<script type="text/javascript" src="js/monoto/m_coreFunctions.js"></script>
+		<script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
 
 		<!-- init noty -->
 		<script>
@@ -399,7 +399,6 @@
 
 
 	<div id="container">
-		<!-- SPACER -->
 		<div class="spacer">&nbsp;</div>
 		<div class="spacer">&nbsp;</div>
 			<!-- CONTENT -->
@@ -460,9 +459,9 @@
 		<script type="text/javascript" src="js/LAB.js"></script>
 		<script>
 			$LAB
-			.script("js/m_reallyLogout.js") 					// ask really-logout question if configured by admin
-			.script("js/m_disableRightClick.js")				// disabled the right-click contextmenu
-			.script("js/m_keyPressNotes.js")					// disabled the right-click contextmenu
+			.script("js/monoto/m_reallyLogout.js") 					// ask really-logout question if configured by admin
+			.script("js/monoto/m_disableRightClick.js")				// disabled the right-click contextmenu
+			.script("js/monoto/m_keyPressNotes.js")					// disabled the right-click contextmenu
 			.script("js/bootstrap.min.js")						// disabled the right-click contextmenu
 		</script>
 	</body>

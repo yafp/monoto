@@ -14,7 +14,7 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 	</head>
@@ -40,21 +40,14 @@
 
 		<div id="container">
 			<div id="noteContentCo">
-				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-				
 				<!-- DISPLAY REDIRECT IMAGE AND TEXT -->
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="images/icons/redirect.gif"></td></tr></table>
-				
-				<!-- SPACER -->
 				<div id="spacer">&nbsp;</div>
-
 				<!-- REDIRECT TO LOGIN -->
 				<?php header( "refresh:1;url=index.php" ); ?>
-				
 			</div>
-
 			<div class="spacer">&nbsp;</div>
 		</div>
 	</div> <!-- /container -->
@@ -71,8 +64,8 @@
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
-		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/m_keyPress.js")					// keyboard shortcuts
+		.script("js/monoto/m_disableRightClick.js")					// disabled the right-click contextmenu
+		.script("js/monoto/m_keyPress.js")					// keyboard shortcuts
 	</script>
 	</body>
 </html>

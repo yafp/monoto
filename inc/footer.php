@@ -1,6 +1,6 @@
 <!--  FOOTER -->
 <div id="footer" class="clear" style="text-align:center;">
-<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 	<?php 
 		include 'conf/build.php';
 

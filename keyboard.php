@@ -23,7 +23,7 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.0.3/css/font-awesome.min.css">
+		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 	</head>
@@ -64,10 +64,8 @@
 
 		<div id="container">
 			<div id="noteContentCo">
-				<!-- SPACER -->
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>	
-				
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">monoto-wide</a></h4></div>
@@ -107,50 +105,22 @@
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	
 	<!-- Bootstrap core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
-
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
-		.script("js/m_reallyLogout.js") 						// ask really-logout question if configured by admin
-		.script("js/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/m_keyPressAll.js")					// keyboard shortcuts
+		.script("js/monoto/m_reallyLogout.js") 			// ask really-logout question if configured by admin
+		.script("js/monoto/m_disableRightClick.js")		// disabled the right-click contextmenu
+		.script("js/monoto/m_keyPressAll.js")			// keyboard shortcuts
 	</script>
-	
+
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
-	<!-- init noty -->
-	<script>
-		$.noty.defaults = {
-		  layout: 'topRight',
-		  theme: 'defaultTheme',
-		  type: 'alert',
-		  text: '',
-		  dismissQueue: true, // If you want to use queue feature set this true
-		  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-		  animation: {
-		    open: {height: 'toggle'},
-		    close: {height: 'toggle'},
-		    easing: 'swing',
-		    speed: 500 // opening & closing animation speed
-		  },
-		  timeout: 5000, // delay for closing event. Set false for sticky notifications
-		  force: false, // adds notification to the beginning of queue when set to true
-		  modal: false,
-		  closeWith: ['click'], // ['click', 'button', 'hover']
-		  callback: {
-		    onShow: function() {},
-		    afterShow: function() {},
-		    onClose: function() {},
-		    afterClose: function() {}
-		  },
-		  buttons: false // an array of buttons
-		};
-	</script>
+	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
+
 	</body>
 </html>
