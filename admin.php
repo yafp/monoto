@@ -46,6 +46,7 @@
 	</head>
 
 	<body role="document">
+		<?php require "inc/getText.php"; ?>
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -60,16 +61,18 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
-						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
-						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> <?php echo translateString("Notes"); ?></a></li>
+						<li><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> <?php echo translateString("MyMonoto") ?></a></li>
+						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> <?php echo translateString("Keyboard"); ?></a></li>
 						<?php
 							if($_SESSION['admin'] == 1) // show admin-section
 							{
-								echo '<li class="active"><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
+								echo '<li class="active"><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> ';
+								echo translateString("Admin");
+								echo '</a></li>';
 							}
 						?>
-						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> <?php echo translateString("Logout"); ?></a></li>
 					</ul>
 				</div>
 			</div>

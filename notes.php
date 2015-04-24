@@ -363,6 +363,7 @@
 
 
 	<body role="document">
+		<?php require "inc/getText.php"; ?>
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -377,16 +378,18 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="notes.php" accesskey="n"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
-						<li><a href="mymonoto.php" accesskey="m"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
-						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						<li class="active"><a href="notes.php" accesskey="n"><i class="fa fa-pencil-square-o fa-1x"></i> <?php echo translateString("Notes"); ?></a></li>
+						<li><a href="mymonoto.php" accesskey="m"><i class="fa fa-user fa-1x"></i> <?php echo translateString("MyMonoto") ?></a></li>
+						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> <?php echo translateString("Keyboard"); ?></a></li>
 						<?php
 							if($_SESSION['admin'] == 1) // show admin-section
 							{
-								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
+								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> ';
+								echo translateString("Admin");
+								echo '</a></li>';
 							}
 						?>
-						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> <?php echo translateString("Logout"); ?></a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
@@ -403,9 +406,9 @@
 			<div id="noteContentCo">
 				<form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 					<div class="input-group">
-						<input placeholder="search here" id="myInputTextField" type="text" class="form-control">
+						<input placeholder="<?php echo translateString("search here");?>" id="myInputTextField" type="text" class="form-control">
 						<span class="input-group-btn">
-							<button  class="btn btn-default" type="button" disabled><i class="fa fa-search fa-1x"></i> Search</button>
+							<button  class="btn btn-default" type="button" disabled><i class="fa fa-search fa-1x"></i> <?php echo translateString("Search");?></button>
 						</span>
 					</div>
 				
@@ -413,11 +416,11 @@
 						<tr><td colspan="3">&nbsp;</td></tr>
 						<!-- show id, title and version of current selected note -->
 						<tr>
-							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="Note title" disabled style="width:100%; " class="form-control" onkeyUp="prepareNewNoteStepTwo();" /></td>
+							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="<?php echo translateString("Note title");?>" disabled style="width:100%; " class="form-control" onkeyUp="prepareNewNoteStepTwo();" /></td>
 							<td>
-								<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Enable note creation" name ="bt_PrepareNoteCreation" id="bt_PrepareNoteCreation" onClick="prepareNewNoteStepOne();"><i class="fa fa-plus fa-1x"></i> new</button>
-								<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Stores the current note to the db." name ="bt_save" id="bt_save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" ><i class="fa fa-save fa-1x"></i> save</button>
-								<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="bt_createNewNoteButton" name="bt_createNewNoteButton" onClick="createNewNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> create</button>
+								<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Enable note creation" name ="bt_PrepareNoteCreation" id="bt_PrepareNoteCreation" onClick="prepareNewNoteStepOne();"><i class="fa fa-plus fa-1x"></i> <?php echo translateString("new");?></button>
+								<button type="button" class="btn btn-sm btn-default" style="width:90px" title="Stores the current note to the db." name ="bt_save" id="bt_save" onClick="saveNote();" disabled="disabled"><input type="hidden" name="noteVersion" ><i class="fa fa-save fa-1x"></i> <?php echo translateString("save");?></button>
+								<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="bt_createNewNoteButton" name="bt_createNewNoteButton" onClick="createNewNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> <?php echo translateString("create");?></button>
 							</td>
 						</tr>
 						<!-- NOTE CONTENT using CKeditor -->
@@ -425,7 +428,7 @@
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
 							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
-							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="bt_delete" id="bt_delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> delete</button>
+							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="bt_delete" id="bt_delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> <?php echo translateString("delete");?></button>
 							</td>
 						</tr>
 					</table>

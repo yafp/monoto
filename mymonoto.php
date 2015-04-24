@@ -94,6 +94,7 @@
 	</head>
 
 	<body role="document">
+		<?php require "inc/getText.php"; ?>
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -108,16 +109,18 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> Notes</a></li>
-						<li class="active"><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> MyMonoto</a></li>
-						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> Keyboard</a></li>
+						<li><a href="notes.php"><i class="fa fa-pencil-square-o fa-1x"></i> <?php echo translateString("Notes"); ?></a></li>
+						<li class="active"><a href="mymonoto.php"><i class="fa fa-user fa-1x"></i> <?php echo translateString("MyMonoto") ?></a></li>
+						<li><a href="keyboard.php"><i class="fa fa-keyboard-o fa-1x"></i> <?php echo translateString("Keyboard"); ?></a></li>
 						<?php
 							if($_SESSION['admin'] == 1) // show admin-section
 							{
-								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> Admin</a></li>';
+								echo '<li><a href="admin.php"><i class="fa fa-cogs fa-1x"></i> ';
+								echo translateString("Admin");
+								echo '</a></li>';
 							}
 						?>
-						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> Logout</a></li>
+						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> <?php echo translateString("Logout"); ?></a></li>
 					</ul>
 				</div>
 			</div>
@@ -141,7 +144,7 @@
           </div>
           <div id="collapse1" class="panel-collapse collapse in">
             <div class="panel-body">
-            <table style="width: 100%" border="0"">
+            <table style="width: 100%" border="0">
 					<tr>
 						<td style="width:25%" colspan="2"></td>
 						<td style="width:5%"></td>
@@ -204,6 +207,19 @@
 							</td>
 							<td></td>
 						</tr>
+						<tr><td colspan="5">&nbsp;</td></tr>
+						<tr>
+							<td colspan="3"></td>
+							<td colspan="2">
+							<b>Language: (Dummy)</b><br>
+							Please select your prefered interface language here: 
+							<select>
+								<option>de_DE</option>
+								<option>en_US</option>
+								<option>fr_FR</option>
+							</select>
+							</td>
+						<tr>
 				</table>
             </div>
           </div>
