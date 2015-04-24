@@ -11,7 +11,7 @@ function saveCKEditorHeightOnChange()
 			window.localStorage.setItem("monotoEditorHeight", editorHeight); //save to localstorage
 		});
 	});
-	console.log("CKEditor ...")
+	console.log("CKEditor height")
 }
 
 
@@ -96,7 +96,6 @@ function selectUpperRow()
 function resetNotesUI() 
 {
 	console.log("resetting notes ui now");
-
 	currentRow = -1;
 	
 	// show some elements
@@ -109,16 +108,16 @@ function resetNotesUI()
 	$("#bt_createNewNoteButton").hide();
 
 	// disable some items
-	document.myform.noteTitle.disabled=true;
+	$("#noteTitle").prop("disabled",true);
 
 	// refresh the gui
 	unmarkAllTableRows();
+	$("#myInputTextField").prop("disabled",false);
 	$('#noteTitle').val("");
-	$('.input-group').show();									// show the search field
 	document.activeElement.value = "";							// reset newNoteTitle
 	document.activeElement.blur(); 								// lose focus from newNotetitle
-	document.getElementById('myInputTextField').focus();		// set focus to search
-	document.activeElement.value = "";	
+	$("#myInputTextField").focus();
+	document.activeElement.value = "";
 	CKEDITOR.instances['editor1'].setData("");					// empty the editor
 }
 
@@ -131,10 +130,11 @@ function resetNotesUI()
 function prepareNewNoteStepOne() 
 {
 	resetNotesUI();
-	$('.input-group').hide();								// hides the search field
-	document.myform.noteTitle.disabled=false;				// enable Create new note button
-	document.myform.bt_createNewNoteButton.disabled=true;
-	$("#bt_createNewNoteButton").show();
+	$("#myInputTextField").prop("disabled",true);	// disable search-field
+	$("#noteTitle").prop("disabled",false);			// enable note-title field
+	$("#noteTitle").focus(); 						// set focus to note title
+	$("#bt_createNewNoteButton").prop("disabled",true);		// disable create-note button
+	$("#bt_createNewNoteButton").show();					// show create-note button
 	$("#bt_PrepareNoteCreation").hide();
 }
 
@@ -146,14 +146,30 @@ function prepareNewNoteStepOne()
 function prepareNewNoteStepTwo() 
 {
 	var noteTitle = document.myform.noteTitle.value;
-	if(noteTitle.length > 0)
+
+	if( $('#bt_save').is(':visible')) // if Save-Button is visible we can not be in note-creation mode
 	{
-		document.myform.bt_createNewNoteButton.disabled=false;
-		$("#bt_createNewNoteButton").show();
+		//console.log("visible");
+		if(noteTitle.length > 0) // 
+		{
+			$("#bt_save").prop("disabled",false);
+		}
+		else
+		{
+			$("#bt_save").prop("disabled",true);
+		}
 	}
-	else
+	else // we are in Note-Creation mode
 	{
-		document.myform.bt_createNewNoteButton.disabled=true;
+		if(noteTitle.length > 0) // & save button nicht sichtbar
+		{
+			$("#bt_createNewNoteButton").prop("disabled",false);
+			$("#bt_createNewNoteButton").show();
+		}
+		else
+		{
+			$("#bt_createNewNoteButton").prop("disabled",true);
+		}
 	}
 }
 

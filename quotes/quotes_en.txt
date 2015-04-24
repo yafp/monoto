@@ -1,28 +1,9 @@
-Albert Einstein;Before God we are all equally wise - and equally foolish.
-Albert Einstein;I have no special talents. I am only passionately curious.
-Albert Einstein;I know not with what weapons World War III will be fought, but World War IV will be fought with sticks and stones.
-Albert Einstein;I never teach my pupils. I only attempt to provide the conditions in which they can learn.
-Albert Einstein;Life is like riding a bicycle. To keep your balance you must keep moving.
-Albert Einstein;Politics is more difficult than physics 
-Albert Einstein;The pioneers of a warless world are the youth who refuse military service.
-Albert Einstein;Try not to become a man of success but rather to become a man of value.
-Antonin Sertillanges;Very often, gleams of light come in a few minutes' sleeplessness, in a second perhaps; you must fix them. To entrust them to the relaxed brain is like writing on water; there is every chance that on the morrow there will be no slightest trace left of any happening.
-Ben Casnocha;If you aren't taking notes, you aren't learning.
-Bertrand Russell;War does not determine who is right - only who is left.
-Buddha;Words have the power to both destroy and heal. When words are both true and kind, they can change our world.
-Confucius;Everything has its beauty but not everyone sees it.
-Confucius;It does not matter how slowly you go so long as you do not stop.
-Confucius;Study the past if you would define the future.
-Confucius;The man who moves a mountain begins by carrying away small stones.
-Charles Darwin;It is not the strongest of the species that survive, but the one most responsive to change.
 Edgar Allan Poe;If you wish to forget anything on the spot, make a note that this thing is to be remembered.
+Ben Casnocha;If you aren't taking notes, you aren't learning.
+Antonin Sertillanges;Very often, gleams of light come in a few minutes' sleeplessness, in a second perhaps; you must fix them. To entrust them to the relaxed brain is like writing on water; there is every chance that on the morrow there will be no slightest trace left of any happening
+Bertrand Russell;War does not determine who is right - only who is left.
 Ernesto Che Guevara;Cruel leaders are replaced only to have new leaders turn cruel.
-Friedrich Nietzsche;Be careful when you fight the monsters, lest you become one.
-Friedrich Nietzsche;Only sick music makes money today.
-Lao Tzu;Give a man a fish and you feed him for a day. Teach a man how to fish and you feed him for a lifetime.
 Kevin Kelly;The older the technology, the more likely it will continue to be useful. Find the minimum amount of technology that will maximize your options.
-Mahatma Gandhi;Happiness is when what you think, what you say, and what you do are in harmony.
-Mark Twain;There is no distinctly American criminal class - except Congress.
 Samuel Johnson;The trouble with life isn’t that there is no answer, it’s that there are so many answers.
-Steve Jobs;We have always been shameless about stealing great ideas.
-Steve Wozniak;Never trust a computer you can’t throw out a window.
+Steve Jobs;We have always been shameless about stealing great ideas
+Mark Twain;There is no distinctly American criminal class - except Congress.

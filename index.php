@@ -60,30 +60,26 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo01.png" height="25"></a>
+					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo_white.png" height="25"></a>
 				</div>
-			<div class="navbar-collapse collapse">
-			<!-- Login Form -->
-			<form class="navbar-form navbar-right" role="form" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-				<div class="form-group">
-					<input type="text" placeholder="username" class="form-control" name="username" required="required">
-				</div>
-				<div class="form-group">
-					<input type="password" placeholder="password" class="form-control" name="password" required="required">
-				</div>
-				<button type="submit" class="btn btn-success" name="doLogin">Sign in</button>
-			</form>
-		</div><!--/.navbar-collapse -->
-	</div>
-    </div>
+				<div class="navbar-collapse collapse">
+					<!-- Login Form -->
+					<form class="navbar-form navbar-right" role="form" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+						<div class="form-group"><input type="text" placeholder="username" class="form-control" name="username" required="required"></div>
+						<div class="form-group"><input type="password" placeholder="password" class="form-control" name="password" required="required"></div>
+						<button type="submit" class="btn btn-success" name="doLogin">Sign in</button>
+					</form>
+				</div><!--/.navbar-collapse -->
+			</div>
+		</div>
 
 		<!-- ... -->
 		<div class="jumbotron">
 			<div class="container">
 				<br><br>
 				<?php
-					//quotes 
-					$f_contents = file("quotes/quotes_de.txt");  				// define quotes source
+					include 'conf/config.php';
+					$f_contents = file($s_quotes_file);  				// define quotes source
 		 			$line = $f_contents[rand(0, count($f_contents) - 1)];		// get random line
 		 			list($author, $quote) = explode(';', $line);					// split string into author and quote
 				?>
@@ -118,8 +114,8 @@
 //
 if ( isset($_POST["doLogin"]) ) 
 {
-	include 'conf/config.php';
-	include 'inc/db.php';		// connect to db
+	require 'conf/config.php';
+	require 'inc/db.php';		// connect to db
 	connectToDB();
 
 	// get data
