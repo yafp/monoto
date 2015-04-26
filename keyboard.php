@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'conf/config.php';
+	require 'conf/config.php';
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
@@ -105,12 +105,11 @@
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	<!-- Bootstrap core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
+		.script("js/bootstrap.min.js") 					// Bootstrap core JavaScript
 		.script("js/monoto/m_reallyLogout.js") 			// ask really-logout question if configured by admin
 		.script("js/monoto/m_disableRightClick.js")		// disabled the right-click contextmenu
 		.script("js/monoto/m_keyPressAll.js")			// keyboard shortcuts

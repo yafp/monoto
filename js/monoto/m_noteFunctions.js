@@ -1,4 +1,109 @@
 // ---------------------------------
+// initialize DataTable
+// ---------------------------------
+function initDataTable()
+{
+	oTable = $('#example').dataTable( 
+	{ 
+		"oLanguage": { 
+			"sProcessing": "<img src='../images/loadi_ng.gif'>",
+			//"sProcessing": "DataTables is currently busy",
+			"sEmptyTable": "You have 0 notes so far - start writing some...", // displayed if table is initial empty
+			"sZeroRecords": "No notes to display for your search" // displayed if table is filtered to 0 matching records
+			},
+			//"sDom": '<"wrapper"lit>, <l<t>',		// resorting the datatable sDom structure - to have search & recordcount - table - recordcount 
+			//"oSearch": {"sSearch": ""}, 
+			"sRowSelect": "single",
+			"scrollY": "35%", // plugin: scroller
+			"scrollCollapse": true,
+			"oScroller": {"loadingIndicator": true},
+			"dom": "rti",
+			"deferRender": true,
+			"bLengthChange": false,
+			"bPaginate": false , 															// pagination  - BREAKS SELECTED ROW - copy content function right now*/
+			"bScrollCollapse": true,
+			"aaSorting": [[ 4, "desc" ]],													/* default sorting */
+			"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
+							{ "bSortable": false, "aTargets": [ 1 ] },
+							{ "bSortable": false, "aTargets": [ 2 ] },
+							{ "bSortable": false, "aTargets": [ 3 ] },
+							{ "bSortable": false, "aTargets": [ 4 ] }
+							], 
+			"aoColumns"   : [																/* visible columns */
+						{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
+						{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
+						{ "bSearchable": true, "bVisible": true, "sWidth": "100%" },							/* note-title */
+						{ "bSearchable": true, "bVisible": false}, 							/* note-content */
+						{ "bSearchable": false, "bVisible": false}, 							/* note-modification date */
+						{ "bSearchable": false, "bVisible": false}, 							/* save-count */
+						],
+	} );
+}
+
+
+
+
+// ---------------------------------
+// initialize CKEditor 
+// ---------------------------------
+function initCKEditor()
+{
+	// START CKEDITOR
+	CKEDITOR.replace( 'editor1', {
+		enterMode: CKEDITOR.ENTER_BR, /* prevent <p>aragraphs over and over in note-content */
+		height: monotoEditorHeight,
+		extraPlugins : 'wordcount',
+		wordcount : {
+			showCharCount : true,
+			showWordCount : true,
+			countHTML: false
+		},
+		removePlugins: 'elementspath', /*  hide html tags in ckeditors foot*/
+		toolbar:
+		[
+			{ name: 'document',    items : [ 'Source' ] },
+			{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','RemoveFormat' ] },
+			{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv' ] },
+			{ name: 'insert',      items : [ 'Link','Image','Flash','Table','HorizontalRule','SpecialChar' ] },
+			{ name: 'styles',      items : [ 'Styles','Format' ] },
+			{ name: 'tools',       items : [ 'Maximize' ] }
+		]
+	});
+}
+
+
+
+// ---------------------------------
+// handle timeout & warning
+// ---------------------------------
+function timeOutHandler()
+{
+	var lefttime = "<?php echo get_cfg_var('max_execution_time');  ?>"; /* get server-sided php timeout value in minutes */
+	var interval;
+	interval = setInterval('change()',60000);
+
+	function change()
+	{
+		lefttime--;
+		if(lefttime <= 0) // session should be dead
+		{		
+			window.location = "logout.php"
+		}
+		else
+		{
+			if(lefttime == 5) 
+			{
+				var n = noty({text: 'timeout-reminder.', type: 'warning'});
+				alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
+			}
+		}
+	}
+}
+
+
+
+
+// ---------------------------------
 // handle ckeditor height
 // ---------------------------------
 function saveCKEditorHeightOnChange()

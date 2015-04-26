@@ -22,33 +22,7 @@
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 		<!-- init noty -->
-		<script>
-		$.noty.defaults = {
-		  layout: 'topRight',
-		  theme: 'defaultTheme',
-		  type: 'alert',
-		  text: '',
-		  dismissQueue: true, // If you want to use queue feature set this true
-		  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-		  animation: {
-		    open: {height: 'toggle'},
-		    close: {height: 'toggle'},
-		    easing: 'swing',
-		    speed: 500 // opening & closing animation speed
-		  },
-		  timeout: 1000, // delay for closing event. Set false for sticky notifications
-		  force: false, // adds notification to the beginning of queue when set to true
-		  modal: false,
-		  closeWith: ['click'], // ['click', 'button', 'hover']
-		  callback: {
-		    onShow: function() {},
-		    afterShow: function() {},
-		    onClose: function() {},
-		    afterClose: function() {}
-		  },
-		  buttons: false // an array of buttons
-		};
-		</script>
+		<script type="text/javascript" src="js/monoto/initNoty.js"></script>
 	</head>
 	<body>		 
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -78,7 +52,7 @@
 			<div class="container">
 				<br><br>
 				<?php
-					include 'conf/config.php';
+					require 'conf/config.php';
 					$f_contents = file($s_quotes_file);  				// define quotes source
 		 			$line = $f_contents[rand(0, count($f_contents) - 1)];		// get random line
 		 			list($author, $quote) = explode(';', $line);					// split string into author and quote
@@ -90,7 +64,7 @@
 
 			<div class="container">
 			<hr>
-			<footer><?php include 'inc/footer.php'; ?></footer>
+			<footer><?php require 'inc/footer.php'; ?></footer>
 		</div> <!-- /container -->
 
 		<!-- Bootstrap core JavaScript -->
@@ -105,14 +79,11 @@
 	{	
 		header('Location: notes.php');		// if session is valid - redirect to main-notes interface.
 	}
-?>
 
-
-<?php
 //
 // try to login
 //
-if ( isset($_POST["doLogin"]) ) 
+if (isset($_POST["doLogin"]) ) 
 {
 	require 'conf/config.php';
 	require 'inc/db.php';		// connect to db

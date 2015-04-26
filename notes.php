@@ -1,37 +1,9 @@
 <?php
 	session_start();
-	include 'conf/config.php';
+	require 'conf/config.php';
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
-	}
-	else
-	{
-?>
-		<!-- SESSION TIMEOUT WARNING -->
-		<script type="text/javascript">
-			var lefttime = "<?php echo get_cfg_var('max_execution_time');  ?>"; /* get server-sided php timeout value in minutes */
-			var interval;
-			interval = setInterval('change()',60000);
-
-			function change()
-			{
-				lefttime--;
-				if(lefttime <= 0) // session should be dead
-				{		
-					window.location = "logout.php"
-				}
-				else
-				{
-					if(lefttime == 5) 
-					{
-						var n = noty({text: 'timeout-reminder.', type: 'warning'});
-						alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
-					}
-				}
-			}
-			</script>
-<?php
 	}
 ?>
 
@@ -69,40 +41,11 @@
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
+		<script type="text/javascript" src="js/monoto/initNoty.js"></script>
 
 		<script type="text/javascript" src="js/monoto/m_coreFunctions.js"></script>
 		<script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
 
-		<!-- init noty -->
-		<script>
-		$.noty.defaults = {
-		  layout: 'topRight',
-		  theme: 'defaultTheme',
-		  type: 'alert',
-		  text: '',
-		  dismissQueue: true, // If you want to use queue feature set this true
-		  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-		  animation: {
-		    open: {height: 'toggle'},
-		    close: {height: 'toggle'},
-		    easing: 'swing',
-		    speed: 500 // opening & closing animation speed
-		  },
-		  timeout: 2000, // delay for closing event. Set false for sticky notifications
-		  force: false, // adds notification to the beginning of queue when set to true
-		  modal: false,
-		  maxVisible: 3, // you can set max visible notification for dismissQueue true option,
-		  closeWith: ['click'], // ['click', 'button', 'hover']
-		  callback: {
-		    onShow: function() {},
-		    afterShow: function() {},
-		    onClose: function() {},
-		    afterClose: function() {}
-		  },
-		  buttons: false // an array of buttons
-		};
-		</script>
-		
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
 			var oTable;
@@ -110,6 +53,8 @@
 
 			$(document).ready(function() 
 			{
+				timeOutHandler();
+	
 				$("#bt_delete").hide(); 				// hide the delete button
 				$("#bt_save").hide(); 					// hide the save button
 				$("#bt_createNewNoteButton").hide(); 	// hode the createNewNote button
@@ -121,41 +66,17 @@
 					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
 				}
 				
-
 				// Defining the editor height
 				monotoEditorHeight = 300; // setting a default value - in case there is non stored in localStorage
 				if(typeof(Storage)!=="undefined") // if localStorage is supported
 				{
 					monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
 				}
-				
 
-				// START CKEDITOR
-				CKEDITOR.replace( 'editor1', {
-					enterMode: CKEDITOR.ENTER_BR, /* prevent <p>aragraphs over and over in note-content */
-					height: monotoEditorHeight,
-					extraPlugins : 'wordcount',
-					wordcount : {
-						showCharCount : true,
-						showWordCount : true,
-						countHTML: false
-					},
-					removePlugins: 'elementspath', /*  hide html tags in ckeditors foot*/
-					toolbar:
-					[
-						{ name: 'document',    items : [ 'Source' ] },
-						{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','RemoveFormat' ] },
-						{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv' ] },
-						{ name: 'insert',      items : [ 'Link','Image','Flash','Table','HorizontalRule','SpecialChar' ] },
-						{ name: 'styles',      items : [ 'Styles','Format' ] },
-						{ name: 'tools',       items : [ 'Maximize' ] }
-					]
-				});
 
+				// CKEditor
+				initCKEditor();
 				saveCKEditorHeightOnChange();
-				// END CKEDITOR
-				
-				
 				
 				
 				/* Add a click handler to the rows - this could be used as a callback */
@@ -167,64 +88,23 @@
 					});
 					$(event.target.parentNode).addClass('row_selected');
 
-					document.myform.bt_save.disabled=false;				// enable the save button
-					document.myform.bt_delete.disabled=false;			// enable the delete button
-					document.myform.noteTitle.disabled=false;			// enable note title field
+					$("#bt_save").prop("disabled",false);				// enable the save button
+					$("#bt_delete").prop("disabled",false);				// enable the delete button
+					$("#noteTitle").prop("disabled",false);				// enable note title field
 				});
 
-
-
-
 				/* Add a click handler for the delete row - we dont use that so far */
+				/*
 				$('#bt_delete').click( function() 
 				{
 					//console.log("Delete handler");
 					//var anSelected = fnGetSelected( oTable );
 					//oTable.fnDeleteRow( anSelected[0] );
 				} );
+				*/
 
 
-
-
-
-
-				/* Init the table */
-				oTable = $('#example').dataTable( 
-				{ 
-					"oLanguage": { 
-						"sProcessing": "<img src='../images/loadi_ng.gif'>",
-						//"sProcessing": "DataTables is currently busy",
-						"sEmptyTable": "You have 0 notes so far - start writing some...", // displayed if table is initial empty
-						"sZeroRecords": "No notes to display for your search" // displayed if table is filtered to 0 matching records
-					},
-					//"sDom": '<"wrapper"lit>, <l<t>',		// resorting the datatable sDom structure - to have search & recordcount - table - recordcount 
-					//"oSearch": {"sSearch": ""}, 
-					"sRowSelect": "single",
-					"scrollY": "35%", // plugin: scroller
-					"scrollCollapse": true,
-					"oScroller": {"loadingIndicator": true},
-					"dom": "rti",
-					"deferRender": true,
-					"bLengthChange": false,
-					"bPaginate": false , 															// pagination  - BREAKS SELECTED ROW - copy content function right now*/
-					"bScrollCollapse": true,
-					"aaSorting": [[ 4, "desc" ]],													/* default sorting */
-					"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
-									{ "bSortable": false, "aTargets": [ 1 ] },
-									{ "bSortable": false, "aTargets": [ 2 ] },
-									{ "bSortable": false, "aTargets": [ 3 ] },
-									{ "bSortable": false, "aTargets": [ 4 ] }
-									], 
-					"aoColumns"   : [																/* visible columns */
-								{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
-								{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
-								{ "bSearchable": true, "bVisible": true, "sWidth": "100%" },							/* note-title */
-								{ "bSearchable": true, "bVisible": false}, 							/* note-content */
-								{ "bSearchable": false, "bVisible": false}, 							/* note-modification date */
-								{ "bSearchable": false, "bVisible": false}, 							/* save-count */
-							],
-				} );
-
+				initDataTable();		// initialize the DataTable
 
 				/* configure a new search field & its event while typing */
 				$('#myInputTextField').keyup(function()
@@ -252,10 +132,7 @@
 					}
 				})
 
-				document.getElementById('myInputTextField').focus();								// set focus on search field
-
-
-
+				$("#myInputTextField").focus();														// set focus to search - as arrow up/down navi works right now only if focus is in search
 
 				// select a row, highlight it and get the data
 				$('table tr').click(function () 
@@ -269,7 +146,6 @@
 						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
 						CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
 
-
 						// baustelle
 						curRow =sData[0];
 						console.log(curRow);
@@ -277,13 +153,9 @@
 						console.log(rowCount);
 						currentRow = rowCount - curRow -1;
 
-
-
 						amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
-
 						curRow =sData[1];
 
-						
 						// get all currently visible rows
 						var filteredrows = $("#example").dataTable()._('tr', {"filter": "applied"});
 
@@ -324,12 +196,11 @@
 								  break;
 						} 
 
-						document.myform.noteID.value = sData[1]											// fill id field
-						document.myform.noteTitle.value = sData[2]										// fill title field
-						document.myform.noteVersion.value = sData[5]									// fill version - not displayed as field is hidden		
-						document.getElementById('myInputTextField').focus();							// set focus to search - as arrow up/down navi works right now only if focus is in search
-						//document.getElementById("newNoteTitle").value = '';	// reset newNoteTitle (should prevent misinformations in UI if user was working on creating a new note and then selected an existing one
-						
+						$('#noteID').val(sData[1]);				// fill id field
+						$('#noteTitle').val(sData[2]);			// fill title field
+						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
+						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
+
 						// show some items
 						$("#bt_delete").show();					// show delete button
 						$("#bt_save").show();					// show save button

@@ -1,15 +1,15 @@
 <?php
 	session_start();
-	include 'conf/config.php';
+	require 'conf/config.php';
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
 	}
 	else
 	{
-		include 'conf/config.php';	// db informations
-		include 'conf/build.php';	// version informations
-		include 'inc/db.php';		// connect to db
+		require 'conf/config.php';	// db informations
+		require 'conf/build.php';	// version informations
+		require 'inc/db.php';		// connect to db
 		connectToDB();
 	}
 ?>
