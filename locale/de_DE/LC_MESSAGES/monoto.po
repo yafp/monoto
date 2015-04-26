@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-04-24 22:56+0100\n"
+"PO-Revision-Date: 2015-04-26 22:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,3 +64,68 @@ msgstr "anlegen"
 # delete button
 msgid "delete"
 msgstr "löschen"
+
+# ## MyMonoto ###########################################################
+#
+# Profile Tab
+msgid "Profile"
+msgstr "Profil"
+
+# Stats Tab
+msgid "Stats"
+msgstr "Statistik"
+
+# Activity Tab
+msgid "Activity Tab"
+msgstr "Aktivitäten Protokoll"
+
+# Importer Tab
+msgid "Importer (Textfiles)"
+msgstr "Import (Textdateien)"
+
+# Importer Tab
+msgid "Importer (.csv)"
+msgstr "Import (.csv)"
+
+# Exporter Tab
+msgid "Exporter (.csv)"
+msgstr "Export (.csv)"
+
+# Eraser Tab
+msgid "Eraser"
+msgstr "L&ouml;schdienst"
+
+# ## Keyboard ###########################################################
+#
+# Monoto-wide
+msgid "monoto-wide"
+msgstr "monoto-weit"
+
+# Monoto-wide
+msgid "notes-page"
+msgstr "Notiz-Ansicht"
+
+# ## Admin ###########################################################
+#
+# Config tab
+msgid "Config"
+msgstr "Konfiguration"
+
+# Version-Tab
+msgid "Version"
+msgstr "Version"
+
+# Notes-Tab (already above)
+# msgid "Ver"
+# msgstr "Version"
+# Users-Tab
+msgid "Users"
+msgstr "Benutzer"
+
+# Broadcast-Tab
+msgid "Broadcast message"
+msgstr "Mitteilung"
+
+# Tasks-Tab
+msgid "Tasks"
+msgstr "Aufgaben"
