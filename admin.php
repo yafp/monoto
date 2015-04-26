@@ -86,7 +86,7 @@
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Config</a></h4>
+							<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><?php echo translateString("Config"); ?></a></h4>
 						</div>
 						<div id="collapse1" class="panel-collapse collapse in">
 							<div class="panel-body">
@@ -119,7 +119,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Version</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><?php echo translateString("Version"); ?></a>
             </h4>
           </div>
           <div id="collapse2" class="panel-collapse collapse">
@@ -150,7 +150,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Notes</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><?php echo translateString("Notes"); ?></a>
             </h4>
           </div>
           <div id="collapse3" class="panel-collapse collapse">
@@ -183,7 +183,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Users</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><?php echo translateString("Users"); ?></a>
             </h4>
           </div>
           <div id="collapse4" class="panel-collapse collapse">
@@ -276,7 +276,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Broadcast message</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><?php echo translateString("Broadcast message"); ?></a>
             </h4>
           </div>
           <div id="collapse5" class="panel-collapse collapse">
@@ -297,7 +297,7 @@
 <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Tasks</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6"><?php echo translateString("Tasks"); ?></a>
             </h4>
           </div>
           <div id="collapse6" class="panel-collapse collapse">

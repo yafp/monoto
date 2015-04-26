@@ -23,26 +23,25 @@
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/dataTables.scroller.min.css" />
-		
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
+		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
 
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<!-- ckeditor -->
-		<script src="js/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 		<!-- datatables -->
-		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" language="javascript" src="js/datatables/dataTables.scroller.min.js"></script>
+		<script type="text/javascript" src="js/datatables/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="js/datatables/dataTables.scroller.min.js"></script>
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
-		<script type="text/javascript" src="js/monoto/initNoty.js"></script>
-
+		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
+		<!-- monoto -->
 		<script type="text/javascript" src="js/monoto/m_coreFunctions.js"></script>
 		<script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
 
@@ -73,11 +72,9 @@
 					monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
 				}
 
-
 				// CKEditor
 				initCKEditor();
 				saveCKEditorHeightOnChange();
-				
 				
 				/* Add a click handler to the rows - this could be used as a callback */
 				$("#example tbody").click(function(event) 
@@ -102,7 +99,6 @@
 					//oTable.fnDeleteRow( anSelected[0] );
 				} );
 				*/
-
 
 				initDataTable();		// initialize the DataTable
 
@@ -135,22 +131,26 @@
 				$("#myInputTextField").focus();														// set focus to search - as arrow up/down navi works right now only if focus is in search
 
 				// select a row, highlight it and get the data
-				$('table tr').click(function () 
+				$('table tr').click(function ()
 				{	
 					clickedTableID = $(this).closest('table').attr('id') // check the click-source
 
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
 					{	
-						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node 				
-						var aPos = oTable.fnGetPosition(this);											// show selected note-data as alert				
-						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
-						CKEDITOR.instances['editor1'].setData(sData[3]);								// fill html richtext cleditor with text of selected note
+						//alert("clicked"); // Baustelle - adding this alert solves ISSUE #201
 
-						// baustelle
+
+						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node
+						var aPos = oTable.fnGetPosition(this);											//
+						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
+							
+						
 						curRow =sData[0];
-						console.log(curRow);
+						//console.log(curRow);
+
 						rowCount = oTable.fnSettings().fnRecordsTotal();
-						console.log(rowCount);
+						//console.log(rowCount);
+
 						currentRow = rowCount - curRow -1;
 
 						amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
@@ -196,10 +196,20 @@
 								  break;
 						} 
 
+
 						$('#noteID').val(sData[1]);				// fill id field
 						$('#noteTitle').val(sData[2]);			// fill title field
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
 						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
+						
+						// working on issue #201 here
+						//CKEDITOR.instances['editor1'].setData(sData[3]);
+						CKEDITOR.instances['editor1'].setData(sData[3],function()
+						{
+							//console.log("ckeditor callback");
+							CKEDITOR.instances['editor1'].setData(sData[3]);
+						})
+
 
 						// show some items
 						$("#bt_delete").show();					// show delete button
@@ -308,8 +318,8 @@
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<tbody>
 					<?php
-						include 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
-						include 'inc/db.php';  							// connect to db
+						require 'conf/config.php';							// connect to mysql db and fetch all notes  - we should move the db-connection data to an external config file later
+						require 'inc/db.php';  							// connect to db
 						connectToDB();
 						$rowID = 0;
 						$owner = $_SESSION['username'];						// only select notes of this user

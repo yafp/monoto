@@ -68,7 +68,7 @@
 				<div class="spacer">&nbsp;</div>	
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
-						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">monoto-wide</a></h4></div>
+						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><?php echo translateString("monoto-wide"); ?></a></h4></div>
 						<div id="collapse1" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<table style="width:100%">
@@ -79,7 +79,7 @@
 						</div>
 					</div>
 					<div class="panel panel-default">
-						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse2">notes-page</a></h4></div>
+						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><?php echo translateString("notes-page"); ?></a></h4></div>
 						<div id="collapse2" class="panel-collapse collapse">
 							<div class="panel-body">
 								<table style="width:100%">

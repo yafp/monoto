@@ -65,7 +65,7 @@
 
 		<div class="container">
 			<hr>
-			<footer><?php include 'inc/footer.php'; ?></footer>
+			<footer><?php require 'inc/footer.php'; ?></footer>
 		</div> <!-- /container -->
 
 		<!-- Bootstrap core JavaScript -->
@@ -79,8 +79,8 @@
 	// creating the initial admin-account
 	if ( isset($_POST["doCreateAdminAccount"]) )
 	{
-		include 'conf/config.php';
-		include 'inc/db.php'; // connect to db
+		require 'conf/config.php';
+		require 'inc/db.php'; // connect to db
 		connectToDB();
 
 		// check if user has already manually created the tables: m_users

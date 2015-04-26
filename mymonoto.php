@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'conf/config.php';
+	require 'conf/config.php';
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
@@ -37,6 +37,14 @@
 			  } );
 			} );
 		</script>
+
+		<script type="text/javascript" charset="utf-8">
+		$(document).ready(function() {
+			var lang = '<?php echo $_SESSION["lang"]; ?>';
+			$('#s_languageSelector').val(lang); // selects "Two"
+		});
+		</script>
+
 		
 		<script type="text/javascript">
 			function deleteAllMyUserEvents() 
@@ -95,6 +103,7 @@
 
 	<body role="document">
 		<?php require "inc/getText.php"; ?>
+
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -138,7 +147,7 @@
 				<div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Profile</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><?php echo translateString("Profile"); ?></a>
             </h4>
           </div>
           <div id="collapse1" class="panel-collapse collapse in">
@@ -166,7 +175,7 @@
 							<td>mail:</td>
 							<td>
 								<?php
-									include 'inc/db.php';						// connect to db
+									require 'inc/db.php';						// connect to db
 									connectToDB();
 									$sql="SELECT email FROM m_users WHERE username='".$_SESSION['username']."' ";				// mail
 									$result = mysql_query($sql);
@@ -210,13 +219,16 @@
 						<tr>
 							<td colspan="3"></td>
 							<td colspan="2">
-							<b>Language: (Dummy)</b><br>
+							<form id="changeLanguage" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+							<b>Language:</b><br>
 							Please select your prefered interface language here: 
-							<select>
-								<option>de_DE</option>
-								<option>en_US</option>
-								<option>fr_FR</option>
+							<select name="s_languageSelector" id="s_languageSelector">
+								<option value="de_DE">de_DE</option>
+								<option value="en_US">en_US</option>
+								<option value="fr_FR">fr_FR</option>
 							</select>
+							<button type="submit" name="doChangeUserLanguage" value="Update"  style="width:140px" title="Starts the change language function if the user provided the new language selection."><i class="fa fa-save"></i> Update</button>
+							</form>
 							</td>
 						<tr>
 				</table>
@@ -229,7 +241,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Stats</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><?php echo translateString("Stats"); ?></a>
             </h4>
           </div>
           <div id="collapse2" class="panel-collapse collapse">
@@ -434,7 +446,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Activity Log</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><?php echo translateString("Activity Log"); ?></a>
             </h4>
           </div>
           <div id="collapse3" class="panel-collapse collapse">
@@ -465,7 +477,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Importer (Textfiles)</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><?php echo translateString("Importer (Textfiles)"); ?></a>
             </h4>
           </div>
           <div id="collapse4" class="panel-collapse collapse">
@@ -488,7 +500,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Importer (.csv)</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><?php echo translateString("Importer (.csv)"); ?></a>
             </h4>
           </div>
           <div id="collapse5" class="panel-collapse collapse">
@@ -510,7 +522,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Exporter (.csv)</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse6"><?php echo translateString("Exporter (.csv)"); ?></a>
             </h4>
           </div>
           <div id="collapse6" class="panel-collapse collapse">
@@ -528,7 +540,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Eraser</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse7"><?php echo translateString("Eraser"); ?></a>
             </h4>
           </div>
           <div id="collapse7" class="panel-collapse collapse">
@@ -548,16 +560,14 @@
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
+		.script("js/bootstrap.min.js")						// Bootstrap core JavaScript
 		.script("js/monoto/m_reallyLogout.js") 				// ask really-logout question if configured by admin
 		.script("js/monoto/m_disableRightClick.js")			// disabled the right-click contextmenu
-		.script("js/monoto/m_keyPressAll.js")					// keyboard shortcuts
+		.script("js/monoto/m_keyPressAll.js")				// keyboard shortcuts
 	</script>
 
 	<!-- noty - notifications -->
@@ -582,8 +592,9 @@
 // - Do Delete all Events
 // - Do Export
 // - Do Import
+// - Do Change Language
 // - Do Change Userpassword
-include 'conf/config.php';
+require 'conf/config.php';
 
 
 // -----------------------------------------------------------------------
@@ -602,9 +613,6 @@ if ( isset($_POST["doImportCSV"]) )
 		$("#collapse1").collapse({
 			toggle: true
 		});   </script>';
-
-
-	//include 'conf/config.php';
 
 	$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		// connect to mysql
 	if (!$con)
@@ -692,11 +700,34 @@ if ( isset($_POST["doImportCSV"]) )
 
 
 // -----------------------------------------------------------------------
+// doChangeUserLanguage (START)
+// -----------------------------------------------------------------------
+if ( isset($_POST["doChangeUserLanguage"]) ) 
+{
+	$selectedLang = $_POST['s_languageSelector'];
+
+	$query = "UPDATE m_users SET language='$selectedLang' WHERE username='$owner'";			// language
+	mysql_query($query);
+
+	$_SESSION['lang'] = $selectedLang; 			// store as session variable
+
+	require 'inc/displayNoty.php';
+	displayNoty('Language set to'.$selectedLang,'notification');
+}
+// -----------------------------------------------------------------------
+// doChangeUserLanguage (END)
+// -----------------------------------------------------------------------
+
+
+
+
+
+// -----------------------------------------------------------------------
 // doChangeUserPW (START)
 // -----------------------------------------------------------------------
 if ( isset($_POST["doChangeUserPW"]) ) 
 {
-	include 'conf/config.php';
+	require 'conf/config.php';
 	connectToDB();
 
 	// get values

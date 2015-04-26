@@ -6,37 +6,48 @@ function initDataTable()
 	oTable = $('#example').dataTable( 
 	{ 
 		"oLanguage": { 
-			"sProcessing": "<img src='../images/loadi_ng.gif'>",
-			//"sProcessing": "DataTables is currently busy",
-			"sEmptyTable": "You have 0 notes so far - start writing some...", // displayed if table is initial empty
-			"sZeroRecords": "No notes to display for your search" // displayed if table is filtered to 0 matching records
-			},
-			//"sDom": '<"wrapper"lit>, <l<t>',		// resorting the datatable sDom structure - to have search & recordcount - table - recordcount 
-			//"oSearch": {"sSearch": ""}, 
-			"sRowSelect": "single",
-			"scrollY": "35%", // plugin: scroller
-			"scrollCollapse": true,
-			"oScroller": {"loadingIndicator": true},
-			"dom": "rti",
-			"deferRender": true,
-			"bLengthChange": false,
-			"bPaginate": false , 															// pagination  - BREAKS SELECTED ROW - copy content function right now*/
-			"bScrollCollapse": true,
-			"aaSorting": [[ 4, "desc" ]],													/* default sorting */
-			"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
+			"sProcessing": "<img src='../images/loading.gif'>",
+			"bProcessing": true,
+			"sEmptyTable": "You have 0 notes so far - start writing some...", 			// displayed if table is initial empty
+			"sZeroRecords": "No notes to display for your search" 						// displayed if table is filtered to 0 matching records
+		},
+
+		/*
+		"bPaginate": true , 															// pagination  - BREAKS SELECTED ROW - copy content function right now
+		"sPaginationType": "full_numbers",
+		//"iDisplayLength": -1,
+		"sRowSelect": "single",
+		"scrollY": "35%", // plugin: scroller
+		"scrollCollapse": true,
+		"oScroller": {"loadingIndicator": true},
+		"dom": "rti",
+		//"dom": "frtiS",
+		"deferRender": true,
+		"bLengthChange": false,
+		
+		"bScrollCollapse": true,
+		*/
+
+		"deferRender":    true,
+		"dom":            "rtiS",
+		"scrollY":        300,
+		"scrollCollapse": true,
+
+		"aaSorting": [[ 4, "desc" ]],													// default sorting
+		"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
 							{ "bSortable": false, "aTargets": [ 1 ] },
 							{ "bSortable": false, "aTargets": [ 2 ] },
 							{ "bSortable": false, "aTargets": [ 3 ] },
 							{ "bSortable": false, "aTargets": [ 4 ] }
-							], 
-			"aoColumns"   : [																/* visible columns */
-						{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
-						{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 							/* note-id */
-						{ "bSearchable": true, "bVisible": true, "sWidth": "100%" },							/* note-title */
-						{ "bSearchable": true, "bVisible": false}, 							/* note-content */
-						{ "bSearchable": false, "bVisible": false}, 							/* note-modification date */
-						{ "bSearchable": false, "bVisible": false}, 							/* save-count */
-						],
+		], 
+		"aoColumns"   : [																/* visible columns */
+					{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
+					{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 		/* note-id */
+					{ "bSearchable": true, "bVisible": true, "sWidth": "100%" },		/* note-title */
+					{ "bSearchable": true, "bVisible": false}, 							/* note-content */
+					{ "bSearchable": false, "bVisible": false}, 						/* note-modification date */
+					{ "bSearchable": false, "bVisible": false}, 						/* save-count */
+		],
 	} );
 }
 
@@ -116,7 +127,6 @@ function saveCKEditorHeightOnChange()
 			window.localStorage.setItem("monotoEditorHeight", editorHeight); //save to localstorage
 		});
 	});
-	console.log("CKEditor height")
 }
 
 
@@ -285,7 +295,7 @@ function prepareNewNoteStepTwo()
 //
 function createNewNote() 
 {
-	var newNoteTitle = document.myform.noteTitle.value;
+	var newNoteTitle = $("#noteTitle").val();
 	newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');	// replace all characters except numbers,letters, space, underscore and - .
 	
 	var newNoteContent = CKEDITOR.instances.editor1.getData();				// get note content if defined

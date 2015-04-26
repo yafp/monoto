@@ -13,9 +13,9 @@ About:			This file acts as script in monoto to delete single/selected notes.
 		$deleteTitle = $_POST['deleteTitle'];
 		$deleteContent = $_POST['deleteContent'];
 
-		include '../conf/config.php';
+		require '../conf/config.php';
 
-	    // connect to mysql	 
+		// connect to mysql	 
 		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);		
 		if (!$con)
 		{

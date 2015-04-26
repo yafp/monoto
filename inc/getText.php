@@ -11,8 +11,13 @@ function translateString($textForTranslation)
 		// I18N support information here
 		//
 		//$language = 'en_US';
-		$language = 'de_DE';
+		//$language = 'de_DE';
 		//$language = 'fr_FR';
+		$language = $_SESSION['lang'];
+		if($language == "") // Fallback to english
+		{
+			$language = "en_US";
+		}
 
 		putenv("LANG=$language"); 
 		setlocale(LC_ALL, $language);

@@ -4,7 +4,7 @@
 	//
 	function connectToDB() 
 	{
-		include 'conf/config.php';												// include the relevant stuff (remember regarding path: who is calling this?)
+		require 'conf/config.php';
 		
 		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);			// connect to mysql	
 		if (!$con)

@@ -13,7 +13,7 @@
 		// Fix for issue: #191 - eating backslashes
 		$modifiedNoteContent = str_replace('\\', '\\\\', $modifiedNoteContent);
 
-		include '../conf/config.php';
+		require '../conf/config.php';
 
 		$con = mysql_connect($mysql_server, $mysql_user, $mysql_pw);	// connect to mysql
 		if (!$con)

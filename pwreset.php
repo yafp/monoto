@@ -95,8 +95,8 @@
 		echo "<script type='text/javascript'>var n = noty({text: 'Processing reset', type: 'notification'});</script>";
 		$resetEmail = $_POST['email'];
 
-		include 'conf/config.php';
-		include 'inc/db.php'; // connect to db
+		require 'conf/config.php';
+		require 'inc/db.php'; // connect to db
 		connectToDB();
 
 		$result = mysql_query("SELECT id FROM m_users WHERE email='$resetEmail' "); 			// run the mysql query

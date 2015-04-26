@@ -16,13 +16,12 @@
 		<link href="css/page01.css" rel="stylesheet">
 
 		<!-- JS -->
-		<script src="js/jquery/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
-		<!-- init noty -->
-		<script type="text/javascript" src="js/monoto/initNoty.js"></script>
+		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 	</head>
 	<body>		 
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -169,6 +168,15 @@ if (isset($_POST["doLogin"]) )
 						$_SESSION['admin'] = 1; 
 					}
 				}
+
+				// store languae setting in session variable
+				$query = "SELECT language FROM m_users WHERE username = '$username';";
+				$result = mysql_query($query);
+				while($row = mysql_fetch_array($result))
+				{
+					$_SESSION['lang'] = $row[0]; 
+				}
+
 
 				// get current login-count
 				$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
