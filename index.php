@@ -169,12 +169,23 @@ if (isset($_POST["doLogin"]) )
 					}
 				}
 
-				// store languae setting in session variable
+				// store language setting in session variable (#210)
 				$query = "SELECT language FROM m_users WHERE username = '$username';";
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 				{
 					$_SESSION['lang'] = $row[0]; 
+				}
+
+
+				// store servers getText sitaution in session variable for later usage (#211)
+				if (!function_exists("gettext")) // gettext is not installed - fallback
+				{
+					$_SESSION['getText'] = 0;
+				}
+				else // gettext is installed - translate
+				{
+					$_SESSION['getText'] = 1;
 				}
 
 
