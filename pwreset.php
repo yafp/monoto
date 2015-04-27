@@ -71,28 +71,19 @@
 	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
-
-	<script type="text/javascript">
-		// alert
-		// information
-		// error
-		// warning
-		// notification
-		// success
-		//
-		var n = noty({text: 'Loaded password reset interface', type: 'notification'});
-	</script>
-
 	</body>
 </html>
 
 
 
 <?php
+	require 'inc/helperFunctions.php';
+
 	// creating the initial admin-account
 	if ( isset($_POST["doPWReset"]) )
 	{
-		echo "<script type='text/javascript'>var n = noty({text: 'Processing reset', type: 'notification'});</script>";
+		displayNoty("Processing reset","notification");
+
 		$resetEmail = $_POST['email'];
 
 		require 'conf/config.php';
@@ -102,7 +93,7 @@
 		$result = mysql_query("SELECT id FROM m_users WHERE email='$resetEmail' "); 			// run the mysql query
 		if (mysql_num_rows($result)==0) // we found no useraccount with this mail-address
 		{
-			echo "<script type='text/javascript'>var n = noty({text: 'Unknown email, cancelling reset', type: 'error'});</script>"; 	
+			displayNoty("Unknown email, cancelling reset","error");
 		}
 		else // found a matching user-account
 		{
@@ -141,13 +132,13 @@
 			// try to send notification email
 			if(@mail($to, $subject, $body))
 			{
-				echo "<script type='text/javascript'>var n = noty({text: 'Notification email has been sent.', type: 'success'});</script>"; 
+				displayNoty("Notification email has been sent.","success");
 			}
 			else
 			{
-				echo "<script type='text/javascript'>var n = noty({text: 'Unable to sent notification mail.', type: 'error'});</script>"; 	
+				displayNoty("Unable to sent notification mail.","error");
 			}
-			echo "<script type='text/javascript'>var n = noty({text: 'Password reset finished', type: 'success'});</script>"; 
+			displayNoty("Password reset finished","notification");
 		}
 	}
 ?>

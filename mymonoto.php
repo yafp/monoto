@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require 'conf/config.php';
+	require 'inc/helperFunctions.php';
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
@@ -711,8 +712,8 @@ if ( isset($_POST["doChangeUserLanguage"]) )
 
 	$_SESSION['lang'] = $selectedLang; 			// store as session variable
 
-	require 'inc/displayNoty.php';
-	displayNoty('Language set to'.$selectedLang,'notification');
+	
+	displayNoty('Language set to: '.$selectedLang,'notification');
 }
 // -----------------------------------------------------------------------
 // doChangeUserLanguage (END)

@@ -96,16 +96,7 @@
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 
-	<script type="text/javascript">
-		// alert
-		// information
-		// error
-		// warning
-		// notification
-		// success
-		//
-		var n = noty({text: 'Logout, redirecting to login', type: 'notification'});
-	</script>
+	<script type="text/javascript">var n = noty({text: 'Logout, redirecting to login', type: 'notification'});</script>
 
 	</body>
 </html>

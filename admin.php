@@ -351,6 +351,7 @@
 
 <?php
 	require 'conf/config.php';
+	require 'inc/helperFunctions.php';
 
 	// Send broastcast to all users (email)
 	//
@@ -371,17 +372,17 @@
 				// try to send notification email
 				if(@mail($email, $messageSubject, $messageText))
 				{
-					echo "<script type='text/javascript'>var n = noty({text: 'Notification email has been sent.', type: 'success'});</script>"; 
+					displayNoty("Notification email has been sent.","success"); 
 				}
 				else
 				{
-					echo "<script type='text/javascript'>var n = noty({text: 'Unable to sent notification mail.', type: 'error'});</script>"; 	
+					displayNoty("Unable to sent notification mail.","error"); 
 				}
 			}
 		}
 		else
 		{
-			echo "<script type='text/javascript'>var n = noty({text: 'Error: Please enter a message text', type: 'error'});</script>";	// notification 
+			displayNoty("Error: Please enter a message text","error");
 		}
 	}
 
