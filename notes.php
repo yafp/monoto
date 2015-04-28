@@ -188,6 +188,7 @@
 								  break;
 						} 
 
+
 						$('#noteID').val(sData[1]);				// fill id field
 						$('#noteTitle').val(sData[2]);			// fill title field
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
@@ -296,7 +297,7 @@
 						<tr>
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>
-							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
+							<input type="hidden" style="width: 20px; padding: 2px" name="noteID" id="noteID" disabled placeholder="ID" onkeyup="javascript:enableSaveButton()" />
 							<button type="button" style="width:90px" class="btn btn-sm btn-danger" title="Deletes the current note from the db" name="bt_delete" id="bt_delete" onClick="deleteNote();" disabled="disabled"><i class="fa fa-trash-o fa-1x"></i> <?php echo translateString("delete");?></button>
 							</td>
 						</tr>

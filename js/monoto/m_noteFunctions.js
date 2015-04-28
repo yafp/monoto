@@ -357,9 +357,19 @@ function saveNote()
 //
 function deleteNote() 
 {
-	var deleteID = document.myform.noteID.value;
-	var deleteTitle = document.myform.noteTitle.value;
-	var deleteContent = document.myform.editor1.value;
+	//var deleteID = document.myform.noteID.value;
+	var deleteID = $('#noteID').val();
+	console.log("ID: "+deleteID);
+
+	//var deleteTitle = document.myform.noteTitle.value;
+	var deleteTitle = $('#noteTitle').val();
+	console.log("Title: "+deleteTitle);
+
+	//var deleteContent = document.myform.editor1.value;
+	var deleteContent = $('#editor1').val();
+	console.log("Content: "+deleteContent);
+
+
 
 	if ((deleteID.length > 0) && (deleteID != 'ID' ))
 	{
