@@ -1,6 +1,8 @@
 <?php
 	session_start();
 	require 'conf/config.php';
+	require "inc/getText.php";
+
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
@@ -29,7 +31,6 @@
 	</head>
 
 	<body role="document">
-		<?php require "inc/getText.php"; ?>
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -73,7 +74,7 @@
 							<div class="panel-body">
 								<table style="width:100%">
 									<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
-									<tr><td>F1</td><td>Opens the monoto online documentation.</td></tr>
+									<tr><td>F1</td><td><?php echo translateString("Opens the monoto online documentation."); ?></td></tr>
 								</table>
 							</div>
 						</div>
@@ -83,16 +84,16 @@
 						<div id="collapse2" class="panel-collapse collapse">
 							<div class="panel-body">
 								<table style="width:100%">
-									<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
-									<tr><td>ESC</td><td>Resets all input fields and sets focus to search.</td></tr>
-									<tr><td>F2</td><td>Toggle maximize of editor.</td></tr>
-									<tr><td>F5</td><td>Reloads all notes from db.</td></tr>
-									<tr><td>F9</td><td>Saves a selected note.</td></tr>
-									<tr><td>Del</td><td>Deletes the selected note.</td></tr>
-									<tr><td>Arrow Down (in search)</td><td>Selects the top record.</td></tr>
-									<tr><td>Arrow Down (if record selected)</td><td>Selects the next record.</td></tr>
-									<tr><td>Arrow Up (in search)</td><td>Moves the focus to newNoteTitle.</td></tr>
-									<tr><td>Arrow Up (if record selected)</td><td>Selects the previous record.</td></tr>
+									<tr><th width="25%"><?php echo translateString("Key"); ?></th><th style="float:left"><?php echo translateString("Function"); ?></th></tr>
+									<tr><td>ESC</td><td><?php echo translateString("Resets all input fields and sets focus to search"); ?></td></tr>
+									<tr><td>F2</td><td><?php echo translateString("Toggle maximize of editor"); ?></td></tr>
+									<tr><td>F5</td><td><?php echo translateString("Reloads all notes from db"); ?></td></tr>
+									<tr><td>F9</td><td><?php echo translateString("Saves a selected note"); ?></td></tr>
+									<tr><td>Del</td><td><?php echo translateString("Deletes the selected note"); ?></td></tr>
+									<tr><td>Arrow Down (in search)</td><td><?php echo translateString("Selects the top record"); ?></td></tr>
+									<tr><td>Arrow Down (if record selected)</td><td><?php echo translateString("Selects the next record"); ?></td></tr>
+									<tr><td>Arrow Up (in search)</td><td><?php echo translateString("Moves the focus to newNoteTitle"); ?></td></tr>
+									<tr><td>Arrow Up (if record selected)</td><td><?php echo translateString("Selects the previous record"); ?></td></tr>
 								</table>
 							</div>
 						</div>
@@ -120,6 +121,5 @@
 	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
-
 	</body>
 </html>

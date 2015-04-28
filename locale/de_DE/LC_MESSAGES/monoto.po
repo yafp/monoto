@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-04-26 22:25+0100\n"
+"PO-Revision-Date: 2015-04-28 18:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -101,9 +101,49 @@ msgstr "L&ouml;schdienst"
 msgid "monoto-wide"
 msgstr "monoto-weit"
 
-# Monoto-wide
+# F1
+msgid "Opens the monoto online documentation"
+msgstr "&Ouml;ffnet die Online-Dokumentation"
+
+# Notes-page
 msgid "notes-page"
 msgstr "Notiz-Ansicht"
+
+# ESC-Desc
+msgid "Resets all input fields and sets focus to search"
+msgstr "Setzt alle Eingabefelder zur&uuml;ck und den Fokus in das Suchen-Feld"
+
+# F2-Desc
+msgid "Toggle maximize of editor"
+msgstr "Wechselt zwischen normaler und Vollbild-Ansicht des Texteditors"
+
+# F5-Desc
+msgid "Reloads all notes from db"
+msgstr "L&auml;dt alle Notizen neu vom Server"
+
+# F9-Desc
+msgid "Saves a selected note"
+msgstr "Speichert die selektierte Notiz"
+
+# Del-Desc
+msgid "Deletes the selected note"
+msgstr "L&ouml;scht die markierte Notiz"
+
+# Arrow-Down (in search)
+msgid "Selects the top record"
+msgstr "Wechselt zur ersten Notiz der Ergebnistabelle"
+
+# Monoto-wide
+msgid "Selects the next record"
+msgstr "Springt zur n&auml;chsten Notiz"
+
+# Monoto-wide
+msgid "Moves the focus to newNoteTitle"
+msgstr "Springt zum Notiz-Name Feld"
+
+# Monoto-wide
+msgid "Selects the previous record"
+msgstr "Springt zur vorherigen Notiz der Ergebnistabelle"
 
 # ## Admin ###########################################################
 #
@@ -111,13 +151,14 @@ msgstr "Notiz-Ansicht"
 msgid "Config"
 msgstr "Konfiguration"
 
+# Warning - Delete setup.php
+msgid "Please delete <i>setup.php</i>. It is a risk to keep that file."
+msgstr "Bitte l&ouml;sche <i>setup.php</i>. Es ist ein Sicherheitsrisiko diese Datei auf dem Server zu belassen."
+
 # Version-Tab
 msgid "Version"
 msgstr "Version"
 
-# Notes-Tab (already above)
-# msgid "Ver"
-# msgstr "Version"
 # Users-Tab
 msgid "Users"
 msgstr "Benutzer"

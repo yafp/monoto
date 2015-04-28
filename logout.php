@@ -97,6 +97,5 @@
 	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 
 	<script type="text/javascript">var n = noty({text: 'Logout, redirecting to login', type: 'notification'});</script>
-
 	</body>
 </html>

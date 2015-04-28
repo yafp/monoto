@@ -2,6 +2,7 @@
 	session_start();
 	require 'conf/config.php';
 	require 'inc/helperFunctions.php';
+	require "inc/getText.php";
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
@@ -103,8 +104,6 @@
 	</head>
 
 	<body role="document">
-		<?php require "inc/getText.php"; ?>
-
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">

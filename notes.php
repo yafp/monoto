@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require 'conf/config.php';
+	require 'inc/helperFunctions.php';
 	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
 	{
 		header('Location: redirect.php');
@@ -137,22 +138,13 @@
 
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
 					{	
-						//alert("clicked"); // Baustelle - adding this alert solves ISSUE #201
-
-
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node
 						var aPos = oTable.fnGetPosition(this);											//
 						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
 							
-						
 						curRow =sData[0];
-						//console.log(curRow);
-
 						rowCount = oTable.fnSettings().fnRecordsTotal();
-						//console.log(rowCount);
-
 						currentRow = rowCount - curRow -1;
-
 						amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 						curRow =sData[1];
 
@@ -173,7 +165,7 @@
 						switch (filteredrows.length) 
 						{
 							 case 1:
-									//console.log("sonderfall 1");
+									//console.log("foo");
 								  break;
 							 default:
 								  switch (curID) 
@@ -196,7 +188,6 @@
 								  break;
 						} 
 
-
 						$('#noteID').val(sData[1]);				// fill id field
 						$('#noteTitle').val(sData[2]);			// fill title field
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
@@ -206,10 +197,8 @@
 						//CKEDITOR.instances['editor1'].setData(sData[3]);
 						CKEDITOR.instances['editor1'].setData(sData[3],function()
 						{
-							//console.log("ckeditor callback");
 							CKEDITOR.instances['editor1'].setData(sData[3]);
 						})
-
 
 						// show some items
 						$("#bt_delete").show();					// show delete button
@@ -272,7 +261,7 @@
 						?>
 						<li><a href="#" onclick="reallyLogout();"><i class="fa fa-power-off fa-1x"></i> <?php echo translateString("Logout"); ?></a></li>
 					</ul>
-				</div><!--/.nav-collapse -->
+				</div>
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">

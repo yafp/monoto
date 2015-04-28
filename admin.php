@@ -10,6 +10,7 @@
 		require 'conf/config.php';	// db informations
 		require 'conf/build.php';	// version informations
 		require 'inc/db.php';		// connect to db
+		require "inc/getText.php";
 		connectToDB();
 	}
 ?>
@@ -46,7 +47,6 @@
 	</head>
 
 	<body role="document">
-		<?php require "inc/getText.php"; ?>
 		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -94,7 +94,7 @@
 								if (file_exists('setup.php')) 	// check if setup.php still exists - if so - display a warning
 								{
 									echo '<div class="alert alert-danger">';
-									echo '<strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i>. It is a risk to keep that file.';
+									echo translateString("Please delete <i>setup.php</i>. It is a risk to keep that file.");
 									echo '</div>';
 								}
 							?>
@@ -388,7 +388,6 @@
 
 
 
-
 	// UpdateCheck
 	//
 	// http://wuxiaotian.com/2009/09/php-check-for-updates-script/
@@ -487,21 +486,21 @@
 					$sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
 					$result = mysql_query($sql);
 					
-					echo "<script type='text/javascript'>var n = noty({text: 'Deleted user, his notes and the related log entries', type: 'notification'});</script>";	// notification 
+					displayNoty("Deleted user, his notes and the related log entries","notification");
 				}
 				mysql_close($con); 								// close sql connection
 			}
 			else // user hasnt entered CONFIRM
 			{
 				echo '<script>alert("Enter CONFIRM and try it again.");</script>';		// alert user that he hasnt entered CONFIRM
-				echo "<script type='text/javascript'>var n = noty({text: 'Error: Please enter CONFIRM in the related field and try it again'});</script>";	// notification 
+				displayNoty("Please enter CONFIRM in the related field and try it again","error");
 			}
 			// reload page
 		}
 		else
 		{
 			echo '<script>alert("Please select a user first");</script>';		// alert user that he hasnt entered CONFIRM
-			echo "<script type='text/javascript'>var n = noty({text: 'Error: Please select a user first', type: 'error'});</script>";	// notification 
+			displayNoty("Please select a user first","error");
 		}
 	}
 
@@ -519,7 +518,7 @@
 		{
   			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
 		}
-		echo "<script type='text/javascript'>var n = noty({text: 'Database optimized', type: 'notification'});</script>";	// notification 
+		displayNoty("Database optimized","notification");
 	}
 
 	//
@@ -529,7 +528,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
-		echo "<script type='text/javascript'>var n = noty({text: 'Truncated all eventlog entries', type: 'notification'});</script>";	// notification 
+		displayNoty("Truncated all eventlog entries","notification");
 	}
 
 	//
@@ -539,7 +538,7 @@
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
-		echo "<script type='text/javascript'>var n = noty({text: 'Truncated all user notes', type: 'notification'});</script>";	// notification 
+		displayNoty("Truncated all user notes","notification");
 	}
 
 	//
@@ -597,7 +596,7 @@
 						$query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
 						mysql_query($query);
 						
-						echo "<script type='text/javascript'>var n = noty({text: 'Created new user account', type: 'notification'});</script>";	// notification 
+						displayNoty("Created new user account","notification");
 						echo '<script>$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");</script>';		// store last Action in cookie
 						
 						// we should log that to m_notes -> admin only.
@@ -624,24 +623,24 @@
 		  						else 
 		  						{
 		  						}
-		  						echo "<script type='text/javascript'>var n = noty({text: 'Notification mail send', type: 'notification'});</script>";	// notification 
+								displayNoty("Notification mail send","notification");
 							}
 						}
 					}
 					else // no usermail-adress defined while trying to create new account
 					{
-						echo "<script type='text/javascript'>var n = noty({text: 'No mail address defined.', type: 'error'});</script>";	// notification 
+						displayNoty("No mail address defined.","error");
 					}
 				}
 				else // username already in use - cancel and inform the admin
 				{
-					echo "<script type='text/javascript'>var n = noty({text: 'This mail-adress is already in use', type: 'error'});</script>";	// notification 
+					displayNoty("This mail-adress is already in use","error");
 				}
 			}
 		}	
 		else // passwords not matching
 		{
-			echo "<script type='text/javascript'>var n = noty({text: 'Error: passwords are not matching', type: 'error'});</script>";	// notification 
+			displayNoty("Passwords are not matching","error");
 		}
 	}
 ?>

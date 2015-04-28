@@ -5,18 +5,20 @@
 		
 		<!-- META -->
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="monoto notes">
-		<meta name="author" content="florian poeck">
+		<meta http-equiv="X-UA-Compatible" 	content="IE=edge">
+		<meta name="viewport" 				content="width=device-width, initial-scale=1">
+		<meta name="description" 			content="Welcome to monoto notes - a self-hostable web-based notes software">
+		<meta name="keywords" 				content="note,notes,web,self-hostable,free,monoto,yafp,web-based,notes software">
+		<meta name="author" 				content="florian poeck">
 		
 		<!-- CSS -->
 		<link href="images/favicon.ico" rel="shortcut icon">
-		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/page01.css" rel="stylesheet">
 
 		<!-- JS -->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
+
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
@@ -36,25 +38,23 @@
 					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo_white.png" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
-					<!-- Login Form -->
 					<form class="navbar-form navbar-right" role="form" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 						<div class="form-group"><input type="text" placeholder="username" class="form-control" name="username" required="required"></div>
 						<div class="form-group"><input type="password" placeholder="password" class="form-control" name="password" required="required"></div>
 						<button type="submit" class="btn btn-success" name="doLogin">Sign in</button>
 					</form>
-				</div><!--/.navbar-collapse -->
+				</div>
 			</div>
 		</div>
 
-		<!-- ... -->
 		<div class="jumbotron">
 			<div class="container">
 				<br><br>
 				<?php
 					require 'conf/config.php';
-					$f_contents = file($s_quotes_file);  				// define quotes source
+					$f_contents = file($s_quotes_file);  						// define quotes source
 		 			$line = $f_contents[rand(0, count($f_contents) - 1)];		// get random line
-		 			list($author, $quote) = explode(';', $line);					// split string into author and quote
+		 			list($author, $quote) = explode(';', $line);				// split string into author and quote
 				?>
 					<blockquote><p><?php echo $quote; ?></p></blockquote>
 					<cite><?php echo $author; ?></cite>
@@ -64,9 +64,8 @@
 			<div class="container">
 			<hr>
 			<footer><?php require 'inc/footer.php'; ?></footer>
-		</div> <!-- /container -->
+		</div>
 
-		<!-- Bootstrap core JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
@@ -79,12 +78,14 @@
 		header('Location: notes.php');		// if session is valid - redirect to main-notes interface.
 	}
 
+
 //
 // try to login
 //
 if (isset($_POST["doLogin"]) ) 
 {
 	require 'conf/config.php';
+	require 'inc/helperFunctions.php';
 	require 'inc/db.php';		// connect to db
 	connectToDB();
 
@@ -100,8 +101,7 @@ if (isset($_POST["doLogin"]) )
 	$result = mysql_query($query);
 	if(mysql_num_rows($result) < 1)  										//no such user exists
 	{
-	    //header('Location: redirect.php');
-	    echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
+		displayNoty("Login failed.","error");
 	}
 	else // user does not exist
 	{
@@ -150,8 +150,7 @@ if (isset($_POST["doLogin"]) )
 				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 				$result = mysql_query($sql);
 
-				//header('Location: redirect.php');									// redirect user 
-				echo '<script type="text/javascript">var n = noty({text: "Login failed.", type: "error"});</script>';
+				displayNoty("Login failed.","error"); 
 			}
 			else //login successful
 			{	
@@ -177,7 +176,6 @@ if (isset($_POST["doLogin"]) )
 					$_SESSION['lang'] = $row[0]; 
 				}
 
-
 				// store servers getText sitaution in session variable for later usage (#211)
 				if (!function_exists("gettext")) // gettext is not installed - fallback
 				{
@@ -187,7 +185,6 @@ if (isset($_POST["doLogin"]) )
 				{
 					$_SESSION['getText'] = 1;
 				}
-
 
 				// get current login-count
 				$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
@@ -229,7 +226,7 @@ if (isset($_POST["doLogin"]) )
 		}
 		else 		// login is not possible anymore - admin must remove the login lock
 		{
-			echo '<script type="text/javascript">var n = noty({text: "Account is locked.", type: "error"});</script>';
+			displayNoty("Account is locked","error"); 
 		}
 	}
 }
