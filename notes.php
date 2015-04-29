@@ -166,9 +166,9 @@
 						{
 							 case 1:
 									//console.log("foo");
-								  break;
+									break;
 							 default:
-								  switch (curID) 
+									switch (curID) 
 									{
 										case 0:
 											nextID=curID+1;

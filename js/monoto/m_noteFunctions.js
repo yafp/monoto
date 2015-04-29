@@ -11,28 +11,10 @@ function initDataTable()
 			"sEmptyTable": "You have 0 notes so far - start writing some...", 			// displayed if table is initial empty
 			"sZeroRecords": "No notes to display for your search" 						// displayed if table is filtered to 0 matching records
 		},
-
-		/*
-		"bPaginate": true , 															// pagination  - BREAKS SELECTED ROW - copy content function right now
-		"sPaginationType": "full_numbers",
-		//"iDisplayLength": -1,
-		"sRowSelect": "single",
-		"scrollY": "35%", // plugin: scroller
-		"scrollCollapse": true,
-		"oScroller": {"loadingIndicator": true},
-		"dom": "rti",
-		//"dom": "frtiS",
-		"deferRender": true,
-		"bLengthChange": false,
-		
-		"bScrollCollapse": true,
-		*/
-
 		"deferRender":    true,
 		"dom":            "rtiS",
 		"scrollY":        300,
 		"scrollCollapse": true,
-
 		"aaSorting": [[ 4, "desc" ]],													// default sorting
 		"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
 							{ "bSortable": false, "aTargets": [ 1 ] },
@@ -165,9 +147,6 @@ function selectAndMarkTableRow(currentRow)
 function updateTableScrollbar()
 {
 	scrollPos = (curID / amountOfRecordsAfterFilter) * 300 ;
-	//console.log(curID);
-	//console.log(amountOfRecordsAfterFilter);
-	//console.log("Scroll-Position: "+scrollPos);
 	$(".dataTables_scrollBody").scrollTop(scrollPos);
 }
 
@@ -211,7 +190,11 @@ function selectUpperRow()
 function resetNotesUI() 
 {
 	console.log("resetting notes ui now");
+	
+	// row handling / navigation
 	currentRow = -1;
+	nextID=0;
+	prevID=0;
 	
 	// show some elements
 	$("#newNoteTitle").show();
@@ -357,19 +340,9 @@ function saveNote()
 //
 function deleteNote() 
 {
-	//var deleteID = document.myform.noteID.value;
 	var deleteID = $('#noteID').val();
-	console.log("ID: "+deleteID);
-
-	//var deleteTitle = document.myform.noteTitle.value;
 	var deleteTitle = $('#noteTitle').val();
-	console.log("Title: "+deleteTitle);
-
-	//var deleteContent = document.myform.editor1.value;
 	var deleteContent = $('#editor1').val();
-	console.log("Content: "+deleteContent);
-
-
 
 	if ((deleteID.length > 0) && (deleteID != 'ID' ))
 	{
