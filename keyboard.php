@@ -89,11 +89,11 @@
 									<tr><td>F2</td><td><?php echo translateString("Toggle maximize of editor"); ?></td></tr>
 									<tr><td>F5</td><td><?php echo translateString("Reloads all notes from db"); ?></td></tr>
 									<tr><td>F9</td><td><?php echo translateString("Saves a selected note"); ?></td></tr>
-									<tr><td>Del</td><td><?php echo translateString("Deletes the selected note"); ?></td></tr>
-									<tr><td>Arrow Down (in search)</td><td><?php echo translateString("Selects the top record"); ?></td></tr>
-									<tr><td>Arrow Down (if record selected)</td><td><?php echo translateString("Selects the next record"); ?></td></tr>
-									<tr><td>Arrow Up (in search)</td><td><?php echo translateString("Moves the focus to newNoteTitle"); ?></td></tr>
-									<tr><td>Arrow Up (if record selected)</td><td><?php echo translateString("Selects the previous record"); ?></td></tr>
+									<tr><td><?php echo translateString("Del"); ?></td><td><?php echo translateString("Deletes the selected note"); ?></td></tr>
+									<tr><td><?php echo translateString("Arrow Down (in search)"); ?></td><td><?php echo translateString("Selects the top record"); ?></td></tr>
+									<tr><td><?php echo translateString("Arrow Down (if record selected)"); ?></td><td><?php echo translateString("Selects the next record"); ?></td></tr>
+									<tr><td><?php echo translateString("Arrow Up (in search)"); ?></td><td><?php echo translateString("Moves the focus to newNoteTitle"); ?></td></tr>
+									<tr><td><?php echo translateString("Arrow Up (if record selected)"); ?></td><td><?php echo translateString("Selects the previous record"); ?></td></tr>
 								</table>
 							</div>
 						</div>

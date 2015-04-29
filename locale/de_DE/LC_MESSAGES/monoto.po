@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-04-28 19:28+0100\n"
+"PO-Revision-Date: 2015-04-29 18:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,14 @@ msgstr "l&ouml;schen"
 msgid "Profile"
 msgstr "Profil"
 
+# Language
+msgid "Language"
+msgstr "Sprachwahl"
+
+# Language selection
+msgid "Please select your prefered interface language here:"
+msgstr "Bitte w&auml;hlen Sie Ihre Sprache hier: "
+
 # Stats Tab
 msgid "Stats"
 msgstr "Statistik"
@@ -125,23 +133,43 @@ msgstr "L&auml;dt alle Notizen neu vom Server"
 msgid "Saves a selected note"
 msgstr "Speichert die selektierte Notiz"
 
+# Del-Key
+msgid "Del"
+msgstr "Entf"
+
 # Del-Desc
 msgid "Deletes the selected note"
 msgstr "L&ouml;scht die markierte Notiz"
 
-# Arrow-Down (in search)
+# Key: Arrow-Down (in search)
+msgid "Arrow Down (in search)"
+msgstr "Pfeil nach unten (in der Suche)"
+
+# Desc: Arrow-Down (in search)
 msgid "Selects the top record"
 msgstr "Wechselt zur ersten Notiz der Ergebnistabelle"
 
-# Monoto-wide
+# Key: Arrow Down (if record selected)
+msgid "Arrow Down (if record selected)"
+msgstr "Pfeil nach unten (wenn Datensatz markiert)"
+
+# Desc: Arrow Down (if record selected)
 msgid "Selects the next record"
 msgstr "Springt zur n&auml;chsten Notiz"
 
-# Monoto-wide
+# Key: Arrow Up (in search)
+msgid "Arrow Up (in search)"
+msgstr "Pfeil nach oben (in Suche)"
+
+# Desc: Arrow Up (in search)
 msgid "Moves the focus to newNoteTitle"
 msgstr "Springt zum Notiz-Name Feld"
 
-# Monoto-wide
+# Key: Arrow Up (if record selected)
+msgid "Arrow Up (if record selected)"
+msgstr "Pfeil nach oben (wenn Datensatz markiert)"
+
+#  Desc: Arrow up (if record selected)
 msgid "Selects the previous record"
 msgstr "Springt zur vorherigen Notiz der Ergebnistabelle"
 

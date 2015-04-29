@@ -220,8 +220,8 @@
 							<td colspan="3"></td>
 							<td colspan="2">
 							<form id="changeLanguage" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-							<b>Language:</b><br>
-							Please select your prefered interface language here: 
+							<b><?php echo translateString("Language"); ?></b><br>
+							<?php echo translateString("Please select your prefered interface language here: "); ?>
 							<select name="s_languageSelector" id="s_languageSelector">
 								<option value="de_DE">de_DE</option>
 								<option value="en_US">en_US</option>
