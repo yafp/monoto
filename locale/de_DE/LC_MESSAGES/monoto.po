@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-04-29 18:52+0100\n"
+"PO-Revision-Date: 2015-04-30 23:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -102,6 +102,18 @@ msgstr "Export (.csv)"
 # Eraser Tab
 msgid "Eraser"
 msgstr "L&ouml;schdienst"
+
+# Eraser Text
+msgid "You can delete your notes and events here. Keep in mind: there is no restore option."
+msgstr "Hier kannst du deine Notizen und Logeintr&auml;ge l&ouml;schen. Bitte bedenke dass es keine keine Widerherstellungsoption gibt."
+
+# Erase Events
+msgid "Delete events"
+msgstr "L&ouml;sche Ereignisse"
+
+# Eraser Notes
+msgid "Delete notes"
+msgstr "L&ouml;sche Notizen"
 
 # ## Keyboard ###########################################################
 #
