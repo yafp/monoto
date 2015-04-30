@@ -24,9 +24,9 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
+		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">		<!-- Bootstrap theme -->
 		
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>		<!-- jquery itself -->
@@ -545,10 +545,10 @@
           </div>
           <div id="collapse7" class="panel-collapse collapse">
             <div class="panel-body">
-            <p>You can delete your notes and events here. Keep in mind: there is no restore option.</p>
-				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user events from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserEvents();"><i class="fa fa-trash-o fa-1x"></i> Delete events</button>
+            <p><?php echo translateString("You can delete your notes and events here. Keep in mind: there is no restore option."); ?></p>
+				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user events from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserEvents();"><i class="fa fa-trash-o fa-1x"></i> <?php echo translateString("Delete events"); ?></button>
 				
-				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user notes from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserNotes();"><i class="fa fa-trash-o fa-1x"></i> Delete notes</button>
+				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user notes from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserNotes();"><i class="fa fa-trash-o fa-1x"></i> <?php echo translateString("Delete notes"); ?></button>
             </div>
           </div>
         </div>
@@ -654,7 +654,6 @@ if ( isset($_POST["doImportCSV"]) )
 				// TODO:
 				// check if there is already a note with this title
 
-
 				$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
 				$result = mysql_query($sql);
 				if (!$result) 
@@ -754,6 +753,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 	}
 	else // User entered 2 different password - cant change pw like that.
 	{
+		displayNoty('Password mismatch','error');
 	}
 }
 // -----------------------------------------------------------------------
@@ -786,12 +786,11 @@ if ( isset($_POST["doImport"]) )
 	// TODO: files selected at all????
 	if (empty($_FILES)) 
 	{
-		echo "empty";
+		//echo "empty";
 	}
 	else
 	{	
-		echo "filled";
-		
+		//echo "filled";
 		
 		connectToDB();
 	$owner = $_SESSION['username'];

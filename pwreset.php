@@ -17,9 +17,9 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">	<!-- Bootstrap theme -->
+		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">	<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">	<!-- Bootstrap theme -->
 	</head>
 
 	<body role="document">
@@ -129,8 +129,7 @@
 					\n\n\nPlease change your password after your first visit.
 					\n\nHave fun.";
 				
-			// try to send notification email
-			if(@mail($to, $subject, $body))
+			if(@mail($to, $subject, $body))		// try to send notification email
 			{
 				displayNoty("Notification email has been sent.","success");
 			}

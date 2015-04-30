@@ -31,9 +31,9 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
+		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>		<!-- jquery itself -->
@@ -47,7 +47,6 @@
 	</head>
 
 	<body role="document">
-		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -146,7 +145,6 @@
           </div>
         </div>
         
-
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -178,7 +176,6 @@
             </div>
           </div>
         </div>
-        
         
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -431,9 +428,7 @@
 		}
 
 		// update div with stable informations
-		//echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
 		echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
-		
 		$urlDLStable = "<a href='$read[3]'>Download</a>";
 		
 		// open - tab2
@@ -492,14 +487,12 @@
 			}
 			else // user hasnt entered CONFIRM
 			{
-				echo '<script>alert("Enter CONFIRM and try it again.");</script>';		// alert user that he hasnt entered CONFIRM
 				displayNoty("Please enter CONFIRM in the related field and try it again","error");
 			}
 			// reload page
 		}
 		else
 		{
-			echo '<script>alert("Please select a user first");</script>';		// alert user that he hasnt entered CONFIRM
 			displayNoty("Please select a user first","error");
 		}
 	}

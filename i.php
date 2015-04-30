@@ -24,9 +24,9 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">	<!-- Bootstrap theme -->
+		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	</head>
@@ -34,7 +34,6 @@
 
 	<body role="document">
 		<?php require "inc/getText.php"; ?>
-		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -65,8 +64,6 @@
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">
-
-
 
 		<div id="container">
 			<div id="noteContentCo">

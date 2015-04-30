@@ -14,9 +14,9 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
+		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">		<!-- Bootstrap theme -->
 	</head>
 
 
@@ -42,10 +42,8 @@
 			<div id="noteContentCo">
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-				<!-- DISPLAY REDIRECT IMAGE AND TEXT -->
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="images/icons/redirect.gif"></td></tr></table>
 				<div id="spacer">&nbsp;</div>
-				<!-- REDIRECT TO LOGIN -->
 				<?php header( "refresh:1;url=index.php" ); ?>
 			</div>
 			<div class="spacer">&nbsp;</div>
@@ -56,9 +54,7 @@
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>

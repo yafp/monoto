@@ -194,11 +194,9 @@
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
 						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
 						
-						// working on issue #201 here
-						//CKEDITOR.instances['editor1'].setData(sData[3]);
 						CKEDITOR.instances['editor1'].setData(sData[3],function()
 						{
-							CKEDITOR.instances['editor1'].setData(sData[3]);
+							CKEDITOR.instances['editor1'].setData(sData[3]); // #201
 						})
 
 						// show some items
@@ -235,7 +233,6 @@
 
 	<body role="document">
 		<?php require "inc/getText.php"; ?>
-		<!-- Fixed navbar -->
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -284,7 +281,6 @@
 				
 					<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
 						<tr><td colspan="3">&nbsp;</td></tr>
-						<!-- show id, title and version of current selected note -->
 						<tr>
 							<td colspan="2"><input type="text" id="noteTitle" name="noteTitle" placeholder="<?php echo translateString("Note title");?>" disabled style="width:100%; " class="form-control" onkeyUp="prepareNewNoteStepTwo();" /></td>
 							<td>
@@ -293,7 +289,6 @@
 								<button type="submit" class="btn btn-sm btn-default" style="width:90px" title="Create a new note" id="bt_createNewNoteButton" name="bt_createNewNoteButton" onClick="createNewNote()" disabled="disabled"><i class="fa fa-pencil-square-o fa-1x"></i> <?php echo translateString("create");?></button>
 							</td>
 						</tr>
-						<!-- NOTE CONTENT using CKeditor -->
 						<tr>
 							<td colspan="2" width="95%"><textarea cols="110" id="editor1" name="editor1"></textarea></td>
 							<td>

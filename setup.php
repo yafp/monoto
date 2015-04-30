@@ -68,7 +68,6 @@
 			<footer><?php require 'inc/footer.php'; ?></footer>
 		</div> <!-- /container -->
 
-		<!-- Bootstrap core JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
@@ -110,7 +109,6 @@
 				$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
 				mysql_query($query);
 				mysql_close($con); // close sql connection
-
 				header('Location: index.php');	// redirect to main page
 			}
 			else // Password mismatch
