@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-04-30 23:29+0100\n"
+"PO-Revision-Date: 2015-05-01 00:00+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -75,16 +75,16 @@ msgstr "Profil"
 msgid "Language"
 msgstr "Sprachwahl"
 
-# Language selection
-msgid "Please select your prefered interface language here:"
-msgstr "Bitte w&auml;hlen Sie Ihre Sprache hier: "
+# Changing passwords selection
+msgid "Changing password:"
+msgstr "Passwort &auml;ndern:"
 
 # Stats Tab
 msgid "Stats"
 msgstr "Statistik"
 
 # Activity Tab
-msgid "Activity Tab"
+msgid "Activity Log"
 msgstr "Aktivitäten Protokoll"
 
 # Importer Tab
@@ -120,6 +120,14 @@ msgstr "L&ouml;sche Notizen"
 # Monoto-wide
 msgid "monoto-wide"
 msgstr "monoto-weit"
+
+# Key
+msgid "Key"
+msgstr "Taste"
+
+# Function
+msgid "Function"
+msgstr "Funktion"
 
 # F1
 msgid "Opens the monoto online documentation"

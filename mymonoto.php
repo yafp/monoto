@@ -158,7 +158,7 @@
 						<td style="width:5%"></td>
 						<td rowspan="5">
 						<!-- CHANGE USER PASSWORD BUTTON -->
-						<b>Changing password:</b><br>Please enter your new password twice and confirm that change by pressing the <span class='badge'>Update</span> button.
+						<b><?php echo translateString("Changing password:"); ?></b><br>
 						<form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
 							<input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
@@ -221,7 +221,6 @@
 							<td colspan="2">
 							<form id="changeLanguage" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<b><?php echo translateString("Language"); ?></b><br>
-							<?php echo translateString("Please select your prefered interface language here: "); ?>
 							<select name="s_languageSelector" id="s_languageSelector">
 								<option value="de_DE">de_DE</option>
 								<option value="en_US">en_US</option>

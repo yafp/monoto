@@ -72,8 +72,8 @@
 						<div id="collapse1" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<table style="width:100%">
-									<tr><th width="25%">Key</th><th style="float:left">Function</th></tr>
-									<tr><td>F1</td><td><?php echo translateString("Opens the monoto online documentation."); ?></td></tr>
+									<tr><th width="25%"><?php echo translateString("Key"); ?></th><th style="float:left"><?php echo translateString("Function"); ?></th></tr>
+									<tr><td>F1</td><td><?php echo translateString("Opens the monoto online documentation"); ?></td></tr>
 								</table>
 							</div>
 						</div>
