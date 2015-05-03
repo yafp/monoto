@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-05-01 00:00+0100\n"
+"PO-Revision-Date: 2015-05-03 17:08+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -79,17 +79,45 @@ msgstr "Sprachwahl"
 msgid "Changing password:"
 msgstr "Passwort &auml;ndern:"
 
+# username
+msgid "username:"
+msgstr "Benutzername:"
+
+# mail
+msgid "mail:"
+msgstr "Email:"
+
+# logins
+msgid "logins:"
+msgstr "Anmeldungen:"
+
+# since
+msgid "since:"
+msgstr "seit:"
+
 # Stats Tab
 msgid "Stats"
 msgstr "Statistik"
 
 # Activity Tab
 msgid "Activity Log"
-msgstr "Aktivitäten Protokoll"
+msgstr "Aktivit&auml;ten Protokoll"
 
 # Importer Tab
 msgid "Importer (Textfiles)"
 msgstr "Import (Textdateien)"
+
+# Importer Tab
+msgid "You can import plain-text files. Select a folder and press the 'Import' button."
+msgstr "Reine Text-Dateien k&ouml;nnen hier eingelesen werden. Quellordner w&auml;hlen und 'Import' Knopf best&auml;tigen."
+
+# Import Button
+msgid "Import"
+msgstr "importieren"
+
+# Importer Log
+msgid "Output of impoter will be displayed here"
+msgstr "Ausgabe des Imports"
 
 # Importer Tab
 msgid "Importer (.csv)"

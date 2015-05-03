@@ -167,12 +167,12 @@
 						</td>
 						</tr>
 						<tr>
-							<td>name:</td>
+							<td><?php echo translateString("username:"); ?></td>
 							<td><?php echo "<span class='badge'>".$_SESSION['username']."</span>" ?></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>mail:</td>
+							<td><?php echo translateString("mail:"); ?></td>
 							<td>
 								<?php
 									require 'inc/db.php';						// connect to db
@@ -188,7 +188,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td>logins:</td>
+							<td><?php echo translateString("logins:"); ?></td>
 							<td>
 								<?php
 									$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."' ";		// login_counter
@@ -202,7 +202,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td>since:</td>
+							<td><?php echo translateString("since:"); ?></td>
 							<td>
 								<?php
 									$sql="SELECT date_first_login FROM m_users WHERE username='".$_SESSION['username']."' ";	// date first login
@@ -472,7 +472,7 @@
 
 
 
-			<!-- Importer-->
+			<!-- Importer - Textfiles-->
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -483,12 +483,12 @@
             <div class="panel-body">
             <!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
 
-				<p>You can import plain-text files. Select a folder and press the 'Import' button.</p>
+				<p><?php echo translateString("You can import plain-text files. Select a folder and press the 'Import' button."); ?></p>
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
 					<input type="file" name="file[]" multiple id="file[]" />
 					<br>
-					<button type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." disabled ><i class="fa fa-sign-in"></i> Import</button>
-					<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
+					<button type="submit" name="doImport" value="Import"  style="width:140px" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." disabled ><i class="fa fa-sign-in"></i> <?php echo translateString("Import"); ?></button>
+					<textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="<?php echo translateString("Output of impoter will be displayed here"); ?>"></textarea>
 				</form>
             </div>
           </div>
