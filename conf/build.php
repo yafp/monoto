@@ -4,5 +4,5 @@
 	// #################################################################################
 	//
 	$m_name		= "monoto";				// name of your notes system
-	$m_build	= "20150503.01";		// build-date and day's version
+	$m_build	= "20150513.01";		// build-date and day's version
 ?>
