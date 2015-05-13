@@ -3,6 +3,8 @@
 // ---------------------------------
 function initDataTable()
 {
+	console.log ("Function: initDataTable()");
+
 	oTable = $('#example').dataTable( 
 	{ 
 		"oLanguage": { 
@@ -41,6 +43,8 @@ function initDataTable()
 // ---------------------------------
 function initCKEditor()
 {
+	console.log ("Function: initCKEditor()");
+
 	// START CKEDITOR
 	CKEDITOR.replace( 'editor1', {
 		enterMode: CKEDITOR.ENTER_BR, /* prevent <p>aragraphs over and over in note-content */
@@ -67,31 +71,41 @@ function initCKEditor()
 
 
 // ---------------------------------
+// change / timeout handling
+// ---------------------------------
+
+// ---------------------------------
 // handle timeout & warning
 // ---------------------------------
 function timeOutHandler()
 {
-	var lefttime = "<?php echo get_cfg_var('max_execution_time');  ?>"; /* get server-sided php timeout value in minutes */
+	console.log ("Function: timeOutHandler()");
+
+	lefttime = "<?php echo get_cfg_var('max_execution_time');  ?>"; /* get server-sided php timeout value in minutes */
 	var interval;
 	interval = setInterval('change()',60000);
 
 	function change()
+{
+	lefttime--;
+	if(lefttime <= 0) // session should be dead
+	{		
+		window.location = "logout.php"
+	}
+	else
 	{
-		lefttime--;
-		if(lefttime <= 0) // session should be dead
-		{		
-			window.location = "logout.php"
-		}
-		else
+		if(lefttime == 5) 
 		{
-			if(lefttime == 5) 
-			{
-				var n = noty({text: 'timeout-reminder.', type: 'warning'});
-				alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
-			}
+			var n = noty({text: 'timeout-reminder.', type: 'warning'});
+			alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
 		}
 	}
 }
+
+
+}
+
+
 
 
 
@@ -101,6 +115,7 @@ function timeOutHandler()
 // ---------------------------------
 function saveCKEditorHeightOnChange()
 {
+	console.log ("Function: saveCKEditorHeightOnChange()");
 	CKEDITOR.on('instanceReady',function(ev) 
 	{
 		ev.editor.on('resize',function(reEvent)
@@ -120,6 +135,7 @@ function saveCKEditorHeightOnChange()
 // ---------------------------------
 function unmarkAllTableRows()
 {
+	console.log ("Function: unmarkAllTableRows()");
 	$(oTable.fnSettings().aoData).each(function ()					// unselect all records
 	{
 		$(this.nTr).removeClass('row_selected');
@@ -134,6 +150,7 @@ function unmarkAllTableRows()
 // -------------------------------------
 function selectAndMarkTableRow(currentRow)
 {
+	console.log ("Function: selectAndMarkTableRow()");
 	$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 	$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 }
@@ -146,6 +163,20 @@ function selectAndMarkTableRow(currentRow)
 // ----------------------------------------------
 function updateTableScrollbar()
 {
+	console.log ("Function: updateTableScrollbar()");
+	if (typeof curID === 'undefined') 
+	{
+		console.log("...curID was undefined - set it to 1");
+		curID=1;
+	}
+
+	if (typeof amountOfRecordsAfterFilter === 'undefined') 
+	{
+		console.log("amountOfRecordsAfterFilter was undefined")
+		amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
+		console.log("AmountOfRecordsAfterFilter: "+amountOfRecordsAfterFilter);
+	}
+
 	scrollPos = (curID / amountOfRecordsAfterFilter) * 300 ;
 	$(".dataTables_scrollBody").scrollTop(scrollPos);
 }
@@ -160,15 +191,37 @@ function updateTableScrollbar()
 // ---------------
 function selectNextRow()
 {
+	console.log ("Function: selectNextRow()");
+	if(typeof prevID === 'undefined') // to handle first jump from searchfield to table
+	{
+		console.log("...prevID was undefined - setting it to 0");
+		prevID=0;
+	}
+	else
+	{
+		prevID=prevID+1;
+	}
+
+
 	if(typeof nextID === 'undefined') // to handle first jump from searchfield to table
 	{
+		console.log("...nextID was undefined - setting it to 0");
 		nextID=0;
-	};
-	
+	}
+	else
+	{
+		nextID=nextID+1;
+	}
+
+	console.log("...nextID is: "+nextID);
+	console.log("...prevID is: "+prevID);
+
 	unmarkAllTableRows();
 	selectAndMarkTableRow(nextID);
 	updateTableScrollbar();
 }
+
+
 
 
 // --------------------
@@ -177,10 +230,41 @@ function selectNextRow()
 //
 function selectUpperRow()
 {
+	console.log ("Function: selectUpperRow()");
+	if(typeof prevID === 'undefined') // to handle first jump from searchfield to table
+	{
+		console.log("...prevID was undefined - setting it to 0");
+		prevID=0;
+	}
+	else
+	{
+		prevID=prevID-1;
+	}
+
+
+	if(typeof nextID === 'undefined') // to handle first jump from searchfield to table
+	{
+		console.log("...nextID was undefined - setting it to 0");
+		nextID=0;
+	}
+	else
+	{
+		nextID=nextID-1;
+	}
+
+	console.log("...nextID is: "+nextID);
+	console.log("...prevID is: "+prevID);
+
 	unmarkAllTableRows();
 	selectAndMarkTableRow(prevID);
 	updateTableScrollbar();
 }
+
+
+
+
+
+
 
 
 // ------------------------------
@@ -189,12 +273,11 @@ function selectUpperRow()
 //
 function resetNotesUI() 
 {
-	console.log("resetting notes ui now");
-	
+	console.log ("Function: resetNotesUI()");
 	// row handling / navigation
 	currentRow = -1;
-	nextID=0;
-	prevID=0;
+	nextID=-1;
+	prevID=-1;
 	
 	// show some elements
 	$("#newNoteTitle").show();
@@ -227,6 +310,7 @@ function resetNotesUI()
 //
 function prepareNewNoteStepOne() 
 {
+	console.log ("Function: prepareNewNoteStepOne()");
 	resetNotesUI();
 	$("#myInputTextField").prop("disabled",true);	// disable search-field
 	$("#noteTitle").prop("disabled",false);			// enable note-title field
@@ -243,6 +327,7 @@ function prepareNewNoteStepOne()
 // --------------------------------
 function prepareNewNoteStepTwo() 
 {
+	console.log ("Function: prepareNewNoteStepTwo()");
 	var noteTitle = document.myform.noteTitle.value;
 
 	if( $('#bt_save').is(':visible')) // if Save-Button is visible we can not be in note-creation mode
@@ -278,6 +363,7 @@ function prepareNewNoteStepTwo()
 //
 function createNewNote() 
 {
+	console.log ("Function: createNewNote()");
 	var newNoteTitle = $("#noteTitle").val();
 	newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');	// replace all characters except numbers,letters, space, underscore and - .
 	
@@ -315,6 +401,7 @@ function createNewNote()
 //
 function saveNote() 
 {
+	console.log ("Function: saveNote()");
 	var modifiedNoteID = document.myform.noteID.value;							// get the note id
 	var modifiedNoteTitle = document.myform.noteTitle.value;					// get the note title 
 	var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
@@ -340,6 +427,7 @@ function saveNote()
 //
 function deleteNote() 
 {
+	console.log ("Function: deleteNote()");
 	var deleteID = $('#noteID').val();
 	var deleteTitle = $('#noteTitle').val();
 	var deleteContent = $('#editor1').val();
@@ -389,6 +477,7 @@ function deleteNote()
 // ---------------
 function reloadNote() 
 {
+	console.log ("Function: reloadNote()");
 	var loc = window.location;
 	window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
 }

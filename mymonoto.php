@@ -14,20 +14,16 @@
 	<head>
 		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 		<title>monoto notes</title>
-		
-		<!-- META STUFF -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="monoto notes">
 		<meta name="author" content="florian poeck">
-
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">		<!-- Bootstrap theme -->
-		
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>		<!-- jquery itself -->
 		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>		<!-- datatables -->
@@ -114,7 +110,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" height="25"></a>
+					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" width="63" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -140,8 +136,6 @@
 			<div id="noteContentCo">
 				<div class="spacer">&nbsp;</div>
 				<div class="spacer">&nbsp;</div>
-				
-
 				<div class="panel-group" id="accordion">
 				<!-- Profile-->
 				<div class="panel panel-default">
@@ -235,7 +229,6 @@
           </div>
         </div>
         
-
         <!-- Stats-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -248,7 +241,6 @@
             <?php
 							connectToDB();
 							$owner = $_SESSION['username'];
-								
 							// User: amount of notes 
 							$result = mysql_query("SELECT count(*) FROM m_notes WHERE owner='".$owner."' "); 					// run the mysql query
 							while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
@@ -469,9 +461,6 @@
           </div>
         </div>
         
-
-
-
 			<!-- Importer - Textfiles-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -546,7 +535,6 @@
             <div class="panel-body">
             <p><?php echo translateString("You can delete your notes and events here. Keep in mind: there is no restore option."); ?></p>
 				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user events from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserEvents();"><i class="fa fa-trash-o fa-1x"></i> <?php echo translateString("Delete events"); ?></button>
-				
 				<button type="button" style="width:140px" class="btn btn-sm btn-danger" title="Deletes all your user notes from the db" name="delete" id="delete" value="delete" onClick="deleteAllMyUserNotes();"><i class="fa fa-trash-o fa-1x"></i> <?php echo translateString("Delete notes"); ?></button>
             </div>
           </div>
@@ -558,8 +546,6 @@
 
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-
-	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
@@ -568,17 +554,12 @@
 		.script("js/monoto/m_disableRightClick.js")			// disabled the right-click contextmenu
 		.script("js/monoto/m_keyPressAll.js")				// keyboard shortcuts
 	</script>
-
-	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 	</body>
 </html>
-
-
-
 
 
 
@@ -620,27 +601,22 @@ if ( isset($_POST["doImportCSV"]) )
 	}
 	mysql_select_db($mysql_db, $con);						// select db
 
-
 	$owner = $_SESSION['username'];
 	$target_dir = "";
 	$target_file = $target_dir . basename($_FILES["importerFile"]["name"]);
 	$uploadOk = 1;
 	$fileExtension = pathinfo($target_file,PATHINFO_EXTENSION);
-	
-	//echo "trying to process: ".$target_file."<br>";
 
 	if($fileExtension == "csv")
 	{
-		// read linewise and import if note doesnt exist already
-		if(($handle = fopen($_FILES['importerFile']['tmp_name'], 'r')) !== FALSE) 
+		if(($handle = fopen($_FILES['importerFile']['tmp_name'], 'r')) !== FALSE) 		// read linewise and import if note doesnt exist already
 		{
 			echo "<hr>";
 			set_time_limit(0);
 			$row = 0;
 			while(($data = fgetcsv($handle, 1000, "\t")) !== FALSE)
 			{
-				// number of fields in the csv
-				$col_count = count($data);
+				$col_count = count($data);				// number of fields in the csv
 
 				// get the values from the csv
 				$csv[$row]['col1'] = $data[0];
@@ -662,12 +638,8 @@ if ( isset($_POST["doImportCSV"]) )
 				else
 				{
 					// write text to textarea
-					echo '<script type="text/javascript">
-							$("#importLogCSV").append("Imported: '.$newNoteTitle.'.\n"); 
-						</script>';
+					echo '<script type="text/javascript">$("#importLogCSV").append("Imported: '.$newNoteTitle.'.\n"); </script>';
 				}
-					
-
 				// inc the row
 				$row++;
 			}
@@ -684,9 +656,7 @@ if ( isset($_POST["doImportCSV"]) )
 	}
 
 	// write text to textarea
-	echo '<script type="text/javascript">
-		$("#importLogCSV").append("\n\nFinished importing notes."); 
- 	</script>';
+	echo '<script type="text/javascript">$("#importLogCSV").append("\n\nFinished importing notes.");</script>';
 }
 // -----------------------------------------------------------------------
 // doImportCSV (END)
@@ -703,13 +673,9 @@ if ( isset($_POST["doImportCSV"]) )
 if ( isset($_POST["doChangeUserLanguage"]) ) 
 {
 	$selectedLang = $_POST['s_languageSelector'];
-
 	$query = "UPDATE m_users SET language='$selectedLang' WHERE username='$owner'";			// language
 	mysql_query($query);
-
 	$_SESSION['lang'] = $selectedLang; 			// store as session variable
-
-	
 	displayNoty('Language set to: '.$selectedLang,'notification');
 }
 // -----------------------------------------------------------------------
@@ -767,7 +733,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 // -----------------------------------------------------------------------
 if ( isset($_POST["doExport"]) ) 
 {
-	echo '<script type="text/javascript" language="javascript">window.open("inc/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';				
+	echo '<script type="text/javascript" language="javascript">window.open("inc/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';
 }
 // -----------------------------------------------------------------------
 // doExport (STOP)
@@ -785,51 +751,47 @@ if ( isset($_POST["doImport"]) )
 	// TODO: files selected at all????
 	if (empty($_FILES)) 
 	{
-		//echo "empty";
 	}
 	else
-	{	
-		//echo "filled";
-		
-		connectToDB();
-	$owner = $_SESSION['username'];
-	$good_counter = 0;
-
-	// loop it for each note
-	foreach($_FILES['file']['name'] as $key => $value)
 	{
-		echo "<font color='white'>Trying to import: ".$newNoteTitle = $_FILES["file"]["name"][$key]."<br></font>";
+		connectToDB();
+		$owner = $_SESSION['username'];
+		$good_counter = 0;
 
-		//if file already exists
-	   	if (file_exists("upload/" . $_FILES["file"]["name"])) 
-	    {
-	     	echo $_FILES["file"]["name"] . " already exists. ";
-	   	}
-	    else 
-	    {
-			// define insert vars
-			$newNoteTitle = $_FILES["file"]["name"][$key];
-			$newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle);					// we need to cut the extension from filename - ugly hack
-			$newNoteContent = file_get_contents($_FILES['file']['tmp_name'][$key]);
-
-			// check if there is already a note with this title - as we dislike having > 1 note with the same title ...yes we do
-			if(mysql_num_rows(mysql_query("SELECT title FROM m_notes WHERE title = '$newNoteTitle'")))
+		// loop it for each note
+		foreach($_FILES['file']['name'] as $key => $value)
+		{
+			echo "<font color='white'>Trying to import: ".$newNoteTitle = $_FILES["file"]["name"][$key]."<br></font>";
+			//if file already exists
+			if (file_exists("upload/" . $_FILES["file"]["name"])) 
 			{
-				?>
-				<script type="text/javascript">
-					var newtext = '<?php echo "Error - there is already a note with the title: ".$newNoteTitle.". Import of that specific note was skipped."; ?>';
-					document.importerForm.importLog.value += newtext;
-				</script>
-				<?php
-
-				// add log entry that importing failed cause title is already in use
-				$newNoteContentSummary = substr($newNoteContent, 0, 10);
-				$event = "import";
-				$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b> was NOT imported as the title is already in use.";
-				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
-				$result = mysql_query($sql);
+				echo $_FILES["file"]["name"] . " already exists. ";
 			}
-			else // we can create it - update notes: m_notes
+			else 
+			{
+				// define insert vars
+				$newNoteTitle = $_FILES["file"]["name"][$key];
+				$newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle);					// we need to cut the extension from filename - ugly hack
+				$newNoteContent = file_get_contents($_FILES['file']['tmp_name'][$key]);
+
+				// check if there is already a note with this title - as we dislike having > 1 note with the same title ...yes we do
+				if(mysql_num_rows(mysql_query("SELECT title FROM m_notes WHERE title = '$newNoteTitle'")))
+				{
+					?>
+					<script type="text/javascript">
+						var newtext = '<?php echo "Error - there is already a note with the title: ".$newNoteTitle.". Import of that specific note was skipped."; ?>';
+						document.importerForm.importLog.value += newtext;
+					</script>
+					<?php
+
+					// add log entry that importing failed cause title is already in use
+					$newNoteContentSummary = substr($newNoteContent, 0, 10);
+					$event = "import";
+					$details = "Note: <b>".$newNoteTitle."</b> with content: <b>".$newNoteContentSummary."...</b> was NOT imported as the title is already in use.";
+					$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
+					$result = mysql_query($sql);
+				}
+				else // we can create it - update notes: m_notes
 				{
 					$sql="INSERT INTO m_notes (title, content, save_count,  date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', '1',now(), now(), '$owner' )";
 					$result = mysql_query($sql);

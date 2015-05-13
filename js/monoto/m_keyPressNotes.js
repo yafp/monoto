@@ -37,6 +37,7 @@ function KeyCheck(e)
 			// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
+				console.log("Key: Arrow Up (Code 38)");
 				selectUpperRow();
 			}
 		break;
@@ -48,6 +49,7 @@ function KeyCheck(e)
 		   	// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
+				console.log("Key: Arrow Down (Code 40)");
 				selectNextRow();
 			}
 		break;

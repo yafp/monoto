@@ -25,4 +25,3 @@ function displayDesktopNotification(notificationText)
 	}
 	// At last, if the user already denied any notification, and you want to be respectful there is no need to bother them any more.
 }
-

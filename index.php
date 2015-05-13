@@ -2,30 +2,24 @@
 <html lang="en">
 	<head>
 		<title>monoto notes</title>
-		
-		<!-- META -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" 	content="IE=edge">
 		<meta name="viewport" 				content="width=device-width, initial-scale=1">
 		<meta name="description" 			content="Welcome to monoto notes - a self-hostable web-based notes software">
 		<meta name="keywords" 				content="note,notes,web,self-hostable,free,monoto,yafp,web-based,notes software">
 		<meta name="author" 				content="florian poeck">
-		
 		<!-- CSS -->
-		<link href="images/favicon.ico" rel="shortcut icon">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/page01.css" rel="stylesheet">
-
+		<link rel="shortcut icon" href="images/favicon.ico" >
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/page01.css" >
 		<!-- JS -->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
-
-		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
 		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 	</head>
-	<body>		 
+	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -35,7 +29,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo_white.png" height="25"></a>
+					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo_white.png" width="63" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<form class="navbar-form navbar-right" role="form" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
@@ -65,7 +59,6 @@
 			<hr>
 			<footer><?php require 'inc/footer.php'; ?></footer>
 		</div>
-
 		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
@@ -119,8 +112,7 @@ if (isset($_POST["doLogin"]) )
 
 		if($failCounterInARow < 3)		// try to login
 		{
-			//check for incorrect password
-			if($hash != $userData['password']) 
+			if($hash != $userData['password']) 		//check for incorrect password
 			{
 				// log incorrect login attempt - date
 				$sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$_SESSION['username']."' ";

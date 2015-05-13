@@ -14,12 +14,4 @@ function displayNoty($notyText, $notyType)
 }
 
 
-
-
-function console($message)
-{
-	echo "<script>console.log('$message');</script>";	// display notification
-}
-
-
 ?>

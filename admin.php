@@ -20,25 +20,20 @@
 	<head>
 		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 		<title>monoto notes</title>
-		
-		<!-- META STUFF -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="monoto notes">
 		<meta name="author" content="florian poeck">
-
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-		
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>		<!-- jquery itself -->
 		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>		<!-- datatables -->
-		
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
 				$('#example').dataTable();
@@ -56,7 +51,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" height="25"></a>
+					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" width="63" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -77,7 +72,6 @@
 			</div>
 		</div>
 		<div class="container theme-showcase" role="main">
-
 		<div id="container">
 			<div id="noteContentCo">
 				<div class="spacer">&nbsp;</div>
@@ -284,10 +278,9 @@
 				<textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br> 
 				<input type="submit" name="doSendBroastcast" value="Send" style="width:200px" title="Sends a broadcast email to all users." />
 			</form>
-            
-            </div>
-          </div>
-        </div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -300,32 +293,22 @@
           <div id="collapse6" class="panel-collapse collapse">
             <div class="panel-body">
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
-						<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.
-						<br><br>
-						<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.
-						<br>
+						<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.<br><br>
+						<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.<br>
 						<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
 					</form>
-            
             </div>
           </div>
         </div>
-
       </div>
-
 					</div>
 			</div>
 		</div>
 	</div> <!-- /container -->
 
-
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-
-	<!-- Bootstrap core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
-
-	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
@@ -333,7 +316,6 @@
 		.script("js/monoto/m_disableRightClick.js")		// disabled the right-click contextmenu
 		.script("js/monoto/m_keyPressAll.js")			// keyboard shortcuts
 	</script>
-	
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
@@ -351,7 +333,6 @@
 	require 'inc/helperFunctions.php';
 
 	// Send broastcast to all users (email)
-	//
 	if ( isset($_POST["doSendBroastcast"]) ) 
 	{
 		$messageSubject = $_POST["broadcastSubject"];
@@ -365,9 +346,7 @@
 			{
 				$username = $row[0];
 				$email = $row[1];
-				
-				// try to send notification email
-				if(@mail($email, $messageSubject, $messageText))
+				if(@mail($email, $messageSubject, $messageText))		// try to send notification email
 				{
 					displayNoty("Notification email has been sent.","success"); 
 				}
@@ -415,16 +394,13 @@
 	   				var r=confirm("There is a critical update available. Should i download the latest version?")
 					if (r==true)
 	  				{ window.location = "https://raw.github.com/yafp/monoto/master/versionCheck.csv","_blank"; } </script>';
-
 			die(); //terminate the script
 		}
 		else if ($update)
 		{
-
 		}
 		else // uptodate
 		{
-
 		}
 
 		// update div with stable informations
@@ -446,7 +422,6 @@
 	{
 		$userID 		= $_POST['userDeleteSelector'];
 		$confirmText	= $_POST['confirmDeleteUser'];
-
 		if ($userID !="")
 		{
 			if($confirmText == "CONFIRM")

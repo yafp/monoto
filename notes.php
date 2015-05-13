@@ -13,13 +13,11 @@
 	<head>
 		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 		<title>monoto notes</title>
-		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="monoto notes">
 		<meta name="author" content="florian poeck">
-
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
@@ -28,7 +26,6 @@
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
-
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -107,7 +104,8 @@
 				$('#myInputTextField').keyup(function()
 				{
 					oTable.fnFilter( $(this).val() );												// search the table
-					var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
+					//var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
+					amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 					
 					// not 1 records as result
 					if(amountOfRecordsAfterFilter != 1)												// if there is only 0 record left - reset ckeditor
@@ -138,6 +136,8 @@
 
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
 					{	
+						console.log ("... clicked something inside the datatable()");
+
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node
 						var aPos = oTable.fnGetPosition(this);											//
 						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
@@ -159,8 +159,8 @@
 							}
 						};
 
-						nextID=0;
-						prevID=0;
+						//nextID=0;
+						//prevID=0;
 
 						switch (filteredrows.length) 
 						{
@@ -171,29 +171,30 @@
 									switch (curID) 
 									{
 										case 0:
-											nextID=curID+1;
-											prevID=amountOfRecordsAfterFilter-1;
+											//nextID=curID+1;
+											//prevID=amountOfRecordsAfterFilter-1;
 										break;
 				
 										case amountOfRecordsAfterFilter-1:
-											nextID=0;
-											prevID=curID-1;
+											//nextID=0;
+											//prevID=curID-1;
 										break;
 				
 										default:
-											nextID=curID+1;
-											prevID=curID-1;
+											//nextID=curID+1;
+											//prevID=curID-1;
 										break;
 									}
 								  break;
 						} 
 
-
 						$('#noteID').val(sData[1]);				// fill id field
 						$('#noteTitle').val(sData[2]);			// fill title field
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
 						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
-						
+
+						//console.log(sData[3]);
+
 						CKEDITOR.instances['editor1'].setData(sData[3],function()
 						{
 							CKEDITOR.instances['editor1'].setData(sData[3]); // #201
@@ -242,7 +243,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" height="25"></a>
+					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" width="63" height="25"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -264,7 +265,6 @@
 		</div>
 		<div class="container theme-showcase" role="main">
 	<br>
-
 
 	<div id="container">
 		<div class="spacer">&nbsp;</div>
