@@ -155,6 +155,7 @@
 							
 							if(filteredrows[i][1]== curRow)
 							{
+								console.log("**** updating curID");
 								curID=i;
 							}
 						};

@@ -151,6 +151,7 @@ function unmarkAllTableRows()
 function selectAndMarkTableRow(currentRow)
 {
 	console.log ("Function: selectAndMarkTableRow()");
+	console.log("...Current row: "+currentRow);
 	$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 	$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 }
@@ -177,7 +178,12 @@ function updateTableScrollbar()
 		console.log("AmountOfRecordsAfterFilter: "+amountOfRecordsAfterFilter);
 	}
 
+	console.log("...Records in selection: "+amountOfRecordsAfterFilter);
+	console.log("...Current Record: "+curID);
+	console.log("...= in %: "+curID/amountOfRecordsAfterFilter);
+	
 	scrollPos = (curID / amountOfRecordsAfterFilter) * 300 ;
+	console.log("... = Calculated ScrollPosition: "+scrollPos);
 	$(".dataTables_scrollBody").scrollTop(scrollPos);
 }
 
