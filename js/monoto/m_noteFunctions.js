@@ -1,4 +1,63 @@
 // ---------------------------------
+// 
+// ---------------------------------
+function updateCurrentPosition(valueChange)
+{
+	console.log ("Function: updateCurrentPosition()");
+	//console.log("-----------------------------");
+	//console.log("-START: updateCurrentPosition");
+	//console.log("-----------------------------");
+
+	// get amount of notes in table
+	amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
+	//console.log("--- notes in selection:"+amountOfRecordsAfterFilter);
+
+
+
+	if (typeof curSelectedTableRow === 'undefined') 
+	{
+		//console.log("...initializing curSelectedTableRow to -1");
+		curSelectedTableRow=-1;
+	}
+	
+	//console.log("--- current Position before Change:"+curSelectedTableRow);
+	//console.log("--- valueChange:"+valueChange);
+	curSelectedTableRow=curSelectedTableRow+valueChange;
+	//console.log("--- current Position after Change:"+curSelectedTableRow);
+
+	if(curSelectedTableRow < 0)	// doesnt make sense -> jump to last row
+	{
+		curSelectedTableRow=amountOfRecordsAfterFilter-1;
+	}
+
+	if(curSelectedTableRow > amountOfRecordsAfterFilter-1)	// doesnt make sense -> jump to last row
+	{
+		curSelectedTableRow=0;
+	}
+
+	// update UI
+	unmarkAllTableRows();
+	selectAndMarkTableRow(curSelectedTableRow);
+	updateTableScrollbar(curSelectedTableRow);
+
+	//console.log("----------------------------");
+	//console.log("-END:  updateCurrentPosition");
+	//console.log("----------------------------");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------------------------------
 // initialize DataTable
 // ---------------------------------
 function initDataTable()
@@ -151,7 +210,7 @@ function unmarkAllTableRows()
 function selectAndMarkTableRow(currentRow)
 {
 	console.log ("Function: selectAndMarkTableRow()");
-	console.log("...Current row: "+currentRow);
+	//console.log("...Current row: "+currentRow);
 	$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 	$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 }
@@ -162,31 +221,17 @@ function selectAndMarkTableRow(currentRow)
 // ----------------------------------------------
 // Update the scrollbar of the datatable-scroller
 // ----------------------------------------------
-function updateTableScrollbar()
+function updateTableScrollbar(curSelectedTableRow)
 {
 	console.log ("Function: updateTableScrollbar()");
-	if (typeof curID === 'undefined') 
-	{
-		console.log("...curID was undefined - set it to 1");
-		curID=1;
-	}
-
-	if (typeof amountOfRecordsAfterFilter === 'undefined') 
-	{
-		console.log("amountOfRecordsAfterFilter was undefined")
-		amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
-		console.log("AmountOfRecordsAfterFilter: "+amountOfRecordsAfterFilter);
-	}
-
-	console.log("...Records in selection: "+amountOfRecordsAfterFilter);
-	console.log("...Current Record: "+curID);
-	console.log("...= in %: "+curID/amountOfRecordsAfterFilter);
+	//console.log("...Records in selection: "+amountOfRecordsAfterFilter);
+	//console.log("...Current Record: "+curSelectedTableRow);
+	//console.log("...= in %: "+curSelectedTableRow/amountOfRecordsAfterFilter);
 	
-	scrollPos = (curID / amountOfRecordsAfterFilter) * 300 ;
-	console.log("... = Calculated ScrollPosition: "+scrollPos);
+	scrollPos = (curSelectedTableRow / amountOfRecordsAfterFilter) * 300 *3 ;
+	//console.log("... = Calculated ScrollPosition: "+scrollPos);
 	$(".dataTables_scrollBody").scrollTop(scrollPos);
 }
-
 
 
 
@@ -198,33 +243,7 @@ function updateTableScrollbar()
 function selectNextRow()
 {
 	console.log ("Function: selectNextRow()");
-	if(typeof prevID === 'undefined') // to handle first jump from searchfield to table
-	{
-		console.log("...prevID was undefined - setting it to 0");
-		prevID=0;
-	}
-	else
-	{
-		prevID=prevID+1;
-	}
-
-
-	if(typeof nextID === 'undefined') // to handle first jump from searchfield to table
-	{
-		console.log("...nextID was undefined - setting it to 0");
-		nextID=0;
-	}
-	else
-	{
-		nextID=nextID+1;
-	}
-
-	console.log("...nextID is: "+nextID);
-	console.log("...prevID is: "+prevID);
-
-	unmarkAllTableRows();
-	selectAndMarkTableRow(nextID);
-	updateTableScrollbar();
+	updateCurrentPosition(1);
 }
 
 
@@ -237,36 +256,8 @@ function selectNextRow()
 function selectUpperRow()
 {
 	console.log ("Function: selectUpperRow()");
-	if(typeof prevID === 'undefined') // to handle first jump from searchfield to table
-	{
-		console.log("...prevID was undefined - setting it to 0");
-		prevID=0;
-	}
-	else
-	{
-		prevID=prevID-1;
-	}
-
-
-	if(typeof nextID === 'undefined') // to handle first jump from searchfield to table
-	{
-		console.log("...nextID was undefined - setting it to 0");
-		nextID=0;
-	}
-	else
-	{
-		nextID=nextID-1;
-	}
-
-	console.log("...nextID is: "+nextID);
-	console.log("...prevID is: "+prevID);
-
-	unmarkAllTableRows();
-	selectAndMarkTableRow(prevID);
-	updateTableScrollbar();
+	updateCurrentPosition(-1);
 }
-
-
 
 
 
@@ -280,10 +271,7 @@ function selectUpperRow()
 function resetNotesUI() 
 {
 	console.log ("Function: resetNotesUI()");
-	// row handling / navigation
-	currentRow = -1;
-	nextID=-1;
-	prevID=-1;
+	curSelectedTableRow=-1;
 	
 	// show some elements
 	$("#newNoteTitle").show();

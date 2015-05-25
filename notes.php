@@ -135,8 +135,8 @@
 					clickedTableID = $(this).closest('table').attr('id') // check the click-source
 
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
-					{	
-						console.log ("... clicked something inside the datatable()");
+					{
+						//console.log ("... clicked something inside the datatable()");
 
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node
 						var aPos = oTable.fnGetPosition(this);											//
@@ -155,46 +155,14 @@
 							
 							if(filteredrows[i][1]== curRow)
 							{
-								console.log("**** updating curID");
-								curID=i;
+								curSelectedTableRow=i;
 							}
 						};
-
-						//nextID=0;
-						//prevID=0;
-
-						switch (filteredrows.length) 
-						{
-							 case 1:
-									//console.log("foo");
-									break;
-							 default:
-									switch (curID) 
-									{
-										case 0:
-											//nextID=curID+1;
-											//prevID=amountOfRecordsAfterFilter-1;
-										break;
-				
-										case amountOfRecordsAfterFilter-1:
-											//nextID=0;
-											//prevID=curID-1;
-										break;
-				
-										default:
-											//nextID=curID+1;
-											//prevID=curID-1;
-										break;
-									}
-								  break;
-						} 
 
 						$('#noteID').val(sData[1]);				// fill id field
 						$('#noteTitle').val(sData[2]);			// fill title field
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
 						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
-
-						//console.log(sData[3]);
 
 						CKEDITOR.instances['editor1'].setData(sData[3],function()
 						{
