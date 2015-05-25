@@ -103,6 +103,8 @@
 				/* configure a new search field & its event while typing */
 				$('#myInputTextField').keyup(function()
 				{
+					console.log("... Filtering Notes"); 
+
 					oTable.fnFilter( $(this).val() );												// search the table
 					//var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 					amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
@@ -129,14 +131,20 @@
 
 				$("#myInputTextField").focus();														// set focus to search - as arrow up/down navi works right now only if focus is in search
 
+
+
+
 				// select a row, highlight it and get the data
 				$('table tr').click(function ()
 				{	
 					clickedTableID = $(this).closest('table').attr('id') // check the click-source
+					console.log("Clicked Table ID: "+clickedTableID);
+					console.log("--------- OUTSIDE - before Table check");
 
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
 					{
-						//console.log ("... clicked something inside the datatable()");
+						console.log("--------------------");
+						console.log ("... clicked something inside the datatable()");
 
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node
 						var aPos = oTable.fnGetPosition(this);											//
@@ -163,6 +171,13 @@
 						$('#noteTitle').val(sData[2]);			// fill title field
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
 						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
+
+						console.log("--------------------");
+						console.log("Loading Note ID:"+sData[1]);
+						console.log("Loading Note Title:"+sData[2]);
+						console.log("Loading Note Version:"+sData[5]);
+						//console.log("loading note content: "+sData[3]);
+						console.log("--------------------");
 
 						CKEDITOR.instances['editor1'].setData(sData[3],function()
 						{
