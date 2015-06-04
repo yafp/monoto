@@ -21,7 +21,6 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/dataTables.scroller.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
@@ -33,7 +32,6 @@
 		<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 		<!-- datatables -->
 		<script type="text/javascript" src="js/datatables/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="js/datatables/dataTables.scroller.min.js"></script>
 		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
@@ -132,24 +130,17 @@
 				$("#myInputTextField").focus();														// set focus to search - as arrow up/down navi works right now only if focus is in search
 
 
-
-
 				// select a row, highlight it and get the data
 				$('table tr').click(function ()
 				{	
 					clickedTableID = $(this).closest('table').attr('id') // check the click-source
-					console.log("Clicked Table ID: "+clickedTableID);
-					console.log("--------- OUTSIDE - before Table check");
+					//console.log("Clicked Table ID: "+clickedTableID);
 
 					if(clickedTableID == "example") 				// should be triggerd only for datatable
 					{
-						console.log("--------------------");
-						console.log ("... clicked something inside the datatable()");
-
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node
 						var aPos = oTable.fnGetPosition(this);											//
 						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
-							
 						curRow =sData[0];
 						rowCount = oTable.fnSettings().fnRecordsTotal();
 						currentRow = rowCount - curRow -1;
@@ -172,12 +163,9 @@
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
 						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
 
-						console.log("--------------------");
 						console.log("Loading Note ID:"+sData[1]);
 						console.log("Loading Note Title:"+sData[2]);
-						console.log("Loading Note Version:"+sData[5]);
-						//console.log("loading note content: "+sData[3]);
-						console.log("--------------------");
+						//console.log("Loading Note Version:"+sData[5]);
 
 						CKEDITOR.instances['editor1'].setData(sData[3],function()
 						{

@@ -4,15 +4,10 @@
 function updateCurrentPosition(valueChange)
 {
 	console.log ("Function: updateCurrentPosition()");
-	//console.log("-----------------------------");
-	//console.log("-START: updateCurrentPosition");
-	//console.log("-----------------------------");
 
 	// get amount of notes in table
 	amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
 	//console.log("--- notes in selection:"+amountOfRecordsAfterFilter);
-
-
 
 	if (typeof curSelectedTableRow === 'undefined') 
 	{
@@ -38,19 +33,8 @@ function updateCurrentPosition(valueChange)
 	// update UI
 	unmarkAllTableRows();
 	selectAndMarkTableRow(curSelectedTableRow);
-	updateTableScrollbar(curSelectedTableRow);
-
-	//console.log("----------------------------");
-	//console.log("-END:  updateCurrentPosition");
-	//console.log("----------------------------");
+	//updateTableScrollbar(curSelectedTableRow);
 }
-
-
-
-
-
-
-
 
 
 
@@ -73,9 +57,9 @@ function initDataTable()
 			"sZeroRecords": "No notes to display for your search" 						// displayed if table is filtered to 0 matching records
 		},
 		"deferRender":    true,
-		"dom":            "rtiS",
-		"scrollY":        300,
-		"scrollCollapse": true,
+		//"dom":            "rti",
+		"dom": 'irt<"clear">',
+		"paging":         false,
 		"aaSorting": [[ 4, "desc" ]],													// default sorting
 		"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
 							{ "bSortable": false, "aTargets": [ 1 ] },
@@ -166,9 +150,6 @@ function timeOutHandler()
 
 
 
-
-
-
 // ---------------------------------
 // handle ckeditor height
 // ---------------------------------
@@ -184,7 +165,6 @@ function saveCKEditorHeightOnChange()
 		});
 	});
 }
-
 
 
 
@@ -210,8 +190,7 @@ function unmarkAllTableRows()
 function selectAndMarkTableRow(currentRow)
 {
 	console.log ("Function: selectAndMarkTableRow()");
-	console.log("...Current row: "+currentRow);
-
+	//console.log("...Current row: "+currentRow);
 
 	$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 	$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
@@ -222,16 +201,13 @@ function selectAndMarkTableRow(currentRow)
 
 // ----------------------------------------------
 // Update the scrollbar of the datatable-scroller
+// -not in use since 20150604
 // ----------------------------------------------
 function updateTableScrollbar(curSelectedTableRow)
 {
 	console.log ("Function: updateTableScrollbar()");
-	//console.log("...Records in selection: "+amountOfRecordsAfterFilter);
-	//console.log("...Current Record: "+curSelectedTableRow);
-	//console.log("...= in %: "+curSelectedTableRow/amountOfRecordsAfterFilter);
 	
 	scrollPos = (curSelectedTableRow / amountOfRecordsAfterFilter) * 300 *3 ;
-	//console.log("... = Calculated ScrollPosition: "+scrollPos);
 	$(".dataTables_scrollBody").scrollTop(scrollPos);
 }
 
