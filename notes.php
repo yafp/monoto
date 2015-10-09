@@ -21,7 +21,7 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" >		<!-- Bootstrap theme -->
@@ -36,8 +36,8 @@
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
-		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 		<!-- monoto -->
+		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 		<script type="text/javascript" src="js/monoto/m_coreFunctions.js"></script>
 		<script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
 
@@ -46,21 +46,21 @@
 			var oTable;
 			var giRedraw = false;
 
-			$(document).ready(function() 
+			$(document).ready(function()
 			{
 				timeOutHandler();
-	
+
 				$("#bt_delete").hide(); 				// hide the delete button
 				$("#bt_save").hide(); 					// hide the save button
 				$("#bt_createNewNoteButton").hide(); 	// hode the createNewNote button
 
-				// is something written in the cookie as lastAction? if yes - show it as a noty notification & reset the value 
+				// is something written in the cookie as lastAction? if yes - show it as a noty notification & reset the value
 				if($.cookie("lastAction") != "")
 				{
 					var n = noty({text: $.cookie("lastAction"), type: 'notification'});
 					$.cookie("lastAction", "");	// unset the cookie - as we want to display the lastAction only once.
 				}
-				
+
 				// Defining the editor height
 				monotoEditorHeight = 300; // setting a default value - in case there is non stored in localStorage
 				if(typeof(Storage)!=="undefined") // if localStorage is supported
@@ -71,9 +71,9 @@
 				// CKEditor
 				initCKEditor();
 				saveCKEditorHeightOnChange();
-				
+
 				/* Add a click handler to the rows - this could be used as a callback */
-				$("#example tbody").click(function(event) 
+				$("#example tbody").click(function(event)
 				{
 					$(oTable.fnSettings().aoData).each(function ()
 					{
@@ -88,7 +88,7 @@
 
 				/* Add a click handler for the delete row - we dont use that so far */
 				/*
-				$('#bt_delete').click( function() 
+				$('#bt_delete').click( function()
 				{
 					//console.log("Delete handler");
 					//var anSelected = fnGetSelected( oTable );
@@ -101,28 +101,28 @@
 				/* configure a new search field & its event while typing */
 				$('#myInputTextField').keyup(function()
 				{
-					console.log("... Filtering Notes"); 
+					console.log("... Filtering Notes");
 
 					oTable.fnFilter( $(this).val() );												// search the table
 					//var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 					amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
-					
+
 					// not 1 records as result
 					if(amountOfRecordsAfterFilter != 1)												// if there is only 0 record left - reset ckeditor
 					{
 						CKEDITOR.instances['editor1'].setData(""); // reset content of note-editor
 						document.getElementById("noteTitle").value = ''; // reset  note title
-							
+
 						$(oTable.fnSettings().aoData).each(function () // unselect all records
 						{
 							$(this.nTr).removeClass('row_selected');
 						});
 					}
-					
+
 					// specialcase - only 1 record in table - load it to editor
 					if(amountOfRecordsAfterFilter == 1)												// if there is only 1 record left - select/click it
 					{
-						$('#example tbody tr:eq(0)').click()										// select the only record left after search	
+						$('#example tbody tr:eq(0)').click()										// select the only record left after search
 						$('#example tbody tr:eq(0)').addClass('row_selected');						// change background as well
 					}
 				})
@@ -132,7 +132,7 @@
 
 				// select a row, highlight it and get the data
 				$('table tr').click(function ()
-				{	
+				{
 					clickedTableID = $(this).closest('table').attr('id') // check the click-source
 					//console.log("Clicked Table ID: "+clickedTableID);
 
@@ -140,7 +140,7 @@
 					{
 						var sData = oTable.fnGetData( this );											// Get the position of the current data from the node
 						var aPos = oTable.fnGetPosition(this);											//
-						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row			
+						var aData = oTable.fnGetData( aPos[1] );										// Get the data array for this row
 						curRow =sData[0];
 						rowCount = oTable.fnSettings().fnRecordsTotal();
 						currentRow = rowCount - curRow -1;
@@ -151,7 +151,7 @@
 						var filteredrows = $("#example").dataTable()._('tr', {"filter": "applied"});
 
 						for ( var i = 0; i < filteredrows.length; i++ ) {
-							
+
 							if(filteredrows[i][1]== curRow)
 							{
 								curSelectedTableRow=i;
@@ -190,7 +190,7 @@
 		{
 			var aReturn = new Array();
 			var aTrs = oTableLocal.fnGetNodes();
-			
+
 			for ( var i=0 ; i<aTrs.length ; i++ )
 			{
 				if ( $(aTrs[i]).hasClass('row_selected') )
@@ -250,7 +250,7 @@
 							<button  class="btn btn-default" type="button" disabled><i class="fa fa-search fa-1x"></i> <?php echo translateString("Search");?></button>
 						</span>
 					</div>
-				
+
 					<table style="width: 100%" border="0" cellspacing="0" cellpadding="5">
 						<tr><td colspan="3">&nbsp;</td></tr>
 						<tr>
@@ -270,7 +270,7 @@
 						</tr>
 					</table>
 				</form>
-				
+
 				<!-- DATA-TABLE -->
 				<table cellpadding="0" cellspacing="0" class="display" id="example" width="100%">
 					<tbody>
