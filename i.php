@@ -20,7 +20,7 @@
 		<meta name="author" content="florian poeck">
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -69,16 +69,35 @@
 				<center>
 					<div class="spacer">&nbsp;</div>
 					<?php
+						// define image dir
 						$dir = "images/random_logout/";
+
+						// select a random image from that dir
 						$images = scandir($dir);
 						$i = rand(2, sizeof($images)-1);
+
+						// build path
+						$filePath = $dir.$images[$i];
+						//echo $filePath;
+
+						// get width of image
+						list($imageWidth, $height, $type, $attr) = getimagesize($filePath);
+						//echo $width;
+
+						// define a max image width
+						if ($imageWidth > 600)
+						{
+							$imageWidth = 600;
+						}
 					?>
-					<a href="i.php"><img src="images/random_logout/<?php echo $images[$i]; ?>" alt="random image" /></a>
+
+					<a href="i.php"><img src="<?php echo $filePath; ?>" alt="random image"  width="<?php echo $imageWidth; ?>" /></a>
 					<div class="spacer">&nbsp;</div>
 					<a href="i.php"><i class="fa fa-refresh fa-2x"></i></a>
 				</center>
 			</div>
 			<div class="spacer">&nbsp;</div>
+			<center><small>Next random image my clicking the <b>image</b>, the <b>reload icon</b> or pressing <b>space</b>.</small></center>
 		</div>
 	</div> <!-- /container -->
 
@@ -91,6 +110,7 @@
 		.script("js/monoto/m_reallyLogout.js") 			// ask really-logout question if configured by admin
 		.script("js/monoto/m_disableRightClick.js")		// disabled the right-click contextmenu
 		.script("js/monoto/m_keyPressAll.js")			// keyboard shortcuts
+		.script("js/monoto/m_keyPressI.js")			// keyboard shortcuts
 	</script>
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
