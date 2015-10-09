@@ -66,8 +66,8 @@
 
 <?php
 	session_start();
-	if($_SESSION['valid'] == 1)				// check if the user-session is valid or not
-	{	
+	if (isset($_SESSION['valid']))
+	{
 		header('Location: notes.php');		// if session is valid - redirect to main-notes interface.
 	}
 
@@ -75,7 +75,7 @@
 //
 // try to login
 //
-if (isset($_POST["doLogin"]) ) 
+if (isset($_POST["doLogin"]) )
 {
 	require 'conf/config.php';
 	require 'inc/helperFunctions.php';
@@ -88,7 +88,7 @@ if (isset($_POST["doLogin"]) )
 	$username = mysql_real_escape_string($username);
 	$_SESSION['username'] = $username;									// add session-info
 	$owner = $_SESSION['username'];
-	
+
 	// check if there is a user with matching data
 	$query = "SELECT password, salt FROM m_users WHERE username = '$username';";
 	$result = mysql_query($query);
@@ -142,21 +142,21 @@ if (isset($_POST["doLogin"]) )
 				$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
 				$result = mysql_query($sql);
 
-				displayNoty("Login failed.","error"); 
+				displayNoty("Login failed.","error");
 			}
 			else //login successful
-			{	
+			{
 	    		$_SESSION['valid'] = 1;
 	    		echo '<script language=javascript>$.cookie("lastAction", "Logged in.");</script>';	// store last Action in cookie
 
-	    		// if user is admin - add the info to our session 
+	    		// if user is admin - add the info to our session
 				$query = "SELECT is_admin FROM m_users WHERE username = '$username';";
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 				{
 					if($row[0] == 1)
-					{ 
-						$_SESSION['admin'] = 1; 
+					{
+						$_SESSION['admin'] = 1;
 					}
 				}
 
@@ -165,7 +165,7 @@ if (isset($_POST["doLogin"]) )
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 				{
-					$_SESSION['lang'] = $row[0]; 
+					$_SESSION['lang'] = $row[0];
 				}
 
 				// store servers getText sitaution in session variable for later usage (#211)
@@ -181,7 +181,7 @@ if (isset($_POST["doLogin"]) )
 				// get current login-count
 				$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
 				$result = mysql_query($sql);
-				while($row = mysql_fetch_array($result)) 					
+				while($row = mysql_fetch_array($result))
 				{
 					$loginCounter = $row[0];
 				}
@@ -218,7 +218,7 @@ if (isset($_POST["doLogin"]) )
 		}
 		else 		// login is not possible anymore - admin must remove the login lock
 		{
-			displayNoty("Account is locked","error"); 
+			displayNoty("Account is locked","error");
 		}
 	}
 }
