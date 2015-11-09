@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
 		<title>monoto notes</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">

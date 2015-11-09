@@ -9,7 +9,7 @@
 		<meta name="keywords" 				content="note,notes,web,self-hostable,free,monoto,yafp,web-based,notes software">
 		<meta name="author" 				content="florian poeck">
 		<!-- CSS -->
-		<link rel="shortcut icon" href="images/favicon.ico" >
+		<link rel="shortcut icon" href="images/fav.ico" >
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/page01.css" >
 		<!-- JS -->

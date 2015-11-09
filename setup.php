@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="shortcut icon" href="images/fav.ico">
 		<title>monoto notes</title>
-		
+
 		<!-- META STUFF -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,12 +16,12 @@
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">		<!-- Bootstrap theme -->
 	</head>
-	
+
 	<body role="document">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">

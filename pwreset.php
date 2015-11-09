@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
 		<title>monoto notes</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
 		<script src="js/jquery/jquery-2.1.3.min.js"></script>
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<!--
@@ -98,7 +98,7 @@
 		}
 		else // found a matching user-account
 		{
-			// remember affected username 
+			// remember affected username
 			$affectedAccount=$row[0];
 
 			// generate a random password
@@ -106,8 +106,8 @@
 			$generatedPW = substr(str_shuffle($chars),0,16);
 
 			// generate hash and salt based on password
-			$hash = hash('sha256', $generatedPW);							
-			function createSalt() 											
+			$hash = hash('sha256', $generatedPW);
+			function createSalt()
 			{
 				$string = md5(uniqid(rand(), true));
 				return substr($string, 0, 3);
@@ -116,20 +116,20 @@
 			$hash = hash('sha256', $salt . $hash);
 
 			// update db record for this user
-			$query = "UPDATE m_users SET password='$hash', salt='$salt' WHERE id='$affectedAccount'";			
+			$query = "UPDATE m_users SET password='$hash', salt='$salt' WHERE id='$affectedAccount'";
 			mysql_query($query);
 
 			// prepare notification email
 			$to = $resetEmail;
 			$subject = "monoto-notes password reset";
 			$body = "Hi,
-					\nSomeone triggered a password reset for your account at: 
-					\n".$invite_target."		 									
+					\nSomeone triggered a password reset for your account at:
+					\n".$invite_target."
 					\n\n\n\nThe new generated password is as follows:
 					\nPassword: ".$generatedPW."
 					\n\n\nPlease change your password after your first visit.
 					\n\nHave fun.";
-				
+
 			if(@mail($to, $subject, $body))		// try to send notification email
 			{
 				displayNoty("Notification email has been sent.","success");

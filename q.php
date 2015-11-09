@@ -11,9 +11,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
 		<title>monoto notes</title>
-		
+
 		<!-- META STUFF -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,22 +24,22 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">	<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">	<!-- Bootstrap theme -->
 		<!-- JS -->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>
-		
+
 		<script>
 		$(document).ready(function() {
-			
+
 			$('#example').dataTable( {
 				"sPaginationType": "full_numbers",
 				"iDisplayLength" : 10
 			} );
-			
+
 			$('.tabs .tab-links a').on('click', function(e)  {
 				var currentAttrValue = $(this).attr('href');
 				// Show/Hide Tabs
@@ -99,18 +99,18 @@
 					<tbody>
 					<?php
 						$handle = fopen($s_quotes_file, "r");
-						if ($handle) 
+						if ($handle)
 						{
-							while (($line = fgets($handle)) !== false) 
+							while (($line = fgets($handle)) !== false)
 							{
 								list($author, $quote) = explode(';', $line);					// split string
 								echo "<tr><td>".$author."</td><td>".$quote."</td></tr>";	// process the line read
 							}
-						} 
-						else 
+						}
+						else
 						{
 							// error opening the file.
-						} 
+						}
 						fclose($handle);
 					?>
 					</tbody>
@@ -123,7 +123,7 @@
 
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	
+
 	<!-- Bootstrap core JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
 
@@ -141,6 +141,6 @@
 	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
-	
+
 	</body>
 </html>

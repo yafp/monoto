@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
 		<title>monoto notes</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,7 @@
 		<meta name="author" content="florian poeck">
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -62,7 +62,7 @@
 		<div id="container">
 			<div id="noteContentCo">
 				<div class="spacer">&nbsp;</div>
-				<div class="spacer">&nbsp;</div>	
+				<div class="spacer">&nbsp;</div>
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><?php echo translateString("monoto-wide"); ?></a></h4></div>

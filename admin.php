@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
 		<title>monoto notes</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +27,7 @@
 		<meta name="author" content="florian poeck">
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -118,7 +118,7 @@
           <div id="collapse2" class="panel-collapse collapse">
             <div class="panel-body">
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-					<table style="width: 100%">				
+					<table style="width: 100%">
 						<tr>
 							<td>
 							<button type="submit" name="doUpdateCheck" value="Software Update" class="btn btn-sm btn-default" style="width:120px" title="checks online for monoto updates"  id="doUpdateCheck"><i class="fa fa-cloud-download fa-1x"></i> Check for updates </button>
@@ -138,7 +138,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -148,7 +148,7 @@
           <div id="collapse3" class="panel-collapse collapse">
             <div class="panel-body">
             <?php
-					// User: amount of all notes 
+					// User: amount of all notes
 					$result = mysql_query("SELECT count(*) FROM m_notes "); 				// run the mysql query
 					while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
 					{
@@ -166,11 +166,11 @@
 					}
 				?>
 				</table>
-            
+
             </div>
           </div>
         </div>
-        
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -196,10 +196,10 @@
 				<!-- DELETE USER -->
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<br><br>
-				<b>Delete existing account</b><br>	
+				<b>Delete existing account</b><br>
 				<table style="width: 100%">
 					<tr>
-						<td width='30%'>Select a user:</td> 
+						<td width='30%'>Select a user:</td>
 						<td>
 							<select name="userDeleteSelector" required>
 									<option value="" disabled selected>Select a username</option>
@@ -214,47 +214,47 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Enter CONFIRM (uppercase)</td> 
+								<td>Enter CONFIRM (uppercase)</td>
 								<td><input type="text" name="confirmDeleteUser" placeholder="no" required></td>
 							</tr>
 							<tr>
-								<td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td> 
+								<td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td>
 								<td><button type="submit" name="doDeleteUser"><i class="fa fa-trash-o fa-1x"></i> Delete</button> </td>
 							</tr>
 						</table>
 						</form>
-						
-					
+
+
 					<br>
 					<b>Invite new user</b><br>
-						<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
+						<form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 							<table style="width: 100%">
 								<tr>
-									<td width='30%'>Username:</td> 
+									<td width='30%'>Username:</td>
 									<td><input type="text" name="newUsername" placeholder="Username" required="required" /></td>
 								</tr>
 								<tr>
-									<td>Mail:</td> 
+									<td>Mail:</td>
 									<td><input type="email" name="newUserMail" placeholder="Email" required="required" /></td>
 								</tr>
 								<tr>
-									<td>Password:</td> 
+									<td>Password:</td>
 									<td><input type="password" name="newPassword1" placeholder="Password" required="required" autocomplete="off" /></td>
 								</tr>
 								<tr>
-									<td>Repeat Password:</td> 
+									<td>Repeat Password:</td>
 									<td><input type="password" name="newPassword2" placeholder="Repeat password" required="required" autocomplete="off" /></td>
 								</tr>
 								<tr>
-									<td>Send notification mail to new user: (optional)</td> 
+									<td>Send notification mail to new user: (optional)</td>
 									<td><input type="checkbox" name="sendNotification" value="sendNotification" /></td>
 								</tr>
 								<tr>
-									<td>Admin note about this invite or user: (optional)</td> 
+									<td>Admin note about this invite or user: (optional)</td>
 									<td><input type="text" name="newUserNote" placeholder="Comment" /></td>
 								</tr>
 								<tr>
-									<td><button type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided."><i class="fa fa-envelope-o fa-1x"></i> Invite</button></td> 
+									<td><button type="submit" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided."><i class="fa fa-envelope-o fa-1x"></i> Invite</button></td>
 									<td>&nbsp;</td>
 								</tr>
 							</table>
@@ -262,8 +262,8 @@
             </div>
           </div>
         </div>
-        
-        
+
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -275,7 +275,7 @@
 			Send an email to all monoto-accounts.
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<input type="text" placeholder="Subject" name="broadcastSubject" style="width:100%"><br>
-				<textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br> 
+				<textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br>
 				<input type="submit" name="doSendBroastcast" value="Send" style="width:200px" title="Sends a broadcast email to all users." />
 			</form>
 			</div>
@@ -292,7 +292,7 @@
           </div>
           <div id="collapse6" class="panel-collapse collapse">
             <div class="panel-body">
-            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">	
+            <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 						<input type="submit" name="doOptimize" value="Optimize" style="width:200px" title="Executes an optimize command on the tables if needed." />This will optimize your entire monoto mysql database.<br><br>
 						<input type="submit" name="doTruncateEvents" value="Truncate events" style="width:200px" title="Deletes the entire content of the event-table. Affects all users. Be careful with that." /> Warning: This will delete <b>ALL events</b> from the table: m_events.<br>
 						<input type="submit" name="doTruncateNotes" value="Truncate notes" style="width:200px" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too." /> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
@@ -333,7 +333,7 @@
 	require 'inc/helperFunctions.php';
 
 	// Send broastcast to all users (email)
-	if ( isset($_POST["doSendBroastcast"]) ) 
+	if ( isset($_POST["doSendBroastcast"]) )
 	{
 		$messageSubject = $_POST["broadcastSubject"];
 		$messageText 	= $_POST["broadcastMessage"];
@@ -348,11 +348,11 @@
 				$email = $row[1];
 				if(@mail($email, $messageSubject, $messageText))		// try to send notification email
 				{
-					displayNoty("Notification email has been sent.","success"); 
+					displayNoty("Notification email has been sent.","success");
 				}
 				else
 				{
-					displayNoty("Unable to sent notification mail.","error"); 
+					displayNoty("Unable to sent notification mail.","error");
 				}
 			}
 		}
@@ -367,29 +367,29 @@
 	// UpdateCheck
 	//
 	// http://wuxiaotian.com/2009/09/php-check-for-updates-script/
-	if ( isset($_POST["doUpdateCheck"]) ) 
+	if ( isset($_POST["doUpdateCheck"]) )
 	{
 		session_start();
-		
+
 		// assume everything is good
 		$critical = FALSE;
 		$update = FALSE;
-		
+
 		$url = "https://raw.github.com/yafp/monoto/master/conf/vCurrentVersion.csv";
 		$fp = @fopen ($url, 'r') or print ('UPDATE SERVER OFFLINE');
 		$read = fgetcsv ($fp);
 		fclose ($fp); //always a good idea to close the file connection
 
 		// its critical
-		if (($read[0] > $m_build) && ($read[2] == "1")) 
+		if (($read[0] > $m_build) && ($read[2] == "1"))
 		{  $critical = TRUE; }
-			
+
 		// normal update
-		if ($read[0] > $m_build) 
+		if ($read[0] > $m_build)
 		{  $update = TRUE; }
 
-		if ($critical) 
-		{ 
+		if ($critical)
+		{
 	   		echo '<script type="text/javascript">
 	   				var r=confirm("There is a critical update available. Should i download the latest version?")
 					if (r==true)
@@ -406,9 +406,9 @@
 		// update div with stable informations
 		echo '<script type="text/javascript">document.getElementById("curStable01").innerHTML = "'.$read[0].'";</script>';
 		$urlDLStable = "<a href='$read[3]'>Download</a>";
-		
+
 		// open - tab2
-		echo '<script type="text/javascript">        
+		echo '<script type="text/javascript">
 			$("#collapse2").collapse({
 				toggle: true
 			});   </script>';
@@ -418,7 +418,7 @@
 	//
 	// DELETE USER
 	//
-	if ( isset($_POST["doDeleteUser"]) ) 
+	if ( isset($_POST["doDeleteUser"]) )
 	{
 		$userID 		= $_POST['userDeleteSelector'];
 		$confirmText	= $_POST['confirmDeleteUser'];
@@ -429,7 +429,7 @@
 				// get username to selected ID
 				$query = "SELECT username FROM m_users WHERE id = '$userID';";
 				$result = mysql_query($query);
-				while($row = mysql_fetch_array($result)) 					
+				while($row = mysql_fetch_array($result))
 				{
 					$usernameToDelete = $row[0];
 				}
@@ -437,7 +437,7 @@
 				// delete user
 				$sql="DELETE FROM m_users WHERE id='$userID'";
 				$result = mysql_query($sql);
-				if (!$result) 
+				if (!$result)
 				{
 			 		die('Error: ' . mysql_error());
 				}
@@ -455,7 +455,7 @@
 					// delete his log as well
 					$sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
 					$result = mysql_query($sql);
-					
+
 					displayNoty("Deleted user, his notes and the related log entries","notification");
 				}
 				mysql_close($con); 								// close sql connection
@@ -476,13 +476,13 @@
 	//
 	// OPTIMIZE MYSQL TABLES
 	//
-	if ( isset($_POST["doOptimize"]) ) 
+	if ( isset($_POST["doOptimize"]) )
 	{
 		connectToDB();  // connect to mysql
 
 		// select all table with (> 10% overhead) AND at (least > 100k free space)
 		$res = mysql_query('SHOW TABLE STATUS WHERE Data_free / Data_length > 0.1 AND Data_free > 102400');
-		while($row = mysql_fetch_assoc($res)) 
+		while($row = mysql_fetch_assoc($res))
 		{
   			mysql_query('OPTIMIZE TABLE ' . $row['Name']);
 		}
@@ -492,7 +492,7 @@
 	//
 	// TRUNCATE EVENTS
 	//
-	if ( isset($_POST["doTruncateEvents"]) ) 
+	if ( isset($_POST["doTruncateEvents"]) )
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
@@ -502,7 +502,7 @@
 	//
 	// TRUNCATE NOTES
 	//
-	if ( isset($_POST["doTruncateNotes"]) ) 
+	if ( isset($_POST["doTruncateNotes"]) )
 	{
 		connectToDB();  								// connect to mysql
 		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
@@ -512,18 +512,18 @@
 	//
 	// CREATE NEW USER
 	//
-	if ( isset($_POST["doCreateNewUserAccount"]) ) 
+	if ( isset($_POST["doCreateNewUserAccount"]) )
 	{
 		connectToDB();  // connect to mysql
 
 		$invite_from 	= $_SESSION['username'];
-		// need  full page url for link in the invite mail 
+		// need  full page url for link in the invite mail
 		$pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
 		if ($_SERVER["SERVER_PORT"] != "80")
 		{
     		$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-		} 
-		else 
+		}
+		else
 		{
     		$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
 		}
@@ -563,10 +563,10 @@
 
 						$query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
 						mysql_query($query);
-						
+
 						displayNoty("Created new user account","notification");
 						echo '<script>$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");</script>';		// store last Action in cookie
-						
+
 						// we should log that to m_notes -> admin only.
 						// check if we should send a notification as well
 						if($sendNotification == 'sendNotification' )
@@ -585,10 +585,10 @@
 		 									\n\n\nPlease change your password after your first visit at:
 		 									\n".$invite_target."
 		 									\n\nHave fun.";
-		 						if (mail($to, $subject, $body)) 
+		 						if (mail($to, $subject, $body))
 		 						{
-		  						} 
-		  						else 
+		  						}
+		  						else
 		  						{
 		  						}
 								displayNoty("Notification mail send","notification");
@@ -605,7 +605,7 @@
 					displayNoty("This mail-adress is already in use","error");
 				}
 			}
-		}	
+		}
 		else // passwords not matching
 		{
 			displayNoty("Passwords are not matching","error");

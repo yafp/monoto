@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
 		<title>monoto notes</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 		<meta name="author" content="florian poeck">
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -58,13 +58,13 @@
 					}
 				?>
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
-				
+
 				<!-- REDIRECT TO LOGIN -->
-				<?php 
+				<?php
 					session_destroy(); // destroy the user session
-					header("refresh:5;url=index.php"); 
+					header("refresh:5;url=index.php");
 				?>
-				
+
 				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
 			</div>
 			<div class="spacer">&nbsp;</div>

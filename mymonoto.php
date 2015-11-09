@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
 		<title>monoto notes</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 		<meta name="author" content="florian poeck">
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">		<!-- Bootstrap theme -->
@@ -31,7 +31,7 @@
 			$(document).ready( function () {
 			  $('#example').dataTable( {
 				 "bSort": false,		// dont sort - trust the sql-select and its sort-order
-				 "iDisplayLength" : 25 
+				 "iDisplayLength" : 25
 			  } );
 			} );
 		</script>
@@ -43,9 +43,9 @@
 		});
 		</script>
 
-		
+
 		<script type="text/javascript">
-			function deleteAllMyUserEvents() 
+			function deleteAllMyUserEvents()
 			{
 				var x = noty({
 					text: 'Really delete all your events from log?',
@@ -70,8 +70,8 @@
 					]
 				})
 			}
-		
-			function deleteAllMyUserNotes() 
+
+			function deleteAllMyUserNotes()
 			{
 				var x = noty({
 					text: 'Really delete all your notes?',
@@ -173,7 +173,7 @@
 									connectToDB();
 									$sql="SELECT email FROM m_users WHERE username='".$_SESSION['username']."' ";				// mail
 									$result = mysql_query($sql);
-									while($row = mysql_fetch_array($result)) 					
+									while($row = mysql_fetch_array($result))
 									{
 										echo "<span class='badge'>".$row[0]."</span>";
 									}
@@ -187,7 +187,7 @@
 								<?php
 									$sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."' ";		// login_counter
 									$result = mysql_query($sql);
-									while($row = mysql_fetch_array($result)) 					
+									while($row = mysql_fetch_array($result))
 									{
 										echo "<span class='badge'>".$row[0]."</span>";
 									}
@@ -201,7 +201,7 @@
 								<?php
 									$sql="SELECT date_first_login FROM m_users WHERE username='".$_SESSION['username']."' ";	// date first login
 									$result = mysql_query($sql);
-									while($row = mysql_fetch_array($result)) 					
+									while($row = mysql_fetch_array($result))
 									{
 										echo "<span class='badge'>".$row[0]."</span>";
 									}
@@ -228,7 +228,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Stats-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -241,7 +241,7 @@
             <?php
 							connectToDB();
 							$owner = $_SESSION['username'];
-							// User: amount of notes 
+							// User: amount of notes
 							$result = mysql_query("SELECT count(*) FROM m_notes WHERE owner='".$owner."' "); 					// run the mysql query
 							while($row = mysql_fetch_array($result)) 								// fetch data and file table as a second step later on
 							{
@@ -253,7 +253,7 @@
 										echo "Lazy ass award goes to you as you havent created a single note .....erm yes ... ".$row[0]." notes in your monoto database."; 	// blame user that he has no notes
 										// is someone else storing notes?
 										$result = mysql_query("SELECT count(*) FROM m_notes");
-										while($row = mysql_fetch_array($result)) 
+										while($row = mysql_fetch_array($result))
 										{
 											if($row[0] == 0)
 											{ echo " Even worse ... there is not a single note by any other user.<br>"; }
@@ -267,69 +267,69 @@
 										// SQL-SECTION
 										//
 										// amount of activity-events
-										$result = mysql_query("SELECT count(*) FROM m_log WHERE owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT count(*) FROM m_log WHERE owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{ $stats_events_of_current_user = $row[0]; }
 										// amount of create-events
-										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{ $stats_amount_of_creates = $row[0]; }
 										// amount of create-error events
-										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create error' and owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='create error' and owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{ $stats_amount_of_creates_errors = $row[0]; }
 										// amount of import-events
-										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{ $stats_amount_of_imports = $row[0]; }
 										// amount of edits-events
-										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{ $stats_amount_of_changes = $row[0]; }
 										// amount of delete-events
-										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{ $stats_amount_of_deletes = $row[0]; }
 										// amount of logins and logouts
-										$result = mysql_query("SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' "); 
-										while($row = mysql_fetch_array($result)) 					
-										{ 
+										$result = mysql_query("SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ");
+										while($row = mysql_fetch_array($result))
+										{
 											$stats_amount_of_logins = $row[0];
 											$stats_amount_of_logouts = $row[1];
 										}
 										//  version: highest note-version (most used note)
-										$result = mysql_query("SELECT id, title, save_count FROM m_notes WHERE owner='".$owner."'ORDER BY save_count DESC LIMIT 1"); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT id, title, save_count FROM m_notes WHERE owner='".$owner."'ORDER BY save_count DESC LIMIT 1");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_highest_note_version_id = $row[0];
 											$stats_highest_note_version_title = $row[1];
 											$stats_highest_note_version_versions = $row[2];
 										}
 										//  shortest and longest note-content
-										$result = mysql_query("SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$owner."'"); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$owner."'");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_note_with_shortest_content_id = $row[1];
 											$stats_note_with_shortest_content_chars = $row[0];
 										}
 										//  longest note-content
-										$result = mysql_query("SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$owner."' ORDER BY longest DESC LIMIT 1"); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$owner."' ORDER BY longest DESC LIMIT 1");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_note_with_longest_content_id = $row[1];
 											$stats_note_with_longest_content_chars = $row[0];
 										}
 										//  oldest created note
-										$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$owner."' ORDER BY date_create ASC LIMIT 1"); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$owner."' ORDER BY date_create ASC LIMIT 1");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_oldest_created_note_age = $row[0];
 											$stats_oldest_created_note_date = $row[1];
 											$stats_oldest_created_note_id = $row[2];
 										}
 										//  newest/latest created note
-										$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '1' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1"); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '1' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_latest_created_note_age = $row[0];
 											$stats_latest_created_note_date =  $row[1];
@@ -337,8 +337,8 @@
 											$stats_latest_created_note_title = $row[3];
 										}
 										//  latest edited note
-										$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_mod, save_count, title, id FROM m_notes ORDER BY date_create DESC LIMIT 1"); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_mod, save_count, title, id FROM m_notes ORDER BY date_create DESC LIMIT 1");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_last_edited_note_age = $row[0];
 											$stats_last_edited_note_id = $row[4];
@@ -346,20 +346,20 @@
 											$stats_last_edited_note_date = $row[1];
 										}
 										//  overall_note_content_words
-										$result = mysql_query("SELECT SUM( LENGTH( content ) - LENGTH( REPLACE( content, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT SUM( LENGTH( content ) - LENGTH( REPLACE( content, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_overall_content_words = $row[0];
 										}
 										//  overall_note_title_words
-										$result = mysql_query("SELECT SUM( LENGTH( title ) - LENGTH( REPLACE( title, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT SUM( LENGTH( title ) - LENGTH( REPLACE( title, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' ");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_overall_title_words = $row[0];
 										}
 										//  entire db size
-										$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$mysql_db."' "); 
-										while($row = mysql_fetch_array($result)) 					
+										$result = mysql_query("SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$mysql_db."' ");
+										while($row = mysql_fetch_array($result))
 										{
 											$stats_entire_monoto_db_size = $row[0];
 										}
@@ -376,16 +376,16 @@
 										//		- $stats_amount_of_logouts
 										//
 										// HIGHEST NOTE per VERSION:
-										// - $stats_highest_note_version_id 
-										// - $stats_highest_note_version_title 
+										// - $stats_highest_note_version_id
+										// - $stats_highest_note_version_title
 										// - $stats_highest_note_version_versions
 										//
 										// SHORTEST NOTE per char
-										// - $stats_note_with_shortest_content_id 
+										// - $stats_note_with_shortest_content_id
 										// - $stats_note_with_shortest_content_chars
 										//
 										// LONGEST NOTE per char
-										// - $stats_note_with_longest_content_id 
+										// - $stats_note_with_longest_content_id
 										// - $stats_note_with_longest_content_chars
 										//
 										// OLDEST NOTE
@@ -432,7 +432,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Activity Log-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -460,7 +460,7 @@
             </div>
           </div>
         </div>
-        
+
 			<!-- Importer - Textfiles-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -505,7 +505,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Exporter-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -519,11 +519,11 @@
 				<form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 					<button type="submit" name="doExport" value="Export" style="width:140px" title="Exports all your notes into a .csv file which might be useful" ><i class="fa fa-sign-out"></i> Export</button>
 				</form>
-            
+
             </div>
           </div>
         </div>
-        
+
         <!-- Eraser-->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -580,16 +580,16 @@ require 'conf/config.php';
 // -----------------------------------------------------------------------
 // doImportCSV (START)
 // -----------------------------------------------------------------------
-if ( isset($_POST["doImportCSV"]) ) 
+if ( isset($_POST["doImportCSV"]) )
 {
 	// Toggle Importer-Tab (open it)
-	echo '<script type="text/javascript">        
+	echo '<script type="text/javascript">
 		$("#collapse5").collapse({
 			toggle: true
 		});   </script>';
 
 	// Toggle Profile (close it - its open by default)
-	echo '<script type="text/javascript">        
+	echo '<script type="text/javascript">
 		$("#collapse1").collapse({
 			toggle: true
 		});   </script>';
@@ -631,7 +631,7 @@ if ( isset($_POST["doImportCSV"]) )
 
 				$sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
 				$result = mysql_query($sql);
-				if (!$result) 
+				if (!$result)
 				{
 					die('Error: ' . mysql_error());// display error output
 				}
@@ -670,7 +670,7 @@ if ( isset($_POST["doImportCSV"]) )
 // -----------------------------------------------------------------------
 // doChangeUserLanguage (START)
 // -----------------------------------------------------------------------
-if ( isset($_POST["doChangeUserLanguage"]) ) 
+if ( isset($_POST["doChangeUserLanguage"]) )
 {
 	$selectedLang = $_POST['s_languageSelector'];
 	$query = "UPDATE m_users SET language='$selectedLang' WHERE username='$owner'";			// language
@@ -689,7 +689,7 @@ if ( isset($_POST["doChangeUserLanguage"]) )
 // -----------------------------------------------------------------------
 // doChangeUserPW (START)
 // -----------------------------------------------------------------------
-if ( isset($_POST["doChangeUserPW"]) ) 
+if ( isset($_POST["doChangeUserPW"]) )
 {
 	require 'conf/config.php';
 	connectToDB();
@@ -731,7 +731,7 @@ if ( isset($_POST["doChangeUserPW"]) )
 // -----------------------------------------------------------------------
 // doExport (START)
 // -----------------------------------------------------------------------
-if ( isset($_POST["doExport"]) ) 
+if ( isset($_POST["doExport"]) )
 {
 	echo '<script type="text/javascript" language="javascript">window.open("inc/expNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';
 }
@@ -746,10 +746,10 @@ if ( isset($_POST["doExport"]) )
 //
 // importer submit button was pressed
 //
-if ( isset($_POST["doImport"]) ) 
+if ( isset($_POST["doImport"]) )
 {
 	// TODO: files selected at all????
-	if (empty($_FILES)) 
+	if (empty($_FILES))
 	{
 	}
 	else
@@ -763,11 +763,11 @@ if ( isset($_POST["doImport"]) )
 		{
 			echo "<font color='white'>Trying to import: ".$newNoteTitle = $_FILES["file"]["name"][$key]."<br></font>";
 			//if file already exists
-			if (file_exists("upload/" . $_FILES["file"]["name"])) 
+			if (file_exists("upload/" . $_FILES["file"]["name"]))
 			{
 				echo $_FILES["file"]["name"] . " already exists. ";
 			}
-			else 
+			else
 			{
 				// define insert vars
 				$newNoteTitle = $_FILES["file"]["name"][$key];
@@ -795,9 +795,9 @@ if ( isset($_POST["doImport"]) )
 				{
 					$sql="INSERT INTO m_notes (title, content, save_count,  date_create, date_mod, owner) VALUES ('$newNoteTitle', '$newNoteContent', '1',now(), now(), '$owner' )";
 					$result = mysql_query($sql);
-					if (!$result) 
-					{	
-						die('Error: ' . mysql_error());	
+					if (!$result)
+					{
+						die('Error: ' . mysql_error());
 					}
 					else  // update event-log: m_log
 					{
@@ -813,8 +813,8 @@ if ( isset($_POST["doImport"]) )
 							</script>
 		<?php
 					$good_counter = $good_counter +1;
-					}					
-				} 	
+					}
+				}
 	      	}
 		}
 
@@ -839,5 +839,5 @@ if ( isset($_POST["doImport"]) )
 			<?php
 		}
 	}
-} 
+}
 ?>
