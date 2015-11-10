@@ -23,6 +23,8 @@
 		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+
+		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	</head>
 
 	<body role="document">
@@ -59,10 +61,14 @@
 				?>
 				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
 
+				<script>
+					$('#container').delay(5000).fadeOut(5000)
+				</script>
+
 				<!-- REDIRECT TO LOGIN -->
 				<?php
 					session_destroy(); // destroy the user session
-					header("refresh:5;url=index.php");
+					header("refresh:10;url=index.php");
 				?>
 
 				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
@@ -72,7 +78,7 @@
 	</div> <!-- /container -->
 
 	<!-- JS-->
-	<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
+
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
