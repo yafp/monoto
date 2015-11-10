@@ -36,12 +36,7 @@
 			} );
 		</script>
 
-		<script type="text/javascript" charset="utf-8">
-		$(document).ready(function() {
-			var lang = '<?php echo $_SESSION["lang"]; ?>';
-			$('#s_languageSelector').val(lang); // selects "Two"
-		});
-		</script>
+
 
 
 		<script type="text/javascript">
@@ -218,12 +213,18 @@
 							<select name="s_languageSelector" id="s_languageSelector">
 								<option value="de_DE">de_DE</option>
 								<option value="en_US">en_US</option>
-								<option value="fr_FR">fr_FR</option>
 							</select>
 							<button type="submit" name="doChangeUserLanguage" value="Update"  style="width:140px" title="Starts the change language function if the user provided the new language selection."><i class="fa fa-save"></i> Update</button>
 							</form>
 							</td>
 						<tr>
+
+						<!--
+						<tr><td colspan="5">&nbsp;</td></tr>
+						<tr><td colspan="5"><input type="checkbox" name="cb_EnableDesktopNotifications" aria-label=""> Enable desktop notifications</td></tr>
+					-->
+
+
 				</table>
             </div>
           </div>
@@ -553,11 +554,18 @@
 		.script("js/monoto/m_reallyLogout.js") 				// ask really-logout question if configured by admin
 		.script("js/monoto/m_disableRightClick.js")			// disabled the right-click contextmenu
 		.script("js/monoto/m_keyPressAll.js")				// keyboard shortcuts
+		.script("js/noty/jquery.noty.js")				// noty
+		.script("js/noty/layouts/topRight.js")				// noty
+		.script("js/noty/themes/default.js")				// noty
 	</script>
-	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
-	<script type="text/javascript" src="js/noty/themes/default.js"></script>
 	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		var lang = '<?php echo $_SESSION["lang"]; ?>';
+		$('#s_languageSelector').val(lang); // selects "Two"
+	});
+	</script>
 	</body>
 </html>
 
