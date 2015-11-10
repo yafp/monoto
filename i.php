@@ -93,11 +93,13 @@
 
 					<a href="i.php"><img src="<?php echo $filePath; ?>" alt="random image"  width="<?php echo $imageWidth; ?>" /></a>
 					<div class="spacer">&nbsp;</div>
+					<!--
 					<a href="i.php"><i class="fa fa-refresh fa-2x"></i></a>
+					-->
 				</center>
 			</div>
 			<div class="spacer">&nbsp;</div>
-			<center><small>Next random image my clicking the <b>image</b>, the <b>reload icon</b> or pressing <b>space</b>.</small></center>
+			<center><small><font color="grey">Press <kbd>Space</kbd> or <b>click the image</b> to load the next random image.</font></small></center>
 		</div>
 	</div> <!-- /container -->
 
