@@ -37,7 +37,8 @@
 
 			$('#example').dataTable( {
 				"sPaginationType": "full_numbers",
-				"iDisplayLength" : 10
+				"iDisplayLength" : -1,
+				"aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]]
 			} );
 
 			$('.tabs .tab-links a').on('click', function(e)  {
@@ -106,10 +107,6 @@
 								list($author, $quote) = explode(';', $line);					// split string
 								echo "<tr><td>".$author."</td><td>".$quote."</td></tr>";	// process the line read
 							}
-						}
-						else
-						{
-							// error opening the file.
 						}
 						fclose($handle);
 					?>
