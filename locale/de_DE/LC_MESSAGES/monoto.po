@@ -246,3 +246,11 @@ msgstr "Mitteilung"
 # Tasks-Tab
 msgid "Tasks"
 msgstr "Aufgaben"
+
+
+# ## i ###########################################################
+#
+#
+# hint how to jump to next image
+msgid "JumpToNextImage"
+msgstr "Dr&uuml;cke <kbd>Space</kbd> oder <b>klicke auf das Bild</b> um zum nächsten Bild zu gelangen."
