@@ -99,7 +99,10 @@
 				</center>
 			</div>
 			<div class="spacer">&nbsp;</div>
+			<!--
 			<center><small><font color="grey">Press <kbd>Space</kbd> or <b>click the image</b> to load the next random image.</font></small></center>
+		-->
+			<center><small><font color="grey"><?php echo translateString("JumpToNextImage"); ?></font></small></center>
 		</div>
 	</div> <!-- /container -->
 
