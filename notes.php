@@ -28,19 +28,14 @@
 		<!-- JS-->
 		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
-		<!-- ckeditor -->
 		<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-		<!-- datatables -->
 		<script type="text/javascript" src="js/datatables/jquery.dataTables.min.js"></script>
-		<!-- noty - notifications -->
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
-		<!-- monoto -->
 		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 		<script type="text/javascript" src="js/monoto/m_coreFunctions.js"></script>
 		<script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
-
 		<script type="text/javascript">
 			var currentRow = -1;			// fill var for ugly row-selection hack with a default value
 			var oTable;
@@ -86,16 +81,6 @@
 					$("#noteTitle").prop("disabled",false);				// enable note title field
 				});
 
-				/* Add a click handler for the delete row - we dont use that so far */
-				/*
-				$('#bt_delete').click( function()
-				{
-					//console.log("Delete handler");
-					//var anSelected = fnGetSelected( oTable );
-					//oTable.fnDeleteRow( anSelected[0] );
-				} );
-				*/
-
 				initDataTable();		// initialize the DataTable
 
 				/* configure a new search field & its event while typing */
@@ -104,7 +89,6 @@
 					console.log("... Filtering Notes");
 
 					oTable.fnFilter( $(this).val() );												// search the table
-					//var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 					amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
 
 					// not 1 records as result
@@ -163,9 +147,8 @@
 						$('#noteVersion').val(sData[5]);		// fill version - not displayed as field is hidden
 						$("#myInputTextField").focus();			// set focus to search - as arrow up/down navi works right now only if focus is in search
 
-						console.log("Loading Note ID:"+sData[1]);
-						console.log("Loading Note Title:"+sData[2]);
-						//console.log("Loading Note Version:"+sData[5]);
+						//console.log("Loading Note ID:"+sData[1]);
+						//console.log("Loading Note Title:"+sData[2]);
 
 						CKEDITOR.instances['editor1'].setData(sData[3],function()
 						{

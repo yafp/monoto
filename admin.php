@@ -121,7 +121,7 @@
 					<table style="width: 100%">
 						<tr>
 							<td>
-							<button type="submit" name="doUpdateCheck" value="Software Update" class="btn btn-sm btn-default" style="width:120px" title="checks online for monoto updates"  id="doUpdateCheck"><i class="fa fa-cloud-download fa-1x"></i> Check for updates </button>
+							<button type="submit" name="doUpdateCheck" value="Software Update" class="btn btn-sm btn-default" style="width:120px" title="checks online for monoto updates"  id="doUpdateCheck"><i class="fa fa-cloud-download fa-1x"></i> Check </button>
 							</td>
 							<td></td>
 						</tr>
@@ -263,7 +263,6 @@
           </div>
         </div>
 
-
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
@@ -271,8 +270,7 @@
             </h4>
           </div>
           <div id="collapse5" class="panel-collapse collapse">
-            <div class="panel-body">
-			Send an email to all monoto-accounts.
+            <div class="panel-body">Send an email to all monoto-accounts.
             <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 				<input type="text" placeholder="Subject" name="broadcastSubject" style="width:100%"><br>
 				<textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br>
@@ -326,8 +324,6 @@
 
 
 
-
-
 <?php
 	require 'conf/config.php';
 	require 'inc/helperFunctions.php';
@@ -348,11 +344,11 @@
 				$email = $row[1];
 				if(@mail($email, $messageSubject, $messageText))		// try to send notification email
 				{
-					displayNoty("Notification email has been sent.","success");
+					displayNoty("Notification emails sent.","success");
 				}
 				else
 				{
-					displayNoty("Unable to sent notification mail.","error");
+					displayNoty("Unable to sent notification mails.","error");
 				}
 			}
 		}
@@ -395,12 +391,6 @@
 					if (r==true)
 	  				{ window.location = "https://raw.github.com/yafp/monoto/master/versionCheck.csv","_blank"; } </script>';
 			die(); //terminate the script
-		}
-		else if ($update)
-		{
-		}
-		else // uptodate
-		{
 		}
 
 		// update div with stable informations
@@ -464,7 +454,6 @@
 			{
 				displayNoty("Please enter CONFIRM in the related field and try it again","error");
 			}
-			// reload page
 		}
 		else
 		{
@@ -494,7 +483,7 @@
 	//
 	if ( isset($_POST["doTruncateEvents"]) )
 	{
-		connectToDB();  								// connect to mysql
+		connectToDB();  										// connect to mysql
 		mysql_query('TRUNCATE TABLE m_log');			// truncate log-/events-table
 		displayNoty("Truncated all eventlog entries","notification");
 	}
@@ -504,7 +493,7 @@
 	//
 	if ( isset($_POST["doTruncateNotes"]) )
 	{
-		connectToDB();  								// connect to mysql
+		connectToDB();  										// connect to mysql
 		mysql_query('TRUNCATE TABLE m_notes');			// truncate notes-table
 		displayNoty("Truncated all user notes","notification");
 	}
