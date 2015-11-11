@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: monoto\n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-04-24 22:56+0100\n"
+"PO-Revision-Date: 2015-11-11 21:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: en\n"
@@ -64,3 +64,10 @@ msgstr "create"
 # delete button
 msgid "delete"
 msgstr "delete"
+
+# ## i ###########################################################
+#
+#
+# hint how to jump to next image
+msgid "JumpToNextImage"
+msgstr "Press <kbd>Space</kbd> or <b>click the image</b> to load the next random image."

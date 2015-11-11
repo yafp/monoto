@@ -5,7 +5,6 @@
 	{
 		header('Location: redirect.php');
 	}
-
 ?>
 
 <!DOCTYPE html>
@@ -78,11 +77,9 @@
 
 						// build path
 						$filePath = $dir.$images[$i];
-						//echo $filePath;
 
 						// get width of image
 						list($imageWidth, $height, $type, $attr) = getimagesize($filePath);
-						//echo $width;
 
 						// define a max image width
 						if ($imageWidth > 600)
@@ -93,15 +90,9 @@
 
 					<a href="i.php"><img src="<?php echo $filePath; ?>" alt="random image"  width="<?php echo $imageWidth; ?>" /></a>
 					<div class="spacer">&nbsp;</div>
-					<!--
-					<a href="i.php"><i class="fa fa-refresh fa-2x"></i></a>
-					-->
 				</center>
 			</div>
 			<div class="spacer">&nbsp;</div>
-			<!--
-			<center><small><font color="grey">Press <kbd>Space</kbd> or <b>click the image</b> to load the next random image.</font></small></center>
-		-->
 			<center><small><font color="grey"><?php echo translateString("JumpToNextImage"); ?></font></small></center>
 		</div>
 	</div> <!-- /container -->
@@ -112,10 +103,10 @@
 	<script>
 		$LAB
 		.script("js/bootstrap.min.js")					// Bootstrap core JavaScript
-		.script("js/monoto/m_reallyLogout.js") 			// ask really-logout question if configured by admin
-		.script("js/monoto/m_disableRightClick.js")		// disabled the right-click contextmenu
+		.script("js/monoto/m_reallyLogout.js") 		// ask really-logout question if configured by admin
+		.script("js/monoto/m_disableRightClick.js")	// disabled the right-click contextmenu
 		.script("js/monoto/m_keyPressAll.js")			// keyboard shortcuts
-		.script("js/monoto/m_keyPressI.js")			// keyboard shortcuts
+		.script("js/monoto/m_keyPressI.js")				// keyboard shortcuts
 	</script>
 	<!-- noty - notifications -->
 	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
