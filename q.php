@@ -11,25 +11,17 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
-		<title>monoto notes</title>
-
-		<!-- META STUFF -->
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="monoto notes">
-		<meta name="author" content="florian poeck">
+		<!-- HTML Head -->
+		<?php include 'inc/coreIncludesHTMLHead.php'; ?>
 
 		<!-- CSS -->
+		<?php include 'inc/coreIncludesCSS.php'; ?>
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
-		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">	<!-- Bootstrap core CSS -->
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">	<!-- Bootstrap theme -->
+
 		<!-- JS -->
-		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
+		<?php include 'inc/coreIncludesJS.php'; ?>
 		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>
 
 		<script>
@@ -120,9 +112,6 @@
 
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
 
 	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
 	<script type="text/javascript" src="js/LAB.js"></script>

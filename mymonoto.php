@@ -12,20 +12,16 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
-		<title>monoto notes</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="monoto notes">
-		<meta name="author" content="florian poeck">
+		<!-- HTML Head -->
+		<?php include 'inc/coreIncludesHTMLHead.php'; ?>
+
 		<!-- CSS -->
+		<?php include 'inc/coreIncludesCSS.php'; ?>
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
-		<link rel="stylesheet" type="text/css" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">		<!-- Bootstrap core CSS -->
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">		<!-- Bootstrap theme -->
+
 		<!-- JS-->
-		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>		<!-- jquery itself -->
+		<?php include 'inc/coreIncludesJS.php'; ?>
 		<script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>		<!-- datatables -->
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready( function () {
@@ -550,7 +546,6 @@
 	<script type="text/javascript" src="js/LAB.js"></script>
 	<script>
 		$LAB
-		.script("js/bootstrap.min.js")						// Bootstrap core JavaScript
 		.script("js/monoto/m_reallyLogout.js") 				// ask really-logout question if configured by admin
 		.script("js/monoto/m_disableRightClick.js")			// disabled the right-click contextmenu
 		.script("js/monoto/m_keyPressAll.js")				// keyboard shortcuts

@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>monoto notes</title>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" 	content="IE=edge">
-		<meta name="viewport" 					content="width=device-width, initial-scale=1">
-		<meta name="description" 				content="Welcome to monoto notes - a self-hostable web-based notes software">
-		<meta name="keywords" 					content="note,notes,web,self-hostable,free,monoto,yafp,web-based,notes software">
-		<meta name="author" 						content="florian poeck">
+		<!-- HTML Head -->
+		<?php include 'inc/coreIncludesHTMLHead.php'; ?>
+
 		<!-- CSS -->
-		<link rel="shortcut icon" href="images/fav.ico" >
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<?php include 'inc/coreIncludesCSS.php'; ?>
 		<link rel="stylesheet" type="text/css" href="css/page01.css" >
+
 		<!-- JS -->
-		<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
+		<?php include 'inc/coreIncludesJS.php'; ?>
 		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
 		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
 		<script type="text/javascript" src="js/noty/themes/default.js"></script>
@@ -35,7 +31,7 @@
 					<form class="navbar-form navbar-right" role="form" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 						<div class="form-group"><input type="text" placeholder="username" class="form-control" name="username" required="required" autocapitalize="off" autocapitalize="off" autocomplete="off"></div>
 						<div class="form-group"><input type="password" placeholder="password" class="form-control" name="password" required="required" autocapitalize="off" autocapitalize="off" autocomplete="off"></div>
-						<button type="submit" class="btn btn-success" name="doLogin">Sign in</button>
+						<button type="submit" class="btn btn-success" name="doLogin"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</button>
 					</form>
 				</div>
 			</div>
@@ -59,7 +55,6 @@
 			<hr>
 			<footer><?php require 'inc/footer.php'; ?></footer>
 		</div>
-		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
 
