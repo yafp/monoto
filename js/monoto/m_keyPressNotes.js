@@ -1,18 +1,19 @@
-/* 
-KEY PRESS SCRIPT - via: http://www.geekpedia.com/tutorial138_Get-key-press-event-using-JavaScript.html 
+/*
+KEY PRESS SCRIPT - via: http://www.geekpedia.com/tutorial138_Get-key-press-event-using-JavaScript.html
 KeyPress Codes: http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
 */
 
 // SINGLE KEY PRESSES
 //
-document.onkeyup = KeyCheck;       
+document.onkeyup = KeyCheck;
 function KeyCheck(e)
 {
 	var KeyID = (window.event) ? event.keyCode : e.keyCode;
 	switch(KeyID)
-	{	
+	{
 		// F1 - Open online help/docs
 		case 112:
+			console.log("Main F1");
 			window.open('https://github.com/yafp/monoto/wiki');
 		break;
 
@@ -37,7 +38,7 @@ function KeyCheck(e)
 			// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
-				console.log("Key: Arrow Up (Code 38)");
+				//console.log("Key: Arrow Up (Code 38)");
 				selectUpperRow();
 			}
 		break;
@@ -49,7 +50,7 @@ function KeyCheck(e)
 		   	// specialcase: if focus in search -> jump to first record in table
 			if(document.activeElement.id == "myInputTextField")
 			{
-				console.log("Key: Arrow Down (Code 40)");
+				//console.log("Key: Arrow Down (Code 40)");
 				selectNextRow();
 			}
 		break;
@@ -58,10 +59,11 @@ function KeyCheck(e)
 
 		// DEL - delete selected note & reloads page
 		case 46:
-			// missing: we should do that only if a row in datatables is selected 
+			// missing: we should do that only if a row in datatables is selected
 			// if focus is not in new title & in search & in noteTitle
-			if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "noteTitle") && (document.activeElement.id != "myInputTextField"))	
+			if((document.activeElement.id != "newNoteTitle") && (document.activeElement.id != "noteTitle") && (document.activeElement.id != "myInputTextField"))
 			{
+				console.log("DEL");
 				deleteNote();								// execute delete function
 			}
 		break;
@@ -70,6 +72,7 @@ function KeyCheck(e)
 
 		// F5 - Reload main page
 		case 116:
+			console.log("F5");
 			reloadNote();									// execute reload function
 		break;
 
@@ -77,6 +80,7 @@ function KeyCheck(e)
 
 		// F9 - save
 		case 120:
+			console.log("F9");
 			saveNote();										// execute save function
 		break;
 	}
