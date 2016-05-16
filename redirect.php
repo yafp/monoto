@@ -44,16 +44,9 @@
 		</div>
 	</div> <!-- /container -->
 
-
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/monoto/m_keyPress.js"></script>
 
-	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
-	<script type="text/javascript" src="js/LAB.js"></script>
-	<script>
-		$LAB
-		.script("js/monoto/m_disableRightClick.js")					// disabled the right-click contextmenu
-		.script("js/monoto/m_keyPress.js")					// keyboard shortcuts
-	</script>
 	</body>
 </html>

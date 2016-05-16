@@ -48,15 +48,6 @@
 
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="js/LAB.js"></script>
-	<script>
-		$LAB
-		.script("js/monoto/m_disableRightClick.js")			// disabled the right-click contextmenu
-	</script>
-	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
-	<script type="text/javascript" src="js/noty/themes/default.js"></script>
-	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 	</body>
 </html>
 

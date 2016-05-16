@@ -1,20 +1,20 @@
 // ---------------------------------
-// 
+//
 // ---------------------------------
 function updateCurrentPosition(valueChange)
 {
-	console.log ("Function: updateCurrentPosition()");
+	//console.log ("Function: updateCurrentPosition()");
 
 	// get amount of notes in table
 	amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
 	//console.log("--- notes in selection:"+amountOfRecordsAfterFilter);
 
-	if (typeof curSelectedTableRow === 'undefined') 
+	if (typeof curSelectedTableRow === 'undefined')
 	{
 		//console.log("...initializing curSelectedTableRow to -1");
 		curSelectedTableRow=-1;
 	}
-	
+
 	//console.log("--- current Position before Change:"+curSelectedTableRow);
 	//console.log("--- valueChange:"+valueChange);
 	curSelectedTableRow=curSelectedTableRow+valueChange;
@@ -46,27 +46,25 @@ function updateCurrentPosition(valueChange)
 // ---------------------------------
 function initDataTable()
 {
-	console.log ("Function: initDataTable()");
-
-	oTable = $('#example').dataTable( 
-	{ 
-		"oLanguage": { 
+	//console.log ("Function: initDataTable()");
+	oTable = $('#example').dataTable(
+	{
+		"oLanguage": {
 			"sProcessing": "<img src='../images/loading.gif'>",
 			"bProcessing": true,
 			"sEmptyTable": "You have 0 notes so far - start writing some...", 			// displayed if table is initial empty
 			"sZeroRecords": "No notes to display for your search" 						// displayed if table is filtered to 0 matching records
 		},
 		"deferRender":    true,
-		//"dom":            "rti",
 		"dom": 'irt<"clear">',
 		"paging":         false,
 		"aaSorting": [[ 4, "desc" ]],													// default sorting
-		"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation 
+		"aoColumnDefs": [																// disable sorting for all visible columns - as it breaks keyboard navigation
 							{ "bSortable": false, "aTargets": [ 1 ] },
 							{ "bSortable": false, "aTargets": [ 2 ] },
 							{ "bSortable": false, "aTargets": [ 3 ] },
 							{ "bSortable": false, "aTargets": [ 4 ] }
-		], 
+		],
 		"aoColumns"   : [																/* visible columns */
 					{ "bSearchable": false, "bVisible": false },						/* manually defined row id */
 					{ "bSearchable": false, "bVisible": false, "sWidth": "5%" }, 		/* note-id */
@@ -82,11 +80,11 @@ function initDataTable()
 
 
 // ---------------------------------
-// initialize CKEditor 
+// initialize CKEditor
 // ---------------------------------
 function initCKEditor()
 {
-	console.log ("Function: initCKEditor()");
+	//console.log ("Function: initCKEditor()");
 
 	// START CKEDITOR
 	CKEDITOR.replace( 'editor1', {
@@ -129,23 +127,21 @@ function timeOutHandler()
 	interval = setInterval('change()',60000);
 
 	function change()
-{
-	lefttime--;
-	if(lefttime <= 0) // session should be dead
-	{		
-		window.location = "logout.php"
-	}
-	else
 	{
-		if(lefttime == 5) 
+		lefttime--;
+		if(lefttime <= 0) // session should be dead
 		{
-			var n = noty({text: 'timeout-reminder.', type: 'warning'});
-			alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
+			window.location = "logout.php"
+		}
+		else
+		{
+			if(lefttime == 5)
+			{
+				var n = noty({text: 'timeout-reminder.', type: 'warning'});
+				alert("Are you still there? Timeout might happen in "+lefttime+" minute(s). Do something.");
+			}
 		}
 	}
-}
-
-
 }
 
 
@@ -155,8 +151,8 @@ function timeOutHandler()
 // ---------------------------------
 function saveCKEditorHeightOnChange()
 {
-	console.log ("Function: saveCKEditorHeightOnChange()");
-	CKEDITOR.on('instanceReady',function(ev) 
+	//console.log ("Function: saveCKEditorHeightOnChange()");
+	CKEDITOR.on('instanceReady',function(ev)
 	{
 		ev.editor.on('resize',function(reEvent)
 		{
@@ -174,7 +170,7 @@ function saveCKEditorHeightOnChange()
 // ---------------------------------
 function unmarkAllTableRows()
 {
-	console.log ("Function: unmarkAllTableRows()");
+	//console.log ("Function: unmarkAllTableRows()");
 	$(oTable.fnSettings().aoData).each(function ()					// unselect all records
 	{
 		$(this.nTr).removeClass('row_selected');
@@ -189,9 +185,8 @@ function unmarkAllTableRows()
 // -------------------------------------
 function selectAndMarkTableRow(currentRow)
 {
-	console.log ("Function: selectAndMarkTableRow()");
+	//console.log ("Function: selectAndMarkTableRow()");
 	//console.log("...Current row: "+currentRow);
-
 	$('#example tbody tr:eq('+currentRow+')').click(); 						// select the top record
 	$('#example tbody tr:eq('+currentRow+')').addClass('row_selected');		// change background as well
 }
@@ -205,8 +200,7 @@ function selectAndMarkTableRow(currentRow)
 // ----------------------------------------------
 function updateTableScrollbar(curSelectedTableRow)
 {
-	console.log ("Function: updateTableScrollbar()");
-	
+	//console.log ("Function: updateTableScrollbar()");
 	scrollPos = (curSelectedTableRow / amountOfRecordsAfterFilter) * 300 *3 ;
 	$(".dataTables_scrollBody").scrollTop(scrollPos);
 }
@@ -220,7 +214,7 @@ function updateTableScrollbar(curSelectedTableRow)
 // ---------------
 function selectNextRow()
 {
-	console.log ("Function: selectNextRow()");
+	//console.log ("Function: selectNextRow()");
 	updateCurrentPosition(1);
 }
 
@@ -233,12 +227,9 @@ function selectNextRow()
 //
 function selectUpperRow()
 {
-	console.log ("Function: selectUpperRow()");
+	//console.log ("Function: selectUpperRow()");
 	updateCurrentPosition(-1);
 }
-
-
-
 
 
 
@@ -246,15 +237,15 @@ function selectUpperRow()
 // reset the notes user-interface
 // ------------------------------
 //
-function resetNotesUI() 
+function resetNotesUI()
 {
-	console.log ("Function: resetNotesUI()");
+	//console.log ("Function: resetNotesUI()");
 	curSelectedTableRow=-1;
-	
+
 	// show some elements
 	$("#newNoteTitle").show();
 	$("#bt_PrepareNoteCreation").show();
-	
+
 	// hide some elements
 	$("#bt_delete").hide();
 	$("#bt_save").hide();
@@ -280,9 +271,9 @@ function resetNotesUI()
 // Prepare New Note creation Step 1
 // --------------------------------
 //
-function prepareNewNoteStepOne() 
+function prepareNewNoteStepOne()
 {
-	console.log ("Function: prepareNewNoteStepOne()");
+	//console.log ("Function: prepareNewNoteStepOne()");
 	resetNotesUI();
 	$("#myInputTextField").prop("disabled",true);	// disable search-field
 	$("#noteTitle").prop("disabled",false);			// enable note-title field
@@ -297,15 +288,15 @@ function prepareNewNoteStepOne()
 // --------------------------------
 // Prepare New Note creation Step 2
 // --------------------------------
-function prepareNewNoteStepTwo() 
+function prepareNewNoteStepTwo()
 {
-	console.log ("Function: prepareNewNoteStepTwo()");
+	//console.log ("Function: prepareNewNoteStepTwo()");
 	var noteTitle = document.myform.noteTitle.value;
 
 	if( $('#bt_save').is(':visible')) // if Save-Button is visible we can not be in note-creation mode
 	{
 		//console.log("visible");
-		if(noteTitle.length > 0) // 
+		if(noteTitle.length > 0) //
 		{
 			$("#bt_save").prop("disabled",false);
 		}
@@ -333,12 +324,12 @@ function prepareNewNoteStepTwo()
 // Prepare New Note creation Step 2
 // --------------------------------
 //
-function createNewNote() 
+function createNewNote()
 {
-	console.log ("Function: createNewNote()");
+	//console.log ("Function: createNewNote()");
 	var newNoteTitle = $("#noteTitle").val();
 	newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ/ ]/g, '');	// replace all characters except numbers,letters, space, underscore and - .
-	
+
 	var newNoteContent = CKEDITOR.instances.editor1.getData();				// get note content if defined
 	newNoteContent=newNoteContent.replace(/\'/g,'&#39;');					// cleanup note content replace...
 
@@ -348,21 +339,18 @@ function createNewNote()
 		{
 			newNoteContent = "Placeholder content<br><br>If you see this text - you missed defining a note content while note-creation.";			// define dummy content as user didnt
 		}
-				
-		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script				
+
+		$.post("inc/newNote.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );		// call create script
 		alert("Note with title: "+newNoteTitle+" created");			// FUCK IT - whyever this helps creating the note - might be a timing issue?????
 		$.cookie("lastAction", "Note "+newNoteTitle+" created.");	// store last Action in cookie
 		displayDesktopNotification("Note created");
 		//reloadNote();
 	}
 	else
-	{ 
+	{
 		var n = noty({text: 'Error: No note title', type: 'error'});
 	}
 }
-
-
-
 
 
 
@@ -371,11 +359,11 @@ function createNewNote()
 // SAVE A NOTE
 // -----------
 //
-function saveNote() 
+function saveNote()
 {
-	console.log ("Function: saveNote()");
+	//console.log ("Function: saveNote()");
 	var modifiedNoteID = document.myform.noteID.value;							// get the note id
-	var modifiedNoteTitle = document.myform.noteTitle.value;					// get the note title 
+	var modifiedNoteTitle = document.myform.noteTitle.value;					// get the note title
 	var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
 	var modifiedNoteCounter = document.myform.noteVersion.value;				// get current save-counter/version
 	modifiedNoteContent.replace(/'/g , "&#39;");				// replace: ' 	with &#39; // cleanup note content
@@ -397,9 +385,9 @@ function saveNote()
 // DELETE A NEW NOTE
 // -----------------
 //
-function deleteNote() 
+function deleteNote()
 {
-	console.log ("Function: deleteNote()");
+	//console.log ("Function: deleteNote()");
 	var deleteID = $('#noteID').val();
 	var deleteTitle = $('#noteTitle').val();
 	var deleteContent = $('#editor1').val();
@@ -419,11 +407,11 @@ function deleteNote()
 					$.post("inc/delNote.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 					$.cookie("lastAction", "Note "+deleteID+" deleted.");	// store last Action in cookie
 						displayDesktopNotification("Note deleted");
-						
+
 						// delete it in ui
 						var anSelected = fnGetSelected( oTable );
 						oTable.fnDeleteRow( anSelected[0] );
-						
+
 						resetNotesUI();
 				}
 			},
@@ -434,7 +422,7 @@ function deleteNote()
 				}
 			}
 			]
-		})	
+		})
 	}
 	else // Data to identify note-to-delete are missing - should never happen as the delete button is disabled if no note is selected
 	{
@@ -447,9 +435,9 @@ function deleteNote()
 // ----------------
 // RELOAD ALL NOTES
 // ---------------
-function reloadNote() 
+function reloadNote()
 {
-	console.log ("Function: reloadNote()");
+	//console.log ("Function: reloadNote()");
 	var loc = window.location;
 	window.location = loc.protocol + '//' + loc.host + loc.pathname + loc.search;
 }

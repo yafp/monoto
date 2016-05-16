@@ -10,10 +10,6 @@
 
 		<!-- JS -->
 		<?php include 'inc/coreIncludesJS.php'; ?>
-		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
-		<script type="text/javascript" src="js/noty/themes/default.js"></script>
-		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">

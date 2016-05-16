@@ -109,24 +109,9 @@
 		</div>
 	</div> <!-- /container -->
 
-
 	<!-- JS-->
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-
-	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
-	<script type="text/javascript" src="js/LAB.js"></script>
-	<script>
-		$LAB
-		.script("js/monoto/m_reallyLogout.js") 				// ask really-logout question if configured by admin
-		.script("js/monoto/m_disableRightClick.js")			// disabled the right-click contextmenu
-		.script("js/monoto/m_keyPressAll.js")					// keyboard shortcuts
-	</script>
-
-	<!-- noty - notifications -->
-	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
-	<script type="text/javascript" src="js/noty/themes/default.js"></script>
-	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
+	<script type="text/javascript" src="js/monoto/m_keyPressAll.js"></script>
 
 	</body>
 </html>

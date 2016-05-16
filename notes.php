@@ -25,10 +25,6 @@
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 		<script type="text/javascript" src="js/datatables/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-		<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
-		<script type="text/javascript" src="js/noty/themes/default.js"></script>
-		<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
 		<script type="text/javascript" src="js/monoto/m_coreFunctions.js"></script>
 		<script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
 		<script type="text/javascript">
@@ -81,7 +77,7 @@
 				/* configure a new search field & its event while typing */
 				$('#myInputTextField').keyup(function()
 				{
-					console.log("... Filtering Notes");
+					//console.log("... Filtering Notes");
 
 					oTable.fnFilter( $(this).val() );												// search the table
 					amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();		// get amount of records after filter
@@ -107,7 +103,6 @@
 				})
 
 				$("#myInputTextField").focus();														// set focus to search - as arrow up/down navi works right now only if focus is in search
-
 
 				// select a row, highlight it and get the data
 				$('table tr').click(function ()
@@ -271,13 +266,6 @@
 		</div>
 	</div> <!-- /container -->
 
-		<!-- loading the other scripts via LAB.js - without load-blocking so far -->
-		<script type="text/javascript" src="js/LAB.js"></script>
-		<script>
-			$LAB
-			.script("js/monoto/m_reallyLogout.js") 					// ask really-logout question if configured by admin
-			.script("js/monoto/m_disableRightClick.js")				// disabled the right-click contextmenu
-			.script("js/monoto/m_keyPressNotes.js")					// disabled the right-click contextmenu
-		</script>
+		<script type="text/javascript" src="js/monoto/m_keyPressNotes.js"></script>
 	</body>
 </html>
