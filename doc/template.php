@@ -11,22 +11,17 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
-		<title>monoto notes</title>
-		
-		<!-- META STUFF -->
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="monoto notes">
-		<meta name="author" content="florian poeck">
+
+		<!-- HTML Head -->
+		<?php include 'inc/coreIncludesHTMLHead.php'; ?>
 
 		<!-- CSS -->
+		<?php include 'inc/coreIncludesCSS.php'; ?>
 		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" /> 
-		<link rel="stylesheet" href="images/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link href="css/bootstrap.min.css" rel="stylesheet">	<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap-theme.min.css" rel="stylesheet">	<!-- Bootstrap theme -->
+		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
+
+		<!-- JS -->
+		<?php include 'inc/coreIncludesJS.php'; ?>
 	</head>
 
 
@@ -57,8 +52,6 @@
 		</div>
 		<div class="container theme-showcase" role="main">
 
-
-
 		<div id="container">
 			<div id="noteContentCo">
 				<div class="spacer">&nbsp;</div>
@@ -73,28 +66,8 @@
 
 
 	<!-- JS-->
-	<script type="text/javascript" src="js/jquery/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	
-	<!-- Bootstrap core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-
-	<!-- loading the other scripts via LAB.js  ... without load-blocking so far -->
-	<script type="text/javascript" src="js/LAB.js"></script>
-	<script>
-		$LAB
-		.script("js/monoto/m_reallyLogout.js") 			// ask really-logout question if configured by admin
-		.script("js/monoto/m_disableRightClick.js")		// disabled the right-click contextmenu
-		.script("js/monoto/m_keyPressAll.js")			// keyboard shortcuts
-	</script>
-	
-	<!-- noty - notifications -->
-	<script type="text/javascript" src="js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="js/noty/layouts/topRight.js"></script>
-	<script type="text/javascript" src="js/noty/themes/default.js"></script>
-	<script type="text/javascript" src="js/monoto/m_initNoty.js"></script>
-
-
+	<script type="text/javascript" src="js/monoto/m_keyPressAll.js"></script>
 
 	<script type="text/javascript">
 		// alert
