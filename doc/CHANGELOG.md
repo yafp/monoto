@@ -23,7 +23,7 @@
 * Note editing
   * [#269] Save button is only enabled if either note-title or note-content was changed
   * [#270] Editor is only in read-write mode if a note is selected
-  * [#271]Toolbar is now collapsible
+  * [#271] Toolbar is now collapsible
   * [#241] Toolbar is not visible on load, but shown when editor gets focus.
   * [#255] Re-enabled elementpath in CKEditor (showing informations about html tags)
 * Activity Log  
@@ -32,7 +32,7 @@
   * [#246] Updated jQuery (from 2.2.3 to 3.3.1)
   * [#247] Updated Bootstrap (from 3.3.5 to 4.2.1)
   * [#231] Updated CKEditor (from 4.4.7 to 4.11.2)
-  * [#248]Updated FontAwesome (from 4.6.3 to 5.7.0)
+  * [#248] Updated FontAwesome (from 4.6.3 to 5.7.0)
   * [#253] Updated DataTables (from 1.10.5 to 1.10.18)
 * Languages
   * [#210] Most parts of UI are available in .en and .de
