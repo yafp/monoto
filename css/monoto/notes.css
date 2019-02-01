@@ -1,0 +1,57 @@
+body{}
+
+/* SEARCH */
+#searchField{
+    width:100%;
+    margin-top: 20px;
+    margin-bottom: 5px;
+
+}
+
+/* hidden field showing the ID of the current note */
+#noteID{
+    background-color: lightyellow;
+    text-align: center;
+    height: 20px;
+
+    margin-top: 20px;
+    margin-bottom: 2px;
+}
+
+/* hidden field showing the version of the current note */
+#noteVersion{
+    background-color: lightyellow;
+    text-align: center;
+    height: 20px;
+}
+
+
+/* BUTTONS */
+.buttonNotes {
+    margin-top: 5px;
+    /* width:120px; */
+    width:100%;
+}
+
+
+
+#editor1 {
+    /*
+    background-image: url("../../images/logo/monoto_logo_black.png") !important;
+	background-repeat: repeat-x;
+	background-attachment: local !important;
+    */
+}
+
+/* CKEditor */
+.ck-editor__editable {
+	min-height: 100px;
+	height: 400px;
+
+    /* try to add a background image to editor */
+    /*
+    background-image: url("../../images/logo/monoto_logo_black.png") !important;
+	background-repeat: repeat-x;
+	background-attachment: local !important;
+    */
+}
