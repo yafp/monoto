@@ -1,5 +1,5 @@
 <!-- HTML Head -->
-<link rel="shortcut icon" type="image/ico" href="images/fav.ico" />
+<link rel="shortcut icon" type="image/ico" href="images/favicon/fav.ico" />
 
 <title>monoto notes</title>
 

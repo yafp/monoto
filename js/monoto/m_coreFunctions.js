@@ -1,27 +1,29 @@
-// --------------------------------------------
-// display a desktop notification - if possible
-// --------------------------------------------
-//
-function displayDesktopNotification(notificationText)
+// -----------------------------------------------------------------------------
+// custom console.log function
+// -----------------------------------------------------------------------------
+function logToConsole(source, msg)
 {
-	if (!("Notification" in window)) // Let's check if the browser supports notifications
-	{
-		console.log("Warning: This browser does not support desktop notification");
-	}
-	else if (Notification.permission === "granted") // Let's check if the user is okay to get some notification
-	{
-		var notification = new Notification(notificationText);		// If it's okay let's create a notification
-	}
-	// Otherwise, we need to ask the user for permission
-	else if (Notification.permission !== 'denied') 
-	{
-		Notification.requestPermission(function (permission) 
-		{
-			if (permission === "granted") 	// If the user is okay, let's create a notification
-			{
-				var notification = new Notification(notificationText);
-			}
-		});
-	}
-	// At last, if the user already denied any notification, and you want to be respectful there is no need to bother them any more.
+    // both values empty
+    if ((source == "") && (msg == ""))
+    {
+        console.log("WARNING: got empty SOURCE and MSG in logToConsole");
+        return;
+    }
+
+    // empty source
+    if(source == "")
+    {
+        console.log(msg);
+        return;
+    }
+
+    // empty msg
+    if(msg == "")
+    {
+        console.log("Function: "+ source);
+        return;
+    }
+
+    // default case
+    console.log("Function: " + source + " ### "+msg);
 }

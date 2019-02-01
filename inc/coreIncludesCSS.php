@@ -1,8 +1,21 @@
 <!-- CSS -->
+<!-- noty v3
+<link rel="stylesheet" type="text/css" href="js/noty-3.2.0-beta/lib/noty.css">
+-->
+
+<!-- Monoto specific css -->
+<link rel="stylesheet" type="text/css" href="css/monoto/general.css" title="default" />
+<link rel="stylesheet" type="text/css" href="css/monoto/datatable_changes.css" title="default" />
+
 
 <!-- Font Awesome -->
-<link rel="stylesheet" type="text/css" href="images/font-awesome/css/font-awesome.min.css">
+<!-- 5.7.0 -->
+<link rel="stylesheet" type="text/css" href="js/FontAwesome/5.7.0/css/fontawesome.min.css">
 
 <!-- Bootstrap -->
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+<!-- 4.2.1 -->
+<link rel="stylesheet" type="text/css" href="js/bootstrap/4.2.1/css/bootstrap.min.css">
+
+<!-- DataTables -->
+<!-- 1.10.18 -->
+<link rel="stylesheet" type="text/css" href="js/datatables/1.10.18/css/jquery.dataTables.min.css" />

@@ -1,52 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!-- HTML Head -->
-		<?php include 'inc/coreIncludesHTMLHead.php'; ?>
+<head>
+    <?php include 'inc/coreIncludes.php'; ?>
+</head>
 
-		<!-- CSS -->
-		<?php include 'inc/coreIncludesCSS.php'; ?>
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
+<body role="document">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.php"><img src="images/logo/monoto_logo_white.png" height="26"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+            </div>
+        </div>
+    </nav>
 
-		<!-- JS-->
-		<?php include 'inc/coreIncludesJS.php'; ?>
-	</head>
+    <!-- Page Content -->
+    <div class="container theme-showcase" role="main">
+        <div id="container">
+            <div id="noteContentCo">
+
+                <h3><i class="fas fa-forward"></i> <?php echo translateString("Redirect"); ?></h3>
+
+                <!-- redirect image -->
+                <div class="text-center">
+                    <img src="images/content/redirect.gif">
+                </div>
+
+                <!-- refresh -->
+                <?php header( "refresh:1;url=index.php" ); ?>
 
 
-	<body role="document">
-		<!-- Fixed navbar -->
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" width="63" height="25"></a>
-				</div>
-			</div>
-		</div>
-		<div class="container theme-showcase" role="main">
+                <script>
+                    console.log("Triggering redirect.");
+                    window.location.href = "index.php"
+                </script>
 
 
-		<div id="container">
-			<div id="noteContentCo">
-				<div class="spacer">&nbsp;</div>
-				<div class="spacer">&nbsp;</div>
-				<table style="width: 100%"><tr><td style="text-align: center;"><img src="images/icons/redirect.gif"></td></tr></table>
-				<div id="spacer">&nbsp;</div>
-				<?php header( "refresh:1;url=index.php" ); ?>
-			</div>
-			<div class="spacer">&nbsp;</div>
-		</div>
-	</div> <!-- /container -->
+                </script>
+            </div>
+        </div>
 
-	<!-- JS-->
-	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="js/monoto/m_keyPress.js"></script>
+        <!-- footer -->
+        <?php require 'inc/footer.php'; ?>
 
-	</body>
+    </div> <!-- /container -->
+</body>
 </html>

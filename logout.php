@@ -1,79 +1,76 @@
 <?php
-	session_start();
-	require 'conf/config.php';
-	if($_SESSION['valid'] != 1)			// check if the user-session is valid or not
-	{
-		header('Location: redirect.php');
-	}
+session_start();
+if($_SESSION['valid'] != 1) // check if the user-session is valid or not
+{
+    header('Location: redirect.php');
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!-- HTML Head -->
-		<?php include 'inc/coreIncludesHTMLHead.php'; ?>
+<head>
+    <?php include 'inc/coreIncludes.php'; ?>
+</head>
 
-		<!-- CSS -->
-		<?php include 'inc/coreIncludesCSS.php'; ?>
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
+<body role="document">
 
-		<!-- JS-->
-		<?php include 'inc/coreIncludesJS.php'; ?>
-	</head>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <div class="container">
+            <a class="navbar-brand" href="n.php"><img src="images/logo/monoto_logo_white.png" height="26"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+            </div>
+        </div>
+    </nav>
 
-	<body role="document">
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="notes.php"><img src="images/icons/monoto_logo_white.png" width="63" height="25"></a>
-				</div>
-			</div>
-		</div>
-		<div class="container theme-showcase" role="main">
 
-		<div id="container">
-			<div id="noteContentCo">
-				<div class="spacer">&nbsp;</div>
-				<div class="spacer">&nbsp;</div>
-				<?php
-					if($s_enable_random_logout_gif == false)		// define logout image
-					{
-						$logoutImage = "images/icons/logout.gif";
-					}
-					else // or ...pick random from folder
-					{
-						$imagesDir = 'images/random_logout/';
-						$images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-						$logoutImage = $images[array_rand($images)];
-					}
-				?>
-				<table style="width: 100%"><tr><td style="text-align: center;"><img src="<?php echo $logoutImage; ?>"></td></tr></table>
+    <!-- Page Content -->
+    <div class="container theme-showcase" role="main">
 
-				<script>
-					$('#container').delay(5000).fadeOut(5000)
-				</script>
+        <div id="container">
+            <div id="noteContentCo">
+                <h3><i class="fas fa-sign-out-alt"></i> <?php echo translateString("Logout"); ?></h3>
+                <?php
 
-				<!-- REDIRECT TO LOGIN -->
-				<?php
-					session_destroy(); // destroy the user session
-					header("refresh:10;url=index.php");
-				?>
+                // update logout conter
+                $con = connectToDB();
+                $result = mysqli_query($con, "UPDATE m_users SET logout_counter = logout_counter + 1 WHERE username='".$_SESSION['username']."'");
 
-				<div id="spacer">&nbsp;<br>&nbsp;</br></div>
-			</div>
-			<div class="spacer">&nbsp;</div>
-		</div>
-	</div> <!-- /container -->
+                // Define lgout image
+                $logoutImage = "images/content/logout.gif";
 
-	<!-- JS-->
-	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="js/monoto/m_keyPressAll.js"></script>
-	</body>
+                // destroy the user session
+                session_destroy();
+                ?>
+
+                <!-- logout image -->
+                <div class="text-center">
+                    <img class="center-block" src="<?php echo $logoutImage; ?>">
+                </div>
+
+                <script>
+                // fade out the container after some time
+                //$('#container').delay(3000).fadeOut(5000);
+
+                // Redirect to login
+                setTimeout(function(){
+                    window.location.replace("index.php");
+                }, 1000);
+
+                </script>
+
+            </div>
+        </div>
+
+        <!-- footer -->
+        <?php require 'inc/footer.php'; ?>
+
+    </div> <!-- /container -->
+
+    <!-- JS-->
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+</body>
 </html>

@@ -1,7 +1,7 @@
-/* 
-DISABLING the right click - used for the entire interface
-*/
+// -----------------------------------------------------------------------------
+// DISABLING the right click - used for the entire interface
+// -----------------------------------------------------------------------------
 $(document).bind("contextmenu",function(e)
 {
-	return false;
+    return false;
 });
