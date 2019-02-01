@@ -1,0 +1,6 @@
+DirectoryIndex index.php
+RewriteEngine on
+ErrorDocument 400 http://localhost/monoto/error.php?type=error&error=400
+ErrorDocument 403 http://localhost/monoto/error.php?type=error&error=403
+ErrorDocument 404 http://localhost/monoto/error.php?type=error&error=404
+ErrorDocument 500 http://localhost/monoto/error.php?type=error&error=500
