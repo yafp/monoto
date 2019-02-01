@@ -2,13 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: monoto\n"
 "POT-Creation-Date: 2015-04-24 19:52+0100\n"
-"PO-Revision-Date: 2015-11-11 21:23+0100\n"
+"PO-Revision-Date: 2019-01-30 15:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: de\n"
@@ -65,89 +65,158 @@ msgstr "anlegen"
 msgid "delete"
 msgstr "l&ouml;schen"
 
+# cancel note creation button
+msgid "cancel"
+msgstr "abbrechen"
+
+# button: update
+msgid "update"
+msgstr "aktualisieren"
+
 # ## MyMonoto ###########################################################
 #
-# Profile Tab
-msgid "Profile"
-msgstr "Profil"
+# ## Profile / Account
+#
+# Tab
+msgid "Account"
+msgstr "Konto"
 
+#
 # Language
 msgid "Language"
 msgstr "Sprachwahl"
 
+#
 # Changing passwords selection
-msgid "Changing password:"
-msgstr "Passwort &auml;ndern:"
+msgid "Changing password"
+msgstr "Passwort &auml;ndern"
 
+#
 # username
-msgid "username:"
-msgstr "Benutzername:"
+msgid "username"
+msgstr "Benutzername"
 
+#
 # mail
-msgid "mail:"
-msgstr "Email:"
+msgid "mail"
+msgstr "Email"
 
+#
 # logins
-msgid "logins:"
-msgstr "Anmeldungen:"
+msgid "logins"
+msgstr "Anmeldungen"
 
+#
 # since
-msgid "since:"
-msgstr "seit:"
+msgid "since"
+msgstr "seit"
 
-# Stats Tab
-msgid "Stats"
+# ## Statistics
+#
+# Tab
+msgid "Statistics"
 msgstr "Statistik"
 
-# Activity Tab
+# ## Activity
+#
+# Tab
 msgid "Activity Log"
 msgstr "Aktivit&auml;ten Protokoll"
 
-# Importer Tab
+# ## Impoter Text
+#
+# Tab
 msgid "Importer (Textfiles)"
 msgstr "Import (Textdateien)"
 
-# Importer Tab
+#
+# Description
 msgid "You can import plain-text files. Select a folder and press the 'Import' button."
 msgstr "Reine Text-Dateien k&ouml;nnen hier eingelesen werden. Quellordner w&auml;hlen und 'Import' Knopf best&auml;tigen."
 
-# Import Button
-msgid "Import"
-msgstr "importieren"
-
-# Importer Log
+#
+# Log
 msgid "Output of impoter will be displayed here"
 msgstr "Ausgabe des Imports"
 
-# Importer Tab
+#
+# Button: Import
+msgid "import"
+msgstr "importieren"
+
+# ## Importer CSV
+#
+# Tab
 msgid "Importer (.csv)"
 msgstr "Import (.csv)"
 
-# Exporter Tab
+#
+# Description
+msgid "You can import notes in .csv format (coming from the exporter)."
+msgstr ".CSV-Dateien k&ouml;nnen hier eingelesen werden. Quelle w&auml;hlen und 'Import' Knopf best&auml;tigen."
+
+#
+# info importer
+msgid "You can select multiple files here at once."
+msgstr "Es k&ouml;nnen mehrere Dateien auf einmal ausgew&auml;hlt werden."
+
+#
+# References
+msgid "References"
+msgstr "Hinweise"
+
+# ## Exporter
+#
+# Tab: Exporter
 msgid "Exporter (.csv)"
 msgstr "Export (.csv)"
 
-# Eraser Tab
+#
+# Description
+msgid "You can export your notes in .csv format by pressing the 'Export' button."
+msgstr "Mittels dem 'Export' Knopf k&ouml;nnen alle Notizen als .csv Datei exportiert werden."
+
+#
+# Button: export
+msgid "export"
+msgstr "exportieren"
+
+#
+# Info: export separator
+msgid "The export file is using semicolon (;) as separator."
+msgstr "Die Export-Datei verwendet Semikolons als Trennzeichen."
+
+#
+# Info: popup blocker
+msgid "Active popup-blocker settings might prevent the download of the exported .csv file."
+msgstr "Aktivie Popup-Blocker Einstellungen k&ouml;nnen den Download der .csv Datei verhindern."
+
+# ## Eraser
+#
+# Tab
 msgid "Eraser"
 msgstr "L&ouml;schdienst"
 
-# Eraser Text
+#
+# Description
 msgid "You can delete your notes and events here. Keep in mind: there is no restore option."
-msgstr "Hier kannst du deine Notizen und Logeintr&auml;ge l&ouml;schen. Bitte bedenke dass es keine keine Widerherstellungsoption gibt."
+msgstr "Hier kannst du deine Notizen und Logeintr&auml;ge l&ouml;schen. Bitte bedenke dass es keine Wiederherstellungsoption gibt."
 
-# Erase Events
+#
+# Button: Erase Events
 msgid "Delete events"
 msgstr "L&ouml;sche Ereignisse"
 
-# Eraser Notes
+#
+# Button: Eraser Notes
 msgid "Delete notes"
 msgstr "L&ouml;sche Notizen"
 
 # ## Keyboard ###########################################################
 #
-# Monoto-wide
-msgid "monoto-wide"
-msgstr "monoto-weit"
+# h3: General
+msgid "General"
+msgstr "Allgemein"
 
 # Key
 msgid "Key"
@@ -189,67 +258,116 @@ msgstr "Entf"
 msgid "Deletes the selected note"
 msgstr "L&ouml;scht die markierte Notiz"
 
-# Key: Arrow-Down (in search)
-msgid "Arrow Down (in search)"
-msgstr "Pfeil nach unten (in der Suche)"
+# in search
+msgid "(in search)"
+msgstr "(innerhalb der Suche)"
+
+# (with selected note)
+msgid "(with selected note)"
+msgstr "(bei selektierter Notiz)"
 
 # Desc: Arrow-Down (in search)
 msgid "Selects the top record"
 msgstr "Wechselt zur ersten Notiz der Ergebnistabelle"
 
-# Key: Arrow Down (if record selected)
-msgid "Arrow Down (if record selected)"
-msgstr "Pfeil nach unten (wenn Datensatz markiert)"
-
 # Desc: Arrow Down (if record selected)
 msgid "Selects the next record"
 msgstr "Springt zur n&auml;chsten Notiz"
-
-# Key: Arrow Up (in search)
-msgid "Arrow Up (in search)"
-msgstr "Pfeil nach oben (in Suche)"
-
-# Desc: Arrow Up (in search)
-msgid "Moves the focus to newNoteTitle"
-msgstr "Springt zum Notiz-Name Feld"
-
-# Key: Arrow Up (if record selected)
-msgid "Arrow Up (if record selected)"
-msgstr "Pfeil nach oben (wenn Datensatz markiert)"
 
 #  Desc: Arrow up (if record selected)
 msgid "Selects the previous record"
 msgstr "Springt zur vorherigen Notiz der Ergebnistabelle"
 
+#  Desc: Arrow up (in search)
+msgid "Selects the last record"
+msgstr "Springt zur letzten Notiz der Ergebnistabelle"
+
 # ## Admin ###########################################################
 #
-# Config tab
-msgid "Config"
+# Tab: General information
+#
+# Tab name
+msgid "General information"
+msgstr "Allgemeine Informationen"
+
+# h3: Configuration
+msgid "Configuration"
 msgstr "Konfiguration"
 
 # Warning - Delete setup.php
 msgid "Please delete <i>setup.php</i>. It is a risk to keep that file."
 msgstr "Bitte l&ouml;sche <i>setup.php</i>. Es ist ein Sicherheitsrisiko diese Datei auf dem Server zu belassen."
 
-# Version-Tab
+# maintenance mode
+msgid "maintenance mode"
+msgstr "Wartungsmodus"
+
+# random logout images
+msgid "random logout images"
+msgstr "Zufallsbilder"
+
+# Version
 msgid "Version"
 msgstr "Version"
 
-# Users-Tab
+# h3: database
+msgid "Database"
+msgstr "Datenbank"
+
+# h3: Users
 msgid "Users"
 msgstr "Benutzer"
 
-# Broadcast-Tab
-msgid "Broadcast message"
-msgstr "Mitteilung"
+# Account table column: comment
+msgid "comment"
+msgstr "Kommentar"
 
-# Tasks-Tab
+# Tab: Tasks
 msgid "Tasks"
 msgstr "Aufgaben"
 
+# h3: Delete account
+msgid "Delete account"
+msgstr "Konto l&ouml;schen"
+
+# h3: Invite user
+msgid "Invite user"
+msgstr "Benutzer einladen"
+
+# button: invite
+msgid "invite"
+msgstr "einladen"
+
+# h3: Broadcast
+msgid "Broadcast message"
+msgstr "Mitteilung an alle"
+
+# button: send broadcast
+msgid "send"
+msgstr "senden"
+
+# h3: misc
+msgid "Misc"
+msgstr "Verschiedenes"
+
+
+# h3 libraries
+msgid "Libraries"
+msgstr "Bibliotheken"
+
 # ## i ###########################################################
 #
+# navigation entry
+msgid "Random Images"
+msgstr "Zuf&auml;llige Bilder"
+
 #
 # hint how to jump to next image
 msgid "JumpToNextImage"
-msgstr "Dr&uuml;cke <kbd>Space</kbd> oder <b>klicke auf das Bild</b> um zum n&auml;chsten Bild zu gelangen."
+msgstr "Dr&uuml;cke <kbd>Leertaste</kbd> oder <b>klicke auf das Bild</b> um zum n&auml;chsten Bild zu gelangen."
+
+# ## q ###########################################################
+#
+# navigation entry
+msgid "Quotes"
+msgstr "Zitate"
