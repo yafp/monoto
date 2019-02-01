@@ -1,0 +1,68 @@
+1. create DB
+--
+-- Database: `monoto`
+--
+CREATE DATABASE `monoto` DEFAULT CHARACTER SET latin1 COLLATE utf8;
+USE `monoto`;
+
+
+
+
+2. create log table
+--
+-- Table structure for table `m_log`
+--
+CREATE TABLE IF NOT EXISTS `m_log` (
+  `id` int(11) NOT NULL,
+  `event` text CHARACTER NOT NULL,
+  `details` text CHARACTER NOT NULL,
+  `activity_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` text  NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='stores every edit, create, save etc' AUTO_INCREMENT=1 ;
+
+
+
+
+
+3. create notes table
+--
+-- Table structure for table `m_notes`
+--
+CREATE TABLE IF NOT EXISTS  `m_notes` (
+  `id` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `content` text NOT NULL,
+  `date_mod` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `save_count` int(11) NOT NULL,
+  `owner` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+4. create user table
+--
+-- Table structure for table `m_users`
+--
+CREATE TABLE IF NOT EXISTS  `m_users` (
+  `id` int(11) NOT NULL COMMENT 'the ID of the user',
+  `username` varchar(64) NOT NULL COMMENT 'the actual username',
+  `password` varchar(64) CHARACTER SET latin1 NOT NULL COMMENT 'the user password',
+  `salt` varchar(3) CHARACTER SET latin1 NOT NULL COMMENT 'the user salt',
+  `login_counter` int(11) NOT NULL DEFAULT '0' COMMENT 'Amount of logins',
+  `logout_counter` int(11) DEFAULT '0' COMMENT 'Amount of logouts',
+  `failed_logins` int(11) NOT NULL DEFAULT '0' COMMENT 'Amount of failed login attempts',
+  `failed_logins_in_a_row` int(2) NOT NULL DEFAULT '0' COMMENT 'Amount of failed logins in a row. Gets resetted after a successful login',
+  `date_invite` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'stores date of invite via admin',
+  `date_first_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'stores the first login',
+  `date_last_loginIF NOT EXISTS ` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'stores the last login',
+  `date_last_login_fail` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_admin` tinyint(1) DEFAULT NULL COMMENT 'adds account more privs',
+  `email` text NOT NULL COMMENT 'Email address of the user',
+  `admin_note` text COMMENT 'Note from admin about this user',
+  `language` text COMMENT 'Language for UI'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

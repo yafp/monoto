@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/icons/monoto_logo_black.png) Contributing
+![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monoto_logo_black.png) Contributing
 ==========
 
 # Issues
