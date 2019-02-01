@@ -1,114 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!-- HTML Head -->
-		<?php include 'inc/coreIncludesHTMLHead.php'; ?>
+<head>
+    <?php include 'inc/coreIncludes.php'; ?>
 
-		<!-- JS -->
-		<?php include 'inc/coreIncludesJS.php'; ?>
+    <!-- specific -->
+    <!-- css -->
+    <link href="css/setup.css" rel="stylesheet">
+</head>
 
-		<!-- CSS -->
-		<?php include 'inc/coreIncludesCSS.php'; ?>
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
-		<link rel="stylesheet" type="text/css" href="css/page01.css" title="default" />
+<body role="document">
 
-	</head>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="setup.php"><img src="images/logo/monoto_logo_white.png" width="63" height="25"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#database">Database</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#account">Account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-	<body role="document">
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.php"><img src="images/icons/monoto_logo_white.png" width="63" height="25"></a>
-				</div>
-				<div class="navbar-collapse collapse"></div><!--/.navbar-collapse -->
-			</div>
-		</div>
+    <!-- welcome foo -->
+    <header class="bg-primary text-white">
+        <div class="container text-center">
+            <h1>Welcome to monoto</h1>
+            <p class="lead">This is a simple install script to get you started.</p>
+        </div>
+    </header>
 
-		<!-- ... -->
-		<div class="jumbotron">
-			<div class="container">
-				<h3>installer</h3>
-				<hr>
-				This install script creates your first monoto user account (with admin privileges).
-				<div class="spacer">&nbsp;</div>
-				<h4>Step 1: Prepare database</h4>
-				Please create a database and all related tables according to the instructions in <span class="label label-default">doc/INSTALL.txt</span> and adjust the values in  <span class="label label-default">conf/config.php</span> according to it.
-				<div class="spacer">&nbsp;</div>
-				<h4>Step 2: Create user</h4>
-				<form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-					<table border="0">
-						<tr><td>Adminname:</td><td><input type="text" name="username" placeholder="Username" required="required"/></td></tr>
-						<tr><td>Mail:</td><td><input type="email" name="email" placeholder="Email" required="required" /></td></tr>
-						<tr><td>Password:</td><td><input type="password" name="password1" placeholder="Password" required="required" /></td></tr>
-						<tr><td>Repeat Password:</td><td><input type="password" name="password2" placeholder="Password" required="required" /></td></tr>
-						<tr><td></td><td><input type="submit" value="Create" name="doCreateAdminAccount" /></td></tr>
-					</table>
-				</form>
-				<div class="spacer">&nbsp;</div>
-				<div class="alert alert-danger"><strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.</div>
-			</div>
-		</div>
+    <!-- spacer -->
+    <div class="row">&nbsp;</div>
 
-		<div class="container">
-			<hr>
-			<footer><?php require 'inc/footer.php'; ?></footer>
-		</div> <!-- /container -->
-	</body>
+    <!-- section: database -->
+    <section id="database" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2><i class="fas fa-database fa-2x"></i> Database</h2>
+                    <p class="lead">Please create a database and all related tables according to the instructions in <span class="badge badge-secondary">doc/INSTALL.md</span> and adjust the values in <span class="badge badge-secondary">conf/config.php</span> according to it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- spacer -->
+    <div class="row">&nbsp;</div>
+
+    <!-- section: account -->
+    <section id="account">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2><i class="fas fa-user-circle fa-2x"></i> Account</h2>
+                    <p class="lead">As final step you can create your initial admin account</p>
+                    <form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                        <!-- Username -->
+                        <div class="row">
+                            <div class="col">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="username" placeholder="Username" required="required" autocomplete="username"/>
+                            </div>
+                            <div class="col">
+                                <small>(max. 64 chars)</small>
+                            </div>
+                        </div>
+
+                        <!-- Mail -->
+                        <div class="row">
+                            <div class="col">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="col">
+                                <input type="email" name="email" placeholder="Email" required="required" autocomplete="email" />
+                            </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <!-- Password 1 -->
+                        <div class="row">
+                            <div class="col">
+                                Password
+                            </div>
+                            <div class="col">
+                                <input type="password" name="password1" placeholder="Password" required="required" autocomplete="new-password" />
+                            </div>
+                            <div class="col">
+                                <small>(desired password)</small>
+                            </div>
+                        </div>
+
+                        <!-- Password 2 -->
+                        <div class="row">
+                            <div class="col">
+                                Password
+                            </div>
+                            <div class="col">
+                                <input type="password" name="password2" placeholder="Password" required="required" autocomplete="new-password" />
+                            </div>
+                            <div class="col">
+                                <small>(again the desired password)</small>
+                            </div>
+                        </div>
+
+                        <!-- Password 2 -->
+                        <div class="row">
+                            <div class="col">
+                                <input type="submit" class="btn btn-primary" value="Create" name="doCreateAdminAccount"  />
+                            </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- spacer -->
+    <div class="row">&nbsp;</div>
+
+    <!-- warning -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="alert alert-danger"><strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white"><?php require 'inc/footer.php'; ?></p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="js/scrolling-nav.js"></script>
+
+</body>
+
 </html>
 
 
-
 <?php
-	// creating the initial admin-account
-	if ( isset($_POST["doCreateAdminAccount"]) )
-	{
-		require 'conf/config.php';
-		require 'inc/db.php'; // connect to db
-		connectToDB();
 
-		// check if user has already manually created the tables: m_users
-		$val = mysql_query('select 1 from `m_users`');
-		if($val !== FALSE)
-		{
-			// table m_users EXISTS - get the data
-			$username = $_POST['username'];
-			$email = $_POST['email'];
-			$password1 = $_POST['password1'];
-			$password2 = $_POST['password2'];
-			$username = mysql_real_escape_string($username);
 
-			// compare passwords
-			if($password1 == $password2)	// both passwords do match
-			{
-				// playing with hash
-				$hash = hash('sha256', $password1);
-				function createSalt()	// playing with salt - creates a 3 character sequence
-				{
-					$string = md5(uniqid(rand(), true));
-					return substr($string, 0, 3);
-				}
-				$salt = createSalt();
-				$hash = hash('sha256', $salt . $hash);
+// creating the initial admin-account
+if ( isset($_POST["doCreateAdminAccount"]) )
+{
+    $con = connectToDB();
 
-				$query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
-				mysql_query($query);
-				mysql_close($con); // close sql connection
-				header('Location: index.php');	// redirect to main page
-			}
-			else // Password mismatch
-			{
-				echo "<script type=\"text/javascript\">alert('Error: password mismatch');</script>";
-			}
-		}
-		else // mysql tables dont exist
-		{
-			echo "<script type=\"text/javascript\">alert('Error: mysql table doesnt exist');</script>";
-		}
-	}
+    // check if user has already manually created the table: m_users
+    $val = mysqli_query($con, 'select 1 from `m_users`');
+    if($val !== FALSE)
+    {
+        // table m_users EXISTS - get the data
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password1 = $_POST['password1'];
+        $password2 = $_POST['password2'];
+        $username = mysqli_real_escape_string($con, $username);
+
+        // compare passwords
+        if($password1 == $password2) // both passwords do match
+        {
+            // playing with hash
+            $hash = hash('sha256', $password1);
+            function createSalt() // playing with salt - creates a 3 character sequence
+            {
+                $string = md5(uniqid(rand(), true));
+                return substr($string, 0, 3);
+            }
+            $salt = createSalt();
+            $hash = hash('sha256', $salt . $hash);
+
+            $query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
+            mysqli_query($con, $query) or die ("Failed Query of " . $query);
+            mysqli_close($con); // close sql connection
+
+            displayNoty('Finished installer. Forwarding to login page.', 'success');
+            echo '<script type="text/javascript">window.location="index.php"</script>';        // whyever that works - but header not anymore. must be related to our header rework
+        }
+        else // Password mismatch
+        {
+            displayNoty('Password issues: password mismatch.', 'error');
+        }
+    }
+    else // mysql tables dont exist
+    {
+        displayNoty('Database issues: table m_users does not exist.', 'error');
+    }
+}
 ?>
