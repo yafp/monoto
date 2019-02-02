@@ -10,3 +10,4 @@ exclude_paths:
   - 'js/FontAwesome/**'
   - 'js/jquery/**'
   - 'js/noty/**'
+  - 'README.md'
