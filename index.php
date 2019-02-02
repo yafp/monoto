@@ -70,7 +70,7 @@ if (isset($_POST["doLogin"]) )
         $hash = hash('sha256', $userData['salt'] . hash('sha256', $password) );
 
         // check if user-account is locked already cause it had 3 failed logins in a row
-        $sql="SELECT failed_logins_in_a_row FROM m_users WHERE username='".$_SESSION['username']."'  ";
+        $sql="SELECT failed_logins_in_a_row FROM m_users WHERE username='".$owner."'  ";
         $result = mysqli_query($con, $sql);
         while($row = mysqli_fetch_array($result))
         {
@@ -84,11 +84,11 @@ if (isset($_POST["doLogin"]) )
             if($hash != $userData['password'])
             {
                 // log incorrect login attempt - date
-                $sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$_SESSION['username']."' ";
+                $sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$owner."' ";
                 $result = mysqli_query($con, $sql);
 
                 // get current fail-login-count
-                $sql="SELECT failed_logins FROM m_users WHERE username='".$_SESSION['username']."'  ";
+                $sql="SELECT failed_logins FROM m_users WHERE username='".$owner."'  ";
                 $result = mysqli_query($con, $sql);
                 while($row = mysqli_fetch_array($result))
                 {
@@ -97,12 +97,8 @@ if (isset($_POST["doLogin"]) )
                 $failCounter = $failCounter +1;
                 $failCounterInARow = $failCounterInARow +1;
 
-                // update failcounter
-                $sql="UPDATE m_users SET failed_logins='".$failCounter."' WHERE username='".$_SESSION['username']."' ";
-                $result = mysqli_query($con, $sql);
-
-                // update failcounterInARow - for account-lock-checking
-                $sql="UPDATE m_users SET failed_logins_in_a_row='".$failCounterInARow."' WHERE username='".$_SESSION['username']."' ";
+                // update failcounter & failcounterInARow
+                $sql="UPDATE m_users SET failed_logins='".$failCounter."', failed_logins_in_a_row='".$failCounterInARow."' WHERE username='".$owner."' ";
                 $result = mysqli_query($con, $sql);
 
                 // record to log - that we had a successfull user login
@@ -148,7 +144,7 @@ if (isset($_POST["doLogin"]) )
                 }
 
                 // get current login-count
-                $sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."'  ";
+                $sql="SELECT login_counter FROM m_users WHERE username='".$owner."'  ";
                 $result = mysqli_query($con, $sql);
                 while($row = mysqli_fetch_array($result))
                 {
@@ -159,16 +155,12 @@ if (isset($_POST["doLogin"]) )
                 // check if its first login - if so: save the first login date to db
                 if($loginCounter == 1)
                 {
-                    $sql="UPDATE m_users SET date_first_login= now() WHERE username='".$_SESSION['username']."' ";
+                    $sql="UPDATE m_users SET date_first_login= now() WHERE username='".$owner."' ";
                     $result = mysqli_query($con, $sql);
                 }
 
-                // update last login date
-                $sql="UPDATE m_users SET date_last_login= now()  WHERE username='".$_SESSION['username']."' ";
-                $result = mysqli_query($con, $sql);
-
-                // update logincounter
-                $sql="UPDATE m_users SET login_counter='".$loginCounter."' WHERE username='".$_SESSION['username']."' ";
+                // update last login date & logincounter
+                $sql="UPDATE m_users SET date_last_login= now(), login_counter='".$loginCounter."' WHERE username='".$owner."' ";
                 $result = mysqli_query($con, $sql);
 
                 // record to log - that we had a successfull user login
@@ -178,13 +170,10 @@ if (isset($_POST["doLogin"]) )
                 $result = mysqli_query($con, $sql);
 
                 // reset failedLoginsInARow entry in database
-                $sql="UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$_SESSION['username']."' ";
+                $sql="UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$owner."' ";
                 $result = mysqli_query($con, $sql);
 
                 echo '<script type="text/javascript">window.location="n.php"</script>';
-
-                // Show all session variables
-                //echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
             }
         }
         else         // login is not possible anymore - admin must remove the login lock
