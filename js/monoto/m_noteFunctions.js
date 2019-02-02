@@ -112,7 +112,7 @@ function onReady()
                     //logToConsole("", "Created a OnChangeListener for CKEditor");
 
                     // check if button is disabled - if so - enable it
-                    $("#bt_saveNote").is(":disabled");
+                    if($("#bt_saveNote").is(":disabled"))
                     {
                         enableNoteSavingButton();
                     }
@@ -129,7 +129,7 @@ function onReady()
                     if (value.length > 0)
                     {
                         // check if button is disabled - if so - enable it
-                        $("#bt_saveNote").is(":disabled");
+                        if($("#bt_saveNote").is(":disabled"))
                         {
                             enableNoteSavingButton();
                         }
@@ -137,7 +137,7 @@ function onReady()
                     else
                     {
                         // check if button is enabled - if so - disable it
-                        $("#bt_saveNote").is(":enabled");
+                        if($("#bt_saveNote").is(":enabled"))
                         {
                             disableNoteSavingButton();
                         }
@@ -334,16 +334,16 @@ function resetNotesUI()
     // enable some items
     $("#searchField").prop("disabled",false);
     // set some values
-    $('#noteTitle').val("");
-    $('#noteID').val(""); // hidden ID field
-    $('#noteVersion').val(""); // hidden version field
+    $("#noteTitle").val("");
+    $("#noteID").val(""); // hidden ID field
+    $("#noteVersion").val(""); // hidden version field
 
     // dataTable
     //
     // show datatable
-    $('#example').parents('div.dataTables_wrapper').first().show();
+    $("#example").parents("div.dataTables_wrapper").first().show();
     // reset all datatable filter - to see all records of the table
-    $('#example').dataTable().fnFilter('');
+    $("#example").dataTable().fnFilter("");
     // refresh the gui
     unmarkAllTableRows();
     // reset selected row number
@@ -361,11 +361,6 @@ function resetNotesUI()
     // set focus to search (shouldnt be needed anymore due to autofocus)
     $("#searchField").focus();
 }
-
-
-
-
-
 
 
 // -----------------------------------------------------------------------------
@@ -600,7 +595,7 @@ function deleteNote()
 // but can happen if user tried to delete via DEL key-press
 else
 {
-    if(deleteID == "") // user most likely pressed DEL key without selected note
+    if(deleteID === "") // user most likely pressed DEL key without selected note
     {
         //var n = noty({text: "Error: Unable to delete as no note is selected", type: "error"});
         logToConsole(functionName, "Unable to delete a note as no note was selected.");
@@ -643,7 +638,6 @@ function disableNoteSavingButton()
     logToConsole(functionName, "Disabling the save button for notes");
 
     $("#bt_saveNote").prop("disabled",true);
-    //$('#bt_saveNote').prop('title', 'Note unchanged, saving is disabled');
 }
 
 
@@ -668,7 +662,7 @@ function showLastActionViaCookie()
 {
     var functionName = "showLastActionViaCookie";
 
-    if($.cookie("lastAction") != "")
+    if($.cookie("lastAction") !== "")
     {
         logToConsole(functionName, "Cookie contains: '" + $.cookie("lastAction") + "' as last action");
 
@@ -904,12 +898,12 @@ function initCKEditor()
         //removePlugins: 'elementspath',
         toolbar:
         [
-            { name: 'tools',       items : [ 'Maximize' ] },
-            { name: 'basicstyles', items : [ 'Bold','Italic','Strike','RemoveFormat' ] },
-            { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','Blockquote' ] },
-            { name: 'insert',      items : [ 'Link','Image','Table','HorizontalRule','SpecialChar' ] },
-            { name: 'styles',      items : [ 'Styles','Format' ] },
-            { name: 'document',    items : [ 'Source' ] }
+            { name: "tools",       items : [ "Maximize" ] },
+            { name: "basicstyles", items : [ "Bold","Italic","Strike","RemoveFormat" ] },
+            { name: "paragraph",   items : [ "NumberedList","BulletedList","-","Outdent","Indent","Blockquote" ] },
+            { name: "insert",      items : [ "Link","Image","Table","HorizontalRule","SpecialChar" ] },
+            { name: "styles",      items : [ "Styles","Format" ] },
+            { name: "document",    items : [ "Source" ] }
         ]
     });
 

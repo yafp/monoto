@@ -4,7 +4,7 @@
 function showLogoutDialog()
 {
     functionName = "showLogoutDialog";
-    logToConsole(functionName, "");
+    logToConsole(functionName, "Show a logout dialog");
 
     var x = noty({
         text: 'Do you really want to logout?',

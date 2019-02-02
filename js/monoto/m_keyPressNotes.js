@@ -68,21 +68,17 @@ function KeyCheck(e)
             }
             break;
 
-
-
         // F5 - Reload main page
         case 116:
             logToConsole(functionName, "Keypress: F5");
             reloadAllNotes(); // execute reload function
             break;
 
-
         // F9 - save
         case 120:
             logToConsole(functionName, "Keypress: F9");
             tryToSaveNote();
             break;
-
 
     } // end switch
 } // end function keycheck
