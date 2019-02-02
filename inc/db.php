@@ -9,7 +9,10 @@ function connectToDB()
 	$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
 	if (!$con)
 	{
-		die('Could not connect: ' . mysqli_connect_error()); // die is useless as not visible
+		echo "Fehler: konnte nicht mit MySQL verbinden." . PHP_EOL;
+    	echo "Debug-Fehlernummer: " . mysqli_connect_errno() . PHP_EOL;
+    	echo "Debug-Fehlermeldung: " . mysqli_connect_error() . PHP_EOL;
+    	exit;
 	}
 	$db = mysqli_select_db($con, $mysql_db);
 
