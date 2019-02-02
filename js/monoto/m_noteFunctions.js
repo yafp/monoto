@@ -62,7 +62,7 @@ function onReady()
             curRow =sData[1];
 
             // get all currently visible rows
-            var filteredrows = $("#example").dataTable()._('tr', {"filter": "applied"});
+            var filteredrows = $("#example").dataTable()._("tr", {"filter": "applied"});
 
             // go over all rows and get selected row
             for ( var i = 0; i < filteredrows.length; i++ )

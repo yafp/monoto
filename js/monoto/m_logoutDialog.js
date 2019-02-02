@@ -3,11 +3,11 @@
 // -----------------------------------------------------------------------------
 function showLogoutDialog()
 {
-    functionName = "showLogoutDialog";
+    var functionName = "showLogoutDialog";
     logToConsole(functionName, "Show a logout dialog");
 
     var x = noty({
-        text: 'Do you really want to logout?',
+        text: "Do you really want to logout?",
         //text: '<?php echo "foo"; ?>Do you really want to logout?',
         type: "confirm",
         dismissQueue: false,
