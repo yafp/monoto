@@ -3,6 +3,8 @@ exclude_paths:
   - '.github/**'
   - '.github/**/*'
   - 'doc/**'
+  - 'js/jquery.easing.min.js'
+  - 'js/scrolling-nav.js'
   - 'js/bootstrap/**'
   - 'js/ckeditor/**'
   - 'js/cookie/**'
