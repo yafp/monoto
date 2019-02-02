@@ -1,9 +1,9 @@
 ---
 exclude_paths:
-  - 'js/bootstrap/*'
-  - 'js/ckeditor/*'
-  - 'js/cookie/*'
-  - 'js/datatables/*'
-  - 'js/FontAwesome/*'
-  - 'js/jquery/*'
-  - 'js/noty/*'
+  - 'js/bootstrap/**'
+  - 'js/ckeditor/**'
+  - 'js/cookie/**'
+  - 'js/datatables/**'
+  - 'js/FontAwesome/**'
+  - 'js/jquery/**'
+  - 'js/noty/**'
