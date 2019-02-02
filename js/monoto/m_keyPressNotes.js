@@ -25,7 +25,7 @@ function KeyCheck(e)
         // Arrow Up
         case 38:
             // specialcase: if focus in search -> jump to first record in table
-            if(document.activeElement.id == "searchField")
+            if(document.activeElement.id === "searchField")
             {
                 logToConsole(functionName, "Keypress: Arrow Up");
                 selectUpperRow();
