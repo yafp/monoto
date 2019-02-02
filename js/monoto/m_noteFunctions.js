@@ -390,7 +390,7 @@ function initDataTable()
     var functionName = "initDataTable";
     logToConsole(functionName, "Initializing the DataTable");
 
-    oTable = $('#example').dataTable(
+    oTable = $("#example").dataTable(
         {
             "oLanguage": {
                 "sProcessing": "<img src='../images/loading.gif'>",
@@ -898,7 +898,7 @@ function onReady()
     // Search field
     //
     // configure a new search field & its event while typing
-    $('#searchField').keyup(function(e) // keyup triggers on each key
+    $("#searchField").keyup(function(e) // keyup triggers on each key
     //$('#searchField').keypress(function() // keypress ignores all soft-keys
     {
         logToConsole("", "Keypress in search field");
@@ -973,7 +973,7 @@ function onReady()
                 console.log("Got > 1 result");
 
                 // check if there is already one note selected or not
-                var table = $('#example').DataTable();
+                var table = $("#example").DataTable();
                 if (table.rows( '.row_selected' ).any() )
                 {
                     console.log(">1 result BUT 1 is selected");

@@ -3,7 +3,9 @@
 <head>
     <?php
     include 'inc/coreIncludes.php';
-    $error = $_GET['error'];
+    
+    //$error = $_GET['error'];
+    $error   = trim( strval( $_GET['error'] ) );
 
     if(empty($error))
     {

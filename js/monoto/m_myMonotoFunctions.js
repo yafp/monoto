@@ -21,7 +21,7 @@ function deleteAllMyUserEvents()
                 location.reload();
             }
         },
-        {addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+        {addClass: "btn btn-danger", text: "Cancel", onClick: function($noty) {
             $noty.close();
             noty({text: "Aborted", type: "error"});
         }
@@ -46,7 +46,9 @@ function deleteAllMyUserNotes()
         layout: "topRight",
         theme: "defaultTheme",
         buttons: [
-            {addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
+        {
+            addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+            {
                 $noty.close();
                 $.post("inc/delMyUserNotes.php");
                 $.cookie("lastAction", "Deleted all your notes."); // store last Action in cookie
@@ -54,11 +56,13 @@ function deleteAllMyUserNotes()
                 location.reload();
             }
         },
-        {addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
-            $noty.close();
-            noty({text: "Aborted", type: "error"});
+        {
+            addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+            {
+                $noty.close();
+                noty({text: "Aborted", type: "error"});
+            }
         }
-    }
     ]
-});
+    });
 }

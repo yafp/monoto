@@ -1,8 +1,3 @@
-/*
-KEY PRESS SCRIPT - via: http://www.geekpedia.com/tutorial138_Get-key-press-event-using-JavaScript.html
-KeyPress Codes: http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-*/
-
 // -----------------------------------------------------------------------------
 // KeyPresses: genereal key press handler for notes
 // -----------------------------------------------------------------------------
