@@ -45,7 +45,7 @@ function onReady()
     $("table tr").click(function ()
     {
         clickedTableID = $(this).closest("table").attr("id"); // check clicksource
-        if(clickedTableID == "example") // trigge only datatable
+        if(clickedTableID === "example") // trigge only datatable
         {
             // Get position of current data
             var sData = oTable.fnGetData( this );
@@ -67,7 +67,7 @@ function onReady()
             // go over all rows and get selected row
             for ( var i = 0; i < filteredrows.length; i++ )
             {
-                if(filteredrows[i][1]== curRow)
+                if(filteredrows[i][1]=== curRow)
                 {
                     curSelectedTableRow=i;
                     logToConsole("", "Clicked row: "+curSelectedTableRow);
@@ -187,7 +187,7 @@ function onReady()
         // - 121 = F10
         // - 122 = F11
         // - 123 = F12
-        if(code == 37 || code == 39 || code == 112 || code == 113 || code == 114 || code == 115 || code == 116 || code == 117 || code == 118 || code == 119 || code == 120 || code == 121 || code == 122 || code == 123 )
+        if(code === 37 || code === 39 || code === 112 || code === 113 || code === 114 || code === 115 || code === 116 || code === 117 || code === 118 || code === 119 || code === 120 || code === 121 || code === 122 || code === 123 )
         {
             return;
         }
@@ -476,7 +476,7 @@ function createNewNote()
     if (newNoteTitle.length > 0)
     {
         // check if user defined note-content or not. Add placeholder text if empty
-        if(newNoteContent.length == 0)
+        if(newNoteContent.length === 0)
         {
             // define dummy content for new note - as user didnt
             newNoteContent = "This is a <b>placeholder</b> for missing content while note-creation.";
@@ -721,6 +721,37 @@ function initDataTable()
 
 
 // -----------------------------------------------------------------------------
+// DataTable: select and mark a single row in table
+// -----------------------------------------------------------------------------
+function selectAndMarkTableRow(currentRow)
+{
+    var functionName = "selectAndMarkTableRow";
+    logToConsole(functionName, "Selecting and marking the row: "+currentRow);
+
+    // select the top record
+    $("#example tbody tr:eq("+currentRow+")").click();
+
+    // change background as well (mark as selected)
+    $("#example tbody tr:eq("+currentRow+")").addClass("row_selected");
+}
+
+
+// -----------------------------------------------------------------------------
+// DataTable: unselect/unmark all rows in table
+// -----------------------------------------------------------------------------
+function unmarkAllTableRows()
+{
+    var functionName = "unmarkAllTableRows";
+    logToConsole(functionName, "Removing the selected attribute from all table rows");
+
+    $(oTable.fnSettings().aoData).each(function () // unselect all records
+    {
+        $(this.nTr).removeClass("row_selected");
+    });
+}
+
+
+// -----------------------------------------------------------------------------
 // DataTable:
 // -----------------------------------------------------------------------------
 function updateCurrentPosition(valueChange)
@@ -754,37 +785,6 @@ function updateCurrentPosition(valueChange)
     // update UI
     unmarkAllTableRows();
     selectAndMarkTableRow(curSelectedTableRow);
-}
-
-
-// -----------------------------------------------------------------------------
-// DataTable: unselect/unmark all rows in table
-// -----------------------------------------------------------------------------
-function unmarkAllTableRows()
-{
-    var functionName = "unmarkAllTableRows";
-    logToConsole(functionName, "Removing the selected attribute from all table rows");
-
-    $(oTable.fnSettings().aoData).each(function () // unselect all records
-    {
-        $(this.nTr).removeClass("row_selected");
-    });
-}
-
-
-// -----------------------------------------------------------------------------
-// DataTable: select and mark a single row in table
-// -----------------------------------------------------------------------------
-function selectAndMarkTableRow(currentRow)
-{
-    var functionName = "selectAndMarkTableRow";
-    logToConsole(functionName, "Selecting and marking the row: "+currentRow);
-
-    // select the top record
-    $("#example tbody tr:eq("+currentRow+")").click();
-
-    // change background as well (mark as selected)
-    $("#example tbody tr:eq("+currentRow+")").addClass("row_selected");
 }
 
 
@@ -976,7 +976,7 @@ function disableCKEditorWriteMode()
     //CKEDITOR.instances["editor1"].setReadOnly( true );
 
     // setReadOnly = true works here only if its not initial
-    if(initialLoad == false)
+    if(initialLoad === false)
     {
         CKEDITOR.instances.editor1.setReadOnly( true );
     }

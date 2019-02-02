@@ -46,7 +46,7 @@ function KeyCheck(e)
         case 46:
             console.log("Keypress: DEL (general)");
             var deleteID = $("#noteID").val();
-            if(deleteID != "")
+            if(deleteID !== "")
             {
                 deleteNote(); // execute delete function
             }
@@ -58,7 +58,7 @@ function KeyCheck(e)
             logToConsole(functionName, "Keypress: F2");
             console.log("F2 from this code is broken - as note content gets lost.");
             var noteID = $("#noteID").val();
-            if(noteID != "")
+            if(noteID !== "")
             {
                 CKEDITOR.instances.editor1.execCommand( "maximize" );
             }

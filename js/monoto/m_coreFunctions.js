@@ -4,21 +4,21 @@
 function logToConsole(source, msg)
 {
     // both values empty
-    if ((source == "") && (msg == ""))
+    if ((source === "") && (msg === ""))
     {
         console.log("WARNING: got empty SOURCE and MSG in logToConsole");
         return;
     }
 
     // empty source
-    if(source == "")
+    if(source === "")
     {
         console.log(msg);
         return;
     }
 
     // empty msg
-    if(msg == "")
+    if(msg === "")
     {
         console.log("Function: "+ source);
         return;
