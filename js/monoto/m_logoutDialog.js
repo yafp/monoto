@@ -3,8 +3,7 @@
 // -----------------------------------------------------------------------------
 function showLogoutDialog()
 {
-    var functionName = "showLogoutDialog";
-    logToConsole(functionName, "Show a logout dialog");
+    console.log("showLogoutDialog ::: Display a logout dialog");
 
     var x = noty({
         text: "Do you really want to logout?",
@@ -14,15 +13,19 @@ function showLogoutDialog()
         layout: "topRight",
         theme: "defaultTheme",
         buttons: [
-            {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
+        {
+            addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+            {
                 $noty.close();
                 window.location.href = "logout.php";
             }
         },
-        {addClass: "btn btn-danger", text: "Cancel", onClick: function($noty) {
-            $noty.close();
+        {
+            addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+            {
+                $noty.close();
+            }
         }
-    }
-]
-});
+        ]
+    });
 }

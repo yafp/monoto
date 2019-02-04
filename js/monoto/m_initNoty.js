@@ -19,10 +19,17 @@ $.noty.defaults = {
     modal: false,
     closeWith: ["click"], // ['click', 'button', 'hover']
     callback: {
+        /*
         onShow: function() {},
         afterShow: function() {},
         onClose: function() {},
         afterClose: function() {}
+        */
+
+        onShow() {},
+        afterShow() {},
+        onClose() {},
+        afterClose() {}
     },
     buttons: false // an array of buttons
 };

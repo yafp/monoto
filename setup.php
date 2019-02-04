@@ -155,7 +155,6 @@
         <!-- /.container -->
     </footer>
 
-
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
 
@@ -163,7 +162,6 @@
     <script src="js/scrolling-nav.js"></script>
 
 </body>
-
 </html>
 
 
@@ -180,11 +178,19 @@ if ( isset($_POST["doCreateAdminAccount"]) )
     if($val !== FALSE)
     {
         // table m_users EXISTS - get the data
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password1 = $_POST['password1'];
-        $password2 = $_POST['password2'];
-        $username = mysqli_real_escape_string($con, $username);
+        //$username = $_POST['username'];
+        $username= filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
+
+        //$email = $_POST['email'];
+        $email= filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+
+        //$password1 = $_POST['password1'];
+        $password1= filter_input(INPUT_POST, "password1", FILTER_SANITIZE_STRING);
+
+        //$password2 = $_POST['password2'];
+        $password2= filter_input(INPUT_POST, "password2", FILTER_SANITIZE_STRING);
+
+        //$username = mysqli_real_escape_string($con, $username);
 
         // compare passwords
         if($password1 == $password2) // both passwords do match
@@ -204,7 +210,7 @@ if ( isset($_POST["doCreateAdminAccount"]) )
             mysqli_close($con); // close sql connection
 
             displayNoty('Finished installer. Forwarding to login page.', 'success');
-            echo '<script type="text/javascript">window.location="index.php"</script>';        // whyever that works - but header not anymore. must be related to our header rework
+            echo '<script type="text/javascript">window.location="index.php"</script>'; // whyever that works - but header not anymore. must be related to our header rework
         }
         else // Password mismatch
         {

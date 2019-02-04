@@ -3,8 +3,7 @@
 // -----------------------------------------------------------------------------
 function deleteAllMyUserEvents()
 {
-    var functionName = "deleteAllMyUserEvents";
-    logToConsole(functionName, "");
+    console.log("deleteAllMyUserEvents ::: Dialog to delete all user events");
 
     var x = noty({
         text: "Really delete all your events from log?",
@@ -13,7 +12,7 @@ function deleteAllMyUserEvents()
         layout: "topRight",
         theme: "defaultTheme",
         buttons: [
-            {addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
+            {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
                 $noty.close();
                 $.post("inc/delMyUserEvents.php");
                 $.cookie("lastAction", "Deleted all your event-entries."); // store last Action in cookie
@@ -36,8 +35,7 @@ function deleteAllMyUserEvents()
 // -----------------------------------------------------------------------------
 function deleteAllMyUserNotes()
 {
-    var functionName = "deleteAllMyUserNotes";
-    logToConsole(functionName, "");
+    console.log("deleteAllMyUserNotes ::: Dialog to delete all user notes");
 
     var x = noty({
         text: "Really delete all your notes?",

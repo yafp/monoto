@@ -1,10 +1,4 @@
-<?php
-session_start();
-if($_SESSION['valid'] != 1) // check if the user-session is valid or not
-{
-    header('Location: redirect.php');
-}
-?>
+<?php include 'inc/checkSession.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +19,6 @@ if($_SESSION['valid'] != 1) // check if the user-session is valid or not
             </div>
         </div>
     </nav>
-
 
     <!-- Page Content -->
     <div class="container theme-showcase" role="main">
@@ -59,7 +52,6 @@ if($_SESSION['valid'] != 1) // check if the user-session is valid or not
                 setTimeout(function(){
                     window.location.replace("index.php");
                 }, 1000);
-
                 </script>
 
             </div>

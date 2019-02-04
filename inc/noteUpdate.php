@@ -18,12 +18,13 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 
 	require '../conf/config.php';
 
-	$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+	//$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());
 	}
-	mysqli_select_db($con, $mysql_db); 	// select db
+	//mysqli_select_db($con, $mysql_db); 	// select db
 	$owner = $_SESSION['username'];
 
 	// check if the new title is in use already by this user

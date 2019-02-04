@@ -1,11 +1,4 @@
-<?php
-session_start();
-if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
-{
-    header('Location: redirect.php');
-}
-
-?>
+<?php include 'inc/checkSession.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +21,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
 </head>
 
 <body role="document">
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -55,35 +49,21 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
         </div>
     </nav>
 
-
     <!-- Page Content -->
     <div class="container theme-showcase" role="main">
         <div id="container">
 
             <!-- Sub-Navigation -->
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="active nav-link" href="#account" role="tab" data-toggle="tab"><?php echo translateString("Account"); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#statistics" role="tab" data-toggle="tab"><?php echo translateString("Statistics"); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#activity" role="tab" data-toggle="tab"><?php echo translateString("Activity Log"); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#importer_t" role="tab" data-toggle="tab"><?php echo translateString("Importer (Textfiles)"); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#importer_c" role="tab" data-toggle="tab"><?php echo translateString("Importer (.csv)"); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#exporter_c" role="tab" data-toggle="tab"><?php echo translateString("Exporter (.csv)"); ?></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#eraser" role="tab" data-toggle="tab"><?php echo translateString("Eraser"); ?></a>
-                </li>
-            </ul> <!-- /SubNavigation -->
+                <li class="nav-item"><a class="active nav-link" href="#account" role="tab" data-toggle="tab"><?php echo translateString("Account"); ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="#statistics" role="tab" data-toggle="tab"><?php echo translateString("Statistics"); ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="#activity" role="tab" data-toggle="tab"><?php echo translateString("Activity Log"); ?></a> </li>
+                <li class="nav-item"><a class="nav-link" href="#importer_t" role="tab" data-toggle="tab"><?php echo translateString("Importer (Textfiles)"); ?></a> </li>
+                <li class="nav-item"><a class="nav-link" href="#importer_c" role="tab" data-toggle="tab"><?php echo translateString("Importer (.csv)"); ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="#exporter_c" role="tab" data-toggle="tab"><?php echo translateString("Exporter (.csv)"); ?></a></li>
+                <li class="nav-item"><a class="nav-link" href="#eraser" role="tab" data-toggle="tab"><?php echo translateString("Eraser"); ?></a></li>
+            </ul>
+            <!-- /SubNavigation -->
 
             <!-- Tab panes -->
             <div class="tab-content">
@@ -181,7 +161,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             <form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
                                 <input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
                                 <input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
-                                <button type="submit" class="btn btn-default buttonDefault" name="doChangeUserPW"  title="Starts the change password function if the user provided the new password twice."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
+                                <button type="submit" class="btn btn-primary buttonDefault" name="doChangeUserPW"  title="Starts the change password function if the user provided the new password twice."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
                             </form>
                         </div>
                     </div>
@@ -203,7 +183,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                                     <option value="de_DE.UTF-8">de_DE.UTF-8</option>
                                     <option value="en_US">en_US</option>
                                 </select>
-                                <button type="submit" class="btn btn-default buttonDefault" name="doChangeUserLanguage" title="Starts the change language function if the user provided the new language selection."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
+                                <button type="submit" class="btn btn-primary buttonDefault" name="doChangeUserLanguage" title="Starts the change language function if the user provided the new language selection."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
                             </form>
                         </div>
                     </div>
@@ -214,10 +194,10 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                     <h3><i class="fas fa-brain"></i> <?php echo translateString("Statistics"); ?></h3>
                     <?php
                     $con = connectToDB();
-                    $owner = $_SESSION['username'];
+                    $username = $_SESSION['username'];
                     // User: amount of notes
-                    $result = mysqli_query($con, "SELECT count(*) FROM m_notes WHERE owner='".$owner."' ");                     // run the mysql query
-                    while($row = mysqli_fetch_array($result))                                 // fetch data and file table as a second step later on
+                    $result = mysqli_query($con, "SELECT count(*) FROM m_notes WHERE owner='".$username."' "); // run the mysql query
+                    while($row = mysqli_fetch_array($result)) // fetch data and file table as a second step later on
                     {
                         echo "<ul>";
 
@@ -231,42 +211,42 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             echo "<li>You have <span class='badge badge-secondary'>".$row[0]." </span> personal notes</li>"; // output amount of notes
 
                             // amount of activity-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_events_of_current_user = $row[0];
                             }
 
                             // amount of create-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='create' and owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='create' and owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_amount_of_creates = $row[0];
                             }
 
                             // amount of create-error events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='create error' and owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='create error' and owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_amount_of_creates_errors = $row[0];
                             }
 
                             // amount of import-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='import' and owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='import' and owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_amount_of_imports = $row[0];
                             }
 
                             // amount of edits-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='save' and owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='save' and owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_amount_of_changes = $row[0];
                             }
 
                             // amount of delete-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='delete' and owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='delete' and owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_amount_of_deletes = $row[0];
@@ -281,7 +261,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             }
 
                             // version: highest note-version (most used note)
-                            $result = mysqli_query($con, "SELECT id, title, save_count FROM m_notes WHERE owner='".$owner."' ORDER BY save_count DESC LIMIT 1");
+                            $result = mysqli_query($con, "SELECT id, title, save_count FROM m_notes WHERE owner='".$username."' ORDER BY save_count DESC LIMIT 1");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_highest_note_version_id = $row[0];
@@ -290,7 +270,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             }
 
                             // shortest and longest note-content
-                            $result = mysqli_query($con, "SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$owner."' GROUP BY(id) LIMIT 1");
+                            $result = mysqli_query($con, "SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$username."' GROUP BY(id) LIMIT 1");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_note_with_shortest_content_id = $row[1];
@@ -299,7 +279,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             }
 
                             // longest note-content
-                            $result = mysqli_query($con, "SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$owner."' ORDER BY longest DESC LIMIT 1");
+                            $result = mysqli_query($con, "SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$username."' ORDER BY longest DESC LIMIT 1");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_note_with_longest_content_id = $row[1];
@@ -307,7 +287,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             }
 
                             // oldest created note
-                            $result = mysqli_query($con, "SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$owner."' ORDER BY date_create ASC LIMIT 1");
+                            $result = mysqli_query($con, "SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$username."' ORDER BY date_create ASC LIMIT 1");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_oldest_created_note_age = $row[0];
@@ -315,7 +295,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                                 $stats_oldest_created_note_id = $row[2];
                             }
                             // newest/latest created note
-                            $result = mysqli_query($con, "SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '1' and owner='".$owner."' ORDER BY date_create DESC LIMIT 1");
+                            $result = mysqli_query($con, "SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '1' and owner='".$username."' ORDER BY date_create DESC LIMIT 1");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_latest_created_note_age = $row[0];
@@ -335,14 +315,14 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             }
 
                             // overall_note_content_words
-                            $result = mysqli_query($con, "SELECT SUM( LENGTH( content ) - LENGTH( REPLACE( content, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT SUM( LENGTH( content ) - LENGTH( REPLACE( content, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_overall_content_words = $row[0];
                             }
 
                             // overall_note_title_words
-                            $result = mysqli_query($con, "SELECT SUM( LENGTH( title ) - LENGTH( REPLACE( title, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$owner."' ");
+                            $result = mysqli_query($con, "SELECT SUM( LENGTH( title ) - LENGTH( REPLACE( title, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$username."' ");
                             while($row = mysqli_fetch_array($result))
                             {
                                 $stats_overall_title_words = $row[0];
@@ -363,10 +343,10 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             echo "</ul>";
                         }
                         ?>
-                    </div> <!-- /tab: statistics -->
+                </div> <!-- /tab: statistics -->
 
-                    <!-- Tab: activity log -->
-                    <div role="tabpanel" class="tab-pane fade" id="activity">
+                <!-- Tab: activity log -->
+                <div role="tabpanel" class="tab-pane fade" id="activity">
                         <h3><i class="fas fa-clipboard-list"></i> <?php echo translateString("Activity Log"); ?></h3>
                         <table cellpadding="0" cellspacing="0" class="display" id="example" style="width:100%">
                             <thead>
@@ -374,7 +354,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             </thead>
                             <tbody>
                                 <?php
-                                $result = mysqli_query($con, "SELECT * FROM m_log WHERE owner='".$owner."' ORDER BY activity_date DESC"); // m_log
+                                $result = mysqli_query($con, "SELECT * FROM m_log WHERE owner='".$username."' ORDER BY activity_date DESC"); // m_log
                                 while($row = mysqli_fetch_array($result))   // fill datatable
                                 {
                                     // colorize table
@@ -427,30 +407,30 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                             </tbody>
                             <tfoot><tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr></tfoot>
                         </table>
-                    </div> <!-- /tab: activity_log -->
+                </div> <!-- /tab: activity_log -->
 
-                    <!-- Tab: importer textfiles -->
-                    <div role="tabpanel" class="tab-pane fade" id="importer_t">
+                <!-- Tab: importer textfiles -->
+                <div role="tabpanel" class="tab-pane fade" id="importer_t">
                         <h3><i class="fas fa-file-import"></i> <?php echo translateString("Importer (Textfiles)"); ?></h3>
                         <!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
                         <p><?php echo translateString("You can import plain-text files. Select a folder and press the 'Import' button."); ?></p>
                         <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerFormT">
                             <input type="file" multiple="multiple " name="impFilesT[]" id="impFilesT[]" accept="text/plain" />
                             <br>
-                            <button type="submit" class="btn btn-default buttonDefault" name="doImport" id="doImport" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." ><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
+                            <button type="submit" class="btn btn-primary buttonDefault" name="doImport" id="doImport" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." ><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
                             <textarea class="database" disabled="disabled" id="importLog" style="width:100%" name="importLog" cols="110" rows="5" placeholder="Output of importer will be displayed here"></textarea>
                         </form>
-                    </div> <!-- /tab: import textfiles -->
+                </div> <!-- /tab: import textfiles -->
 
-                    <!-- Tab: importer csv -->
-                    <div role="tabpanel" class="tab-pane fade" id="importer_c">
-                        <h3><i class="fas fa-file-import"></i> <?php echo translateString("Importer (.csv)"); ?></h3>
-                        <p><?php echo translateString("You can import notes in .csv format (coming from the exporter)."); ?></p>
-                        <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
-                            <input type="file" name="impFile" id="impFile" accept=".csv"/>
-                            <br>
-                            <button type="submit" class="btn btn-default buttonDefault" name="doImportCSV" id="doImportCSV" title="Starts the import function if the user provided a valid .csv files. Might break with bigger amount of text-notes."><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
-                            <textarea class="database" disabled="disabled" id="importLogCSV" style="width:100%" name="importLogCSV" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
+                <!-- Tab: importer csv -->
+                <div role="tabpanel" class="tab-pane fade" id="importer_c">
+                    <h3><i class="fas fa-file-import"></i> <?php echo translateString("Importer (.csv)"); ?></h3>
+                    <p><?php echo translateString("You can import notes in .csv format (coming from the exporter)."); ?></p>
+                    <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
+                        <input type="file" name="impFile" id="impFile" accept=".csv"/>
+                        <br>
+                        <button type="submit" class="btn btn-primary buttonDefault" name="doImportCSV" id="doImportCSV" title="Starts the import function if the user provided a valid .csv files. Might break with bigger amount of text-notes."><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
+                        <textarea class="database" disabled="disabled" id="importLogCSV" style="width:100%" name="importLogCSV" cols="110" rows="5" placeholder="Output of impoter will be displayed here."></textarea>
                         </form>
                         <span class="badge badge-secondary"><?php echo translateString("References"); ?></span>
                         <div class="alert alert-info" role="alert">
@@ -463,7 +443,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                         <h3><i class="fas fa-file-export"></i> <?php echo translateString("Exporter (.csv)"); ?></h3>
                         <p><?php echo translateString("You can export your notes in .csv format by pressing the 'Export' button."); ?></p>
                         <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
-                            <button type="submit" class="btn btn-default buttonDefault" name="doExport" id="doExport"  title="Exports all your notes into a .csv file which might be useful" ><i class="fas fa-file-export"></i> <?php echo translateString("export"); ?></button>
+                            <button type="submit" class="btn btn-primary buttonDefault" name="doExport" id="doExport"  title="Exports all your notes into a .csv file which might be useful" ><i class="fas fa-file-export"></i> <?php echo translateString("export"); ?></button>
                         </form>
                         <span class="badge badge-secondary"><?php echo translateString("References"); ?></span>
                         <div class="alert alert-info" role="alert">
@@ -525,11 +505,16 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
         if ( isset($_POST["doChangeUserPW"]) )
         {
             // get values
-            $owner = $_SESSION['username'];
+            $username = $_SESSION['username'];
+
             $newPassword1 = $_POST['newPassword1'];
+            //$newPassword1 = sanitize_text_field( $_POST['newPassword1'] );
+
             $newPassword2 = $_POST['newPassword2'];
+            //$newPassword2 = sanitize_text_field( $_POST['newPassword2'] );
+
             $password = $newPassword1;
-            $username = $owner;
+            //$username = $owner;
 
             // Check if user entered two times the same new password
             if($newPassword1 == $newPassword2)
@@ -543,7 +528,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                 $salt = createSalt();
                 $hash = hash('sha256', $salt . $hash);
 
-                $query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$owner'";            // change pw
+                $query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$username'";            // change pw
                 mysqli_query($con, $query);
 
                 displayNoty('Changed password','success');
@@ -562,7 +547,9 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
         if ( isset($_POST["doChangeUserLanguage"]) )
         {
             $selectedLang = $_POST['s_languageSelector'];
-            $query = "UPDATE m_users SET language='$selectedLang' WHERE username='$owner'";    // language
+            //$selectedLang = sanitize_text_field( $_POST['s_languageSelector'] );
+
+            $query = "UPDATE m_users SET language='$selectedLang' WHERE username='$username'";    // language
             mysqli_query($con, $query);
             $_SESSION['lang'] = $selectedLang; // store as session variable
             displayNoty('Language set to: '.$selectedLang,'notification');
@@ -586,14 +573,15 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
 
             <?php
 
-            $owner = $_SESSION['username'];
+            $username = $_SESSION['username'];
 
-            $con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+            //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+            $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
             if (!$con)
             {
                 die('Could not connect: ' . mysqli_connect_error());
             }
-            mysqli_select_db($con, $mysql_db); // select db
+            //mysqli_select_db($con, $mysql_db); // select db
 
 
             $total = count($_FILES['impFilesT']['name']);
@@ -615,7 +603,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                     $newNoteContent = file_get_contents($_FILES['impFilesT']['tmp_name'][$i]);
 
                     // check if the new title is in use already by this user
-                    $sql = "SELECT title from m_notes where owner='".$owner."' AND  title='".$newNoteTitle."' ";
+                    $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
                     $result = mysqli_query($con, $sql);
                     if(mysqli_num_rows($result)>0)
                     {
@@ -627,7 +615,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                     // do create note and do log it
                     //
                     // insert into m_notes
-                    $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
+                    $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
                     $result = mysqli_query($con, $sql);
                     if (!$result)
                     {
@@ -637,7 +625,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                     {
                         $event = "create";
                         $details = "Note: <b>".$newNoteTitle."</b>";
-                        $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
+                        $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$username' )";
                         $result = mysqli_query($con, $sql);
 
                         ?>
@@ -670,14 +658,15 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
 
             if (is_uploaded_file($_FILES['impFile']['tmp_name']))
             {
-                $con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+                //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+                $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
                 if (!$con)
                 {
                     die('Could not connect: ' . mysqli_connect_error());
                 }
-                mysqli_select_db($mysql_db, $con); // select db
+                //mysqli_select_db($mysql_db, $con); // select db
 
-                $owner = $_SESSION['username'];
+                $username = $_SESSION['username'];
                 $target_dir = "";
                 $target_file = $target_dir . basename($_FILES["impFile"]["tmp_name"]);
                 $uploadOk = 1;
@@ -701,7 +690,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                         $newNoteContent = $data[2];
 
                         // check if the new title is in use already by this user
-                        $sql = "SELECT title from m_notes where owner='".$owner."' AND  title='".$newNoteTitle."' ";
+                        $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
                         $result = mysqli_query($con, $sql);
                         if(mysqli_num_rows($result)>0)
                         {
@@ -711,7 +700,7 @@ if($_SESSION['valid'] != 1)    // check if the user-session is valid or not
                         }
 
                         // create single note
-                        $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
+                        $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
                         $result = mysqli_query($con, $sql);
                         if (!$result)
                         {

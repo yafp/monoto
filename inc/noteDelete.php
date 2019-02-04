@@ -18,14 +18,15 @@ if($_SESSION['valid'] == 1)
 	$owner = $_SESSION['username'];
 
 	// connect to mysql
-	$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+	//$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());
 	}
 
 	// select db
-	mysqli_select_db($mysql_db, $con);
+	//mysqli_select_db($mysql_db, $con);
 
 	// update m_notes
 	$sql="DELETE FROM m_notes WHERE id='$deleteID'";

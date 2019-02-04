@@ -6,7 +6,9 @@ function connectToDB()
 {
 	require 'conf/config.php';
 
-	$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+	//$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+
 	if (!$con)
 	{
 		echo "Fehler: konnte nicht mit MySQL verbinden." . PHP_EOL;

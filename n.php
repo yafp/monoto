@@ -1,10 +1,4 @@
-<?php
-session_start();
-if($_SESSION['valid'] != 1)            // check if the user-session is valid or not
-{
-    header('Location: redirect.php');
-}
-?>
+<?php include 'inc/checkSession.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +15,10 @@ if($_SESSION['valid'] != 1)            // check if the user-session is valid or 
     <!-- 4.11.2 -->
     <script type="text/javascript" src="js/ckeditor/4.11.2/ckeditor.js"></script>
 
-    <script type="text/javascript" src="js/monoto/m_coreFunctions.js"></script>
+    <!-- note specific functios -->
     <script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
+
+    <!-- -->
     <script type="text/javascript">
     var currentRow = -1; // fill var for ugly row-selection hack with a default value
     var oTable;

@@ -1,10 +1,203 @@
 // -----------------------------------------------------------------------------
+// CKEditor: show the status of the editor
+// -----------------------------------------------------------------------------
+function printCKEditorStatus()
+{
+    console.log("printCKEditorStatus ::: CKEditor status is: "+CKEDITOR.status);
+}
+
+
+// -----------------------------------------------------------------------------
+// CKEditor: initialize Editor
+// -----------------------------------------------------------------------------
+function initCKEditor()
+{
+    console.log("initCKEditor ::: Initializing the CKEditor");
+
+    // Defining the editor height
+    monotoEditorHeight = 300; // setting a default value, in case there is non stored in localStorage
+    if(typeof(Storage)!=="undefined") // if localStorage is supported
+    {
+        monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
+        console.log("initCKEditor ::: CKEditor height is set in localStorage to: "+monotoEditorHeight);
+    }
+    else
+    {
+        console.log("initCKEditor ::: CKEditor height is set to default value of: "+monotoEditorHeight);
+    }
+
+    // START CKEDITOR
+    CKEDITOR.replace( "editor1",
+    {
+        // show all editor commands
+        //console.log(CKEDITOR.instances.editor1.commands);
+
+        // key press handling
+        on:
+        {
+            instanceReady: function()
+            {
+                CKEDITOR.instances.editor1.setReadOnly(true); // set RO mode
+                CKEDITOR.config.toolbarCanCollapse = true; /* Enable collapse function for toolbar */
+            },
+
+            blur: function(event)
+            {
+                console.log("initCKEditor ::: CKEditor lost focus");
+                CKEDITOR.instances.editor1.execCommand( "toolbarCollapse", false ); // #241
+            },
+
+
+            focus: function(event)
+            {
+                console.log("initCKEditor ::: CKEditor got focus");
+                CKEDITOR.instances.editor1.execCommand( "toolbarCollapse", true ); // #241
+            },
+
+
+            key: function(e)
+            {
+                setTimeout(function()
+                {
+                    // #236 - KeyPress handling for ckeditor
+                    //console.log("CKEditor: key pressed");
+
+                    //console.log(e.data.keyCode);
+                    switch(e.data.keyCode)
+                    {
+                        case 27: // ESC: - reset
+                            console.log("initCKEditor ::: Pressed ESC in CKEditor");
+                            //resetNotesUI();
+                            // set focus back to searchField
+                            $("#searchField").focus(); // as arrow up/down needs focus to work
+                            break;
+
+                        // F2 - trigger maximize editor to fullscreen
+                        case 113:
+                            console.log("initCKEditor ::: Pressed F2 in CKEditor");
+                            CKEDITOR.instances.editor1.execCommand( "maximize" );
+                            break;
+
+                        //default:
+                            //console.log("initCKEditor ::: Default case");
+                    }
+                },1);
+            } // end: key
+        }, // end: on
+
+        // other things
+        //
+        enterMode: CKEDITOR.ENTER_BR,
+        height: monotoEditorHeight,
+        toolbarCanCollapse: true, // enable collapse option
+        toolbarStartupExpanded : false,  // define collapsed as default
+        //removePlugins: 'elementspath',
+        toolbar:
+        [
+            { name: "tools",       items : [ "Maximize" ] },
+            { name: "basicstyles", items : [ "Bold","Italic","Strike","RemoveFormat" ] },
+            { name: "paragraph",   items : [ "NumberedList","BulletedList","-","Outdent","Indent","Blockquote" ] },
+            { name: "insert",      items : [ "Link","Image","Table","HorizontalRule","SpecialChar" ] },
+            { name: "styles",      items : [ "Styles","Format" ] },
+            { name: "document",    items : [ "Source" ] }
+        ]
+    });
+
+    printCKEditorStatus();
+}
+
+
+// -----------------------------------------------------------------------------
+// CKEditor: handle editor height
+// -----------------------------------------------------------------------------
+function saveCKEditorHeightOnChange()
+{
+    console.log("saveCKEditorHeightOnChange ::: Saving CKEditor height (to localStorage), after it has changed");
+
+    CKEDITOR.on("instanceReady",function(ev)
+    {
+        ev.editor.on("resize",function(reEvent)
+        {
+            // get new height of editor window
+            editorHeight = ev.editor.ui.space( "contents" ).getStyle( "height" );
+            console.log("saveCKEditorHeightOnChange ::: CKEditor resized to: "+editorHeight);
+
+            //save to localstorage
+            window.localStorage.setItem("monotoEditorHeight", editorHeight);
+        });
+    });
+
+    printCKEditorStatus();
+}
+
+
+// -----------------------------------------------------------------------------
+// CKEditor: enable READ-WRITE mode of the editor
+// -----------------------------------------------------------------------------
+function enableCKEditorWriteMode()
+{
+    console.log("enableCKEditorWriteMode ::: Trying to set CKEditor to RW");
+
+    //CKEDITOR.config.readOnly = false; // enable the editor
+    //CKEDITOR.config.setReadOnly = false; // disable the editor
+    CKEDITOR.instances.editor1.setReadOnly( false );
+
+    printCKEditorStatus();
+}
+
+
+// -----------------------------------------------------------------------------
+// CKEditor: enable READ-ONLY mode of the editor
+// -----------------------------------------------------------------------------
+function disableCKEditorWriteMode()
+{
+    console.log("disableCKEditorWriteMode ::: Trying to set CKEditor to RO");
+
+    CKEDITOR.config.readOnly = true;
+    //CKEDITOR.config.setReadOnly = true;
+
+    // throws error:
+    // >> Uncaught TypeError: Cannot read property 'setReadOnly' of undefined
+    // but is needed as disabling the editor on Reset/ESC only works like that
+    //
+    //CKEDITOR.instances["editor1"].setReadOnly( true );
+
+    // setReadOnly = true works here only if its not initial
+    if(initialLoad === false)
+    {
+        CKEDITOR.instances.editor1.setReadOnly( true );
+    }
+    initialLoad = false;
+
+    //CKEDITOR.instances["editor1"].config.readOnly = true;
+
+    printCKEditorStatus();
+}
+
+
+// -----------------------------------------------------------------------------
+// CKEditor: resets the content of the editor
+// -----------------------------------------------------------------------------
+function resetCKEditor()
+{
+    console.log("resetCKEditor ::: Resetting CKEditor");
+
+    // empty the editor
+    CKEDITOR.instances.editor1.setData("");
+
+    printCKEditorStatus();
+
+    // Enable Read-Only mode
+    disableCKEditorWriteMode();
+}
+
+
+// -----------------------------------------------------------------------------
 // UI: hide all buttons
 // -----------------------------------------------------------------------------
 function hideAllButtons()
 {
-    var functionName = "hideAllButtons";
-    logToConsole(functionName, "Hiding all buttons at once");
+    console.log("hideAllButtons ::: Hiding all buttons at once");
 
     // hide some UI items
     $("#bt_prepareNoteCreation").hide();
@@ -21,8 +214,7 @@ function hideAllButtons()
 // -----------------------------------------------------------------------------
 function resetNotesUI()
 {
-    var functionName = "resetNotesUI";
-    logToConsole(functionName, "Resetting the Notes UserInterface");
+    console.log("resetNotesUI ::: Starting to reset the Notes UserInterface");
 
     // UI
     //
@@ -62,12 +254,10 @@ function resetNotesUI()
     // reset editor content
     resetCKEditor();
 
-    // test
-    //document.activeElement.value = "";
-    //document.activeElement.blur(); 								// lose focus from newNotetitle
-
     // set focus to search (shouldnt be needed anymore due to autofocus)
     $("#searchField").focus();
+
+    console.log("resetNotesUI ::: Finished resetting the Notes UserInterface");
 }
 
 
@@ -77,8 +267,7 @@ function resetNotesUI()
 // -----------------------------------------------------------------------------
 function prepareNewNoteStepOne()
 {
-    var functionName = "prepareNewNoteStepOne";
-    logToConsole(functionName, "");
+    console.log("prepareNewNoteStepOne ::: Preparing note creation - Step 1");
 
     // first of all ... reset the User-Interface
     resetNotesUI();
@@ -86,7 +275,6 @@ function prepareNewNoteStepOne()
     // Search: disable and fadeout
     $("#searchField").prop("disabled",true); // disable search-field
     $("#searchField").fadeOut(1000); // hide search field
-    //$("#searchField").hide(); // hide search field
 
     // note title: enable and focus
     $("#noteTitle").prop("disabled",false);  // enable note-title field
@@ -117,8 +305,7 @@ function prepareNewNoteStepOne()
 // -----------------------------------------------------------------------------
 function prepareNewNoteStepTwo()
 {
-    var functionName = "prepareNewNoteStepTwo";
-    logToConsole(functionName, "");
+    console.log("prepareNewNoteStepTwo ::: Preparing note creation - Step 2");
 
     var noteTitle = document.myform.noteTitle.value;
 
@@ -155,8 +342,7 @@ function prepareNewNoteStepTwo()
 // -----------------------------------------------------------------------------
 function createNewNote()
 {
-    var functionName = "createNewNote";
-    logToConsole(functionName, "");
+    console.log("createNewNote ::: Creating a new note");
 
     var newNoteTitle = $("#noteTitle").val();
 
@@ -167,7 +353,7 @@ function createNewNote()
     // - underscore,
     // - pipe and
     // - -
-    newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ?!|/ ]/g, '');
+    newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ?!|/ ]/g, "");
 
     // get note content if defined
     var newNoteContent = CKEDITOR.instances.editor1.getData();
@@ -210,38 +396,44 @@ function createNewNote()
 // -----------------------------------------------------------------------------
 function saveNote()
 {
-    var functionName = "saveNote";
-    logToConsole(functionName, "");
+    console.log("saveNote ::: Saving an existing note");
 
-    // get the note id
-    var modifiedNoteID = document.myform.noteID.value;
-
-    // get the note title
-    var modifiedNoteTitle = document.myform.noteTitle.value;
-
-    var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
-
-    // get current save-counter/version
-    var modifiedNoteCounter = document.myform.noteVersion.value;
-
-    // replace: '   with &#39; // cleanup note content
-    modifiedNoteContent.replace(/'/g , "&#39;");
-
-    // if we have a note-id - save the change to db
-    if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))
+    if ($("#bt_saveNote").is(":disabled"))
     {
-        $.post("inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-        var n = noty({text: "Note saved", type: "success"});
-
-        // store last Action in cookie
-        $.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");
-
-        // reload the notes page
-        reloadAllNotes();
+        console.log("saveNote ::: Save button is disabled (ignoring save cmd).");
     }
-    else // should never happen as the save button is not always enabled.
+    else
     {
-        var n = noty({text: "Error: Missing ID reference", type: "error"});
+        // get the note id
+        var modifiedNoteID = document.myform.noteID.value;
+
+        // get the note title
+        var modifiedNoteTitle = document.myform.noteTitle.value;
+
+        var modifiedNoteContent = CKEDITOR.instances.editor1.getData();
+
+        // get current save-counter/version
+        var modifiedNoteCounter = document.myform.noteVersion.value;
+
+        // replace: '   with &#39; // cleanup note content
+        modifiedNoteContent.replace(/'/g , "&#39;");
+
+        // if we have a note-id - save the change to db
+        if((modifiedNoteID.length > 0) && (modifiedNoteID != 'ID'))
+        {
+            $.post("inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
+            var n = noty({text: "Note saved", type: "success"});
+
+            // store last Action in cookie
+            $.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");
+
+            // reload the notes page
+            reloadCurrentPage();
+        }
+        else // should never happen as the save button is not always enabled.
+        {
+            var n = noty({text: "Error: Missing ID reference", type: "error"});
+        }
     }
 }
 
@@ -252,8 +444,7 @@ function saveNote()
 // -----------------------------------------------------------------------------
 function deleteNote()
 {
-    var functionName = "deleteNote";
-    logToConsole(functionName, "");
+    console.log("deleteNote ::: Delete note dialog");
 
     var deleteID = $("#noteID").val();
     var deleteTitle = $("#noteTitle").val();
@@ -278,10 +469,8 @@ function deleteNote()
                     var anSelected = fnGetSelected( oTable );
                     oTable.fnDeleteRow( anSelected[0] );
 
-                    // FIXME
-                    // reload, as we would otherwise see
-                    // an empty table in some cases (whyever)
-                    location.reload();
+                    redrawTable();
+                    resetNotesUI();
                 }
             },
             {
@@ -290,8 +479,7 @@ function deleteNote()
                     $noty.close();
                     noty({text: "Aborted", type: "error"});
 
-                    // reload the notes page
-                    reloadAllNotes();
+                    redrawTable();
                 }
             }
             ]
@@ -305,8 +493,7 @@ else
 {
     if(deleteID === "") // user most likely pressed DEL key without selected note
     {
-        //var n = noty({text: "Error: Unable to delete as no note is selected", type: "error"});
-        logToConsole(functionName, "Unable to delete a note as no note was selected.");
+        console.log("deleteNote ::: Unable to delete a note as no note was selected.");
     }
     else
     {
@@ -322,8 +509,7 @@ else
 // -----------------------------------------------------------------------------
 function enableNoteSavingButton()
 {
-    var functionName = "enableNoteSavingButton";
-    logToConsole(functionName, "Enabling the save button for notes");
+    console.log("enableNoteSavingButton ::: Enabling save note button");
 
     // check if note title length is > 0
     // as saving is only allowed with a title
@@ -331,7 +517,6 @@ function enableNoteSavingButton()
     if ( currentTitle.length > 0)
     {
         $("#bt_saveNote").prop("disabled",false);
-        //$('#bt_saveNote').prop('title', 'Note changed, saving is enabled now');
     }
 }
 
@@ -342,8 +527,7 @@ function enableNoteSavingButton()
 // -----------------------------------------------------------------------------
 function disableNoteSavingButton()
 {
-    var functionName = "disableNoteSavingButton";
-    logToConsole(functionName, "Disabling the save button for notes");
+    console.log("disableNoteSavingButton ::: Disabling save note button");
 
     $("#bt_saveNote").prop("disabled",true);
 }
@@ -352,14 +536,14 @@ function disableNoteSavingButton()
 // -----------------------------------------------------------------------------
 // UI: Reload all notes
 // -----------------------------------------------------------------------------
-function reloadAllNotes()
+function reloadCurrentPage()
 {
-    var functionName = "reloadAllNotes";
-    logToConsole(functionName, "");
+    console.log("reloadCurrentPage ::: Reloading the current page");
 
     var loc = window.location;
     window.location = loc.protocol + "//" + loc.host + loc.pathname + loc.search;
 }
+
 
 
 // -----------------------------------------------------------------------------
@@ -368,11 +552,11 @@ function reloadAllNotes()
 // -----------------------------------------------------------------------------
 function showLastActionViaCookie()
 {
-    var functionName = "showLastActionViaCookie";
+    console.log("showLastActionViaCookie ::: Checking for last action cookie");
 
     if($.cookie("lastAction") !== "")
     {
-        logToConsole(functionName, "Cookie contains: '" + $.cookie("lastAction") + "' as last action");
+        console.log("showLastActionViaCookie ::: Cookie contains: '" + $.cookie("lastAction") + "' as last action");
 
         var n = noty({text: $.cookie("lastAction"), type: 'notification'});
 
@@ -383,12 +567,23 @@ function showLastActionViaCookie()
 
 
 // -----------------------------------------------------------------------------
+// DataTable: Redraw table
+// -----------------------------------------------------------------------------
+function redrawTable()
+{
+    console.log("redrawTable ::: Redrawing DataTable");
+
+    var mytable = $('#example').dataTable();
+    mytable.fnDraw();
+}
+
+
+// -----------------------------------------------------------------------------
 // DataTable: initialize Table
 // -----------------------------------------------------------------------------
 function initDataTable()
 {
-    var functionName = "initDataTable";
-    logToConsole(functionName, "Initializing the DataTable");
+    console.log("initDataTable ::: Initializing the DataTable");
 
     oTable = $("#example").dataTable(
         {
@@ -427,8 +622,7 @@ function initDataTable()
 // -----------------------------------------------------------------------------
 function selectAndMarkTableRow(currentRow)
 {
-    var functionName = "selectAndMarkTableRow";
-    logToConsole(functionName, "Selecting and marking the row: "+currentRow);
+    console.log("selectAndMarkTableRow ::: Selecting and marking the row: "+currentRow);
 
     // select the top record
     $("#example tbody tr:eq("+currentRow+")").click();
@@ -443,8 +637,7 @@ function selectAndMarkTableRow(currentRow)
 // -----------------------------------------------------------------------------
 function unmarkAllTableRows()
 {
-    var functionName = "unmarkAllTableRows";
-    logToConsole(functionName, "Removing the selected attribute from all table rows");
+    console.log("unmarkAllTableRows ::: Removing the selected attribute from all table rows");
 
     $(oTable.fnSettings().aoData).each(function () // unselect all records
     {
@@ -454,16 +647,15 @@ function unmarkAllTableRows()
 
 
 // -----------------------------------------------------------------------------
-// DataTable:
+// DataTable: update the current selected row
 // -----------------------------------------------------------------------------
 function updateCurrentPosition(valueChange)
 {
-    var functionName = "updateCurrentPosition";
-    logToConsole(functionName, "");
+    console.log("updateCurrentPosition ::: Updating the current position in datatable");
 
     // get amount of notes in table
     amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
-    logToConsole(functionName, "notes in selection:"+amountOfRecordsAfterFilter);
+    console.log("updateCurrentPosition ::: Currently showing " + amountOfRecordsAfterFilter + " notes in datatable.");
 
     if (typeof curSelectedTableRow === "undefined")
     {
@@ -495,8 +687,7 @@ function updateCurrentPosition(valueChange)
 // -----------------------------------------------------------------------------
 function selectNextRow()
 {
-    var functionName = "selectNextRow";
-    logToConsole(functionName, "");
+    console.log("selectNextRow ::: Selecting next row in dataTable");
     updateCurrentPosition(1);
 }
 
@@ -506,231 +697,8 @@ function selectNextRow()
 // -----------------------------------------------------------------------------
 function selectUpperRow()
 {
-    var functionName = "selectUpperRow";
-    logToConsole(functionName, "");
+    console.log("selectUpperRow ::: Selecting previous row in dataTable");
     updateCurrentPosition(-1);
-}
-
-
-
-
-// -----------------------------------------------------------------------------
-// CKEditor: initialize Editor
-// -----------------------------------------------------------------------------
-function initCKEditor()
-{
-    var functionName = "initCKEditor";
-    logToConsole(functionName, "Initializing the CKEditor");
-
-    // Defining the editor height
-    monotoEditorHeight = 300; // setting a default value, in case there is non stored in localStorage
-    if(typeof(Storage)!=="undefined") // if localStorage is supported
-    {
-        monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
-        logToConsole(functionName, "CKEditor height is set in localStorage to: "+monotoEditorHeight);
-    }
-    else
-    {
-        logToConsole(functionName, "CKEditor height is set to default value of: "+monotoEditorHeight);
-    }
-
-    // START CKEDITOR
-    CKEDITOR.replace( "editor1",
-    {
-        // show all editor commands
-        //console.log(CKEDITOR.instances.editor1.commands);
-
-        // key press handling
-        on:
-        {
-            instanceReady: function()
-            {
-                CKEDITOR.instances.editor1.setReadOnly(true); // set RO mode
-                CKEDITOR.config.toolbarCanCollapse = true; /* Enable collapse function for toolbar */
-            },
-
-            blur: function(event)
-            {
-                console.log("CKEditor lost focus");
-                CKEDITOR.instances.editor1.execCommand( "toolbarCollapse", false ); // #241
-            },
-
-
-            focus: function(event)
-            {
-                console.log("CKEditor got focus");
-                CKEDITOR.instances.editor1.execCommand( "toolbarCollapse", true ); // #241
-            },
-
-
-            key: function(e)
-            {
-                setTimeout(function()
-                {
-                    // #236 - KeyPress handling for ckeditor
-                    //console.log("CKEditor: key pressed");
-
-                    //console.log(e.data.keyCode);
-                    switch(e.data.keyCode)
-                    {
-                        case 27: // ESC: - reset
-                            logToConsole(functionName, "ESC");
-                            //resetNotesUI();
-                            // set focus back to searchField
-                            $("#searchField").focus(); // as arrow up/down needs focus to work
-                            break;
-
-                        // F2 - trigger maximize editor to fullscreen
-                        case 113:
-                            logToConsole(functionName, "F2");
-                            CKEDITOR.instances.editor1.execCommand( "maximize" );
-                            break;
-
-                        //default:
-                            //logToConsole(functionName, "Unused Keypress in ckeditor");
-                    }
-
-                },1);
-            } // end: key
-
-        }, // end: on
-
-
-
-        // other things
-        //
-        enterMode: CKEDITOR.ENTER_BR,
-        height: monotoEditorHeight,
-        toolbarCanCollapse: true, // enable collapse option
-        toolbarStartupExpanded : false,  // define collapsed as default
-        //removePlugins: 'elementspath',
-        toolbar:
-        [
-            { name: "tools",       items : [ "Maximize" ] },
-            { name: "basicstyles", items : [ "Bold","Italic","Strike","RemoveFormat" ] },
-            { name: "paragraph",   items : [ "NumberedList","BulletedList","-","Outdent","Indent","Blockquote" ] },
-            { name: "insert",      items : [ "Link","Image","Table","HorizontalRule","SpecialChar" ] },
-            { name: "styles",      items : [ "Styles","Format" ] },
-            { name: "document",    items : [ "Source" ] }
-        ]
-    });
-
-    printCKEditorStatus();
-}
-
-
-// -----------------------------------------------------------------------------
-// CKEditor: handle editor height
-// -----------------------------------------------------------------------------
-function saveCKEditorHeightOnChange()
-{
-    var functionName = "saveCKEditorHeightOnChange";
-    logToConsole(functionName, "Saving CKEditor height (to localStorage), after it has changed");
-
-    CKEDITOR.on("instanceReady",function(ev)
-    {
-        ev.editor.on("resize",function(reEvent)
-        {
-            // get new height of editor window
-            editorHeight = ev.editor.ui.space( "contents" ).getStyle( "height" );
-            logToConsole("", "CKEditor resized to: "+editorHeight);
-
-            //save to localstorage
-            window.localStorage.setItem("monotoEditorHeight", editorHeight);
-        });
-    });
-
-    printCKEditorStatus();
-}
-
-
-// -----------------------------------------------------------------------------
-// CKEditor: enable READ-WRITE mode of the editor
-// -----------------------------------------------------------------------------
-function enableCKEditorWriteMode()
-{
-    var functionName = "enableCKEditorWriteMode";
-    logToConsole(functionName, "CKEditor: Set editor to RW");
-
-    //CKEDITOR.config.readOnly = false; // enable the editor
-    //CKEDITOR.config.setReadOnly = false; // disable the editor
-    CKEDITOR.instances.editor1.setReadOnly( false );
-
-    printCKEditorStatus();
-}
-
-
-// -----------------------------------------------------------------------------
-// CKEditor: enable READ-ONLY mode of the editor
-// -----------------------------------------------------------------------------
-function disableCKEditorWriteMode()
-{
-    var functionName = "disableCKEditorWriteMode";
-    logToConsole(functionName, "CKEditor: Set editor to RO");
-
-    CKEDITOR.config.readOnly = true;
-    //CKEDITOR.config.setReadOnly = true;
-
-    // throws error:
-    // >> Uncaught TypeError: Cannot read property 'setReadOnly' of undefined
-    // but is needed as disabling the editor on Reset/ESC only works like that
-    //
-    //CKEDITOR.instances["editor1"].setReadOnly( true );
-
-    // setReadOnly = true works here only if its not initial
-    if(initialLoad === false)
-    {
-        CKEDITOR.instances.editor1.setReadOnly( true );
-    }
-    initialLoad = false;
-
-    //CKEDITOR.instances["editor1"].config.readOnly = true;
-
-
-    /*
-    CKEDITOR.on("loaded", function(event)
-    {
-        console.log("LOADED********************* REALLY SETTING READ_ONLY MODE");
-        CKEDITOR.instances["editor1"].setReadOnly(true);
-    });
-
-
-    CKEDITOR.on("instanceReady", function(event)
-    {
-        console.log("********************* REALLY SETTING READ_ONLY MODE");
-        CKEDITOR.instances["editor1"].setReadOnly(true);
-    });
-    */
-
-    printCKEditorStatus();
-}
-
-
-// -----------------------------------------------------------------------------
-// CKEditor: resets the content of the editor
-// -----------------------------------------------------------------------------
-function resetCKEditor()
-{
-    var functionName = "resetCKEditor";
-    logToConsole(functionName, "Resetting CKEditor");
-
-    // empty the editor
-    CKEDITOR.instances.editor1.setData("");
-
-    printCKEditorStatus();
-
-    // Enable Read-Only mode
-    disableCKEditorWriteMode();
-}
-
-
-// -----------------------------------------------------------------------------
-// CKEditor: show the status of the editor
-// -----------------------------------------------------------------------------
-function printCKEditorStatus()
-{
-    var functionName = "printCKEditorStatus";
-    logToConsole(functionName, "Editor status is: "+CKEDITOR.status);
 }
 
 
@@ -741,8 +709,7 @@ function onReady()
 {
     initialLoad = true;
 
-    var functionName = "onReady";
-    logToConsole(functionName, "Starting to load the site");
+    console.log("onReady ::: Starting to initializing the notes view");
 
     // Show last action if there is one stored in the cookie
     showLastActionViaCookie();
@@ -755,6 +722,7 @@ function onReady()
     // DataTable
     //
     initDataTable(); // initialize the DataTable
+    var curSelectedTableRow = -1;
     // Add a click handler to the rows - this could be used as a callback
     $("#example tbody").click(function(event)
     {
@@ -773,7 +741,7 @@ function onReady()
     // doubleclick listener for datatable
     $("table tr").dblclick(function ()
     {
-        logToConsole(functionName, "Doubleclick detected");
+        console.log("onReady ::: DoubleClick on DataTable);
     });
     */
 
@@ -806,11 +774,11 @@ function onReady()
                 if(filteredrows[i][1]=== curRow)
                 {
                     curSelectedTableRow=i;
-                    logToConsole("", "Clicked row: "+curSelectedTableRow);
+                    console.log("onReady ::: Clicked row: "+curSelectedTableRow);
                 }
             }
 
-            logToConsole("", "Loading note ID: "+sData[1]+ " with title: '"+sData[2]+"'");
+            console.log("onReady ::: Loading note ID: "+sData[1]+ " with title: '"+sData[2]+"'");
 
             // update UI
             $("#noteID").val(sData[1]);   // fill id field
@@ -822,7 +790,7 @@ function onReady()
             $("#searchField").focus(); // as arrow up/down needs focus to work
 
             // load note to ckeditor
-            logToConsole("", "Trying to load note content to editor");
+            console.log("onReady ::: Trying to load note content to editor");
             CKEDITOR.instances.editor1.setData(sData[3],function()
             {
                 // set data of editor to noteContent
@@ -845,7 +813,7 @@ function onReady()
                 //
                 CKEDITOR.instances.editor1.on("change", function(ev)
                 {
-                    //logToConsole("", "Created a OnChangeListener for CKEditor");
+                    console.log("onReady ::: Created a OnChangeListener for CKEditor");
 
                     // check if button is disabled - if so - enable it
                     if($("#bt_saveNote").is(":disabled"))
@@ -901,10 +869,9 @@ function onReady()
     $("#searchField").keyup(function(e) // keyup triggers on each key
     //$('#searchField').keypress(function() // keypress ignores all soft-keys
     {
-        logToConsole("", "Keypress in search field");
-
         var code = (e.keyCode || e.which);
-        logToConsole("", "Key__: "+code);
+
+        console.log("onReady ::: Keypress: "+code);
 
         // ignore some keys aka do nothing if it's:
         // Otherwise this would result in focus lost of an already selected note
@@ -925,6 +892,7 @@ function onReady()
         // - 123 = F12
         if(code === 37 || code === 39 || code === 112 || code === 113 || code === 114 || code === 115 || code === 116 || code === 117 || code === 118 || code === 119 || code === 120 || code === 121 || code === 122 || code === 123 )
         {
+            console.log("onReady ::: Ignoring some key inputs");
             return;
         }
 
@@ -938,11 +906,9 @@ function onReady()
         amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
 
 
-
         // if there are multiple or no notes available after search
         // - reset ckeditor
         // - hide delete button
-
         switch(amountOfRecordsAfterFilter)
         {
             case 0: // there is 0 record in selection after processing search
@@ -965,23 +931,22 @@ function onReady()
                 $("#example tbody tr:eq(0)").click(); // select the only record left after search
                 $("#example tbody tr:eq(0)").addClass("row_selected"); // change background as well
                 CKEDITOR.config.readOnly = false; // enable the editor
-
                 break;
 
 
             default: // there is > 1 record in selection after processing search
-                console.log("Got > 1 result");
+                console.log("onReady ::: Got > 1 result");
 
                 // check if there is already one note selected or not
                 var table = $("#example").DataTable();
                 if (table.rows( '.row_selected' ).any() )
                 {
-                    console.log(">1 result BUT 1 is selected");
+                    console.log("onReady ::: > 1 result BUT 1 is selected");
                     // one record is selected - editor should not be modified
                 }
                 else
                 {
-                    console.log("> 1 Result, no record selected");
+                    console.log("onReady ::: > 1 result and no record selected");
 
                     // no note is selected - editor should be resetted
                     CKEDITOR.instances.editor1.setData(""); // reset content of note-editor
@@ -1001,21 +966,11 @@ function onReady()
                     $("#noteID").val("");
                     $("#noteVersion").val("");
                 }
-
                 break;
         }
         // finished reacting on results after filtering
 
     });
-
-    // only reset if the editor is not already showing a note
-    /*
-    var currentNoteID = $("#noteID").val();
-    if(currentNoteID == "") // editor is not showing a note
-    {
-        resetNotesUI();
-    }
-    */
 
     resetNotesUI();
 

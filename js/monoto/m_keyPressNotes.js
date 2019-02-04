@@ -4,16 +4,14 @@
 document.onkeyup = KeyCheck;
 function KeyCheck(e)
 {
-    var functionName = "KeyCheck";
-
     var KeyID = (window.event) ? event.keyCode : e.keyCode;
-    logToConsole(functionName, "___" + KeyID + "___");
+
+    console.log("KeyCheck ::: Key press: " + KeyID);
 
     switch(KeyID)
     {
         // ESC - reset the UI
         case 27:
-            logToConsole(functionName, "Keypress: ESC");
             resetNotesUI();
             break;
 
@@ -22,7 +20,6 @@ function KeyCheck(e)
             // specialcase: if focus in search -> jump to first record in table
             if(document.activeElement.id === "searchField")
             {
-                logToConsole(functionName, "Keypress: Arrow Up");
                 selectUpperRow();
             }
             break;
@@ -30,16 +27,14 @@ function KeyCheck(e)
         // Arrow Down
         case 40:
             // specialcase: if focus in search -> jump to first record in table
-            if(document.activeElement.id == "searchField")
+            if(document.activeElement.id === "searchField")
             {
-                logToConsole(functionName, "Keypress: Arrow Down");
                 selectNextRow();
             }
             break;
 
         // DEL - delete selected note & reloads page
         case 46:
-            console.log("Keypress: DEL (general)");
             var deleteID = $("#noteID").val();
             if(deleteID !== "")
             {
@@ -50,8 +45,6 @@ function KeyCheck(e)
 
         // F2 - trigger maximize editor to fullscreen
         case 113:
-            logToConsole(functionName, "Keypress: F2");
-            console.log("F2 from this code is broken - as note content gets lost.");
             var noteID = $("#noteID").val();
             if(noteID !== "")
             {
@@ -65,34 +58,13 @@ function KeyCheck(e)
 
         // F5 - Reload main page
         case 116:
-            logToConsole(functionName, "Keypress: F5");
-            reloadAllNotes(); // execute reload function
+            reloadCurrentPage(); // execute reload function
             break;
 
         // F9 - save
         case 120:
-            logToConsole(functionName, "Keypress: F9");
-            tryToSaveNote();
+            saveNote();
             break;
 
     } // end switch
 } // end function keycheck
-
-
-// -----------------------------------------------------------------------------
-// KeyPresses: try to save the current selected monoto note
-// -----------------------------------------------------------------------------
-function tryToSaveNote()
-{
-    functionName = "tryToSaveNote";
-    logToConsole(functionName, "");
-
-    if ($("#bt_saveNote").is(":disabled"))
-    {
-        logToConsole(functionName, "Save button is disabled (ignoring save cmd).");
-    }
-    else
-    {
-        saveNote();    // execute save function
-    }
-}

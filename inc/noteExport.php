@@ -20,7 +20,8 @@ if($_SESSION['valid'] == 1)
 	$csv_filename = $exportDate."-monoto-export.csv";
 
 	// connect to db
-	$conn = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+	//$conn = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
 	if (mysqli_connect_errno()) {
 	    die("Failed to connect to MySQL: " . mysqli_connect_error());
 	}

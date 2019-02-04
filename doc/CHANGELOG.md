@@ -4,7 +4,7 @@
 # Changelog
 ## monoto 4.0.0 (Quadrangulum)
 ###  ```Added```
-* [#233] Implemented PHP7 compatibility
+* [ #233 ] Implemented PHP7 compatibility
 * [#263] Added basic .htaccess to handle some common server errors with an error page
 * [#236] Added key-listener for ckeditor
 * [#256] Administration now shows used versions of the most relevant JS frameworks.
@@ -34,6 +34,7 @@
   * [#231] Updated CKEditor (from 4.4.7 to 4.11.2)
   * [#248] Updated FontAwesome (from 4.6.3 to 5.7.0)
   * [#253] Updated DataTables (from 1.10.5 to 1.10.18)
+  * [#274] Updating noty (from 2.3.8 to 2.4.1)
 * Languages
   * [#210] Most parts of UI are available in .en and .de
 * Database

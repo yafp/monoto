@@ -9,7 +9,6 @@
 ## CKEditor
 - http://ckeditor.com/
 - Version: 4.11.2 (Standard Package)
-- Extra Plugin: Wordcount
 
 ## DataTables
 - http://datatables.net/
@@ -29,4 +28,4 @@
 
 ## Noty
 - http://needim.github.io/noty/
-- Version: 2.3.8
+- Version: 2.4.1

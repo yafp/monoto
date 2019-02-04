@@ -49,13 +49,25 @@ if (isset($_POST["doLogin"]) )
     //var_dump($_POST);
     $con = connectToDB();
 
+    // input validation and sanitize post/get values
+    //
+    // examples:
+    //$name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
+    //$email= filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+    //$search = filter_input(INPUT_GET, "s", FILTER_SANITIZE_STRING);
+
     // get data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    //$username = $_POST['username'];
+    //$username = sanitize_text_field( $_POST['username'] );
+    $username= filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
+
+    //$password = $_POST['password'];
+    //$password = sanitize_text_field( $_POST['password'] );
+    $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
 
     //$username = mysqli_real_escape_string($con, $username);
     $_SESSION['username'] = $username; // add session-info
-    $owner = $_SESSION['username'];
+    //$owner = $_SESSION['username'];
 
     // check if there is a user with matching data
     $query = "SELECT password, salt FROM m_users WHERE username = '$username';";
@@ -70,7 +82,7 @@ if (isset($_POST["doLogin"]) )
         $hash = hash('sha256', $userData['salt'] . hash('sha256', $password) );
 
         // check if user-account is locked already cause it had 3 failed logins in a row
-        $sql="SELECT failed_logins_in_a_row FROM m_users WHERE username='".$owner."'  ";
+        $sql="SELECT failed_logins_in_a_row FROM m_users WHERE username='".$username."'  ";
         $result = mysqli_query($con, $sql);
         while($row = mysqli_fetch_array($result))
         {
@@ -84,11 +96,11 @@ if (isset($_POST["doLogin"]) )
             if($hash != $userData['password'])
             {
                 // log incorrect login attempt - date
-                $sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$owner."' ";
+                $sql="UPDATE m_users SET date_last_login_fail = now() WHERE username='".$username."' ";
                 $result = mysqli_query($con, $sql);
 
                 // get current fail-login-count
-                $sql="SELECT failed_logins FROM m_users WHERE username='".$owner."'  ";
+                $sql="SELECT failed_logins FROM m_users WHERE username='".$username."'  ";
                 $result = mysqli_query($con, $sql);
                 while($row = mysqli_fetch_array($result))
                 {
@@ -98,13 +110,13 @@ if (isset($_POST["doLogin"]) )
                 $failCounterInARow = $failCounterInARow +1;
 
                 // update failcounter & failcounterInARow
-                $sql="UPDATE m_users SET failed_logins='".$failCounter."', failed_logins_in_a_row='".$failCounterInARow."' WHERE username='".$owner."' ";
+                $sql="UPDATE m_users SET failed_logins='".$failCounter."', failed_logins_in_a_row='".$failCounterInARow."' WHERE username='".$username."' ";
                 $result = mysqli_query($con, $sql);
 
                 // record to log - that we had a successfull user login
                 $event = "login error";
                 $details = "User: <b>".$username."</b> failed to login.";
-                $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+                $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$username' )";
                 $result = mysqli_query($con, $sql);
 
                 displayNoty("Login failed.","error");
@@ -144,7 +156,7 @@ if (isset($_POST["doLogin"]) )
                 }
 
                 // get current login-count
-                $sql="SELECT login_counter FROM m_users WHERE username='".$owner."'  ";
+                $sql="SELECT login_counter FROM m_users WHERE username='".$username."'  ";
                 $result = mysqli_query($con, $sql);
                 while($row = mysqli_fetch_array($result))
                 {
@@ -155,22 +167,22 @@ if (isset($_POST["doLogin"]) )
                 // check if its first login - if so: save the first login date to db
                 if($loginCounter == 1)
                 {
-                    $sql="UPDATE m_users SET date_first_login= now() WHERE username='".$owner."' ";
+                    $sql="UPDATE m_users SET date_first_login= now() WHERE username='".$username."' ";
                     $result = mysqli_query($con, $sql);
                 }
 
                 // update last login date & logincounter
-                $sql="UPDATE m_users SET date_last_login= now(), login_counter='".$loginCounter."' WHERE username='".$owner."' ";
+                $sql="UPDATE m_users SET date_last_login= now(), login_counter='".$loginCounter."' WHERE username='".$username."' ";
                 $result = mysqli_query($con, $sql);
 
                 // record to log - that we had a successfull user login
                 $event = "login";
                 $details = "User: <b>".$username."</b> logged in successfully.";
-                $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$owner' )";
+                $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$username' )";
                 $result = mysqli_query($con, $sql);
 
                 // reset failedLoginsInARow entry in database
-                $sql="UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$owner."' ";
+                $sql="UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$username."' ";
                 $result = mysqli_query($con, $sql);
 
                 echo '<script type="text/javascript">window.location="n.php"</script>';

@@ -1,0 +1,20 @@
+html {
+    background: url(../../images/content/logout.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+h1{
+    margin: 7%;
+    text-align: center;
+    background-color: black;
+    font-color: white !important;
+    font-weight: bold;
+    font-size: 500%;
+    color: white;
+    border: 1px solid;
+    opacity: 0.9;
+}
