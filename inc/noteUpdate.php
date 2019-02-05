@@ -1,16 +1,26 @@
 <?php
+// -----------------------------------------------------------------------------
 // Name:		noteUpdate.php
 // Function:	used to update an existing note from n.php
-//
+// -----------------------------------------------------------------------------
+
 session_start();
 
 if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 {
 	// get data for modified note
-	$modifiedNoteID = $_POST['modifiedNoteID'];
-	$modifiedNoteTitle = $_POST['modifiedNoteTitle'];
-	$modifiedNoteContent = $_POST['modifiedNoteContent'];
-	$modifiedNoteCounter = $_POST['modifiedNoteCounter'];
+	//$modifiedNoteID = $_POST['modifiedNoteID'];
+    $modifiedNoteID= filter_input(INPUT_POST, "modifiedNoteID", FILTER_SANITIZE_STRING);
+
+	//$modifiedNoteTitle = $_POST['modifiedNoteTitle'];
+    $modifiedNoteTitle= filter_input(INPUT_POST, "modifiedNoteTitle", FILTER_SANITIZE_STRING);
+
+	//$modifiedNoteContent = $_POST['modifiedNoteContent'];
+    $modifiedNoteContent= filter_input(INPUT_POST, "modifiedNoteContent", FILTER_SANITIZE_STRING);
+
+	//$modifiedNoteCounter = $_POST['modifiedNoteCounter'];
+    $modifiedNoteCounter= filter_input(INPUT_POST, "modifiedNoteCounter", FILTER_SANITIZE_STRING);
+
 	$modifiedNoteCounter = $modifiedNoteCounter+1;
 
 	// Fix for issue: #191 - eating backslashes

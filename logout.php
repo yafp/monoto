@@ -27,31 +27,16 @@
             <div id="noteContentCo">
                 <h3><i class="fas fa-sign-out-alt"></i> <?php echo translateString("Logout"); ?></h3>
                 <?php
+                    // update logout conter
+                    $con = connectToDB();
+                    $result = mysqli_query($con, "UPDATE m_users SET logout_counter = logout_counter + 1 WHERE username='".$_SESSION['username']."'");
 
-                // update logout conter
-                $con = connectToDB();
-                $result = mysqli_query($con, "UPDATE m_users SET logout_counter = logout_counter + 1 WHERE username='".$_SESSION['username']."'");
-
-                // Define lgout image
-                $logoutImage = "images/content/logout.gif";
-
-                // destroy the user session
-                session_destroy();
+                    // destroy the user session
+                    session_destroy();
                 ?>
 
-                <!-- logout image -->
-                <div class="text-center">
-                    <img class="center-block" src="<?php echo $logoutImage; ?>">
-                </div>
-
                 <script>
-                // fade out the container after some time
-                //$('#container').delay(3000).fadeOut(5000);
-
-                // Redirect to login
-                setTimeout(function(){
                     window.location.replace("index.php");
-                }, 1000);
                 </script>
 
             </div>

@@ -1,20 +1,21 @@
 <?php
+// -----------------------------------------------------------------------------
 // Name:		noteNew.php
 // Function:	used for new note creation from n.php
-//
+// -----------------------------------------------------------------------------
+
 session_start();
 if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 {
+    require '../conf/config.php';
+
     // get data for new note
-    $newNoteTitle = $_POST['newNoteTitle'];
-    $newNoteContent = $_POST['newNoteContent'];
+    $newNoteTitle= filter_input(INPUT_POST, "newNoteTitle", FILTER_SANITIZE_STRING);
+    $newNoteContent= filter_input(INPUT_POST, "newNoteContent", FILTER_SANITIZE_STRING);
 
     // Fix for issue: #191 - eating backslashes
     $newNoteContent = str_replace('\\', '\\\\', $newNoteContent);
 
-    require '../conf/config.php';
-
-    //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
     $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
     if (!$con)
     {

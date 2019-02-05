@@ -63,7 +63,7 @@
                 <div class="col-lg-8 mx-auto">
                     <h2><i class="fas fa-user-circle fa-2x"></i> Account</h2>
                     <p class="lead">As final step you can create your initial admin account</p>
-                    <form name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                    <form name="login" action="setup.php" method="post" enctype="multipart/form-data">
                         <!-- Username -->
                         <div class="row">
                             <div class="col">

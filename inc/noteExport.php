@@ -7,6 +7,7 @@ session_start();
 if($_SESSION['valid'] == 1)
 {
 	require '../conf/config.php';
+
 	$owner = $_SESSION['username'];
 
 	// database table
@@ -27,7 +28,7 @@ if($_SESSION['valid'] == 1)
 	}
 
 	// create empty variable to be filled with export data
-	$csv_export = '';
+	$csv_export = "";
 
 	// query to get data from database
 	$query = mysqli_query($conn, "SELECT * FROM ".$db_record." ".$where);

@@ -1,7 +1,9 @@
 <?php
+// -----------------------------------------------------------------------------
 // Name:		delMyUserNotes.php
 // Function:	This file acts as script in monoto to delete all notes of a single user.
-//
+// -----------------------------------------------------------------------------
+
 session_start();
 
 // check if the user-session is valid or not
@@ -10,15 +12,11 @@ if($_SESSION['valid'] == 1)
 	require '../conf/config.php';
 
 	// connect to mysql
-	//$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
     $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());
 	}
-
-	// select db
-	//mysqli_select_db($con, $mysql_db);
 
 	$owner = $_SESSION['username'];
 

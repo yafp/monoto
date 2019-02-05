@@ -2,7 +2,7 @@
 session_start();
 if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the user-session is valid or not
 {
-    header('Location: redirect.php');
+    header('Location: index.php');
 }
 
 ?>
@@ -11,8 +11,8 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 <html lang="en">
 <head>
     <?php
-    include 'inc/coreIncludes.php';
-    $con = connectToDB();
+        include 'inc/coreIncludes.php';
+        $con = connectToDB();
     ?>
 
     <!-- specific -->
@@ -204,7 +204,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     <div class="row">&nbsp;</div>
 
                     <!-- delete user -->
-                    <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                    <form action="a.php" method="post" enctype="multipart/form-data">
                         <h3><i class="fas fa-user-minus"></i> <?php echo translateString("Delete account"); ?></h3>
                         <table style="width: 100%">
                             <tr>
@@ -239,7 +239,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
                     <!-- invite user -->
                     <h3><i class="fas fa-user-plus"></i> <?php echo translateString("Invite user"); ?></h3>
-                    <form id="inviteForm" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                    <form id="inviteForm" action="a.php" method="post" enctype="multipart/form-data">
                         <table style="width: 100%">
                             <tr>
                                 <td width='30%'>Username:</td>
@@ -277,7 +277,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     <h3><i class="fas fa-envelope"></i> <?php echo translateString("Broadcast message"); ?></h3>
                     <div class="panel-body">
                         Send an email to all monoto-accounts.
-                        <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                        <form action="a.php" method="post" enctype="multipart/form-data">
                             <input type="text" placeholder="Subject" name="broadcastSubject" style="width:100%"><br>
                             <textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br>
                             <button type="submit" class="btn btn-primary buttonDefault" name="doSendBroastcast" value="Send" style="width:200px" title="Sends a broadcast email to all users." /><i class="fas fa-envelope"></i> send</button>
@@ -285,7 +285,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     </div>
 
                     <h3><?php echo translateString("Misc"); ?></h3>
-                    <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                    <form action="a.php" method="post" enctype="multipart/form-data">
                         <button type="submit" class="btn btn-info" name="doOptimize" value="Optimize" title="Starts MySQL Optimize tables command.">Optimize tables</button> This will optimize your entire monoto mysql database.<br><br>
                         <button type="submit" class="btn btn-warning" name="doTruncateEvents" value="Truncate events" title="Deletes the entire content of the event-table. Affects all users. Be careful with that.">Truncate events</button> Warning: This will delete <b>ALL events</b> from the table: m_log.<br><br>
                         <button type="submit" class="btn btn-danger" name="doTruncateNotes" value="Truncate notes" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too.">Truncate notes</button> Warning: This will delete <b>ALL notes</b> from the table: m_notes.
@@ -308,250 +308,252 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
 
     <?php
-    require 'conf/config.php';
 
-    // Send broastcast to all users (email)
-    if ( isset($_POST["doSendBroastcast"]) )
+    if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-        $messageSubject = $_POST["broadcastSubject"];
-        //$messageSubject = sanitize_text_field( $_POST['broadcastSubject'] );
+        require 'conf/config.php';
 
-        $messageText = $_POST["broadcastMessage"];
-        //$messageText = sanitize_text_field( $_POST['broadcastMessage'] );
-
-        if (($messageText != "") && ($messageSubject != ""))
+        // ---------------------------------------------------------------------
+        // Send broastcast to all users (email)
+        // ---------------------------------------------------------------------
+        if ( isset($_POST["doSendBroastcast"]) )
         {
-            // select all users & email-data
-            $query = "SELECT username, email FROM m_users;";
-            $result = mysqli_query($con, $query);
-            while($row = mysqli_fetch_array($result))
+            //$messageSubject = $_POST["broadcastSubject"];
+            $messageSubject= filter_input(INPUT_POST, "broadcastSubject", FILTER_SANITIZE_STRING);
+
+            //$messageText = $_POST["broadcastMessage"];
+            $messageText= filter_input(INPUT_POST, "broadcastMessage", FILTER_SANITIZE_STRING);
+
+            if (($messageText != "") && ($messageSubject != ""))
             {
-                $username = $row[0];
-                $email = $row[1];
-                if(@mail($email, $messageSubject, $messageText)) // try to send notification email
-                {
-                    displayNoty("Notification emails sent.","success");
-                }
-                else
-                {
-                    displayNoty("Unable to sent notification mails.","error");
-                }
-            }
-        }
-        else
-        {
-            displayNoty("Error: Please enter a message text","error");
-        }
-    }
-
-
-    //
-    // DELETE USER
-    //
-    if ( isset($_POST["doDeleteUser"]) )
-    {
-        $userID = $_POST['userDeleteSelector'];
-
-        $confirmText    = $_POST['confirmDeleteUser'];
-        //$confirmText = sanitize_text_field( $_POST['confirmDeleteUser'] );
-
-        if ($userID !="")
-        {
-            if($confirmText == "CONFIRM")
-            {
-                // get username to selected ID
-                $query = "SELECT username FROM m_users WHERE id = '$userID';";
+                // select all users & email-data
+                $query = "SELECT username, email FROM m_users;";
                 $result = mysqli_query($con, $query);
                 while($row = mysqli_fetch_array($result))
                 {
-                    $usernameToDelete = $row[0];
-                }
-
-                // delete user
-                $sql="DELETE FROM m_users WHERE id='$userID'";
-                $result = mysqli_query($con, $sql);
-                if (!$result)
-                {
-                    die('Error: ' . mysqli_connect_error());
-                }
-                else  // update m_log
-                {
-                    $event = "User delete";
-                    $details = "User: <b>".$userID." </b>is now gone.";
-                    $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-                    $result = mysqli_query($con, $sql);
-
-                    // delete his notes as well
-                    $sql="DELETE FROM m_notes WHERE owner='$usernameToDelete'";
-                    $result = mysqli_query($con, $sql);
-
-                    // delete his log as well
-                    $sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
-                    $result = mysqli_query($con, $sql);
-
-                    displayNoty("Deleted user, his notes and the related log entries","notification");
-                }
-                mysqli_close($con);                                 // close sql connection
-            }
-            else // user hasnt entered CONFIRM
-            {
-                displayNoty("Please enter CONFIRM in the related field and try it again","error");
-            }
-        }
-        else
-        {
-            displayNoty("Please select a user first","error");
-        }
-    }
-
-
-    //
-    // OPTIMIZE MYSQL TABLES
-    //
-    if ( isset($_POST["doOptimize"]) )
-    {
-        connectToDB();  // connect to mysql
-
-        // select all table with (> 10% overhead) AND at (least > 100k free space)
-        $res = mysqli_query($con, 'SHOW TABLE STATUS WHERE Data_free / Data_length > 0.1 AND Data_free > 102400');
-        while($row = mysqli_fetch_assoc($res))
-        {
-            mysqli_query($con, 'OPTIMIZE TABLE ' . $row['Name']);
-        }
-        displayNoty("Database optimized","notification");
-    }
-
-    //
-    // TRUNCATE EVENTS
-    //
-    if ( isset($_POST["doTruncateEvents"]) )
-    {
-        $con = connectToDB(); // connect to mysql
-        mysqli_query($con, 'TRUNCATE TABLE m_log'); // truncate log-/events-table
-        displayNoty("Truncated all eventlog entries","notification");
-    }
-
-    //
-    // TRUNCATE NOTES
-    //
-    if ( isset($_POST["doTruncateNotes"]) )
-    {
-        $con = connectToDB(); // connect to mysql
-        mysqli_query($con, 'TRUNCATE TABLE m_notes'); // truncate notes-table
-        displayNoty("Truncated all user notes","notification");
-    }
-
-    //
-    // CREATE NEW USER
-    //
-    if ( isset($_POST["doCreateNewUserAccount"]) )
-    {
-        $con = connectToDB();  // connect to mysql
-
-        $invite_from     = $_SESSION['username'];
-        // need  full page url for link in the invite mail
-        $pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
-        if ($_SERVER["SERVER_PORT"] != "80")
-        {
-            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-        }
-        else
-        {
-            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-        }
-        //$invite_target     = $_SERVER['SERVER_NAME'];
-        $invite_target     = $pageURL;
-
-        // store values on vars
-        $newPassword1     = $_POST['newPassword1'];
-        //$newPassword1 = sanitize_text_field( $_POST['newPassword1'] );
-
-        $newPassword2     = $_POST['newPassword2'];
-        //$newPassword2 = sanitize_text_field( $_POST['newPassword2'] );
-
-        $newUsername     = $_POST['newUsername'];
-        //$newUsername = sanitize_text_field( $_POST['newUsername'] );
-
-        $newUserMail     = $_POST['newUserMail'];
-
-        $sendNotification = $_POST['sendNotification'];        // optional
-
-        $newUserNote = $_POST['newUserNote'];                // optional
-
-        // check if password is ok
-        if($newPassword1 == $newPassword2) //& passwords match - we can continue trying to create this user
-        {
-            // check if account-name is available
-            $result = mysqli_query($con, "SELECT count(username) FROM m_users WHERE username='$newUsername' "); // run the mysql query
-            while($row = mysqli_fetch_array($result)) // fetch data and file table as a second step later on
-            {
-                if($row[0] == 0)  // username is free
-                {
-                    // check if we got an emailaddress
-                    if(strlen($newUserMail) > 0)
+                    $username = $row[0];
+                    $email = $row[1];
+                    if(@mail($email, $messageSubject, $messageText)) // try to send notification email
                     {
-                        // create the new user account
-                        $username    = $newUsername;
-                        $password     = $newPassword1;
-                        $hash = hash('sha256', $password); // playing with hash
-                        function createSalt() // playing with salt - creates a 3 character sequence
+                        displayNoty("Notification emails sent.","success");
+                    }
+                    else
+                    {
+                        displayNoty("Unable to sent notification mails.","error");
+                    }
+                }
+            }
+            else
+            {
+                displayNoty("Error: Please enter a message text","error");
+            }
+        }
+
+
+        // ---------------------------------------------------------------------
+        // DELETE USER
+        // ---------------------------------------------------------------------
+        if ( isset($_POST["doDeleteUser"]) )
+        {
+            $userID= filter_input(INPUT_POST, "userDeleteSelector", FILTER_SANITIZE_STRING);
+            $confirmText= filter_input(INPUT_POST, "confirmDeleteUser", FILTER_SANITIZE_STRING);
+
+            if ($userID !="")
+            {
+                if($confirmText == "CONFIRM")
+                {
+                    // get username to selected ID
+                    $query = "SELECT username FROM m_users WHERE id = '$userID';";
+                    $result = mysqli_query($con, $query);
+                    while($row = mysqli_fetch_array($result))
+                    {
+                        $usernameToDelete = $row[0];
+                    }
+
+                    // delete user
+                    $sql="DELETE FROM m_users WHERE id='$userID'";
+                    $result = mysqli_query($con, $sql);
+                    if (!$result)
+                    {
+                        die('Error: ' . mysqli_connect_error());
+                    }
+                    else  // update m_log
+                    {
+                        $event = "User delete";
+                        $details = "User: <b>".$userID." </b>is now gone.";
+                        $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+                        $result = mysqli_query($con, $sql);
+
+                        // delete his notes as well
+                        $sql="DELETE FROM m_notes WHERE owner='$usernameToDelete'";
+                        $result = mysqli_query($con, $sql);
+
+                        // delete his log as well
+                        $sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
+                        $result = mysqli_query($con, $sql);
+
+                        displayNoty("Deleted user, his notes and the related log entries","notification");
+                    }
+                    mysqli_close($con); // close sql connection
+                }
+                else // user hasnt entered CONFIRM
+                {
+                    displayNoty("Please enter CONFIRM in the related field and try it again","error");
+                }
+            }
+            else
+            {
+                displayNoty("Please select a user first","error");
+            }
+        }
+
+
+        //
+        // OPTIMIZE MYSQL TABLES
+        //
+        if ( isset($_POST["doOptimize"]) )
+        {
+            connectToDB();  // connect to mysql
+
+            // select all table with (> 10% overhead) AND at (least > 100k free space)
+            $res = mysqli_query($con, 'SHOW TABLE STATUS WHERE Data_free / Data_length > 0.1 AND Data_free > 102400');
+            while($row = mysqli_fetch_assoc($res))
+            {
+                mysqli_query($con, 'OPTIMIZE TABLE ' . $row['Name']);
+            }
+            displayNoty("Database optimized","notification");
+        }
+
+        //
+        // TRUNCATE EVENTS
+        //
+        if ( isset($_POST["doTruncateEvents"]) )
+        {
+            $con = connectToDB(); // connect to mysql
+            mysqli_query($con, 'TRUNCATE TABLE m_log'); // truncate log-/events-table
+            displayNoty("Truncated all eventlog entries","notification");
+        }
+
+
+        //
+        // TRUNCATE NOTES
+        //
+        if ( isset($_POST["doTruncateNotes"]) )
+        {
+            $con = connectToDB(); // connect to mysql
+            mysqli_query($con, 'TRUNCATE TABLE m_notes'); // truncate notes-table
+            displayNoty("Truncated all user notes","notification");
+        }
+
+        //
+        // CREATE NEW USER
+        //
+        if ( isset($_POST["doCreateNewUserAccount"]) )
+        {
+            $con = connectToDB();  // connect to mysql
+
+            $invite_from     = $_SESSION['username'];
+            // need  full page url for link in the invite mail
+            $pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+            if ($_SERVER["SERVER_PORT"] != "80")
+            {
+                $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+            }
+            else
+            {
+                $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+            }
+            //$invite_target     = $_SERVER['SERVER_NAME'];
+            $invite_target     = $pageURL;
+
+            // store values on vars
+            $newPassword1= filter_input(INPUT_POST, "newPassword1", FILTER_SANITIZE_STRING);
+            $newPassword2= filter_input(INPUT_POST, "newPassword2", FILTER_SANITIZE_STRING);
+            $newUsername= filter_input(INPUT_POST, "newUsername", FILTER_SANITIZE_STRING);
+            $newUserMail= filter_input(INPUT_POST, "newUserMail", FILTER_SANITIZE_STRING);
+
+            // optional
+            $sendNotification= filter_input(INPUT_POST, "sendNotification", FILTER_SANITIZE_STRING);
+
+            // optional
+            $newUserNote= filter_input(INPUT_POST, "newUserNote", FILTER_SANITIZE_STRING);
+
+            // check if password is ok
+            if($newPassword1 == $newPassword2) //& passwords match - we can continue trying to create this user
+            {
+                // check if account-name is available
+                $result = mysqli_query($con, "SELECT count(username) FROM m_users WHERE username='$newUsername' "); // run the mysql query
+                while($row = mysqli_fetch_array($result)) // fetch data and file table as a second step later on
+                {
+                    if($row[0] == 0)  // username is free
+                    {
+                        // check if we got an emailaddress
+                        if(strlen($newUserMail) > 0)
                         {
-                            $string = md5(uniqid(rand(), true));
-                            return substr($string, 0, 3);
-                        }
-                        $salt = createSalt();
-                        $hash = hash('sha256', $salt . $hash);
-
-                        $query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
-                        //writeToConsoleLog($query);
-
-                        mysqli_query($con, $query);
-
-                        displayNoty("Created new user account","notification");
-                        //echo '<script>$.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");</script>';        // store last Action in cookie
-
-                        // we should log that to m_notes -> admin only.
-                        // check if we should send a notification as well
-                        if($sendNotification == 'sendNotification' )
-                        {
-                            if($newUserMail != '')
+                            // create the new user account
+                            $username = $newUsername;
+                            $password = $newPassword1;
+                            $hash = hash('sha256', $password); // playing with hash
+                            function createSalt() // playing with salt - creates a 3 character sequence
                             {
-                                $to = $newUserMail;
-                                $subject = "monoto-notes invite";
-                                $body = "Hi,
-                                \n".$invite_from." invited you to monoto - his web-based notes solution.
-                                \nFeel free to use it as your personal notes keeper as well.
-                                \n\nYou can get some general informations about monoto here: https://github.com/macfidelity/monoto/wiki.
-                                    \n\n\n\nThe login credentials are as follows:
-                                    \nUsername: ".$username."
-                                    \nPassword: ".$password."
-                                    \n\n\nPlease change your password after your first visit at:
-                                    \n".$invite_target."
-                                    \n\nHave fun.";
-                                    if (mail($to, $subject, $body))
-                                    {
+                                $string = md5(uniqid(rand(), true));
+                                return substr($string, 0, 3);
+                            }
+                            $salt = createSalt();
+                            $hash = hash('sha256', $salt . $hash);
+
+                            $query = "INSERT INTO m_users ( username, password, salt, date_invite, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt' , now() , '$newUserMail', '$newUserNote');";
+
+                            mysqli_query($con, $query);
+
+                            displayNoty("Created new user account '" . $username . "'.","notification");
+
+                            // we should log that to m_notes -> admin only.
+                            // check if we should send a notification as well
+                            if($sendNotification == "sendNotification" )
+                            {
+                                if($newUserMail != "")
+                                {
+                                    $to = $newUserMail;
+                                    $subject = "monoto-notes invite";
+                                    $body = "Hi,
+                                    \n".$invite_from." invited you to monoto - his web-based notes solution.
+                                    \nFeel free to use it as your personal notes keeper as well.
+                                    \n\nYou can get some general informations about monoto here: https://github.com/macfidelity/monoto/wiki.
+                                        \n\n\n\nThe login credentials are as follows:
+                                        \nUsername: ".$username."
+                                        \nPassword: ".$password."
+                                        \n\n\nPlease change your password after your first visit at:
+                                        \n".$invite_target."
+                                        \n\nHave fun.";
+                                        if (mail($to, $subject, $body))
+                                        {
+                                        }
+                                        else
+                                        {
+                                        }
+                                        displayNoty("Notification mail send","notification");
                                     }
-                                    else
-                                    {
-                                    }
-                                    displayNoty("Notification mail send","notification");
                                 }
                             }
+                            else // no usermail-adress defined while trying to create new account
+                            {
+                                displayNoty("No mail address defined.","error");
+                            }
                         }
-                        else // no usermail-adress defined while trying to create new account
+                        else // username already in use - cancel and inform the admin
                         {
-                            displayNoty("No mail address defined.","error");
+                            displayNoty("This mail-adress is already in use","error");
                         }
-                    }
-                    else // username already in use - cancel and inform the admin
-                    {
-                        displayNoty("This mail-adress is already in use","error");
                     }
                 }
+                else // passwords not matching
+                {
+                    displayNoty("Passwords are not matching","error");
+                }
             }
-            else // passwords not matching
-            {
-                displayNoty("Passwords are not matching","error");
-            }
-        }
-        ?>
+
+
+    } // End: check if request was POST
+
+    ?>

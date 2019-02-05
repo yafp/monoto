@@ -1,5 +1,9 @@
-
 <?php
+// -----------------------------------------------------------------------------
+// Name:		coreIncludes.php
+// Function:	Gets included in main files, includes most relevant files itself
+// -----------------------------------------------------------------------------
+
     // HTML Head
     include 'inc/coreIncludesHTMLHead.php';
 
@@ -10,6 +14,7 @@
     include 'inc/coreIncludesJS.php';
 
 
+    // specials
     require 'inc/helperFunctions.php'; // logging, translation etc
     require 'conf/config.php'; // some settings
     require 'conf/build.php'; // version informations

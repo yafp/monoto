@@ -1,4 +1,9 @@
 <?php
+// -----------------------------------------------------------------------------
+// Name:		index.php
+// Function:	handles the login
+// -----------------------------------------------------------------------------
+
 session_start();
 if (isset($_SESSION['valid']))
 {
@@ -18,7 +23,7 @@ if (isset($_SESSION['valid']))
 <body class="text-center">
 
     <!-- LOGIN -->
-    <form class="form-signin" name="login" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+    <form class="form-signin" name="login" action="index.php" method="post" enctype="multipart/form-data">
 
         <a href="index.php"><img class="mb-4" src="images/logo/monoto_logo_black.png" alt="" width="300"></a>
 

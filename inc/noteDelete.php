@@ -1,7 +1,9 @@
 <?php
+// -----------------------------------------------------------------------------
 // Name:		noteDelete.php
 // Function:	This file acts as script in monoto to delete single/selected notes.
-//
+// -----------------------------------------------------------------------------
+
 session_start();
 
 // check if the user-session is valid or not
@@ -10,9 +12,9 @@ if($_SESSION['valid'] == 1)
 	require '../conf/config.php';
 
 	// get post data
-	$deleteID = $_POST['deleteID'];
-	$deleteTitle = $_POST['deleteTitle'];
-	$deleteContent = $_POST['deleteContent'];
+    $deleteID= filter_input(INPUT_POST, "deleteID", FILTER_SANITIZE_STRING);
+    $deleteTitle= filter_input(INPUT_POST, "deleteTitle", FILTER_SANITIZE_STRING);
+    $deleteContent= filter_input(INPUT_POST, "deleteContent", FILTER_SANITIZE_STRING);
 
 	// get session data
 	$owner = $_SESSION['username'];

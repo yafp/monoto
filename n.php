@@ -97,12 +97,12 @@
                 }
                 ?>
 
-                <form name="myform" method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
+                <form name="myform" method="post" action="n.php">
 
                     <!-- search -->
                     <div class="row">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="<?php echo translateString("search here");?>" id="searchField" name="searchField" type="text" autofocus>
+                            <input type="text" class="form-control" placeholder="<?php echo translateString("search here");?>" id="searchField" name="searchField" type="text" tabindex="1" autofocus>
                         </div>
                         <div class="col-sm-2">
 
@@ -110,13 +110,13 @@
 
                             if($m_release == true ) // its a release: hide'em
                             {
-                                echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note ID" name="noteID" id="noteID" disabled placeholder="Note ID" />';
-                                echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note version" name="noteVersion" id="noteVersion" disabled placeholder="Note version">';
+                                echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note ID" name="noteID" id="noteID" tabindex="-1" disabled placeholder="Note ID" />';
+                                echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note version" name="noteVersion" id="noteVersion" tabindex="-1" disabled placeholder="Note version">';
                             }
                             else // its nbot a release: show'em
                             {
-                                echo '<input type="text" class="form-control" title="Note ID" name="noteID" id="noteID" disabled placeholder="Note ID" />';
-                                echo '<input type="text" class="form-control" title="Note version" name="noteVersion" id="noteVersion" disabled placeholder="Note version">';
+                                echo '<input type="text" class="form-control" title="Note ID" name="noteID" id="noteID" tabindex="-1" disabled placeholder="Note ID" />';
+                                echo '<input type="text" class="form-control" title="Note version" name="noteVersion" id="noteVersion" tabindex="-1" disabled placeholder="Note version">';
                             }
                             ?>
 
@@ -129,7 +129,7 @@
                             <input type="text" id="noteTitle" name="noteTitle" placeholder="<?php echo translateString("Note title");?>" disabled style="width:100%; " class="form-control" onkeyUp="prepareNewNoteStepTwo();" />
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-sm btn-primary buttonNotes" data-toggle="tooltip" title="" name="bt_prepareNoteCreation" id="bt_prepareNoteCreation" onClick="prepareNewNoteStepOne();"><i class="fas fa-plus"></i> <?php echo translateString("new");?></button>
+                            <button type="button" class="btn btn-sm btn-primary buttonNotes" data-toggle="tooltip" title="" name="bt_prepareNoteCreation" id="bt_prepareNoteCreation" onClick="prepareNewNoteStepOne();" tabindex="2"><i class="fas fa-plus"></i> <?php echo translateString("new");?></button>
                             <button type="button" class="btn btn-sm btn-success buttonNotes" data-toggle="tooltip" title="" name="bt_saveNote" id="bt_saveNote" onClick="saveNote();" disabled="disabled"><i class="fas fa-save"></i> <?php echo translateString("save");?></button>
                             <button type="submit" class="btn btn-sm btn-success buttonNotes" data-toggle="tooltip" title="" name="bt_createNewNote" id="bt_createNewNote"  onClick="createNewNote()" disabled="disabled"><i class="fas fa-edit"></i> <?php echo translateString("create");?></button>
                         </div>
@@ -138,7 +138,7 @@
                     <!-- ckeditor -->
                     <div class="row">
                         <div class="col-sm-10">
-                            <textarea cols="110" id="editor1" name="editor1"></textarea>
+                            <textarea cols="110" id="editor1" name="editor1" tabindex="3"></textarea>
                         </div>
                         <div class="col-sm-2">
 

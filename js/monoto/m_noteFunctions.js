@@ -60,11 +60,33 @@ function initCKEditor()
                 setTimeout(function()
                 {
                     // #236 - KeyPress handling for ckeditor
-                    //console.log("CKEditor: key pressed");
-
                     //console.log(e.data.keyCode);
                     switch(e.data.keyCode)
                     {
+                        // TAB -
+                        case 9:
+                            console.log("initCKEditor ::: Pressed TAB in CKEditor");
+                            // if CREATE button is visible -> give it focus
+                            if( $("#bt_createNewNote").is(":visible"))
+                            {
+                                $("#bt_createNewNote").focus();
+                                console.log("initCKEditor ::: Setting focus to create button");
+                                break;
+                            }
+
+                            // if SAVE button is visible -> give it focus
+                            if( $("#bt_saveNote").is('[disabled=disabled]'))
+                            {
+                                $("#bt_saveNote").focus();
+                                console.log("initCKEditor ::: Setting focus to save button");
+                                break;
+                            }
+
+                            $("#noteTitle").focus();
+                            console.log("initCKEditor ::: Setting focus to note title");
+
+                            break;
+
                         case 27: // ESC: - reset
                             console.log("initCKEditor ::: Pressed ESC in CKEditor");
                             //resetNotesUI();
@@ -77,6 +99,9 @@ function initCKEditor()
                             console.log("initCKEditor ::: Pressed F2 in CKEditor");
                             CKEDITOR.instances.editor1.execCommand( "maximize" );
                             break;
+
+
+
 
                         //default:
                             //console.log("initCKEditor ::: Default case");
@@ -296,7 +321,12 @@ function prepareNewNoteStepOne()
     $("#example").parents("div.dataTables_wrapper").first().hide();
 
     // Enable read-write of editor
-    enableCKEditorWriteMode();
+    // Upate:
+    // moved that to onChange of note title.
+    // as enabling editor while creating a new note  makes only sense
+    // if there is a noteTitle
+    //
+    //enableCKEditorWriteMode();
 }
 
 
@@ -323,14 +353,16 @@ function prepareNewNoteStepTwo()
     }
     else // we are in Note-Creation mode
     {
-        if(noteTitle.length > 0) // & save button nicht sichtbar
+        if(noteTitle.length > 0) // user entered a new note title > enable create button & editor
         {
             $("#bt_createNewNote").prop("disabled",false);
             $("#bt_createNewNote").show();
+            enableCKEditorWriteMode(); // Enable CKEDitor ReadWrite mode
         }
         else
         {
             $("#bt_createNewNote").prop("disabled",true);
+            disableCKEditorWriteMode(); // Keep CKEditor in ReadOnly mode
         }
     }
 }
@@ -359,7 +391,7 @@ function createNewNote()
     var newNoteContent = CKEDITOR.instances.editor1.getData();
 
     // cleanup note content replace...
-    newNoteContent=newNoteContent.replace(/\'/g,'&#39;');
+    newNoteContent=newNoteContent.replace(/\'/g,"&#39;");
 
     // if we have a note title - create the new note (content is not needed so far)
     if (newNoteTitle.length > 0)
@@ -377,10 +409,12 @@ function createNewNote()
         // FIXME
         // Adding this 'alert' seems to fix a timing issues
         // which might happen with some setups/browsers i.e. Firefox in my case
-        alert("Created the note: "+newNoteTitle);
+        //
+        // Baustelle
+        //alert("Created the note: '" + newNoteTitle + "'.");
 
         // store last Action in cookie
-        $.cookie("lastAction", "Note "+newNoteTitle+" created.");
+        $.cookie("lastAction", "Note '"+newNoteTitle+"' created.");
     }
     else
     {
@@ -425,7 +459,7 @@ function saveNote()
             var n = noty({text: "Note saved", type: "success"});
 
             // store last Action in cookie
-            $.cookie("lastAction", "Note "+modifiedNoteTitle+" saved.");
+            $.cookie("lastAction", "Note '"+modifiedNoteTitle+"' saved.");
 
             // reload the notes page
             reloadCurrentPage();
@@ -454,7 +488,7 @@ function deleteNote()
     {
         // confirm dialog
         var x = noty({
-            text: "Really delete this note?",
+            text: "Do you really want to delete the note '" + deleteTitle +"' (ID " + deleteID + ")?",
             type: "confirm",
             dismissQueue: false,
             layout: "topRight",
@@ -463,7 +497,7 @@ function deleteNote()
                 {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
                     $noty.close();
                     $.post("inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
-                    $.cookie("lastAction", "Note "+deleteID+" deleted.");  // store last Action in cookie
+                    $.cookie("lastAction", "Note '"+deleteID+"' deleted.");  // store last Action in cookie
 
                     // delete it in ui
                     var anSelected = fnGetSelected( oTable );

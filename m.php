@@ -158,7 +158,7 @@
 
                     <div class="row">
                         <div class="col-sm">
-                            <form id="changePassword" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                            <form id="changePassword" action="m.php" method="post" enctype="multipart/form-data">
                                 <input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
                                 <input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
                                 <button type="submit" class="btn btn-primary buttonDefault" name="doChangeUserPW"  title="Starts the change password function if the user provided the new password twice."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
@@ -178,7 +178,7 @@
 
                     <div class="row">
                         <div class="col-sm">
-                            <form id="changeLanguage" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                            <form id="changeLanguage" action="m.php" method="post" enctype="multipart/form-data">
                                 <select name="s_languageSelector" id="s_languageSelector">
                                     <option value="de_DE.UTF-8">de_DE.UTF-8</option>
                                     <option value="en_US">en_US</option>
@@ -414,7 +414,7 @@
                         <h3><i class="fas fa-file-import"></i> <?php echo translateString("Importer (Textfiles)"); ?></h3>
                         <!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
                         <p><?php echo translateString("You can import plain-text files. Select a folder and press the 'Import' button."); ?></p>
-                        <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerFormT">
+                        <form action="m.php" method="post" enctype="multipart/form-data" name="importerFormT">
                             <input type="file" multiple="multiple " name="impFilesT[]" id="impFilesT[]" accept="text/plain" />
                             <br>
                             <button type="submit" class="btn btn-primary buttonDefault" name="doImport" id="doImport" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." ><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
@@ -426,7 +426,7 @@
                 <div role="tabpanel" class="tab-pane fade" id="importer_c">
                     <h3><i class="fas fa-file-import"></i> <?php echo translateString("Importer (.csv)"); ?></h3>
                     <p><?php echo translateString("You can import notes in .csv format (coming from the exporter)."); ?></p>
-                    <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" name="importerForm">
+                    <form action="m.php" method="post" enctype="multipart/form-data" name="importerForm">
                         <input type="file" name="impFile" id="impFile" accept=".csv"/>
                         <br>
                         <button type="submit" class="btn btn-primary buttonDefault" name="doImportCSV" id="doImportCSV" title="Starts the import function if the user provided a valid .csv files. Might break with bigger amount of text-notes."><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
@@ -442,7 +442,7 @@
                     <div role="tabpanel" class="tab-pane fade" id="exporter_c">
                         <h3><i class="fas fa-file-export"></i> <?php echo translateString("Exporter (.csv)"); ?></h3>
                         <p><?php echo translateString("You can export your notes in .csv format by pressing the 'Export' button."); ?></p>
-                        <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
+                        <form action="m.php" method="post" enctype="multipart/form-data">
                             <button type="submit" class="btn btn-primary buttonDefault" name="doExport" id="doExport"  title="Exports all your notes into a .csv file which might be useful" ><i class="fas fa-file-export"></i> <?php echo translateString("export"); ?></button>
                         </form>
                         <span class="badge badge-secondary"><?php echo translateString("References"); ?></span>
@@ -485,209 +485,124 @@
         </html>
 
 
+
+
         <?php
-        // CASES
-        //
-        // - Do Change Userpassword
-        // - Do Change Language
-        // - Do Import (Textfiles)
-        // - Do Import (csv)
-        // - Do Export (csv)
-        // - Do Delete all Notes
-        // - Do Delete all Events
 
-
-
-
-        // -----------------------------------------------------------------------
-        // doChangeUserPW (START)
-        // -----------------------------------------------------------------------
-        if ( isset($_POST["doChangeUserPW"]) )
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
-            // get values
-            $username = $_SESSION['username'];
+            // CASES
+            //
+            // - Do Change Userpassword
+            // - Do Change Language
+            // - Do Import (Textfiles)
+            // - Do Import (csv)
+            // - Do Export (csv)
+            // - Do Delete all Notes
+            // - Do Delete all Events
 
-            $newPassword1 = $_POST['newPassword1'];
-            //$newPassword1 = sanitize_text_field( $_POST['newPassword1'] );
-
-            $newPassword2 = $_POST['newPassword2'];
-            //$newPassword2 = sanitize_text_field( $_POST['newPassword2'] );
-
-            $password = $newPassword1;
-            //$username = $owner;
-
-            // Check if user entered two times the same new password
-            if($newPassword1 == $newPassword2)
+            // -----------------------------------------------------------------------
+            // doChangeUserPW (START)
+            // -----------------------------------------------------------------------
+            if ( isset($_POST["doChangeUserPW"]) )
             {
-                $hash = hash('sha256', $password); // playing with hash
-                function createSalt() // playing with salt - creates a 3 character sequence
-                {
-                    $string = md5(uniqid(rand(), true));
-                    return substr($string, 0, 3);
-                }
-                $salt = createSalt();
-                $hash = hash('sha256', $salt . $hash);
+                // get values
+                $username = $_SESSION['username'];
 
-                $query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$username'";            // change pw
+                //$newPassword1 = $_POST['newPassword1'];
+                $newPassword1= filter_input(INPUT_POST, "newPassword1", FILTER_SANITIZE_STRING);
+
+                //$newPassword2 = $_POST['newPassword2'];
+                $newPassword2= filter_input(INPUT_POST, "newPassword2", FILTER_SANITIZE_STRING);
+
+                $password = $newPassword1;
+
+                // Check if user entered two times the same new password
+                if($newPassword1 == $newPassword2)
+                {
+                    $hash = hash('sha256', $password); // playing with hash
+                    function createSalt() // playing with salt - creates a 3 character sequence
+                    {
+                        $string = md5(uniqid(rand(), true));
+                        return substr($string, 0, 3);
+                    }
+                    $salt = createSalt();
+                    $hash = hash('sha256', $salt . $hash);
+
+                    // update user password
+                    $query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$username'";
+                    mysqli_query($con, $query);
+
+                    displayNoty('Changed password','success');
+                }
+                else // User entered 2 different password - cant change pw like that.
+                {
+                    displayNoty('Password mismatch','error');
+                }
+            }
+
+
+
+            // -----------------------------------------------------------------------
+            // doChangeUserLanguage (START)
+            // -----------------------------------------------------------------------
+            if ( isset($_POST["doChangeUserLanguage"]) )
+            {
+                //$selectedLang = $_POST['s_languageSelector'];
+                $selectedLang= filter_input(INPUT_POST, "s_languageSelector", FILTER_SANITIZE_STRING);
+
+                // update users language setting
+                $query = "UPDATE m_users SET language='$selectedLang' WHERE username='$username'";
                 mysqli_query($con, $query);
 
-                displayNoty('Changed password','success');
+                $_SESSION['lang'] = $selectedLang; // store as session variable
+                displayNoty('Language set to: '.$selectedLang,'notification');
             }
-            else // User entered 2 different password - cant change pw like that.
+
+
+            // -----------------------------------------------------------------------
+            // doImport Textfiles (START)
+            // -----------------------------------------------------------------------
+            //
+            if ( isset($_POST["doImport"]) )
             {
-                displayNoty('Password mismatch','error');
-            }
-        }
+                require 'conf/config.php';
 
+                ?>
 
+                <script>
+                /* jump back to importer_c tab */
+                $('[href="#importer_t"]').tab('show');
+                </script>
 
-        // -----------------------------------------------------------------------
-        // doChangeUserLanguage (START)
-        // -----------------------------------------------------------------------
-        if ( isset($_POST["doChangeUserLanguage"]) )
-        {
-            $selectedLang = $_POST['s_languageSelector'];
-            //$selectedLang = sanitize_text_field( $_POST['s_languageSelector'] );
+                <?php
 
-            $query = "UPDATE m_users SET language='$selectedLang' WHERE username='$username'";    // language
-            mysqli_query($con, $query);
-            $_SESSION['lang'] = $selectedLang; // store as session variable
-            displayNoty('Language set to: '.$selectedLang,'notification');
-        }
+                $username = $_SESSION['username'];
 
-
-        // -----------------------------------------------------------------------
-        // doImport Textfiles (START)
-        // -----------------------------------------------------------------------
-        //
-        if ( isset($_POST["doImport"]) )
-        {
-            require 'conf/config.php';
-
-            ?>
-
-            <script>
-            /* jump back to importer_c tab */
-            $('[href="#importer_t"]').tab('show');
-            </script>
-
-            <?php
-
-            $username = $_SESSION['username'];
-
-            //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
-            $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
-            if (!$con)
-            {
-                die('Could not connect: ' . mysqli_connect_error());
-            }
-            //mysqli_select_db($con, $mysql_db); // select db
-
-
-            $total = count($_FILES['impFilesT']['name']);
-            echo "Amount of files: " . $total;
-
-
-            // Loop through each file
-            for( $i=0 ; $i < $total ; $i++ )
-            {
-                //Get the temp file path
-                $tmpFilePath = $_FILES['impFilesT']['tmp_name'][$i];
-
-                //Make sure we have a file path
-                if ($tmpFilePath != "")
-                {
-                    // define insert vars
-                    $newNoteTitle = $_FILES["impFilesT"]["name"][$i];
-                    $newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle); // we need to cut the extension from filename - ugly hack
-                    $newNoteContent = file_get_contents($_FILES['impFilesT']['tmp_name'][$i]);
-
-                    // check if the new title is in use already by this user
-                    $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
-                    $result = mysqli_query($con, $sql);
-                    if(mysqli_num_rows($result)>0)
-                    {
-                        // adjust Title
-                        $current_timestamp = date('Ymd-his');
-                        $newNoteTitle = $newNoteTitle."___".$current_timestamp;
-                    }
-
-                    // do create note and do log it
-                    //
-                    // insert into m_notes
-                    $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
-                    $result = mysqli_query($con, $sql);
-                    if (!$result)
-                    {
-                        die('Error: ' . mysqli_connect_error()); // display error output
-                    }
-                    else // update m_log
-                    {
-                        $event = "create";
-                        $details = "Note: <b>".$newNoteTitle."</b>";
-                        $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$username' )";
-                        $result = mysqli_query($con, $sql);
-
-                        ?>
-                        <script type="text/javascript">
-                        var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported. "; ?>';
-                        document.importerFormT.importLog.value += newtext;
-
-                        </script>
-                        <?php
-                    }
-                }
-            }
-        }
-
-
-
-        // -----------------------------------------------------------------------
-        // doImportCSV (START)
-        // -----------------------------------------------------------------------
-        if ( isset($_POST["doImportCSV"]) )
-        {
-            ?>
-
-            <script>
-            /* jump back to importer_c tab */
-            $('[href="#importer_c"]').tab('show');
-            </script>
-
-            <?php
-
-            if (is_uploaded_file($_FILES['impFile']['tmp_name']))
-            {
                 //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
                 $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
                 if (!$con)
                 {
                     die('Could not connect: ' . mysqli_connect_error());
                 }
-                //mysqli_select_db($mysql_db, $con); // select db
+                //mysqli_select_db($con, $mysql_db); // select db
 
-                $username = $_SESSION['username'];
-                $target_dir = "";
-                $target_file = $target_dir . basename($_FILES["impFile"]["tmp_name"]);
-                $uploadOk = 1;
+                $total = count($_FILES['impFilesT']['name']);
+                echo "Amount of files: " . $total;
 
-                if(($handle = fopen($_FILES['impFile']['tmp_name'], 'r')) !== FALSE)         // read linewise and import if note doesnt exist already
+                // Loop through each file
+                for( $i=0 ; $i < $total ; $i++ )
                 {
-                    echo "<hr>";
-                    set_time_limit(0);
-                    $row = 0;
-                    while(($data = fgetcsv($handle, 1000, ";")) !== FALSE)
-                    //while(($data = fgetcsv($handle, ";")) !== FALSE)
+                    //Get the temp file path
+                    $tmpFilePath = $_FILES['impFilesT']['tmp_name'][$i];
+
+                    //Make sure we have a file path
+                    if ($tmpFilePath != "")
                     {
-                        $col_count = count($data); // number of fields in the csv
-
-                        // get the values from the csv
-                        $csv[$row]['col1'] = $data[0]; // id
-                        $csv[$row]['col2'] = $data[1]; // title
-                        $csv[$row]['col3'] = $data[2]; // content
-
-                        $newNoteTitle = $data[1];
-                        $newNoteContent = $data[2];
+                        // define insert vars
+                        $newNoteTitle = $_FILES["impFilesT"]["name"][$i];
+                        $newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle); // we need to cut the extension from filename - ugly hack
+                        $newNoteContent = file_get_contents($_FILES['impFilesT']['tmp_name'][$i]);
 
                         // check if the new title is in use already by this user
                         $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
@@ -699,46 +614,137 @@
                             $newNoteTitle = $newNoteTitle."___".$current_timestamp;
                         }
 
-                        // create single note
+                        // do create note and do log it
+                        //
+                        // insert into m_notes
                         $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
                         $result = mysqli_query($con, $sql);
                         if (!$result)
                         {
                             die('Error: ' . mysqli_connect_error()); // display error output
                         }
-                        else
+                        else // update m_log
                         {
-                            // write text to textarea
-                            echo '<script type="text/javascript">$("#importLogCSV").append("Imported: '.$newNoteTitle.'.\n"); </script>';
+                            $event = "create";
+                            $details = "Note: <b>".$newNoteTitle."</b>";
+                            $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$username' )";
+                            $result = mysqli_query($con, $sql);
+
+                            ?>
+                            <script type="text/javascript">
+                            var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported. "; ?>';
+                            document.importerFormT.importLog.value += newtext;
+
+                            </script>
+                            <?php
                         }
-                        // inc the row
-                        $row++;
                     }
-                    fclose($handle);
+                }
+            }
+
+
+
+            // -----------------------------------------------------------------------
+            // doImportCSV (START)
+            // -----------------------------------------------------------------------
+            if ( isset($_POST["doImportCSV"]) )
+            {
+                ?>
+
+                <script>
+                /* jump back to importer_c tab */
+                $('[href="#importer_c"]').tab('show');
+                </script>
+
+                <?php
+
+                if (is_uploaded_file($_FILES['impFile']['tmp_name']))
+                {
+                    //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
+                    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+                    if (!$con)
+                    {
+                        die('Could not connect: ' . mysqli_connect_error());
+                    }
+                    //mysqli_select_db($mysql_db, $con); // select db
+
+                    $username = $_SESSION['username'];
+                    $target_dir = "";
+                    $target_file = $target_dir . basename($_FILES["impFile"]["tmp_name"]);
+                    $uploadOk = 1;
+
+                    if(($handle = fopen($_FILES['impFile']['tmp_name'], 'r')) !== FALSE)         // read linewise and import if note doesnt exist already
+                    {
+                        echo "<hr>";
+                        set_time_limit(0);
+                        $row = 0;
+                        while(($data = fgetcsv($handle, 1000, ";")) !== FALSE)
+                        //while(($data = fgetcsv($handle, ";")) !== FALSE)
+                        {
+                            $col_count = count($data); // number of fields in the csv
+
+                            // get the values from the csv
+                            $csv[$row]['col1'] = $data[0]; // id
+                            $csv[$row]['col2'] = $data[1]; // title
+                            $csv[$row]['col3'] = $data[2]; // content
+
+                            $newNoteTitle = $data[1];
+                            $newNoteContent = $data[2];
+
+                            // check if the new title is in use already by this user
+                            $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
+                            $result = mysqli_query($con, $sql);
+                            if(mysqli_num_rows($result)>0)
+                            {
+                                // adjust Title
+                                $current_timestamp = date('Ymd-his');
+                                $newNoteTitle = $newNoteTitle."___".$current_timestamp;
+                            }
+
+                            // create single note
+                            $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
+                            $result = mysqli_query($con, $sql);
+                            if (!$result)
+                            {
+                                die('Error: ' . mysqli_connect_error()); // display error output
+                            }
+                            else
+                            {
+                                // write text to textarea
+                                echo '<script type="text/javascript">$("#importLogCSV").append("Imported: '.$newNoteTitle.'.\n"); </script>';
+                            }
+                            // inc the row
+                            $row++;
+                        }
+                        fclose($handle);
+                    }
+                    else
+                    {
+                        displayNoty("Unable to open the file.","error");
+                    }
+
+                    // write text to textarea
+                    echo '<script type="text/javascript">$("#importLogCSV").append("\n\nFinished importing notes.");</script>';
+
                 }
                 else
                 {
-                    displayNoty("Unable to open the file.","error");
+                    displayNoty("No file selected for import.","error");
                 }
-
-                // write text to textarea
-                echo '<script type="text/javascript">$("#importLogCSV").append("\n\nFinished importing notes.");</script>';
-
             }
-            else
+
+
+
+            // -----------------------------------------------------------------------
+            // doExport (START)
+            // -----------------------------------------------------------------------
+            if ( isset($_POST["doExport"]) )
             {
-                displayNoty("No file selected for import.","error");
+                echo '<script type="text/javascript" language="javascript">window.open("inc/noteExport.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';
             }
-        }
 
 
+        } // End: Check if request method was POST
 
-        // -----------------------------------------------------------------------
-        // doExport (START)
-        // -----------------------------------------------------------------------
-        if ( isset($_POST["doExport"]) )
-        {
-            echo '<script type="text/javascript" language="javascript">window.open("inc/noteExport.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';
-        }
-
+        
         ?>

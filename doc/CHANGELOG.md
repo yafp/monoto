@@ -4,7 +4,7 @@
 # Changelog
 ## monoto 4.0.0 (Quadrangulum)
 ###  ```Added```
-* [ #233 ] Implemented PHP7 compatibility
+* [#233] Implemented PHP7 compatibility
 * [#263] Added basic .htaccess to handle some common server errors with an error page
 * [#236] Added key-listener for ckeditor
 * [#256] Administration now shows used versions of the most relevant JS frameworks.
