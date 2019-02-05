@@ -2,16 +2,9 @@
 <html lang="en">
 <head>
     <?php
-    include 'inc/coreIncludes.php';
-
-    //$error = $_GET['error'];
-    $error   = trim( strval( $_GET['error'] ) );
-
-    if(empty($error))
-    {
-        $error = "undefined";
-    }
+        include 'inc/coreIncludes.php';
     ?>
+
 </head>
 
 <body role="document">
@@ -33,7 +26,7 @@
         <div id="container">
             <div id="noteContentCo">
 
-                <h3><i class="fas fa-exclamation-triangle"></i> <?php echo translateString("Error"); ?> <?php echo $error; ?></h3>
+                <h3><i class="fas fa-exclamation-triangle"></i> <?php echo translateString("Error"); ?> 404</h3>
 
                 <!-- error image -->
                 <div class="text-center">
