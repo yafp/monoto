@@ -1,15 +1,50 @@
 ---
+engines:
+    duplication:
+        enabled: true
+    metrics:
+        enabled: true
+    coverage:
+        enabled: true
+    CSSLint:
+        enabled: true
+        exclude_paths:
+        - 'foo/bar'
+    ESLint:
+        enabled: true
+    JSHint:
+        enabled: true
+    Node Security (NSP):
+        enabled: true
+    RemarkLint:
+        enabled: true
+    SCSSLint:
+        enabled: true
+    Stylelint:
+        enabled: true
+    phpcs:
+        enabled: true
+        php_version: 7.1
+languages:
+    CSS:
+        extensions:
+        - '-css'
+    PHP:
+        extensions:
+        - "-php"
+    JavaScript:
+        extensions:
+        - "-js"
+    Markdown:
+        extensions:
+        - "-md"
+
+
 exclude_paths:
-  - '.github/**'
-  - '.github/**/*'
-  - 'doc/**'
-  - 'js/jquery.easing.min.js'
-  - 'js/scrolling-nav.js'
-  - 'js/bootstrap/**'
-  - 'js/ckeditor/**'
-  - 'js/cookie/**'
-  - 'js/datatables/**'
-  - 'js/FontAwesome/**'
-  - 'js/jquery/**'
-  - 'js/noty/**'
-  - 'README.md'
+  - 'js/bootstrap/*'
+  - 'js/ckeditor/*'
+  - 'js/cookie/*'
+  - 'js/datatables/*'
+  - 'js/FontAwesome/*'
+  - 'js/jquery/*'
+  - 'js/noty/*'
