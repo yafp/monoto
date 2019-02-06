@@ -1,0 +1,44 @@
+sudo: false
+language: php
+dist: trusty
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 5.4
+    - php: 5.5
+    - php: 5.5
+      env: CUSTOM_INI=1 XMLLINT=1
+      addons:
+        apt:
+          packages:
+            - libxml2-utils
+    - php: 5.6
+    - php: 7.0
+    - php: 7.0
+      env: CUSTOM_INI=1 PEAR_VALIDATE=1
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+    - php: nightly
+      env: PHPSTAN=1
+
+  allow_failures:
+    - php: nightly
+
+before_install:
+    - export XMLLINT_INDENT="    "
+    # Speed up build time by disabling Xdebug when its not needed.
+    - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
+
+before_script:
+    # In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
+- composer install -n
+
+script:
+    # nothing so far
+    - php vendor/bin/phpunit --coverage-clover build/coverage/xml
+
+after_script:
+    # nothing so far
+    - php vendor/bin/codacycoverage clover build/coverage/xml
