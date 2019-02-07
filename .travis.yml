@@ -42,9 +42,8 @@ env:
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
-script: 
-  - phpunit inc/helperFunctions.php tests/helperFunctionsTest.php
-
+script:
+  - phpunit --bootstrap inc/helperFunctions.php tests/helperFunctionsTest.php
 
 # configure notifications (email, IRC, campfire etc)
 #notifications:
