@@ -1,11 +1,4 @@
 <!-- CSS -->
-<!-- noty v3
-<link rel="stylesheet" type="text/css" href="js/noty-3.2.0-beta/lib/noty.css">
--->
-
-<!-- Font Awesome -->
-<!-- 5.7.0 -->
-<link rel="stylesheet" type="text/css" href="js/FontAwesome/5.7.0/css/fontawesome.min.css">
 
 <!-- Bootstrap -->
 <!-- 4.2.1 -->
@@ -14,6 +7,10 @@
 <!-- DataTables -->
 <!-- 1.10.18 -->
 <link rel="stylesheet" type="text/css" href="js/datatables/1.10.18/css/jquery.dataTables.min.css" />
+
+<!-- Font Awesome -->
+<!-- 5.7.0 -->
+<link rel="stylesheet" type="text/css" href="js/FontAwesome/5.7.0/css/fontawesome.min.css">
 
 <!-- Monoto specific css -->
 <link rel="stylesheet" type="text/css" href="css/monoto/general.css" title="default" />

@@ -3,11 +3,12 @@
 // Name:		noteNew.php
 // Function:	used for new note creation from n.php
 // -----------------------------------------------------------------------------
+header('Content-type: text/xml');
 
 session_start();
 if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 {
-    require '../conf/config.php';
+    require '../config/config.php';
 
     // get data for new note
     $newNoteTitle= filter_input(INPUT_POST, "newNoteTitle", FILTER_SANITIZE_STRING);
@@ -16,12 +17,11 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
     // Fix for issue: #191 - eating backslashes
     $newNoteContent = str_replace('\\', '\\\\', $newNoteContent);
 
-    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
     if (!$con)
     {
         die('Could not connect: ' . mysqli_connect_error());
     }
-    //mysqli_select_db($con, $mysql_db); // select db
 
     $owner = $_SESSION['username'];
 
@@ -50,6 +50,8 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
         $details = "Note: <b>".$newNoteTitle."</b>";
         $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
         $result = mysqli_query($con, $sql);
+
+        return(true);
     }
     mysqli_close($con);	// close sql connection
 }

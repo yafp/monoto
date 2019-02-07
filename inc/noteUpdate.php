@@ -3,6 +3,7 @@
 // Name:		noteUpdate.php
 // Function:	used to update an existing note from n.php
 // -----------------------------------------------------------------------------
+header('Content-type: text/xml');
 
 session_start();
 
@@ -26,15 +27,14 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 	// Fix for issue: #191 - eating backslashes
 	$modifiedNoteContent = str_replace('\\', '\\\\', $modifiedNoteContent);
 
-	require '../conf/config.php';
+	require '../config/config.php';
 
-	//$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
-    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());
 	}
-	//mysqli_select_db($con, $mysql_db); 	// select db
+
 	$owner = $_SESSION['username'];
 
 	// check if the new title is in use already by this user

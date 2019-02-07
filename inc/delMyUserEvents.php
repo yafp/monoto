@@ -3,16 +3,17 @@
 // Name:		delMyUserEvents.php
 // Function:	This file acts as script in monoto to delete all events in the event log of a single user.
 // -----------------------------------------------------------------------------
+header('Content-type: text/xml');
 
 session_start();
 
 // check if the user-session is valid or not
 if($_SESSION['valid'] == 1)
 {
-	require '../conf/config.php';
+	require '../config/config.php';
 
 	// connect to mysql
-    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());

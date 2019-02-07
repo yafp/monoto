@@ -1,5 +1,5 @@
 <!--  FOOTER -->
-<?php require 'conf/build.php'; ?>
+<?php require 'config/build.php'; ?>
 
 <div id="footer" class="clear" style="text-align:center;">
 <hr>

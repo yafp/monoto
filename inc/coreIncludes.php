@@ -13,11 +13,10 @@
     // JS
     include 'inc/coreIncludesJS.php';
 
-
     // specials
     require 'inc/helperFunctions.php'; // logging, translation etc
-    require 'conf/config.php'; // some settings
-    require 'conf/build.php'; // version informations
     require 'inc/db.php'; // connect to db
+    require 'config/config.php'; // some settings
+    require 'config/build.php'; // version informations
 
 ?>

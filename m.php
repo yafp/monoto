@@ -508,19 +508,13 @@
             {
                 // get values
                 $username = $_SESSION['username'];
-
-                //$newPassword1 = $_POST['newPassword1'];
                 $newPassword1= filter_input(INPUT_POST, "newPassword1", FILTER_SANITIZE_STRING);
-
-                //$newPassword2 = $_POST['newPassword2'];
                 $newPassword2= filter_input(INPUT_POST, "newPassword2", FILTER_SANITIZE_STRING);
-
-                $password = $newPassword1;
 
                 // Check if user entered two times the same new password
                 if($newPassword1 == $newPassword2)
                 {
-                    $hash = hash('sha256', $password); // playing with hash
+                    $hash = hash('sha256', $password1); // playing with hash
                     function createSalt() // playing with salt - creates a 3 character sequence
                     {
                         $string = md5(uniqid(rand(), true));
@@ -548,7 +542,6 @@
             // -----------------------------------------------------------------------
             if ( isset($_POST["doChangeUserLanguage"]) )
             {
-                //$selectedLang = $_POST['s_languageSelector'];
                 $selectedLang= filter_input(INPUT_POST, "s_languageSelector", FILTER_SANITIZE_STRING);
 
                 // update users language setting
@@ -566,7 +559,7 @@
             //
             if ( isset($_POST["doImport"]) )
             {
-                require 'conf/config.php';
+                require 'config/config.php';
 
                 ?>
 
@@ -579,13 +572,11 @@
 
                 $username = $_SESSION['username'];
 
-                //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
-                $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+                $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
                 if (!$con)
                 {
                     die('Could not connect: ' . mysqli_connect_error());
                 }
-                //mysqli_select_db($con, $mysql_db); // select db
 
                 $total = count($_FILES['impFilesT']['name']);
                 echo "Amount of files: " . $total;
@@ -604,7 +595,7 @@
                         $newNoteTitle = preg_replace("/\\.[^.\\s]{3,4}$/", "", $newNoteTitle); // we need to cut the extension from filename - ugly hack
                         $newNoteContent = file_get_contents($_FILES['impFilesT']['tmp_name'][$i]);
 
-                        // check if the new title is in use already by this user
+                        // check if the new title is in use already by this user - if so modify the title
                         $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
                         $result = mysqli_query($con, $sql);
                         if(mysqli_num_rows($result)>0)
@@ -614,9 +605,7 @@
                             $newNoteTitle = $newNoteTitle."___".$current_timestamp;
                         }
 
-                        // do create note and do log it
-                        //
-                        // insert into m_notes
+                        // do create note and do log it - aka: insert into m_notes
                         $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
                         $result = mysqli_query($con, $sql);
                         if (!$result)
@@ -632,9 +621,8 @@
 
                             ?>
                             <script type="text/javascript">
-                            var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported. "; ?>';
-                            document.importerFormT.importLog.value += newtext;
-
+                                var newtext = '<?php echo "Note: ".$newNoteTitle." successfully imported. "; ?>';
+                                document.importerFormT.importLog.value += newtext;
                             </script>
                             <?php
                         }
@@ -660,13 +648,11 @@
 
                 if (is_uploaded_file($_FILES['impFile']['tmp_name']))
                 {
-                    //$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
-                    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+                    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
                     if (!$con)
                     {
                         die('Could not connect: ' . mysqli_connect_error());
                     }
-                    //mysqli_select_db($mysql_db, $con); // select db
 
                     $username = $_SESSION['username'];
                     $target_dir = "";
@@ -746,5 +732,5 @@
 
         } // End: Check if request method was POST
 
-        
+
         ?>

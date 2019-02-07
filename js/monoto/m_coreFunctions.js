@@ -17,9 +17,15 @@ $.noty.defaults = {
     text: "",
     dismissQueue: true, // If you want to use queue feature set this true
     template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-    animation: {
-        open: {height: "toggle"},
-        close: {height: "toggle"},
+    animation:
+    {
+        open: {
+            //animation: 'animated fadeInRight', // ?
+            height: "toggle"
+        },
+        close: {
+            height: "toggle"
+        },
         easing: "swing",
         speed: 500 // opening & closing animation speed
     },

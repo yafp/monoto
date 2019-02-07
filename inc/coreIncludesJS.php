@@ -5,14 +5,19 @@
 <script type="text/javascript" language="javascript" src="js/jquery/jquery-3.3.1.min.js"></script>
 
 
-<!-- # FontAwesome ######################################################### -->
-<!-- 5.2.0 -->
-<script type="text/javascript" language="javascript" src="js/FontAwesome/5.7.0/js/all.min.js"></script>
-
-
 <!-- # Bootstrap ########################################################### -->
 <!-- 4.2.1 -->
 <script type="text/javascript" language="javascript" src="js/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- # datatable ####################################################### -->
+<!-- 1.10.18 -->
+<script type="text/javascript" language="javascript" src="js/datatables/1.10.18/js/jquery.dataTables.min.js"></script>
+
+
+<!-- # FontAwesome ######################################################### -->
+<!-- 5.2.0 -->
+<script type="text/javascript" language="javascript" src="js/FontAwesome/5.7.0/js/all.min.js"></script>
 
 
 <!-- # noty ################################################################ -->
@@ -25,11 +30,6 @@
 <!-- # jquery cookie ####################################################### -->
 <!-- 1.4.1 -->
 <script type="text/javascript" language="javascript" src="js/cookie/jquery.cookie.js"></script>
-
-
-<!-- # datatable ####################################################### -->
-<!-- 1.10.18 -->
-<script type="text/javascript" language="javascript" src="js/datatables/1.10.18/js/jquery.dataTables.min.js"></script>
 
 
 <!-- # monoto ############################################################## -->

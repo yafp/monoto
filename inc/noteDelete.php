@@ -3,13 +3,14 @@
 // Name:		noteDelete.php
 // Function:	This file acts as script in monoto to delete single/selected notes.
 // -----------------------------------------------------------------------------
+header('Content-type: text/xml');
 
 session_start();
 
 // check if the user-session is valid or not
 if($_SESSION['valid'] == 1)
 {
-	require '../conf/config.php';
+	require '../config/config.php';
 
 	// get post data
     $deleteID= filter_input(INPUT_POST, "deleteID", FILTER_SANITIZE_STRING);
@@ -20,15 +21,11 @@ if($_SESSION['valid'] == 1)
 	$owner = $_SESSION['username'];
 
 	// connect to mysql
-	//$con = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
-    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());
 	}
-
-	// select db
-	//mysqli_select_db($mysql_db, $con);
 
 	// update m_notes
 	$sql="DELETE FROM m_notes WHERE id='$deleteID'";

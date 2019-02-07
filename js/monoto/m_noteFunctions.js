@@ -1,4 +1,48 @@
 // -----------------------------------------------------------------------------
+// UI: button "Save"
+// disables the save button
+// -----------------------------------------------------------------------------
+function disableNoteSavingButton()
+{
+    console.log("disableNoteSavingButton ::: Disabling save note button");
+
+    $("#bt_saveNote").prop("disabled",true);
+}
+
+
+// -----------------------------------------------------------------------------
+// UI: button "Save"
+// enables the save button if it has a title
+// -----------------------------------------------------------------------------
+function enableNoteSavingButton()
+{
+    console.log("enableNoteSavingButton ::: Enabling save note button");
+
+    // check if note title length is > 0
+    // as saving is only allowed with a title
+    var currentTitle = $("#noteTitle").val();
+    if ( currentTitle.length > 0)
+    {
+        $("#bt_saveNote").prop("disabled",false);
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// DataTable: unselect/unmark all rows in table
+// -----------------------------------------------------------------------------
+function unmarkAllTableRows()
+{
+    console.log("unmarkAllTableRows ::: Removing the selected attribute from all table rows");
+
+    $(oTable.fnSettings().aoData).each(function () // unselect all records
+    {
+        $(this.nTr).removeClass("row_selected");
+    });
+}
+
+
+// -----------------------------------------------------------------------------
 // CKEditor: show the status of the editor
 // -----------------------------------------------------------------------------
 function printCKEditorStatus()
@@ -15,7 +59,7 @@ function initCKEditor()
     console.log("initCKEditor ::: Initializing the CKEditor");
 
     // Defining the editor height
-    monotoEditorHeight = 300; // setting a default value, in case there is non stored in localStorage
+    var monotoEditorHeight = 300; // setting a default value, in case there is non stored in localStorage
     if(typeof(Storage)!=="undefined") // if localStorage is supported
     {
         monotoEditorHeight = window.localStorage.getItem("monotoEditorHeight");
@@ -39,21 +83,35 @@ function initCKEditor()
             {
                 CKEDITOR.instances.editor1.setReadOnly(true); // set RO mode
                 CKEDITOR.config.toolbarCanCollapse = true; /* Enable collapse function for toolbar */
+                return;
             },
 
+            /*
+            // has issues: if focus is in editor and i click to notetitle, it jumps directly back to editor.
             blur: function(event)
             {
                 console.log("initCKEditor ::: CKEditor lost focus");
                 CKEDITOR.instances.editor1.execCommand( "toolbarCollapse", false ); // #241
+                return;
             },
-
+            */
 
             focus: function(event)
             {
                 console.log("initCKEditor ::: CKEditor got focus");
                 CKEDITOR.instances.editor1.execCommand( "toolbarCollapse", true ); // #241
+                return;
             },
 
+            resize: function(event)
+            {
+                // get new height of editor window
+                editorHeight = event.editor.ui.space( "contents" ).getStyle( "height" );
+                console.log("saveCKEditorHeightOnChange ::: CKEditor resized to: "+editorHeight);
+
+                //save to localstorage
+                window.localStorage.setItem("monotoEditorHeight", editorHeight);
+            },
 
             key: function(e)
             {
@@ -82,9 +140,9 @@ function initCKEditor()
                                 break;
                             }
 
+                            // any other case
                             $("#noteTitle").focus();
                             console.log("initCKEditor ::: Setting focus to note title");
-
                             break;
 
                         case 27: // ESC: - reset
@@ -137,6 +195,7 @@ function initCKEditor()
 // -----------------------------------------------------------------------------
 function saveCKEditorHeightOnChange()
 {
+    /*
     console.log("saveCKEditorHeightOnChange ::: Saving CKEditor height (to localStorage), after it has changed");
 
     CKEDITOR.on("instanceReady",function(ev)
@@ -145,7 +204,7 @@ function saveCKEditorHeightOnChange()
         {
             // get new height of editor window
             editorHeight = ev.editor.ui.space( "contents" ).getStyle( "height" );
-            console.log("saveCKEditorHeightOnChange ::: CKEditor resized to: "+editorHeight);
+            //console.log("saveCKEditorHeightOnChange ::: CKEditor resized to: "+editorHeight);
 
             //save to localstorage
             window.localStorage.setItem("monotoEditorHeight", editorHeight);
@@ -153,6 +212,7 @@ function saveCKEditorHeightOnChange()
     });
 
     printCKEditorStatus();
+    */
 }
 
 
@@ -244,21 +304,27 @@ function resetNotesUI()
     // UI
     //
     // show some elements
-    $("#searchField").show(); // show search field
+    $("#searchField").show();
     $("#newNoteTitle").show();
     $("#bt_prepareNoteCreation").show();
+
     // hilde all UI buttons
     hideAllButtons();
+
     // show needed buttons
     $("#bt_prepareNoteCreation").show();
+
     // disable some items
     $("#noteTitle").prop("disabled",true);
     disableNoteSavingButton(); // button: save
     $("#bt_createNewNote").prop("disabled",true);
     $("#bt_cancelNewNote").prop("disabled",true);
+
     // enable some items
     $("#searchField").prop("disabled",false);
+
     // set some values
+    $("#searchField").val("");
     $("#noteTitle").val("");
     $("#noteID").val(""); // hidden ID field
     $("#noteVersion").val(""); // hidden version field
@@ -274,7 +340,7 @@ function resetNotesUI()
     // reset selected row number
     curSelectedTableRow=-1;
 
-    // ckeditor 4.x
+    // ckeditor 4.xy
     //
     // reset editor content
     resetCKEditor();
@@ -379,13 +445,16 @@ function createNewNote()
     var newNoteTitle = $("#noteTitle").val();
 
     // cleanup title - replace all characters except
+    //
     // - numbers
     // - letters
     // - space
     // - underscore,
     // - pipe and
     // - -
-    newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ?!|/ ]/g, "");
+    //newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ?!|/ ]/g, "");
+    //newNoteTitle = newNoteTitle.replace(/(^a-zA-Z0-9-._äüößÄÜÖ?!|/ )/g, "";);
+    newNoteTitle = newNoteTitle.replace(/([^A-Za-z0-9äöüÄÖÜß.|!?_-])\w+ /g);
 
     // get note content if defined
     var newNoteContent = CKEDITOR.instances.editor1.getData();
@@ -399,22 +468,104 @@ function createNewNote()
         // check if user defined note-content or not. Add placeholder text if empty
         if(newNoteContent.length === 0)
         {
-            // define dummy content for new note - as user didnt
             newNoteContent = "This is a <b>placeholder</b> for missing content while note-creation.";
         }
 
-        // call create script
-        $.post("inc/noteNew.php", { newNoteTitle: newNoteTitle, newNoteContent: newNoteContent } );
-
         // FIXME
-        // Adding this 'alert' seems to fix a timing issues
+        // Adding this 'alert' seems to fix a timing issues as alert interrupts the execution
         // which might happen with some setups/browsers i.e. Firefox in my case
         //
-        // Baustelle
-        //alert("Created the note: '" + newNoteTitle + "'.");
+        alert("Created the note: '" + newNoteTitle + "'.");
 
         // store last Action in cookie
         $.cookie("lastAction", "Note '"+newNoteTitle+"' created.");
+    }
+    else
+    {
+        var n = noty({text: "Error: No note title", type: "error"});
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// UI: button "create"
+// Prepare New Note creation Step 2
+// -----------------------------------------------------------------------------
+function createNewNoteEnhanced()
+{
+    console.log("createNewNoteEnhanced ::: Creating a new note");
+
+    var newNoteTitle = $("#noteTitle").val();
+
+    // cleanup title - replace all characters except
+    //
+    // - numbers
+    // - letters
+    // - space
+    // - underscore,
+    // - pipe and
+    // - -
+    //newNoteTitle = newNoteTitle.replace(/[^a-zA-Z0-9-._äüößÄÜÖ?!|/ ]/g, "");
+    //newNoteTitle = newNoteTitle.replace(/([^A-Za-z0-9äöüÄÖÜß.|!?_-])\w+ /g);
+    newNoteTitle = newNoteTitle.replace(/([A-Za-z0-9äöüÄÖÜß._-|!?])\w+ /g, "");
+
+    // get note content if defined
+    var newNoteContent = CKEDITOR.instances.editor1.getData();
+
+    // cleanup note content replace...
+    newNoteContent=newNoteContent.replace(/\'/g,"&#39;");
+
+    // if we have a note title - create the new note (content is not needed so far)
+    if (newNoteTitle.length > 0)
+    {
+        // check if user defined note-content or not. Add placeholder text if empty
+        if(newNoteContent.length === 0)
+        {
+            newNoteContent = "This is a <b>placeholder</b> for missing content while note-creation.";
+        }
+
+
+        var jqxhr = $.post( "inc/noteNew.php", { newNoteTitle: newNoteTitle, newNoteContent : newNoteContent}, function()
+        {
+            //alert( "success" );
+            //alert("Created the note____________: '" + newNoteTitle + "'.");
+        })
+        .done(function()
+        {
+            //alert("Note creation done.");
+            $.cookie("lastAction", "Note '<b>"+newNoteTitle+"</b>' created.");
+            console.log("------------------------------");
+            console.log("DONE");
+            console.log(jqxhr.textStatus);
+            console.log(jqxhr.data);
+            console.log("------------------------------");
+        })
+        .fail(function(jqxhr, textStatus, errorThrown)
+        {
+            alert("Note creation failed.");
+            $.cookie("lastAction", "Failed creating the note '"+newNoteTitle+"'.");
+
+            console.log("------------------------------");
+            console.log("FAIL");
+            console.log(jqxhr);
+            console.log(textStatus);
+            console.log(errorThrown);
+            console.log("------------------------------");
+        })
+        .always(function()
+        {
+            // doing nothing so far
+        });
+
+
+        // FIXME
+        // Adding this 'alert' seems to fix a timing issues as alert interrupts the execution
+        // which might happen with some setups/browsers i.e. Firefox in my case
+        //
+        //alert("Created the note: '" + newNoteTitle + "'.");
+
+        // store last Action in cookie
+        //$.cookie("lastAction", "Note '"+newNoteTitle+"' created.");
     }
     else
     {
@@ -488,7 +639,7 @@ function deleteNote()
     {
         // confirm dialog
         var x = noty({
-            text: "Do you really want to delete the note '" + deleteTitle +"' (ID " + deleteID + ")?",
+            text: "Do you really want to delete the note '" + deleteTitle +"'?",
             type: "confirm",
             dismissQueue: false,
             layout: "topRight",
@@ -538,36 +689,6 @@ else
 
 
 // -----------------------------------------------------------------------------
-// UI: button "Save"
-// enables the save button after a note was changed
-// -----------------------------------------------------------------------------
-function enableNoteSavingButton()
-{
-    console.log("enableNoteSavingButton ::: Enabling save note button");
-
-    // check if note title length is > 0
-    // as saving is only allowed with a title
-    var currentTitle = $("#noteTitle").val();
-    if ( currentTitle.length > 0)
-    {
-        $("#bt_saveNote").prop("disabled",false);
-    }
-}
-
-
-// -----------------------------------------------------------------------------
-// UI: button "Save"
-// disables the save button
-// -----------------------------------------------------------------------------
-function disableNoteSavingButton()
-{
-    console.log("disableNoteSavingButton ::: Disabling save note button");
-
-    $("#bt_saveNote").prop("disabled",true);
-}
-
-
-// -----------------------------------------------------------------------------
 // UI: Reload all notes
 // -----------------------------------------------------------------------------
 function reloadCurrentPage()
@@ -607,8 +728,8 @@ function redrawTable()
 {
     console.log("redrawTable ::: Redrawing DataTable");
 
-    var mytable = $('#example').dataTable();
-    mytable.fnDraw();
+    var oTable = $('#example').dataTable();
+    oTable.fnDraw();
 }
 
 
@@ -667,20 +788,6 @@ function selectAndMarkTableRow(currentRow)
 
 
 // -----------------------------------------------------------------------------
-// DataTable: unselect/unmark all rows in table
-// -----------------------------------------------------------------------------
-function unmarkAllTableRows()
-{
-    console.log("unmarkAllTableRows ::: Removing the selected attribute from all table rows");
-
-    $(oTable.fnSettings().aoData).each(function () // unselect all records
-    {
-        $(this.nTr).removeClass("row_selected");
-    });
-}
-
-
-// -----------------------------------------------------------------------------
 // DataTable: update the current selected row
 // -----------------------------------------------------------------------------
 function updateCurrentPosition(valueChange)
@@ -688,7 +795,7 @@ function updateCurrentPosition(valueChange)
     console.log("updateCurrentPosition ::: Updating the current position in datatable");
 
     // get amount of notes in table
-    amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
+    var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
     console.log("updateCurrentPosition ::: Currently showing " + amountOfRecordsAfterFilter + " notes in datatable.");
 
     if (typeof curSelectedTableRow === "undefined")
@@ -751,7 +858,7 @@ function onReady()
     // CKEditor
     //
     initCKEditor();
-    saveCKEditorHeightOnChange();
+    //saveCKEditorHeightOnChange();
 
     // DataTable
     //
@@ -791,12 +898,12 @@ function onReady()
 
             // Get data array for this row
             //var aData = oTable.fnGetData( aPos[1] );
-            curRow =sData[0];
-            rowCount = oTable.fnSettings().fnRecordsTotal();
+            var curRow =sData[0];
+            var rowCount = oTable.fnSettings().fnRecordsTotal();
             currentRow = rowCount - curRow -1;
 
             // get amount of records after filter
-            amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
+            var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
             curRow =sData[1];
 
             // get all currently visible rows

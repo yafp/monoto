@@ -5,7 +5,7 @@
 
     <!-- specific -->
     <!-- css -->
-    <link href="css/setup.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/setup.css">
 </head>
 
 <body role="document">
@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <h2><i class="fas fa-database fa-2x"></i> Database</h2>
-                    <p class="lead">Please create a database and all related tables according to the instructions in <span class="badge badge-secondary">doc/INSTALL.md</span> and adjust the values in <span class="badge badge-secondary">conf/config.php</span> according to it.</p>
+                    <p class="lead">Please create a database and all related tables according to the instructions in <span class="badge badge-secondary">doc/INSTALL.md</span> and adjust the values in <span class="badge badge-secondary">config/config.php</span> according to it.</p>
                 </div>
             </div>
         </div>
@@ -148,12 +148,10 @@
 
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
+    <div class="container">
             <p class="m-0 text-center text-white"><?php require 'inc/footer.php'; ?></p>
-        </div>
-        <!-- /.container -->
-    </footer>
+    </div>
+
 
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>

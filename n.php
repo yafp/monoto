@@ -20,6 +20,7 @@
 
     <!-- -->
     <script type="text/javascript">
+
     var currentRow = -1; // fill var for ugly row-selection hack with a default value
     var oTable;
     var giRedraw = false;
@@ -131,7 +132,7 @@
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-sm btn-primary buttonNotes" data-toggle="tooltip" title="" name="bt_prepareNoteCreation" id="bt_prepareNoteCreation" onClick="prepareNewNoteStepOne();" tabindex="2"><i class="fas fa-plus"></i> <?php echo translateString("new");?></button>
                             <button type="button" class="btn btn-sm btn-success buttonNotes" data-toggle="tooltip" title="" name="bt_saveNote" id="bt_saveNote" onClick="saveNote();" disabled="disabled"><i class="fas fa-save"></i> <?php echo translateString("save");?></button>
-                            <button type="submit" class="btn btn-sm btn-success buttonNotes" data-toggle="tooltip" title="" name="bt_createNewNote" id="bt_createNewNote"  onClick="createNewNote()" disabled="disabled"><i class="fas fa-edit"></i> <?php echo translateString("create");?></button>
+                            <button type="submit" class="btn btn-sm btn-success buttonNotes" data-toggle="tooltip" title="" name="bt_createNewNote" id="bt_createNewNote"  onClick="createNewNoteEnhanced()" disabled="disabled"><i class="fas fa-edit"></i> <?php echo translateString("create");?></button>
                         </div>
                     </div>
 

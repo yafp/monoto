@@ -6,7 +6,7 @@ session_start();
 // check if the user-session is valid or not
 if($_SESSION['valid'] == 1)
 {
-	require '../conf/config.php';
+	require '../config/config.php';
 
 	$owner = $_SESSION['username'];
 
@@ -21,8 +21,7 @@ if($_SESSION['valid'] == 1)
 	$csv_filename = $exportDate."-monoto-export.csv";
 
 	// connect to db
-	//$conn = mysqli_connect($mysql_server, $mysql_user, $mysql_pw, $mysql_db); // connect to mysql
-    $con = new mysqli($mysql_server, $mysql_user, $mysql_pw, $mysql_db);
+    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
 	if (mysqli_connect_errno()) {
 	    die("Failed to connect to MySQL: " . mysqli_connect_error());
 	}
