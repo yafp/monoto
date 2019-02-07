@@ -16,7 +16,7 @@ Download the latest monoto version from github
 
 
 ## 4. Adjust config
-* Check **conf/config.php** and modify the mysql access settings to your needs
+* Check **config/config.php** and modify the mysql access settings to your needs
 
 
 ## 5. Upload
@@ -29,7 +29,7 @@ Download the latest monoto version from github
 
 ## 7. Cleanup
 * Secure your monoto install
-  * **conf/config.php** (only webserver should be allowed to read this file)
+  * **config/config.php** (only webserver should be allowed to read this file)
   * delete **setup.php**
 
 

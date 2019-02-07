@@ -56,6 +56,7 @@
 * [#249] Removed keyboard listener for online help. Is now linked in footer.
 * [#209] Removed old word count plugin from CKEditor
 * [#243] Removed desktop notifications
+* [#275] Removed maintenance mode
 
 ###  ```Fixed```
 * [#262] Improved code for resizing and storing of editor height
