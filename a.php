@@ -19,6 +19,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
     <!-- JS -->
     <!-- ckeditor-->
+    <!-- needed to show library version in UI-->
     <!-- 4.11.2 -->
     <script type="text/javascript" src="js/ckeditor/4.11.2/ckeditor.js"></script>
 
@@ -77,7 +78,9 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
                 <!-- Tab: general -->
                 <div role="tabpanel" class="tab-pane active in" id="general">
-                    <h3><i class="fas fa-sliders-h"></i> <?php echo translateString("Configuration"); ?></h3>
+
+                    <br>
+
                     <?php
                     if (file_exists('setup.php'))     // check if setup.php still exists - if so - display a warning
                     {
@@ -87,46 +90,18 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     }
                     ?>
 
-
-                    <!-- Maintenance Mode -->
-                    <div class="row">
-                        <div class="col">
-                            <i class="fas fa-exclamation-triangle"></i> <?php echo translateString("maintenance mode"); ?>
-                        </div>
-                        <div class="col">
-                            <?php
-                            if($s_enable_maintenance_mode == false){ echo "<span class='badge badge-secondary'>false</span>";}else{echo "<span class='badge badge-secondary'>true</span>";}
-                            ?>
-
-                        </div>
-                        <div class="col">
-                            <small>&nbsp;</small>
-                        </div>
-                    </div>
-
-                    <!-- Version-->
-                    <div class="row">
-                        <div class="col">
-                            <i class="fas fa-cloud"></i> <?php echo translateString("Version"); ?>
-                        </div>
-                        <div class="col">
-                            <span class='badge badge-secondary'><?php echo $m_version; ?></span>
-                        </div>
-                        <div class="col">
-                            <small>&nbsp;</small>
-                        </div>
-                    </div>
-
-
                     <h3><i class="fas fa-database"></i> <?php echo translateString("Database"); ?></h3>
                     <?php
-                    // entire db size
-                    $result = mysqli_query($con, "SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$mysql_db."' ");
-                    while($row = mysqli_fetch_array($result))
-                    {
-                        $stats_entire_monoto_db_size = $row[0];
-                    }
-                    echo $stats_entire_monoto_db_size." MB";
+                        // get entire database size
+                        $sqlCommand = "SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$database_db."' ";
+                        $result = mysqli_query($con, $sqlCommand);
+                        //$entireDBSize = mysqli_fetch_object($result);
+                        while($row = mysqli_fetch_array($result))
+                        {
+                            $entireDBSize = $row[0];
+                            $entireDBSize = round($entireDBSize, 2); // round db size
+                        }
+                        echo $entireDBSize." MB";
                     ?>
 
                     <!-- Users -->
@@ -135,9 +110,13 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         <thead><tr><th>id</th><th><?php echo translateString("username"); ?></th><th><?php echo translateString("Notes"); ?></th><th><?php echo translateString("logins"); ?></th><th>current failed logins</th><th><?php echo translateString("mail"); ?></th><th>admin</th><th><?php echo translateString("comment"); ?></th></tr></thead>
                         <tbody>
                             <?php
-                            // FIXME: shows only accounts with > 0 notes
-                            $result = mysqli_query($con, "SELECT u.id, username, count(*), login_counter, failed_logins_in_a_row, email, is_admin, admin_note FROM `m_users` as u, `m_notes` as n WHERE n.owner = u.username GROUP BY username"); // m_log
-                            while($row = mysqli_fetch_array($result))   // fill datatable
+                            // FIXME:
+                            // shows only accounts with > 0 notes
+                            $sqlCommand = "SELECT u.id, username, count(*), login_counter, failed_logins_in_a_row, email, is_admin, admin_note FROM `m_users` as u, `m_notes` as n WHERE n.owner = u.username GROUP BY username";
+                            $result = mysqli_query($con, $sqlCommand);
+
+                            // fill datatable
+                            while($row = mysqli_fetch_array($result))
                             {
                                 echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td></tr>';
                             }
@@ -203,40 +182,6 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     <!-- spacer -->
                     <div class="row">&nbsp;</div>
 
-                    <!-- delete user -->
-                    <form action="a.php" method="post" enctype="multipart/form-data">
-                        <h3><i class="fas fa-user-minus"></i> <?php echo translateString("Delete account"); ?></h3>
-                        <table style="width: 100%">
-                            <tr>
-                                <td width='30%'>Select a user:</td>
-                                <td>
-                                    <select name="userDeleteSelector" required>
-                                        <option value="" disabled selected>Username</option>
-                                        <?php
-                                        $result = mysqli_query($con, "SELECT id, username  FROM m_users ORDER by id ");
-                                        while($row = mysqli_fetch_array($result))   // fill user-select box
-                                        {
-                                            echo '<option value="'.$row[0].'">'.$row[1].'</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Enter CONFIRM (uppercase)</td>
-                                <td><input type="text" name="confirmDeleteUser" placeholder="no" required></td>
-                            </tr>
-                            <tr>
-                                <td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td>
-                                <td><button type="submit" class="btn btn-danger buttonDefault" name="doDeleteUser"><i class="fas fa-trash-alt"></i> <?php echo translateString("delete"); ?></button> </td>
-                            </tr>
-                        </table>
-                    </form>
-
-                    <!-- spacer -->
-                    <div class="row">&nbsp;</div>
-
-
                     <!-- invite user -->
                     <h3><i class="fas fa-user-plus"></i> <?php echo translateString("Invite user"); ?></h3>
                     <form id="inviteForm" action="a.php" method="post" enctype="multipart/form-data">
@@ -271,6 +216,41 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                             </tr>
                         </table>
                     </form>
+
+                    <!-- spacer -->
+                    <div class="row">&nbsp;</div>
+
+                    <!-- delete user -->
+                    <form action="a.php" method="post" enctype="multipart/form-data">
+                        <h3><i class="fas fa-user-minus"></i> <?php echo translateString("Delete account"); ?></h3>
+                        <table style="width: 100%">
+                            <tr>
+                                <td width='30%'>Select a user:</td>
+                                <td>
+                                    <select name="userDeleteSelector" required>
+                                        <option value="" disabled selected>Username</option>
+                                        <?php
+                                        $result = mysqli_query($con, "SELECT id, username  FROM m_users ORDER by id ");
+                                        while($row = mysqli_fetch_array($result))   // fill user-select box
+                                        {
+                                            echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Enter CONFIRM (uppercase)</td>
+                                <td><input type="text" name="confirmDeleteUser" placeholder="no" required></td>
+                            </tr>
+                            <tr>
+                                <td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td>
+                                <td><button type="submit" class="btn btn-danger buttonDefault" name="doDeleteUser"><i class="fas fa-trash-alt"></i> <?php echo translateString("delete"); ?></button> </td>
+                            </tr>
+                        </table>
+                    </form>
+
+
 
 
 
@@ -311,7 +291,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-        require 'conf/config.php';
+        require 'config/config.php';
 
         // ---------------------------------------------------------------------
         // Send broastcast to all users (email)
@@ -362,7 +342,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
             {
                 if($confirmText == "CONFIRM")
                 {
-                    // get username to selected ID
+                    // get username of selected ID
                     $query = "SELECT username FROM m_users WHERE id = '$userID';";
                     $result = mysqli_query($con, $query);
                     while($row = mysqli_fetch_array($result))
@@ -393,17 +373,28 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         $result = mysqli_query($con, $sql);
 
                         displayNoty("Deleted user, his notes and the related log entries","notification");
+
+                        // update the cookie
+                        updateCookie("Deleted user: ".$usernameToDelete);
+
+                        writeToConsoleLog("test7");
                     }
+
+                    // reload page
+                    //echo "<script>location.reload();</script>";
+
                     mysqli_close($con); // close sql connection
                 }
                 else // user hasnt entered CONFIRM
                 {
                     displayNoty("Please enter CONFIRM in the related field and try it again","error");
+                    return;
                 }
             }
             else
             {
                 displayNoty("Please select a user first","error");
+                return;
             }
         }
 
@@ -450,9 +441,12 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
         //
         if ( isset($_POST["doCreateNewUserAccount"]) )
         {
+            writeToConsoleLog("doCreateNewUserAccount ::: Trying to create new user account");
+
             $con = connectToDB();  // connect to mysql
 
-            $invite_from     = $_SESSION['username'];
+            $invite_from = $_SESSION['username'];
+
             // need  full page url for link in the invite mail
             $pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
             if ($_SERVER["SERVER_PORT"] != "80")
@@ -463,8 +457,11 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
             {
                 $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
             }
+
+            writeToConsoleLog("doCreateNewUserAccount ::: pageURL = ".$pageURL);
+
             //$invite_target     = $_SERVER['SERVER_NAME'];
-            $invite_target     = $pageURL;
+            $invite_target = $pageURL;
 
             // store values on vars
             $newPassword1= filter_input(INPUT_POST, "newPassword1", FILTER_SANITIZE_STRING);
@@ -552,6 +549,9 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     displayNoty("Passwords are not matching","error");
                 }
             }
+
+            // reload page
+            //echo "<script>location.reload();</script>";
 
 
     } // End: check if request was POST
