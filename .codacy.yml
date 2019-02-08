@@ -1,6 +1,6 @@
 ---
 exclude_paths:
- - '.github/**'
+  - '.github/**'
   - '.github/**/*'
   - 'doc/**'
   - 'js/jquery.easing.min.js'
