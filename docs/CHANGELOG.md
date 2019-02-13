@@ -9,6 +9,7 @@
 * [#236] Added key-listener for ckeditor
 * [#256] Administration now shows used versions of the most relevant JS frameworks.
 * [#272] Added changelog to project
+* [#278] Switched to server processing. No more page reloads needed while working with notes.
 
 ###  ```Changed```
 * Login screen
@@ -21,6 +22,7 @@
   * [#259] Note title while creation can now contain ? and ! and |
   * [#258] Fix for new note creation with already existing title
 * Note editing
+  * [#237] Save should reload current note. Related with [#278]
   * [#269] Save button is only enabled if either note-title or note-content was changed
   * [#270] Editor is only in read-write mode if a note is selected
   * [#271] Toolbar is now collapsible
@@ -34,7 +36,7 @@
   * [#231] Updated CKEditor (from 4.4.7 to 4.11.2)
   * [#248] Updated FontAwesome (from 4.6.3 to 5.7.0)
   * [#253] Updated DataTables (from 1.10.5 to 1.10.18)
-  * [#274] Updating noty (from 2.3.8 to 2.4.1)
+  * [#274] Updated noty (from 2.3.8 to 2.4.1)
 * Languages
   * [#210] Most parts of UI are available in .en and .de
 * Database
@@ -47,6 +49,7 @@
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation
+  * [#276] Navigation: Moved to external file
 
 ###  ```Removed```
 * [#261] Removed update check from admin section
@@ -57,6 +60,7 @@
 * [#209] Removed old word count plugin from CKEditor
 * [#243] Removed desktop notifications
 * [#275] Removed maintenance mode
+* [#277] Removed javascript jquery cookie usage. Related with [#278]
 
 ###  ```Fixed```
 * [#262] Improved code for resizing and storing of editor height

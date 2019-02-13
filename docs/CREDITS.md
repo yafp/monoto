@@ -2,9 +2,8 @@
 ==========
 
 # Code
-- yafp (https://github.com/yafp)
-
+* [yafp](https://github.com/yafp)
 
 # Issues
-- yafp (https://github.com/yafp)
-- jf
+* [yafp](https://github.com/yafp)
+* jf
