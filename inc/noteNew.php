@@ -10,9 +10,12 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 {
     require '../config/config.php';
 
-    // get data for new note
+    // note title
     $newNoteTitle= filter_input(INPUT_POST, "newNoteTitle", FILTER_SANITIZE_STRING);
-    $newNoteContent= filter_input(INPUT_POST, "newNoteContent", FILTER_SANITIZE_STRING);
+
+    // note content
+    $newNoteContent = $_POST['newNoteContent'];
+    //$newNoteContent= filter_input(INPUT_POST, "newNoteContent", FILTER_SANITIZE_STRING); // filter breaks html code
 
     // Fix for issue: #191 - eating backslashes
     $newNoteContent = str_replace('\\', '\\\\', $newNoteContent);

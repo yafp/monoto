@@ -9,19 +9,19 @@ session_start();
 
 if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 {
-	// get data for modified note
-	//$modifiedNoteID = $_POST['modifiedNoteID'];
+	// note id
     $modifiedNoteID= filter_input(INPUT_POST, "modifiedNoteID", FILTER_SANITIZE_STRING);
 
-	//$modifiedNoteTitle = $_POST['modifiedNoteTitle'];
+    // note title
     $modifiedNoteTitle= filter_input(INPUT_POST, "modifiedNoteTitle", FILTER_SANITIZE_STRING);
 
-	//$modifiedNoteContent = $_POST['modifiedNoteContent'];
-    $modifiedNoteContent= filter_input(INPUT_POST, "modifiedNoteContent", FILTER_SANITIZE_STRING);
+    // note content:
+    // cant use filter_sanitize here, as it breaks the html code
+	$modifiedNoteContent = $_POST['modifiedNoteContent'];
+    //$modifiedNoteContent= filter_input(INPUT_POST, "modifiedNoteContent", FILTER_SANITIZE_STRING);
 
-	//$modifiedNoteCounter = $_POST['modifiedNoteCounter'];
+    // note version / save count
     $modifiedNoteCounter= filter_input(INPUT_POST, "modifiedNoteCounter", FILTER_SANITIZE_STRING);
-
 	$modifiedNoteCounter = $modifiedNoteCounter+1;
 
 	// Fix for issue: #191 - eating backslashes

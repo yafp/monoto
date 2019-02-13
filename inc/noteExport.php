@@ -57,3 +57,5 @@ if($_SESSION['valid'] == 1)
 	header("Content-Disposition: attachment; filename=".$csv_filename."");
 	echo($csv_export);
 }
+
+?>

@@ -47,7 +47,5 @@
 
     </div> <!-- /container -->
 
-    <!-- JS-->
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
 </body>
 </html>

@@ -40,23 +40,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 <body role="document">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-        <div class="container">
-            <a class="navbar-brand" href="n.php"><img src="images/logo/monoto_logo_white.png" height="26"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="n.php"><i class="fas fa-edit"></i> <?php echo translateString("Notes") ?><span class="sr-only">(current)</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="m.php"><i class="fas fa-user"></i> <?php echo translateString("MyMonoto") ?></a></li>
-                    <li class="nav-item"><a class="nav-link" href="k.php"><i class="fas fa-keyboard"></i> <?php echo translateString("Keyboard") ?></a></li>
-                    <li class="nav-item active "><a class="nav-link" href="a.php"><i class="fas fa-cog"></i> <?php echo translateString("Admin") ?></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showLogoutDialog();"><i class="fas fa-sign-out-alt"></i> <?php echo translateString("Logout") ?></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav> <!-- /navigation -->
+    <?php include 'inc/navigation.php'; ?>
 
     <!-- Page Content -->
     <div class="container theme-showcase" role="main">
@@ -172,6 +156,8 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     var datatables_version = $.fn.dataTable.version;
                     $("#libVersionDataTables").val(datatables_version);
                     </script>
+                    <!-- /Libraries -->
+
                 </div><!-- /tab -->
                 <!-- /container -->
 
@@ -250,10 +236,6 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         </table>
                     </form>
 
-
-
-
-
                     <h3><i class="fas fa-envelope"></i> <?php echo translateString("Broadcast message"); ?></h3>
                     <div class="panel-body">
                         Send an email to all monoto-accounts.
@@ -281,8 +263,6 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
         </div>
         <!-- /container -->
 
-        <!-- JS-->
-        <script type="text/javascript" src="js/cookie/jquery.cookie.js"></script>
     </body>
     </html>
 
@@ -373,9 +353,6 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         $result = mysqli_query($con, $sql);
 
                         displayNoty("Deleted user, his notes and the related log entries","notification");
-
-                        // update the cookie
-                        updateCookie("Deleted user: ".$usernameToDelete);
 
                         writeToConsoleLog("test7");
                     }

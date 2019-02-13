@@ -2,7 +2,8 @@
 exclude_paths:
   - '.github/**'
   - '.github/**/*'
-  - 'doc/**'
+  - 'docs/CHANGELOG.md'
+  - 'docs/LICENSE.md'
   - 'js/jquery.easing.min.js'
   - 'js/scrolling-nav.js'
   - 'js/bootstrap/**'

@@ -27,10 +27,5 @@
 <script type="text/javascript" language="javascript" src="js/noty/2.4.1/themes/default.js"></script>
 
 
-<!-- # jquery cookie ####################################################### -->
-<!-- 1.4.1 -->
-<script type="text/javascript" language="javascript" src="js/cookie/jquery.cookie.js"></script>
-
-
 <!-- # monoto ############################################################## -->
 <script type="text/javascript" language="javascript" src="js/monoto/m_coreFunctions.js"></script>

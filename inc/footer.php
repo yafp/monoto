@@ -10,7 +10,7 @@
         <br>
         Version: <?php echo $m_version; ?> (<?php echo $m_date; ?>)
         <br>
-        <a href="https://github.com/yafp/monoto/blob/master/doc/CHANGELOG.md">Changelog</a>
+        <a href="https://github.com/yafp/monoto/blob/master/docs/CHANGELOG.md">Changelog</a>
         &nbsp;/&nbsp;
         <a href="https://github.com/yafp/monoto/wiki">Documentation</a>
 

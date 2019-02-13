@@ -9,45 +9,25 @@
     <!-- JS -->
     <script type="text/javascript" src="js/monoto/m_myMonotoFunctions.js"></script>
     <script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
+    $(document).ready( function ()
+    {
         $('#example').dataTable( {
             "bSort": false, // dont sort - trust the sql-select and its sort-order
             "sPaginationType": "simple_numbers",
             "iDisplayLength" : 10,
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
         } );
+
+
+        console.log("m.php ::: Finished intializing DataTable");
     } );
     </script>
 </head>
 
 <body role="document">
 
-
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-        <div class="container">
-            <a class="navbar-brand" href="n.php"><img src="images/logo/monoto_logo_white.png" height="26"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="n.php"><i class="fas fa-edit"></i> <?php echo translateString("Notes") ?><span class="sr-only">(current)</span></a></li>
-                    <li class="nav-item active"><a class="nav-link" href="m.php"><i class="fas fa-user"></i> <?php echo translateString("MyMonoto") ?></a></li>
-                    <li class="nav-item"><a class="nav-link" href="k.php"><i class="fas fa-keyboard"></i> <?php echo translateString("Keyboard") ?></a></li>
-                    <?php
-                    if($_SESSION['admin'] == 1) // show admin<small id="passwordHelpInline" class="text-muted">
-                    {
-                        echo '<li class="nav-item"><a class="nav-link" href="a.php"><i class="fas fa-cog"></i>';
-                        echo translateString("Admin");
-                        echo '</a></li>';
-                    }
-                    ?>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showLogoutDialog();"><i class="fas fa-sign-out-alt"></i> <?php echo translateString("Logout") ?></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'inc/navigation.php'; ?>
 
     <!-- Page Content -->
     <div class="container theme-showcase" role="main">
@@ -358,33 +338,42 @@
                                 while($row = mysqli_fetch_array($result))   // fill datatable
                                 {
                                     // colorize table
-                                    switch ($row[1]) {
+                                    switch ($row[1])
+                                    {
                                         case "login":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#3D9970">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#3D9970">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         case "login error":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#FF851B">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#FF851B">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         case "save":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#2ECC40">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#2ECC40">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         case "create":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#01FF70">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#01FF70">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         case "create error":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#FF4136">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#FF4136">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         case "import":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#FFDC00">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#FFDC00">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         case "events eraser":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#7FDBFF">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#7FDBFF">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         case "notes eraser":
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#39CCCC ">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
-                                        break;
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#39CCCC ">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            break;
+
                                         default:
-                                        echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
+                                            echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
 
                                         // colors: https://clrs.cc/
                                         //
@@ -473,8 +462,6 @@
 
 
             <!-- JS-->
-            <script type="text/javascript" src="js/cookie/jquery.cookie.js"></script>
-
             <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
                 var lang = '<?php echo $_SESSION["lang"]; ?>';
