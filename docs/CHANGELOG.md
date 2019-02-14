@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monoto_logo_black.png) changelog
+![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monotoLogoBlack.png) changelog
 ==========
 
 # Changelog
@@ -50,6 +50,7 @@
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation
   * [#276] Navigation: Moved to external file
+  * [#279] Pages: Renamed MyMonoto to Profile
 
 ###  ```Removed```
 * [#261] Removed update check from admin section

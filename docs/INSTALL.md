@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monoto_logo_black.png) installation
+![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monotoLogoBlack.png) installation
 ==========
 
 ## 1. Download
@@ -27,8 +27,5 @@ Download the latest monoto version from github
   * delete **setup.php**
 
 ## 8. Apache & .htaccess (optional)
-* add **.htaccess** to enhance protection for your monoto installation
-* **.htaccess** is needed for error handling (404 etc)
+* **.htaccess** is needed for error handling (404)
 * AllowOverride must be set to All, otherwise .htaccess won't work.
-
-Enjoy!
