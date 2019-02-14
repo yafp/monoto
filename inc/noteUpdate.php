@@ -7,7 +7,7 @@ header('Content-type: text/xml');
 
 session_start();
 
-if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
+if ( $_SESSION['valid'] == 1 )	// check if the user-session is valid or not
 {
 	// note id
     $modifiedNoteID= filter_input(INPUT_POST, "modifiedNoteID", FILTER_SANITIZE_STRING);
@@ -29,7 +29,7 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 
 	require '../config/config.php';
 
-    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
+    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());
@@ -40,7 +40,7 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 	// check if the new title is in use already by this user
 	$sql = "SELECT title from m_notes where owner='".$owner."' AND  title='".$modifiedNoteTitle."' and id != ".$modifiedNoteID."' ";
 	$result = mysqli_query($con, $sql);
-	if(mysqli_num_rows($result)>0)
+	if ( mysqli_num_rows($result) > 0 )
 	{
 		$current_timestamp = date('Ymd-his');
 		$modifiedNoteTitle = $modifiedNoteTitle."___".$current_timestamp;
@@ -50,7 +50,7 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
 	//
 	$sql="UPDATE m_notes SET title='$modifiedNoteTitle', content='$modifiedNoteContent', save_count='$modifiedNoteCounter' WHERE id='$modifiedNoteID'"; // update m_notes
 	$result = mysqli_query($con, $sql);
-	if (!$result)
+	if ( !$result )
 	{
 		die('Error: ' . mysqli_connect_error());
 	}

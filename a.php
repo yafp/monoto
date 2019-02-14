@@ -23,10 +23,10 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
     <!-- 4.11.2 -->
     <script type="text/javascript" src="js/ckeditor/4.11.2/ckeditor.js"></script>
 
-    <!-- Datatable -->
+    <!-- DataTable -->
     <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-        $('#example').dataTable( {
+        $('#example').DataTable( {
             "bSort": false, // dont sort - trust the sql-select and its sort-order
             "sPaginationType": "full_numbers",
             "iDisplayLength" : 25,
@@ -77,7 +77,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     <h3><i class="fas fa-database"></i> <?php echo translateString("Database"); ?></h3>
                     <?php
                         // get entire database size
-                        $sqlCommand = "SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$database_db."' ";
+                        $sqlCommand = "SELECT sum( data_length + index_length ) /1024 /1024 FROM information_schema.TABLES WHERE table_schema = '".$databaseDB."' ";
                         $result = mysqli_query($con, $sqlCommand);
                         //$entireDBSize = mysqli_fetch_object($result);
                         while($row = mysqli_fetch_array($result))
@@ -99,7 +99,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                             $sqlCommand = "SELECT u.id, username, count(*), login_counter, failed_logins_in_a_row, email, is_admin, admin_note FROM `m_users` as u, `m_notes` as n WHERE n.owner = u.username GROUP BY username";
                             $result = mysqli_query($con, $sqlCommand);
 
-                            // fill datatable
+                            // fill DataTable
                             while($row = mysqli_fetch_array($result))
                             {
                                 echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td></tr>';
@@ -130,10 +130,10 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         <input type="text" class="form-control" id="libVersionBootstrap" aria-describedby="bootstrapHelp" placeholder="bootstrap version" disabled>
                     </div>
 
-                    <!-- DataTables -->
+                    <!-- DataTable -->
                     <div class="form-group">
-                        <label for="libVersionDataTables">DataTables</label>
-                        <input type="text" class="form-control" id="libVersionDataTables" aria-describedby="datatablesHelp" placeholder="datatables version" disabled>
+                        <label for="libVersionDataTables">DataTable</label>
+                        <input type="text" class="form-control" id="libVersionDataTable" aria-describedby="datatableHelp" placeholder="datatable version" disabled>
                     </div>
 
                     <!-- get libraries version and show them -->
@@ -153,8 +153,8 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                     $("#libVersionBootstrap").val(bootstrap_version);
 
                     // DataTables
-                    var datatables_version = $.fn.dataTable.version;
-                    $("#libVersionDataTables").val(datatables_version);
+                    var datatable_version = $.fn.dataTable.version;
+                    $("#libVersionDataTable").val(datatable_version);
                     </script>
                     <!-- /Libraries -->
 

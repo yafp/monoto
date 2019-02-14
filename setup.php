@@ -13,7 +13,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="setup.php"><img src="images/logo/monoto_logo_white.png" width="63" height="25"></a>
+            <a class="navbar-brand" href="setup.php"><img src="images/logo/monotoLogoWhite.png" width="63" height="25"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

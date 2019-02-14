@@ -2,11 +2,7 @@
 
 /**
  * Tests
- *
- *
- * @package
- * @subpackage
- * @author     yafp
+ * Playground for unit tests
  */
 class test extends PHPUnit_Framework_TestCase {
     public function test_odd_or_even_to_true() {

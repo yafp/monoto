@@ -6,10 +6,10 @@
 	// SECTION 1 - you should mess with these
 	// #################################################################################
 	//
-	$database_server 			= "localhost"; // define your mysql server here
-	$database_db 				= "monoto"; // define your mysql db here
-	$database_user				= "monoto"; // define your mysql user here
-	$database_pw				= "monoto"; // define the mysql user pw here
+	$databaseServer 			= "localhost"; // define your mysql server here
+	$databaseDB 				= "monoto"; // define your mysql db here
+	$databaseUser				= "monoto"; // define your mysql user here
+	$databasePW				    = "monoto"; // define the mysql user pw here
 
 
 	// #################################################################################

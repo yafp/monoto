@@ -167,7 +167,7 @@ function initCKEditor()
                             }
 
                             // if SAVE button is visible -> give it focus
-                            if( $("#bt_saveNote").is('[disabled=disabled]'))
+                            if( $("#bt_saveNote").is("[disabled=disabled]"))
                             {
                                 $("#bt_saveNote").focus();
                                 console.log("initCKEditor ::: Setting focus to save button");
@@ -343,7 +343,7 @@ function resetNotesUI()
     hideAllButtons();
 
     // show some elements
-    $("#searchField").fadeIn(1000); // fade in search field (if needed)
+    $("#searchField").fadeIn(500); // fade in search field (if needed)
     $("#newNoteTitle").show();
     $("#bt_prepareNoteCreation").show();
     $("#bt_prepareNoteCreation").show();
@@ -368,7 +368,7 @@ function resetNotesUI()
     //
     // enable dataTable
     $("#example").prop("disabled",false);
-    $("#example").fadeIn(1000); // fade in DataTable (if needed)
+    $("#example").fadeIn(500); // fade in DataTable (if needed)
 
     // reset all DataTable filter - to see all records of the table
     oTable.search("").draw();
@@ -404,7 +404,7 @@ function prepareNewNoteStepOne()
 
     // Search: disable and fadeout
     $("#searchField").prop("disabled",true); // disable search-field
-    $("#searchField").fadeOut(1000); // hide search field
+    $("#searchField").fadeOut(500); // hide search field
 
     // note title: enable and focus
     $("#noteTitle").prop("disabled",false);  // enable note-title field
@@ -424,7 +424,7 @@ function prepareNewNoteStepOne()
 
     // hide datatable
     $("#example").prop("disabled",true); // disable search-field
-    $("#example").fadeOut(1000); // hide search field
+    $("#example").fadeOut(500); // hide search field
     //$("#example").parents("div.dataTables_wrapper").first().hide();
 
     // Enable read-write of editor
@@ -605,11 +605,11 @@ function saveNote()
             // FIXME
             $("#example tbody td:eq(0)").addClass("selected"); // change background as well
             //$('#example tbody tr:eq(0)').click();
-            $(oTable.column(0).nodes()).addClass( 'highlight' );
-            $(oTable.column(0).nodes()).addClass( 'selected' );
-            $(oTable.column(0).nodes()).addClass( 'row_selected' );
+            $(oTable.column(0).nodes()).addClass( "highlight" );
+            $(oTable.column(0).nodes()).addClass( "selected" );
+            $(oTable.column(0).nodes()).addClass( "row_selected" );
             var row = oTable.row( '0' ).node();
-            $(row).addClass('row_selected');
+            $(row).addClass("row_selected");
             console.log("saveNote ::: Select first row of table.________________________END");
 
 
@@ -798,7 +798,7 @@ function updateCurrentPosition(valueChange)
 {
     console.log("updateCurrentPosition ::: Updating the current position in datatable");
     console.log("------------------------------------");
-    console.log(curSelectedTableRow);
+    console.error(curSelectedTableRow);
     console.log("------------------------------------");
 
     // count visible rows
@@ -878,7 +878,7 @@ function onReady()
     // DataTable
     //
     //console.log("onReady ::: Re-setting current selected row to -1");
-    //var curSelectedTableRow = -1;
+    var curSelectedTableRow;
     initDataTable(); // initialize the DataTable
 
 
@@ -915,7 +915,7 @@ function onReady()
 
     // Datatable: Add a click handler to the rows (<td>)
     //
-    $('.dataTable').on('click', 'tbody td', function()
+    $('.dataTable').on('click', 'tbody td', function(event)
     {
         console.log("onReady ::: clicked a record cell <td>");
 
@@ -1106,7 +1106,7 @@ function onReady()
     {
         var code = (e.keyCode || e.which);
 
-        console.log("onReady ::: Keypress in search field: "+code);
+        console.log("onReady ::: Keypress in search field: '" + code + "'.");
 
         // ignore some keys aka do nothing if it's:
         // Otherwise this would result in focus lost of an already selected note

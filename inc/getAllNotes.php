@@ -20,7 +20,7 @@
 session_start();
 
 // check if the user-session is valid or not
-if($_SESSION['valid'] == 1)
+if ( $_SESSION['valid'] == 1 )
 {
     // for database informations
     require '../config/config.php';
@@ -56,10 +56,10 @@ if($_SESSION['valid'] == 1)
 
     // SQL server connection information
     $sql_details = array(
-        'user' => $database_user,
-        'pass' => $database_pw,
-        'db'   => $database_db,
-        'host' => $database_server
+        'user' => $databaseUser,
+        'pass' => $databasePW,
+        'db'   => $databaseDB,
+        'host' => $databaseServer
     );
 
     echo json_encode(

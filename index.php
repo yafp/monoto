@@ -25,7 +25,7 @@ if (isset($_SESSION['valid']))
     <!-- LOGIN -->
     <form class="form-signin" name="login" action="index.php" method="post" enctype="multipart/form-data">
 
-        <a href="index.php"><img class="mb-4" src="images/logo/monoto_logo_black.png" alt="" width="300"></a>
+        <a href="index.php"><img class="mb-4" src="images/logo/monotoLogoBlack.png" alt="" width="300"></a>
 
         <!-- username -->
         <label for="username" class="sr-only">username</label>

@@ -8,12 +8,12 @@ header('Content-type: text/xml');
 session_start();
 
 // check if the user-session is valid or not
-if($_SESSION['valid'] == 1)
+if ( $_SESSION['valid'] == 1 )
 {
 	require '../config/config.php';
 
 	// connect to mysql
-    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
+    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
 	if (!$con)
 	{
 		die('Could not connect: ' . mysqli_connect_error());

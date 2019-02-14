@@ -87,7 +87,16 @@ function showLogoutDialog()
 // -----------------------------------------------------------------------------
 function createNoty(text, type)
 {
-    console.log("createNoty ::: Display a noty notification");
+    // NOTY-TYPES:
+	//
+	// alert
+	// information
+	// error
+	// warning
+	// notification
+	// success
     
+    console.log("createNoty ::: Display a noty notification");
+
     var n = noty({text: text, type: type});
 }

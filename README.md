@@ -10,7 +10,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2fd2c87f2bb429d80c7b37b707b20c8)](https://www.codacy.com/app/yafp/monoto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yafp/monoto&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/yafp/monoto.svg?branch=master)](https://travis-ci.org/yafp/monoto)
 
-![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monoto_logo_black.png)
+![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monotoLogoBlack.png)
 ==========
 
 

@@ -46,7 +46,7 @@ function writeToConsoleLog($message)
 // -----------------------------------------------------------------------------
 function translateString($textForTranslation)
 {
-	if ($_SESSION['getText'] == 0) // gettext is not installed - fallback
+	if ( $_SESSION['getText'] == 0 ) // gettext is not installed - fallback
 	{
 		$translation = $textForTranslation;
         return $translation;
@@ -56,7 +56,7 @@ function translateString($textForTranslation)
 
 	// I18N support information here
 	$language = $_SESSION['lang'];
-	if($language == "") // Fallback to english
+	if ( $language == "" ) // Fallback to english
 	{
 		$language = "en_US";
 	}
@@ -72,9 +72,9 @@ function translateString($textForTranslation)
 	$translation = gettext($textForTranslation);
 
 	// report non-translated texts for debugging
-	if($translation == $textForTranslation)
+	if( $translation == $textForTranslation )
 	{
-		if($language != "en_US")
+		if ( $language != "en_US" )
 		{
 			writeToConsoleLog("translateString ::: Translation-issue, found no translation for: _".$textForTranslation."_.");
 		}

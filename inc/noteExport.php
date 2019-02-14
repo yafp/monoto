@@ -4,7 +4,7 @@
 session_start();
 
 // check if the user-session is valid or not
-if($_SESSION['valid'] == 1)
+if ( $_SESSION['valid'] == 1 )
 {
 	require '../config/config.php';
 
@@ -21,7 +21,7 @@ if($_SESSION['valid'] == 1)
 	$csv_filename = $exportDate."-monoto-export.csv";
 
 	// connect to db
-    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
+    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
 	if (mysqli_connect_errno()) {
 	    die("Failed to connect to MySQL: " . mysqli_connect_error());
 	}
@@ -34,7 +34,8 @@ if($_SESSION['valid'] == 1)
 	$field = mysqli_field_count($conn);
 
 	// create line with field names
-	for($i = 0; $i < $field; $i++) {
+	for($i = 0; $i < $field; $i++)
+    {
 	    //$csv_export.= mysqli_fetch_field_direct($query, $i)->name.';';
 	}
 
@@ -43,7 +44,8 @@ if($_SESSION['valid'] == 1)
 	//';
 
 	// loop through database query and fill export variable
-	while($row = mysqli_fetch_array($query)) {
+	while($row = mysqli_fetch_array($query))
+    {
 	    // create line with field values
 	    for($i = 0; $i < $field; $i++) {
 	        $csv_export.= '"'.$row[mysqli_fetch_field_direct($query, $i)->name].'";';

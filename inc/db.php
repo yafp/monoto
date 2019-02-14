@@ -8,16 +8,17 @@ function connectToDB()
 {
 	require 'config/config.php';
 
-    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
+    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
 
-	if (!$con)
-	{
-		echo "Error: Unable to connect to MySQL." . PHP_EOL;
-    	echo "Debug-Msg: " . mysqli_connect_errno() . PHP_EOL;
-    	echo "Debug-Msg: " . mysqli_connect_error() . PHP_EOL;
-    	exit;
-	}
-
-	return $con;
+    if ($conn->connect_errno)
+    {
+        echo "Error: Unable to connect to MySQL." . PHP_EOL;
+    	echo "ErrNo: " . mysqli_connect_errno() . PHP_EOL;
+    	echo "Error: " . mysqli_connect_error() . PHP_EOL;
+    }
+    else // connection worked
+    {
+        return $con;
+    }
 }
 ?>

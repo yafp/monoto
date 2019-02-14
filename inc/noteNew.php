@@ -6,7 +6,7 @@
 header('Content-type: text/xml');
 
 session_start();
-if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
+if ( $_SESSION['valid'] == 1 )	// check if the user-session is valid or not
 {
     require '../config/config.php';
 
@@ -20,7 +20,7 @@ if($_SESSION['valid'] == 1)	// check if the user-session is valid or not
     // Fix for issue: #191 - eating backslashes
     $newNoteContent = str_replace('\\', '\\\\', $newNoteContent);
 
-    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
+    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
     if (!$con)
     {
         die('Could not connect: ' . mysqli_connect_error());

@@ -2,8 +2,8 @@
 exclude_paths:
   - '.github/**'
   - '.github/**/*'
-  - 'docs/CHANGELOG.md'
-  - 'docs/LICENSE.md'
+  - 'docs/**'
+  - 'inc/ssp.class.php'
   - 'js/jquery.easing.min.js'
   - 'js/scrolling-nav.js'
   - 'js/bootstrap/**'

@@ -1,6 +1,6 @@
 # see http://about.travis-ci.org/docs/user/languages/php/ for more hints
 language: php
-dist: precise
+dist: trusty
 
 # list any PHP version you want to test against
 php:
@@ -8,8 +8,10 @@ php:
 
   # aliased to 5.2.17
   - 5.2
+  dist: precise
   # aliased to 5.3.29
   - 5.3
+  dist: precise
   # aliased to a recent 5.4.x version
   - 5.4
   # aliased to a recent 5.5.x version

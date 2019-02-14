@@ -23,6 +23,12 @@ if ( is_file( $file ) ) {
 }
 
 
+/**
+ * by yafp:
+ *
+ * This file is copied from the DataTables universal download
+ * https://github.com/DataTables/DataTables/blob/master/examples/server_side/scripts/ssp.class.php
+ */
 class SSP {
 	/**
 	 * Create the data output array for the DataTables rows
@@ -459,7 +465,7 @@ class SSP {
 	 */
 	static function fatal ( $msg )
 	{
-		echo json_encode( array( 
+		echo json_encode( array(
 			"error" => $msg
 		) );
 
@@ -491,7 +497,7 @@ class SSP {
 
 
 	/**
-	 * Pull a particular property from each assoc. array in a numeric array, 
+	 * Pull a particular property from each assoc. array in a numeric array,
 	 * returning and array of the property values from each item.
 	 *
 	 *  @param  array  $a    Array to get data from
@@ -529,3 +535,5 @@ class SSP {
 	}
 }
 
+
+?>

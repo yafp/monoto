@@ -16,45 +16,20 @@
     <script type="text/javascript" src="js/ckeditor/4.11.2/ckeditor.js"></script>
 
     <!-- note specific functios -->
-    <script type="text/javascript" src="js/monoto/m_noteFunctions.js"></script>
+    <script type="text/javascript" src="js/monoto/notes.js"></script>
 
     <!-- -->
     <script type="text/javascript">
 
     var currentRow = -1; // fill var for ugly row-selection hack with a default value
     var oTable;
-    var giRedraw = false;
+    //var giRedraw = false;
 
     $(document).ready(function()
     {
         onReady();
     });
-
-    // Get the rows which are currently selected
-    /*
-    function fnGetSelected( oTableLocal )
-    {
-        var aReturn = new Array();
-        var aTrs = oTableLocal.fnGetNodes();
-        for ( var i=0 ; i<aTrs.length ; i++ )
-        {
-            if ( $(aTrs[i]).hasClass('row_selected') )
-            {
-                aReturn.push( aTrs[i] );
-            }
-        }
-        return aReturn;
-    }
-    */
-
-    // Enable bootstrap tooltips
-    /*
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-    */
-
-</script>
+    </script>
 </head>
 
 
@@ -128,7 +103,7 @@
                     </div>
                 </div>
 
-                <!-- datatable -->
+                <!-- DataTable -->
                 <div class="row">
                     <div class="col-sm-10">
                         <table id="example" class="display" style="width:100%">
@@ -136,7 +111,7 @@
                             </tbody>
                         </table>
 
-                        <!-- /datatable -->
+                        <!-- /DataTable -->
                     </div>
                     <div class="col-sm-2">
                         &nbsp;
@@ -152,6 +127,6 @@
     </div> <!-- /container -->
 </div>
 
-<script type="text/javascript" src="js/monoto/m_keyPressNotes.js"></script>
+<script type="text/javascript" src="js/monoto/notesKeyPress.js"></script>
 </body>
 </html>
