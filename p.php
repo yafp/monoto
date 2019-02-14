@@ -7,11 +7,11 @@
 
     <!-- specific -->
     <!-- JS -->
-    <script type="text/javascript" src="js/monoto/m_myMonotoFunctions.js"></script>
+    <script type="text/javascript" src="js/monoto/profile.js"></script>
     <script type="text/javascript" charset="utf-8">
     $(document).ready( function ()
     {
-        $('#example').dataTable( {
+        $('#example').DataTable( {
             "bSort": false, // dont sort - trust the sql-select and its sort-order
             "sPaginationType": "simple_numbers",
             "iDisplayLength" : 10,
@@ -19,7 +19,7 @@
         } );
 
 
-        console.log("m.php ::: Finished intializing DataTable");
+        console.log("p.php ::: Finished intializing DataTable");
     } );
     </script>
 </head>
@@ -138,7 +138,7 @@
 
                     <div class="row">
                         <div class="col-sm">
-                            <form id="changePassword" action="m.php" method="post" enctype="multipart/form-data">
+                            <form id="changePassword" action="p.php" method="post" enctype="multipart/form-data">
                                 <input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
                                 <input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
                                 <button type="submit" class="btn btn-primary buttonDefault" name="doChangeUserPW"  title="Starts the change password function if the user provided the new password twice."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
@@ -158,7 +158,7 @@
 
                     <div class="row">
                         <div class="col-sm">
-                            <form id="changeLanguage" action="m.php" method="post" enctype="multipart/form-data">
+                            <form id="changeLanguage" action="p.php" method="post" enctype="multipart/form-data">
                                 <select name="s_languageSelector" id="s_languageSelector">
                                     <option value="de_DE.UTF-8">de_DE.UTF-8</option>
                                     <option value="en_US">en_US</option>
@@ -335,7 +335,7 @@
                             <tbody>
                                 <?php
                                 $result = mysqli_query($con, "SELECT * FROM m_log WHERE owner='".$username."' ORDER BY activity_date DESC"); // m_log
-                                while($row = mysqli_fetch_array($result))   // fill datatable
+                                while($row = mysqli_fetch_array($result))   // fill DataTable
                                 {
                                     // colorize table
                                     switch ($row[1])
@@ -403,7 +403,7 @@
                         <h3><i class="fas fa-file-import"></i> <?php echo translateString("Importer (Textfiles)"); ?></h3>
                         <!-- IMPORTER - http://stackoverflow.com/questions/5593473/how-to-upload-and-parse-a-csv-file-in-php -->
                         <p><?php echo translateString("You can import plain-text files. Select a folder and press the 'Import' button."); ?></p>
-                        <form action="m.php" method="post" enctype="multipart/form-data" name="importerFormT">
+                        <form action="p.php" method="post" enctype="multipart/form-data" name="importerFormT">
                             <input type="file" multiple="multiple " name="impFilesT[]" id="impFilesT[]" accept="text/plain" />
                             <br>
                             <button type="submit" class="btn btn-primary buttonDefault" name="doImport" id="doImport" title="Starts the import function if the user provided a valid selection of files. Might break with bigger amount of text-notes." ><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
@@ -415,7 +415,7 @@
                 <div role="tabpanel" class="tab-pane fade" id="importer_c">
                     <h3><i class="fas fa-file-import"></i> <?php echo translateString("Importer (.csv)"); ?></h3>
                     <p><?php echo translateString("You can import notes in .csv format (coming from the exporter)."); ?></p>
-                    <form action="m.php" method="post" enctype="multipart/form-data" name="importerForm">
+                    <form action="p.php" method="post" enctype="multipart/form-data" name="importerForm">
                         <input type="file" name="impFile" id="impFile" accept=".csv"/>
                         <br>
                         <button type="submit" class="btn btn-primary buttonDefault" name="doImportCSV" id="doImportCSV" title="Starts the import function if the user provided a valid .csv files. Might break with bigger amount of text-notes."><i class="fas fa-file-import"></i> <?php echo translateString("import"); ?></button>
@@ -431,7 +431,7 @@
                     <div role="tabpanel" class="tab-pane fade" id="exporter_c">
                         <h3><i class="fas fa-file-export"></i> <?php echo translateString("Exporter (.csv)"); ?></h3>
                         <p><?php echo translateString("You can export your notes in .csv format by pressing the 'Export' button."); ?></p>
-                        <form action="m.php" method="post" enctype="multipart/form-data">
+                        <form action="p.php" method="post" enctype="multipart/form-data">
                             <button type="submit" class="btn btn-primary buttonDefault" name="doExport" id="doExport"  title="Exports all your notes into a .csv file which might be useful" ><i class="fas fa-file-export"></i> <?php echo translateString("export"); ?></button>
                         </form>
                         <span class="badge badge-secondary"><?php echo translateString("References"); ?></span>
@@ -559,7 +559,7 @@
 
                 $username = $_SESSION['username'];
 
-                $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
+                $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
                 if (!$con)
                 {
                     die('Could not connect: ' . mysqli_connect_error());
@@ -635,7 +635,7 @@
 
                 if (is_uploaded_file($_FILES['impFile']['tmp_name']))
                 {
-                    $con = new mysqli($database_server, $database_user, $database_pw, $database_db);
+                    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
                     if (!$con)
                     {
                         die('Could not connect: ' . mysqli_connect_error());

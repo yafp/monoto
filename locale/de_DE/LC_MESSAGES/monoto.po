@@ -19,9 +19,9 @@ msgstr ""
 msgid "Notes"
 msgstr "Notizen"
 
-# MyMonoto
-msgid "MyMonoto"
-msgstr "Mein Monoto"
+# Profile
+msgid "Profile"
+msgstr "Profil"
 
 # Keyboard
 msgid "Keyboard"
