@@ -13,7 +13,7 @@
                 <li class="nav-item" id="p"><a class="nav-link" href="p.php"><i class="fas fa-user"></i> <?php echo translateString("Profile") ?></a></li>
                 <li class="nav-item" id="k"><a class="nav-link" href="k.php"><i class="fas fa-keyboard"></i> <?php echo translateString("Keyboard") ?></a></li>
                 <?php
-                if ( $_SESSION['admin'] == 1 ) // show admin-section
+                if ( $_SESSION[ 'monoto' ][ 'admin' ] == 1 ) // show admin-section
                 {
                     echo '<li class="nav-item" id="a"><a class="nav-link" href="a.php"><i class="fas fa-cog"></i>';
                     echo translateString("Admin");

@@ -29,7 +29,7 @@
                 <?php
                     // update logout conter
                     $con = connectToDB();
-                    $result = mysqli_query($con, "UPDATE m_users SET logout_counter = logout_counter + 1 WHERE username='".$_SESSION['username']."'");
+                    $result = mysqli_query($con, "UPDATE m_users SET logout_counter = logout_counter + 1 WHERE username='".$_SESSION[ 'username' ]."'");
 
                     // destroy the user session
                     session_destroy();

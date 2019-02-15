@@ -46,11 +46,15 @@
     * [#251] Removed column 'user_icon'
   * Table: m_notes
     * [#250] Remove column 'tags'
+* Profile
+    * [#279] Pages: Renamed MyMonoto to Profile
+    * [#281] Improve password change function
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation
   * [#276] Navigation: Moved to external file
-  * [#279] Pages: Renamed MyMonoto to Profile
+  * [#280] PHP/Session: Using sub-array for Session variables
+
 
 ###  ```Removed```
 * [#261] Removed update check from admin section

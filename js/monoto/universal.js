@@ -55,7 +55,7 @@ $.noty.defaults = {
 // -----------------------------------------------------------------------------
 function showLogoutDialog()
 {
-    console.log("showLogoutDialog ::: Display a logout dialog");
+    console.debug("showLogoutDialog ::: Start Display-Logout-Dialog");
 
     var x = noty({
         text: "Do you really want to logout?",
@@ -79,6 +79,8 @@ function showLogoutDialog()
         }
         ]
     });
+
+    console.debug("showLogoutDialog ::: Finished Display-Logout-Dialog");
 }
 
 
@@ -95,7 +97,7 @@ function createNoty(text, type)
 	// warning
 	// notification
 	// success
-    
+
     console.log("createNoty ::: Display a noty notification");
 
     var n = noty({text: text, type: type});

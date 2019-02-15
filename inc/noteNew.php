@@ -6,7 +6,7 @@
 header('Content-type: text/xml');
 
 session_start();
-if ( $_SESSION['valid'] == 1 )	// check if the user-session is valid or not
+if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )	// check if the user-session is valid or not
 {
     require '../config/config.php';
 
@@ -14,8 +14,7 @@ if ( $_SESSION['valid'] == 1 )	// check if the user-session is valid or not
     $newNoteTitle= filter_input(INPUT_POST, "newNoteTitle", FILTER_SANITIZE_STRING);
 
     // note content
-    $newNoteContent = $_POST['newNoteContent'];
-    //$newNoteContent= filter_input(INPUT_POST, "newNoteContent", FILTER_SANITIZE_STRING); // filter breaks html code
+    $newNoteContent = $_POST[ 'newNoteContent' ]; // dont filter content
 
     // Fix for issue: #191 - eating backslashes
     $newNoteContent = str_replace('\\', '\\\\', $newNoteContent);
@@ -26,12 +25,12 @@ if ( $_SESSION['valid'] == 1 )	// check if the user-session is valid or not
         die('Could not connect: ' . mysqli_connect_error());
     }
 
-    $owner = $_SESSION['username'];
+    $owner = $_SESSION[ 'monoto' ][ 'username' ];
 
     // check if the new title is in use already by this user
     $sql = "SELECT title from m_notes where owner='".$owner."' AND  title='".$newNoteTitle."' ";
     $result = mysqli_query($con, $sql);
-    if(mysqli_num_rows($result)>0)
+    if ( mysqli_num_rows ( $result ) > 0 )
     {
         // adjust Title - as it is already in use
         $current_timestamp = date('Ymd-his');
@@ -42,7 +41,7 @@ if ( $_SESSION['valid'] == 1 )	// check if the user-session is valid or not
     //
     // insert into m_notes
     $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
-    $result = mysqli_query($con, $sql);
+    $result = mysqli_query ( $con, $sql );
     if (!$result)
     {
         die('Error: ' . mysqli_connect_error()); // display error output
@@ -56,6 +55,6 @@ if ( $_SESSION['valid'] == 1 )	// check if the user-session is valid or not
 
         return(true);
     }
-    mysqli_close($con);	// close sql connection
+    mysqli_close( $con );	// close sql connection
 }
 ?>

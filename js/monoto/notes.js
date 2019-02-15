@@ -24,16 +24,11 @@ function enableNoteSavingButton()
     if ( currentTitle.length > 0)
     {
         $("#bt_saveNote").prop("disabled",false);
-        console.group();
         console.log("enableNoteSavingButton ::: Enabled the save note button");
-        console.groupEnd();
     }
     else
     {
-        console.group();
         console.log("enableNoteSavingButton ::: Save button was already enabled, nothing to do.");
-        console.groupEnd();
-
     }
 }
 
@@ -47,15 +42,6 @@ function unmarkAllTableRows()
 
     //curSelectedTableRow = -1;
 
-
-    /*
-    $(oTable.Settings().aoData).each(function () // unselect all records
-    {
-        $(this.nTr).removeClass("row_selected");
-    });
-    */
-
-    // Enahnced version
     oTable.rows().every( function ( rowIdx, tableLoop, rowLoop )
     {
         var data = this.data();
@@ -71,8 +57,6 @@ function unmarkAllTableRows()
         // change background as well (mark as selected)
         $("#example tbody tr:eq("+rowIdx+")").removeClass("row_selected");
     } );
-
-
 }
 
 
@@ -81,7 +65,9 @@ function unmarkAllTableRows()
 // -----------------------------------------------------------------------------
 function printCKEditorStatus()
 {
+    console.debug("printCKEditorStatus ::: Start");
     console.log("printCKEditorStatus ::: CKEditor status is: "+CKEDITOR.status);
+    console.debug("printCKEditorStatus ::: Stop");
 }
 
 
@@ -90,6 +76,7 @@ function printCKEditorStatus()
 // -----------------------------------------------------------------------------
 function initCKEditor()
 {
+    console.debug("initCKEditor ::: Start");
     console.log("initCKEditor ::: Initializing the CKEditor");
 
     // Defining the editor height
@@ -221,6 +208,7 @@ function initCKEditor()
     });
 
     printCKEditorStatus();
+    console.debug("initCKEditor ::: Stop");
 }
 
 
@@ -229,6 +217,7 @@ function initCKEditor()
 // -----------------------------------------------------------------------------
 function saveCKEditorHeightOnChange()
 {
+    console.debug("saveCKEditorHeightOnChange ::: Start");
 
     console.log("saveCKEditorHeightOnChange ::: Saving CKEditor height (to localStorage), after it has changed");
 
@@ -247,6 +236,8 @@ function saveCKEditorHeightOnChange()
     });
 
     printCKEditorStatus();
+
+    console.debug("saveCKEditorHeightOnChange ::: Stop");
 }
 
 
@@ -255,6 +246,8 @@ function saveCKEditorHeightOnChange()
 // -----------------------------------------------------------------------------
 function enableCKEditorWriteMode()
 {
+    console.debug("enableCKEditorWriteMode ::: Start");
+
     console.log("enableCKEditorWriteMode ::: Trying to set CKEditor to RW");
 
     //CKEDITOR.config.readOnly = false; // enable the editor
@@ -262,6 +255,8 @@ function enableCKEditorWriteMode()
     CKEDITOR.instances.editor1.setReadOnly( false );
 
     printCKEditorStatus();
+
+    console.debug("enableCKEditorWriteMode ::: Stop");
 }
 
 
@@ -270,6 +265,8 @@ function enableCKEditorWriteMode()
 // -----------------------------------------------------------------------------
 function disableCKEditorWriteMode()
 {
+    console.debug("disableCKEditorWriteMode ::: Start");
+
     console.log("disableCKEditorWriteMode ::: Trying to set CKEditor to RO");
 
     CKEDITOR.config.readOnly = true;
@@ -291,6 +288,8 @@ function disableCKEditorWriteMode()
     //CKEDITOR.instances["editor1"].config.readOnly = true;
 
     printCKEditorStatus();
+
+    console.debug("disableCKEditorWriteMode ::: Stop");
 }
 
 
@@ -299,6 +298,8 @@ function disableCKEditorWriteMode()
 // -----------------------------------------------------------------------------
 function resetCKEditor()
 {
+    console.debug("resetCKEditor ::: Start");
+
     console.log("resetCKEditor ::: Resetting CKEditor");
 
     // empty the editor
@@ -308,6 +309,8 @@ function resetCKEditor()
 
     // Enable Read-Only mode
     disableCKEditorWriteMode();
+
+    console.debug("resetCKEditor ::: Stop");
 }
 
 
@@ -316,7 +319,9 @@ function resetCKEditor()
 // -----------------------------------------------------------------------------
 function hideAllButtons()
 {
-    console.log("hideAllButtons ::: Starting to hide all buttons at once");
+    console.debug("hideAllButtons ::: Start");
+
+    console.log("hideAllButtons ::: Hiding all buttons at once");
 
     // hide some UI items
     $("#bt_prepareNoteCreation").hide();
@@ -325,7 +330,7 @@ function hideAllButtons()
     $("#bt_deleteNote").hide(); // hide delete button
     $("#bt_saveNote").hide(); // hide save buttons
 
-    console.log("hideAllButtons ::: Finished hiding all buttons");
+    console.debug("hideAllButtons ::: Stop");
 }
 
 
@@ -335,6 +340,8 @@ function hideAllButtons()
 // -----------------------------------------------------------------------------
 function resetNotesUI()
 {
+    console.debug("resetNotesUI ::: Start");
+
     console.log("resetNotesUI ::: Starting to reset the Notes UserInterface");
 
     // UI
@@ -388,6 +395,8 @@ function resetNotesUI()
     $("#searchField").focus();
 
     console.log("resetNotesUI ::: Finished resetting the Notes UserInterface");
+
+    console.debug("resetNotesUI ::: Stop");
 }
 
 
@@ -397,6 +406,8 @@ function resetNotesUI()
 // -----------------------------------------------------------------------------
 function prepareNewNoteStepOne()
 {
+    console.debug("prepareNewNoteStepOne ::: Start");
+
     console.log("prepareNewNoteStepOne ::: Preparing note creation - Step 1");
 
     // first of all ... reset the User-Interface
@@ -434,6 +445,8 @@ function prepareNewNoteStepOne()
     // if there is a noteTitle
     //
     //enableCKEditorWriteMode();
+
+    console.debug("prepareNewNoteStepOne ::: Stop");
 }
 
 
@@ -442,6 +455,8 @@ function prepareNewNoteStepOne()
 // -----------------------------------------------------------------------------
 function prepareNewNoteStepTwo()
 {
+    console.debug("prepareNewNoteStepTwo ::: Start");
+
     console.log("prepareNewNoteStepTwo ::: Preparing note creation - Step 2");
 
     var noteTitle = document.myform.noteTitle.value;
@@ -472,6 +487,7 @@ function prepareNewNoteStepTwo()
             disableCKEditorWriteMode(); // Keep CKEditor in ReadOnly mode
         }
     }
+    console.debug("prepareNewNoteStepTwo ::: Stop");
 }
 
 
@@ -481,6 +497,8 @@ function prepareNewNoteStepTwo()
 // -----------------------------------------------------------------------------
 function createNewNote()
 {
+    console.debug("createNewNote ::: Start");
+
     console.log("createNewNote ::: Creating a new note");
 
     var newNoteTitle = $("#noteTitle").val();
@@ -549,6 +567,7 @@ function createNewNote()
     {
         createNoty("Missing <b>note title</b>.", "error");
     }
+    console.debug("createNewNote ::: Stop");
 }
 
 
@@ -559,6 +578,8 @@ function createNewNote()
 // -----------------------------------------------------------------------------
 function saveNote()
 {
+    console.debug("saveNote ::: Start");
+
     console.log("saveNote ::: Saving an existing note");
 
     if ($("#bt_saveNote").is(":disabled"))
@@ -620,6 +641,7 @@ function saveNote()
             createNoty("Missing ID reference", "error");
         }
     }
+    console.debug("saveNote ::: Stop");
 }
 
 
@@ -629,6 +651,8 @@ function saveNote()
 // -----------------------------------------------------------------------------
 function deleteNote()
 {
+    console.debug("deleteNote ::: Start");
+
     console.log("deleteNote ::: Delete note dialog");
 
     var deleteID = $("#noteID").val();
@@ -671,23 +695,24 @@ function deleteNote()
             }
             ]
         });
-}
-
-// Data to identify note-to-delete are missing.
-// should never happen as the delete button is disabled if no note is selected
-// but can happen if user tried to delete via DEL key-press
-else
-{
-    if(deleteID === "") // user most likely pressed DEL key without selected note
-    {
-        console.error("deleteNote ::: Unable to delete a note as no note was selected.");
     }
+
+    // Data to identify note-to-delete are missing.
+    // should never happen as the delete button is disabled if no note is selected
+    // but can happen if user tried to delete via DEL key-press
     else
     {
-        console.error("deleteNote ::: Unable to delete note.");
-        createNoty("Unable to delete note", "error");
+        if(deleteID === "") // user most likely pressed DEL key without selected note
+        {
+            console.error("deleteNote ::: Unable to delete a note as no note was selected.");
+        }
+        else
+        {
+            console.error("deleteNote ::: Unable to delete note.");
+            createNoty("Unable to delete note", "error");
+        }
     }
-}
+    console.debug("deleteNote ::: Stop");
 }
 
 
@@ -696,10 +721,14 @@ else
 // -----------------------------------------------------------------------------
 function reloadCurrentPage()
 {
+    console.debug("reloadCurrentPage ::: Start");
+
     console.log("reloadCurrentPage ::: Reloading the current page");
 
     var loc = window.location;
     window.location = loc.protocol + "//" + loc.host + loc.pathname + loc.search;
+
+    console.debug("reloadCurrentPage ::: Stop");
 }
 
 
@@ -708,6 +737,8 @@ function reloadCurrentPage()
 // -----------------------------------------------------------------------------
 function reloadAllNotesFromDB()
 {
+    console.debug("reloadAllNotesFromDB ::: Start");
+
     console.log("reloadAllNotesFromDB ::: Trying to load all user notes from server");
 
     // destroy old datatable
@@ -718,10 +749,9 @@ function reloadAllNotesFromDB()
     initDataTable();
 
     console.log("reloadAllNotesFromDB ::: Finished loading all user notes from server");
+
+    console.debug("reloadAllNotesFromDB ::: Stop");
 }
-
-
-
 
 
 // -----------------------------------------------------------------------------
@@ -729,6 +759,8 @@ function reloadAllNotesFromDB()
 // -----------------------------------------------------------------------------
 function initDataTable()
 {
+    console.debug("initDataTable ::: Start");
+
     console.log("initDataTable ::: Initializing the DataTable");
 
     oTable = $('#example').DataTable( {
@@ -772,6 +804,8 @@ function initDataTable()
 
     // FIXME - test
     amountOfRecordsAfterFilter = 0;
+
+    console.debug("initDataTable ::: Stop");
 }
 
 
@@ -780,6 +814,8 @@ function initDataTable()
 // -----------------------------------------------------------------------------
 function selectAndMarkTableRow(currentRow)
 {
+    console.debug("selectAndMarkTableRow ::: Start");
+
     console.log("selectAndMarkTableRow ::: Selecting and marking the row: "+currentRow);
 
     // click the record to load the data to UI
@@ -788,6 +824,8 @@ function selectAndMarkTableRow(currentRow)
 
     // change background as well (mark as selected)
     $("#example tbody tr:eq("+currentRow+")").addClass("row_selected");
+
+    console.debug("selectAndMarkTableRow ::: Stop");
 }
 
 
@@ -796,6 +834,8 @@ function selectAndMarkTableRow(currentRow)
 // -----------------------------------------------------------------------------
 function updateCurrentPosition(valueChange)
 {
+    console.debug("updateCurrentPosition ::: Start");
+
     console.log("updateCurrentPosition ::: Updating the current position in datatable");
     console.log("------------------------------------");
     console.error(curSelectedTableRow);
@@ -835,6 +875,8 @@ function updateCurrentPosition(valueChange)
     // update UI
     unmarkAllTableRows();
     selectAndMarkTableRow(curSelectedTableRow);
+
+    console.debug("updateCurrentPosition ::: Stop");
 }
 
 
@@ -843,8 +885,12 @@ function updateCurrentPosition(valueChange)
 // -----------------------------------------------------------------------------
 function selectNextRow()
 {
+    console.debug("selectNextRow ::: Start");
+
     console.log("selectNextRow ::: Selecting next row in dataTable");
     updateCurrentPosition(1);
+
+    console.debug("selectNextRow ::: Stop");
 }
 
 
@@ -853,8 +899,12 @@ function selectNextRow()
 // -----------------------------------------------------------------------------
 function selectUpperRow()
 {
+    console.debug("selectUpperRow ::: Start");
+
     console.log("selectUpperRow ::: Selecting previous row in dataTable");
     updateCurrentPosition(-1);
+
+    console.debug("selectUpperRow ::: Stop");
 }
 
 
@@ -863,6 +913,8 @@ function selectUpperRow()
 // -----------------------------------------------------------------------------
 function onReady()
 {
+    console.debug("onReady ::: Start");
+
     initialLoad = true;
 
     console.log("onReady ::: Starting to initializing the notes view");
@@ -1244,4 +1296,6 @@ function onReady()
 
     // set focus to search (shouldnt be needed anymore due to autofocus)
     //$("#searchField").focus();
+
+    console.debug("onReady ::: Stop"); 
 }

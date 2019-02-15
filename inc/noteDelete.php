@@ -8,29 +8,29 @@ header('Content-type: text/xml');
 session_start();
 
 // check if the user-session is valid or not
-if ( $_SESSION['valid'] == 1 )
+if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 {
 	require '../config/config.php';
 
 	// get post data
-    $deleteID= filter_input(INPUT_POST, "deleteID", FILTER_SANITIZE_STRING);
-    $deleteTitle= filter_input(INPUT_POST, "deleteTitle", FILTER_SANITIZE_STRING);
-    $deleteContent= filter_input(INPUT_POST, "deleteContent", FILTER_SANITIZE_STRING);
+    $deleteID = filter_input ( INPUT_POST, "deleteID", FILTER_SANITIZE_STRING );
+    $deleteTitle = filter_input ( INPUT_POST, "deleteTitle", FILTER_SANITIZE_STRING );
+    $deleteContent = filter_input ( INPUT_POST, "deleteContent", FILTER_SANITIZE_STRING );
 
 	// get session data
-	$owner = $_SESSION['username'];
+	$owner = $_SESSION[ 'monoto' ][ 'username' ];
 
 	// connect to mysql
-    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
+    $con = new mysqli ( $databaseServer, $databaseUser, $databasePW, $databaseDB );
 	if ( !$con )
 	{
 		die('Could not connect: ' . mysqli_connect_error());
 	}
 
 	// update m_notes
-	$sql="DELETE FROM m_notes WHERE id='$deleteID'";
+	$sql = "DELETE FROM m_notes WHERE id='$deleteID'";
 	$result = mysqli_query($con, $sql);
-	if (!$result)
+	if ( !$result )
 	{
 		die('Error: ' . mysqli_connect_error());
 	}
@@ -38,11 +38,11 @@ if ( $_SESSION['valid'] == 1 )
 	{
 		$event = "delete";
 		$details = "Note: <b>".$deleteTitle."</b>. ID: <b>".$deleteID." </b>is now gone.";
-		$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-		$result = mysqli_query($sql);
+		$sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+		$result = mysqli_query( $sql );
 	}
 
 	// close sql connection
-	mysqli_close($con);
+	mysqli_close( $con );
 }
 ?>

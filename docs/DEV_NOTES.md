@@ -18,6 +18,7 @@
 
 ## JavaScript
 * How to use the ```console``` command:
+    * ```console.verbose``` for start and end messages of single js functions
     * ```console.log```  for default informations (black)
     * ```console.warn```  for warnings (yellow)
     * ```console.error```  for errors (red)

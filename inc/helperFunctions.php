@@ -35,7 +35,7 @@ function updateCookie($message)
 // -----------------------------------------------------------------------------
 // Write to JavaScript console (via javascript)
 // -----------------------------------------------------------------------------
-function writeToConsoleLog($message)
+function writeToConsoleLog( $message )
 {
 	echo "<script>console.log('[PHP]".$message."')</script>"; // write to js console
 }
@@ -44,9 +44,9 @@ function writeToConsoleLog($message)
 // -----------------------------------------------------------------------------
 // Translating the UserInterface (#210)
 // -----------------------------------------------------------------------------
-function translateString($textForTranslation)
+function translateString( $textForTranslation )
 {
-	if ( $_SESSION['getText'] == 0 ) // gettext is not installed - fallback
+	if ( $_SESSION[ 'monoto' ][ 'getText' ] == 0 ) // gettext is not installed - fallback
 	{
 		$translation = $textForTranslation;
         return $translation;
@@ -55,7 +55,7 @@ function translateString($textForTranslation)
 	// otherwise: gettext is installed -> try to translate
 
 	// I18N support information here
-	$language = $_SESSION['lang'];
+	$language = $_SESSION[ 'monoto' ][ 'lang' ];
 	if ( $language == "" ) // Fallback to english
 	{
 		$language = "en_US";
@@ -72,7 +72,7 @@ function translateString($textForTranslation)
 	$translation = gettext($textForTranslation);
 
 	// report non-translated texts for debugging
-	if( $translation == $textForTranslation )
+	if ( $translation == $textForTranslation )
 	{
 		if ( $language != "en_US" )
 		{

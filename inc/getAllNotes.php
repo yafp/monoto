@@ -20,7 +20,7 @@
 session_start();
 
 // check if the user-session is valid or not
-if ( $_SESSION['valid'] == 1 )
+if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 {
     // for database informations
     require '../config/config.php';
@@ -29,7 +29,7 @@ if ( $_SESSION['valid'] == 1 )
     require 'ssp.class.php';
 
     // current username
-    $owner = $_SESSION['username'];
+    $owner = $_SESSION[ 'monoto' ][ 'username' ];
 
     // build wqhere clause for data query
     $where = "owner = '".$owner."'";

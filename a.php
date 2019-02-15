@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the user-session is valid or not
+if( ( $_SESSION[ 'monoto' ][ 'valid' ] != 1 ) || ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) )    // check if the user-session is valid or not
 {
     header('Location: index.php');
 }
@@ -82,7 +82,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         //$entireDBSize = mysqli_fetch_object($result);
                         while($row = mysqli_fetch_array($result))
                         {
-                            $entireDBSize = $row[0];
+                            $entireDBSize = $row[ 0 ];
                             $entireDBSize = round($entireDBSize, 2); // round db size
                         }
                         echo $entireDBSize." MB";
@@ -102,7 +102,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                             // fill DataTable
                             while($row = mysqli_fetch_array($result))
                             {
-                                echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td><td>'.$row[6].'</td><td>'.$row[7].'</td></tr>';
+                                echo '<tr class="odd gradeU"><td>'.$row[ 0 ].'</td><td>'.$row[ 1 ].'</td><td>'.$row[ 2 ].'</td><td>'.$row[ 3 ].'</td><td>'.$row[ 4 ].'</td><td>'.$row[ 5 ].'</td><td>'.$row[ 6 ].'</td><td>'.$row[ 7 ].'</td></tr>';
                             }
                             ?>
                         </tbody>
@@ -182,11 +182,11 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                             </tr>
                             <tr>
                                 <td>Password:</td>
-                                <td><input type="password" name="newPassword1" placeholder="Password" required="required" autocomplete="off" /></td>
+                                <td><input type="password" name="password" placeholder="Password" required="required" autocomplete="off" /></td>
                             </tr>
                             <tr>
                                 <td>Repeat Password:</td>
-                                <td><input type="password" name="newPassword2" placeholder="Repeat password" required="required" autocomplete="off" /></td>
+                                <td><input type="password" name="password_confirm" placeholder="Repeat password" required="required" autocomplete="off" /></td>
                             </tr>
                             <tr>
                                 <td>Send notification mail to new user: (optional)</td>
@@ -219,7 +219,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                                         $result = mysqli_query($con, "SELECT id, username  FROM m_users ORDER by id ");
                                         while($row = mysqli_fetch_array($result))   // fill user-select box
                                         {
-                                            echo '<option value="'.$row[0].'">'.$row[1].'</option>';
+                                            echo '<option value="'.$row[ 0 ].'">'.$row[ 1 ].'</option>';
                                         }
                                         ?>
                                     </select>
@@ -269,14 +269,14 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
     <?php
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST')
+    if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
     {
-        require 'config/config.php';
+        require "config/config.php";
 
         // ---------------------------------------------------------------------
         // Send broastcast to all users (email)
         // ---------------------------------------------------------------------
-        if ( isset($_POST["doSendBroastcast"]) )
+        if ( isset( $_POST[ "doSendBroastcast" ] ) )
         {
             //$messageSubject = $_POST["broadcastSubject"];
             $messageSubject= filter_input(INPUT_POST, "broadcastSubject", FILTER_SANITIZE_STRING);
@@ -284,16 +284,16 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
             //$messageText = $_POST["broadcastMessage"];
             $messageText= filter_input(INPUT_POST, "broadcastMessage", FILTER_SANITIZE_STRING);
 
-            if (($messageText != "") && ($messageSubject != ""))
+            if ( ($messageText != "") && ($messageSubject != "") )
             {
                 // select all users & email-data
                 $query = "SELECT username, email FROM m_users;";
                 $result = mysqli_query($con, $query);
                 while($row = mysqli_fetch_array($result))
                 {
-                    $username = $row[0];
-                    $email = $row[1];
-                    if(@mail($email, $messageSubject, $messageText)) // try to send notification email
+                    $username = $row[ 0 ];
+                    $email = $row[ 1 ];
+                    if ( @mail($email, $messageSubject, $messageText) ) // try to send notification email
                     {
                         displayNoty("Notification emails sent.","success");
                     }
@@ -313,27 +313,27 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
         // ---------------------------------------------------------------------
         // DELETE USER
         // ---------------------------------------------------------------------
-        if ( isset($_POST["doDeleteUser"]) )
+        if ( isset ( $_POST[ "doDeleteUser" ] ) )
         {
             $userID= filter_input(INPUT_POST, "userDeleteSelector", FILTER_SANITIZE_STRING);
             $confirmText= filter_input(INPUT_POST, "confirmDeleteUser", FILTER_SANITIZE_STRING);
 
-            if ($userID !="")
+            if ( $userID != "" )
             {
-                if($confirmText == "CONFIRM")
+                if ( $confirmText == "CONFIRM" )
                 {
                     // get username of selected ID
                     $query = "SELECT username FROM m_users WHERE id = '$userID';";
                     $result = mysqli_query($con, $query);
                     while($row = mysqli_fetch_array($result))
                     {
-                        $usernameToDelete = $row[0];
+                        $usernameToDelete = $row[ 0 ];
                     }
 
                     // delete user
                     $sql="DELETE FROM m_users WHERE id='$userID'";
-                    $result = mysqli_query($con, $sql);
-                    if (!$result)
+                    $result = mysqli_query( $con, $sql );
+                    if ( !$result )
                     {
                         die('Error: ' . mysqli_connect_error());
                     }
@@ -342,15 +342,15 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         $event = "User delete";
                         $details = "User: <b>".$userID." </b>is now gone.";
                         $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-                        $result = mysqli_query($con, $sql);
+                        $result = mysqli_query( $con, $sql );
 
                         // delete his notes as well
                         $sql="DELETE FROM m_notes WHERE owner='$usernameToDelete'";
-                        $result = mysqli_query($con, $sql);
+                        $result = mysqli_query( $con, $sql );
 
                         // delete his log as well
                         $sql="DELETE FROM m_log WHERE owner='$usernameToDelete'";
-                        $result = mysqli_query($con, $sql);
+                        $result = mysqli_query( $con, $sql );
 
                         displayNoty("Deleted user, his notes and the related log entries","notification");
 
@@ -387,7 +387,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
             $res = mysqli_query($con, 'SHOW TABLE STATUS WHERE Data_free / Data_length > 0.1 AND Data_free > 102400');
             while($row = mysqli_fetch_assoc($res))
             {
-                mysqli_query($con, 'OPTIMIZE TABLE ' . $row['Name']);
+                mysqli_query($con, 'OPTIMIZE TABLE ' . $row[ 'Name' ]);
             }
             displayNoty("Database optimized","notification");
         }
@@ -422,7 +422,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
             $con = connectToDB();  // connect to mysql
 
-            $invite_from = $_SESSION['username'];
+            $invite_from = $_SESSION[ 'monoto' ][ 'username' ];
 
             // need  full page url for link in the invite mail
             $pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
@@ -437,12 +437,11 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
 
             writeToConsoleLog("doCreateNewUserAccount ::: pageURL = ".$pageURL);
 
-            //$invite_target     = $_SERVER['SERVER_NAME'];
             $invite_target = $pageURL;
 
             // store values on vars
-            $newPassword1= filter_input(INPUT_POST, "newPassword1", FILTER_SANITIZE_STRING);
-            $newPassword2= filter_input(INPUT_POST, "newPassword2", FILTER_SANITIZE_STRING);
+            $newPassword= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
+            $newPasswordConfirm= filter_input(INPUT_POST, "password_confirm", FILTER_SANITIZE_STRING);
             $newUsername= filter_input(INPUT_POST, "newUsername", FILTER_SANITIZE_STRING);
             $newUserMail= filter_input(INPUT_POST, "newUserMail", FILTER_SANITIZE_STRING);
 
@@ -453,7 +452,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
             $newUserNote= filter_input(INPUT_POST, "newUserNote", FILTER_SANITIZE_STRING);
 
             // check if password is ok
-            if($newPassword1 == $newPassword2) //& passwords match - we can continue trying to create this user
+            if($newPassword == $newPasswordConfirm) //& passwords match - we can continue trying to create this user
             {
                 // check if account-name is available
                 $result = mysqli_query($con, "SELECT count(username) FROM m_users WHERE username='$newUsername' "); // run the mysql query
@@ -466,7 +465,7 @@ if(($_SESSION['valid'] != 1) || ($_SESSION['admin'] != 1))    // check if the us
                         {
                             // create the new user account
                             $username = $newUsername;
-                            $password = $newPassword1;
+                            $password = $newPassword;
                             $hash = hash('sha256', $password); // playing with hash
                             function createSalt() // playing with salt - creates a 3 character sequence
                             {

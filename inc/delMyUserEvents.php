@@ -8,30 +8,30 @@ header('Content-type: text/xml');
 session_start();
 
 // check if the user-session is valid or not
-if ( $_SESSION['valid'] == 1 )
+if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 {
-	require '../config/config.php';
+	require "../config/config.php";
 
 	// connect to mysql
-    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
-	if (!$con)
+    $con = new mysqli ( $databaseServer, $databaseUser, $databasePW, $databaseDB );
+	if ( !$con )
 	{
 		die('Could not connect: ' . mysqli_connect_error());
 	}
 
-	$owner = $_SESSION['username'];
+	$owner = $_SESSION[ 'monoto' ][ 'username' ];
 
 	// update m_notes = delete events
-	$sql="DELETE FROM m_log WHERE owner='".$owner."' ";
-	$result = mysqli_query($con, $sql);
+	$sql = "DELETE FROM m_log WHERE owner='".$owner."' ";
+	$result = mysqli_query( $con, $sql );
 
 	// update m_log
 	$event = "events eraser";
 	$details = "All user events deleted with eraser.";
-	$sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-	$result = mysqli_query($con, $sql);
+	$sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+	$result = mysqli_query( $con, $sql );
 
 	// close sql connection
-	mysqli_close($con);
+	mysqli_close( $con );
 }
 ?>
