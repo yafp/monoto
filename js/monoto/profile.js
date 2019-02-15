@@ -5,17 +5,17 @@ function validatePasswordChangeInput()
 {
     console.debug("validatePasswordChangeInput ::: Started validating user input");
 
-    if ($('#newPassword').val() == $('#newPasswordConfirm').val())
+    if ($('#newPassword').val() === $('#newPasswordConfirm').val())
     {
             // password & passwordConfirm do match
 
             // now check if min length is reached
-        if($('#newPassword').val().length > 7)
+        if($("#newPassword").val().length > 7)
         {
                 console.log("p.php ::: Passwords do match and min length is reached");
                 $("#bt_doChangeUserPW").prop("disabled",false);
                 // update status icon
-                $("#passwordDiff").text('');
+                $("#passwordDiff").text("");
                 $("#passwordDiff").append('<i class="fas fa-smile"></i>');
         }
         else
@@ -23,7 +23,7 @@ function validatePasswordChangeInput()
             console.warn("p.php ::: Passwords do match but min length is not reached");
             $("#bt_doChangeUserPW").prop("disabled",true);
             // update status icon
-            $("#passwordDiff").text('');
+            $("#passwordDiff").text("");
             $("#passwordDiff").append('<i class="far fa-frown"></i>');
         }
     }
@@ -32,7 +32,7 @@ function validatePasswordChangeInput()
         console.warn("p.php ::: Passwords do not match");
         $("#bt_doChangeUserPW").prop("disabled",true);
         // update status icon
-        $("#passwordDiff").text('');
+        $("#passwordDiff").text("");
         $("#passwordDiff").append('<i class="far fa-frown"></i>');
     }
 
