@@ -6,11 +6,14 @@
     <?php include 'inc/coreIncludes.php'; ?>
 
     <!-- specific -->
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/monoto/profile.css" title="default" />
     <!-- JS -->
     <script type="text/javascript" src="js/monoto/profile.js"></script>
     <script type="text/javascript" charset="utf-8">
     $(document).ready( function ()
     {
+        // init
         $('#example').DataTable( {
             "bSort": false, // dont sort - trust the sql-select and its sort-order
             "sPaginationType": "simple_numbers",
@@ -20,6 +23,15 @@
 
 
         console.log("p.php ::: Finished intializing DataTable");
+
+        // #281
+        // compare input in password fields
+        // and enable or disable the 'update password' button
+        $('#newPassword, #newPasswordConfirm').on('keyup', function ()
+        {
+            validatePasswordChangeInput();
+        });
+
     } );
     </script>
 </head>
@@ -53,27 +65,27 @@
                     <?php
                     // get email for this account
                     $con = connectToDB();
-                    $sql="SELECT email FROM m_users WHERE username='".$_SESSION['username']."' "; // mail
+                    $sql="SELECT email FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username']."' "; // mail
                     $result = mysqli_query($con, $sql);
-                    while($row = mysqli_fetch_array($result))
+                    while ( $row = mysqli_fetch_array ( $result) )
                     {
-                        $account_email = $row[0];
+                        $account_email = $row[ 0 ];
                     }
 
                     // get amounf of logins
-                    $sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION['username']."' "; // login_counter
+                    $sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username' ]."' "; // login_counter
                     $result = mysqli_query($con, $sql);
-                    while($row = mysqli_fetch_array($result))
+                    while ( $row = mysqli_fetch_array ( $result ) )
                     {
-                        $account_logins = $row[0];
+                        $account_logins = $row[ 0 ];
                     }
 
                     // since:
-                    $sql="SELECT date_first_login FROM m_users WHERE username='".$_SESSION['username']."' "; // date first login
+                    $sql="SELECT date_first_login FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username' ]."' "; // date first login
                     $result = mysqli_query($con, $sql);
-                    while($row = mysqli_fetch_array($result))
+                    while ( $row = mysqli_fetch_array ( $result ) )
                     {
-                        $account_since = $row[0];
+                        $account_since = $row[ 0 ];
                     }
 
                     ?>
@@ -81,10 +93,10 @@
                     <!-- username -->
                     <div class="row">
                         <div class="col-sm">
-                            <?php echo translateString("username"); ?>
+                            <?php echo translateString( "username" ); ?>
                         </div>
                         <div class="col-sm">
-                            <?php echo "<span class='badge badge-secondary'>".$_SESSION['username']."</span>" ?>
+                            <?php echo "<span class='badge badge-secondary'>".$_SESSION[ 'monoto' ][ 'username' ]."</span>" ?>
                         </div>
                         <div class="col-sm">
                         </div>
@@ -93,7 +105,7 @@
                     <!-- Email -->
                     <div class="row">
                         <div class="col-sm">
-                            <?php echo translateString("mail"); ?>
+                            <?php echo translateString( "mail" ); ?>
                         </div>
                         <div class="col-sm">
                             <?php echo "<span class='badge badge-secondary'>".$account_email."</span>" ?>
@@ -105,7 +117,7 @@
                     <!-- Logins -->
                     <div class="row">
                         <div class="col-sm">
-                            <?php echo translateString("logins"); ?>
+                            <?php echo translateString( "logins" ); ?>
                         </div>
                         <div class="col-sm">
                             <?php echo "<span class='badge badge-secondary'>".$account_logins."</span>" ?>
@@ -117,7 +129,7 @@
                     <!-- since -->
                     <div class="row">
                         <div class="col-sm">
-                            <?php echo translateString("since"); ?>
+                            <?php echo translateString( "since" ); ?>
                         </div>
                         <div class="col-sm">
                             <?php echo "<span class='badge badge-secondary'>".$account_since."</span>" ?>
@@ -132,16 +144,17 @@
                     <!-- Password change -->
                     <div class="row">
                         <div class="col-sm">
-                            <b><?php echo translateString("Changing password"); ?></b><br>
+                            <b><?php echo translateString( "Changing password" ); ?></b><br>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm">
                             <form id="changePassword" action="p.php" method="post" enctype="multipart/form-data">
-                                <input type="password" id="newPassword1" name="newPassword1" placeholder="New password" required="required" autocomplete="off" />
-                                <input type="password" id="newPassword2" name="newPassword2" placeholder="Repeat new password" required="required" autocomplete="off" />
-                                <button type="submit" class="btn btn-primary buttonDefault" name="doChangeUserPW"  title="Starts the change password function if the user provided the new password twice."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
+                                <input type="password" id="newPassword" name="newPassword" pattern=".{8,}" placeholder="Password (min 8 chars)" required="required" autocomplete="off" />
+                                <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" pattern=".{8,}" placeholder="Confirm new password" required="required" autocomplete="off" />
+                                <span id="passwordDiff"></span>
+                                <button type="submit" class="btn btn-primary buttonDefault" id="bt_doChangeUserPW" name="bt_doChangeUserPW"  title="Starts the change password function if the user provided the new password twice." disabled=disabled><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
                             </form>
                         </div>
                     </div>
@@ -152,7 +165,7 @@
                     <!-- Language change -->
                     <div class="row">
                         <div class="col-sm">
-                            <b><?php echo translateString("Language"); ?></b>
+                            <b><?php echo translateString( "Language" ); ?></b>
                         </div>
                     </div>
 
@@ -171,18 +184,18 @@
 
                 <!-- Tab: Statistics -->
                 <div role="tabpanel" class="tab-pane fade" id="statistics">
-                    <h3><i class="fas fa-brain"></i> <?php echo translateString("Statistics"); ?></h3>
+                    <h3><i class="fas fa-brain"></i> <?php echo translateString( "Statistics" ); ?></h3>
                     <?php
                     $con = connectToDB();
-                    $username = $_SESSION['username'];
+                    $username = $_SESSION[ 'monoto' ][ 'username' ];
                     // User: amount of notes
-                    $result = mysqli_query($con, "SELECT count(*) FROM m_notes WHERE owner='".$username."' "); // run the mysql query
-                    while($row = mysqli_fetch_array($result)) // fetch data and file table as a second step later on
+                    $result = mysqli_query ( $con, "SELECT count(*) FROM m_notes WHERE owner='".$username."' "); // run the mysql query
+                    while ( $row = mysqli_fetch_array ( $result ) ) // fetch data and file table as a second step later on
                     {
                         echo "<ul>";
 
                         // If current User < 1 note - is it worth displaying the stats at all?
-                        if($row[0] == 0)
+                        if ( $row[ 0 ] == 0 )
                         {
                             echo "<li>Lazy ass award goes to you as you havent created a single note .....erm yes ... ".$row[0]." notes in your monoto database.</li>";     // blame user that he has no notes
                         }
@@ -191,121 +204,121 @@
                             echo "<li>You have <span class='badge badge-secondary'>".$row[0]." </span> personal notes</li>"; // output amount of notes
 
                             // amount of activity-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            $result = mysqli_query( $con, "SELECT count(*) FROM m_log WHERE owner='".$username."' ");
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_events_of_current_user = $row[0];
+                                $stats_events_of_current_user = $row[ 0 ];
                             }
 
                             // amount of create-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='create' and owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            $result = mysqli_query( $con, "SELECT count(*) FROM m_log WHERE event='create' and owner='".$username."' ");
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_amount_of_creates = $row[0];
+                                $stats_amount_of_creates = $row[ 0 ];
                             }
 
                             // amount of create-error events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='create error' and owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            $result = mysqli_query( $con, "SELECT count(*) FROM m_log WHERE event='create error' and owner='".$username."' ");
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_amount_of_creates_errors = $row[0];
+                                $stats_amount_of_creates_errors = $row[ 0 ];
                             }
 
                             // amount of import-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='import' and owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            $result = mysqli_query( $con, "SELECT count(*) FROM m_log WHERE event='import' and owner='".$username."' ");
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_amount_of_imports = $row[0];
+                                $stats_amount_of_imports = $row[ 0 ];
                             }
 
                             // amount of edits-events
-                            $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='save' and owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            $result = mysqli_query( $con, "SELECT count(*) FROM m_log WHERE event='save' and owner='".$username."' ");
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_amount_of_changes = $row[0];
+                                $stats_amount_of_changes = $row[ 0 ];
                             }
 
                             // amount of delete-events
                             $result = mysqli_query($con, "SELECT count(*) FROM m_log WHERE event='delete' and owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_amount_of_deletes = $row[0];
+                                $stats_amount_of_deletes = $row[ 0 ];
                             }
 
                             // amount of logins and logouts
-                            $result = mysqli_query($con, "SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION['username']."' ");
-                            while($row = mysqli_fetch_array($result))
+                            $result = mysqli_query($con, "SELECT login_counter, logout_counter FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username' ]."' ");
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_amount_of_logins = $row[0];
-                                $stats_amount_of_logouts = $row[1];
+                                $stats_amount_of_logins = $row[ 0 ];
+                                $stats_amount_of_logouts = $row[ 1 ];
                             }
 
                             // version: highest note-version (most used note)
                             $result = mysqli_query($con, "SELECT id, title, save_count FROM m_notes WHERE owner='".$username."' ORDER BY save_count DESC LIMIT 1");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_highest_note_version_id = $row[0];
-                                $stats_highest_note_version_title = $row[1];
-                                $stats_highest_note_version_versions = $row[2];
+                                $stats_highest_note_version_id = $row[ 0 ];
+                                $stats_highest_note_version_title = $row[ 1 ];
+                                $stats_highest_note_version_versions = $row[ 2 ];
                             }
 
                             // shortest and longest note-content
                             $result = mysqli_query($con, "SELECT MIN( LENGTH( content ) ) AS shortest, id FROM m_notes WHERE owner='".$username."' GROUP BY(id) LIMIT 1");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_note_with_shortest_content_id = $row[1];
-                                $stats_note_with_shortest_content_chars = $row[0];
+                                $stats_note_with_shortest_content_id = $row[ 1 ];
+                                $stats_note_with_shortest_content_chars = $row[ 0 ];
 
                             }
 
                             // longest note-content
                             $result = mysqli_query($con, "SELECT ( LENGTH( content ) ) AS longest, id FROM m_notes WHERE owner='".$username."' ORDER BY longest DESC LIMIT 1");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_note_with_longest_content_id = $row[1];
-                                $stats_note_with_longest_content_chars = $row[0];
+                                $stats_note_with_longest_content_chars = $row[ 0 ];
+                                $stats_note_with_longest_content_id = $row[ 1 ];
                             }
 
                             // oldest created note
                             $result = mysqli_query($con, "SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, id, title FROM m_notes WHERE owner='".$username."' ORDER BY date_create ASC LIMIT 1");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_oldest_created_note_age = $row[0];
-                                $stats_oldest_created_note_date = $row[1];
-                                $stats_oldest_created_note_id = $row[2];
+                                $stats_oldest_created_note_age = $row[ 0 ];
+                                $stats_oldest_created_note_date = $row[ 1 ];
+                                $stats_oldest_created_note_id = $row[ 2 ];
                             }
                             // newest/latest created note
                             $result = mysqli_query($con, "SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_create, save_count, title, id FROM m_notes WHERE save_count = '1' and owner='".$username."' ORDER BY date_create DESC LIMIT 1");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_latest_created_note_age = $row[0];
-                                $stats_latest_created_note_date =  $row[1];
-                                $stats_latest_created_note_id = $row[4];
-                                $stats_latest_created_note_title = $row[3];
+                                $stats_latest_created_note_age = $row[ 0 ];
+                                $stats_latest_created_note_date =  $row[ 1 ];
+                                $stats_latest_created_note_id = $row[ 4 ];
+                                $stats_latest_created_note_title = $row[ 3 ];
                             }
 
                             // latest edited note
                             $result = mysqli_query($con, "SELECT DATEDIFF(CURDATE(), date_create) AS intval, date_mod, save_count, title, id FROM m_notes ORDER BY date_create DESC LIMIT 1");
                             while($row = mysqli_fetch_array($result))
                             {
-                                $stats_last_edited_note_age = $row[0];
-                                $stats_last_edited_note_id = $row[4];
-                                $stats_last_edited_note_title = $row[3];
-                                $stats_last_edited_note_date = $row[1];
+                                $stats_last_edited_note_age = $row[ 0 ];
+                                $stats_last_edited_note_date = $row[ 1 ];
+                                $stats_last_edited_note_title = $row[ 3 ];
+                                $stats_last_edited_note_id = $row[ 4 ];
                             }
 
                             // overall_note_content_words
                             $result = mysqli_query($con, "SELECT SUM( LENGTH( content ) - LENGTH( REPLACE( content, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_overall_content_words = $row[0];
+                                $stats_overall_content_words = $row[ 0 ];
                             }
 
                             // overall_note_title_words
                             $result = mysqli_query($con, "SELECT SUM( LENGTH( title ) - LENGTH( REPLACE( title, ' ', '' ) ) +1 ) FROM m_notes WHERE owner='".$username."' ");
-                            while($row = mysqli_fetch_array($result))
+                            while ( $row = mysqli_fetch_array ( $result ) )
                             {
-                                $stats_overall_title_words = $row[0];
+                                $stats_overall_title_words = $row[ 0 ];
                             }
 
                             echo "<li>Those notes are using overall <span class='badge badge-secondary'>".$stats_overall_title_words."</span> words for titles and overall <span class='badge badge-secondary'>".$stats_overall_content_words."</span> words for the content.</li>";
@@ -335,10 +348,10 @@
                             <tbody>
                                 <?php
                                 $result = mysqli_query($con, "SELECT * FROM m_log WHERE owner='".$username."' ORDER BY activity_date DESC"); // m_log
-                                while($row = mysqli_fetch_array($result))   // fill DataTable
+                                while ( $row = mysqli_fetch_array ( $result ) )   // fill DataTable
                                 {
                                     // colorize table
-                                    switch ($row[1])
+                                    switch ($row[ 1 ])
                                     {
                                         case "login":
                                             echo '<tr class="odd gradeU"><td>'.$row[0].'</td><td bgcolor="#3D9970">'.$row[1].'</td><td>'.$row[2].'</td><td>'.$row[3].'</td></tr>';
@@ -464,7 +477,7 @@
             <!-- JS-->
             <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
-                var lang = '<?php echo $_SESSION["lang"]; ?>';
+                var lang = '<?php echo $_SESSION[ 'monoto' ]["lang"]; ?>';
                 $('#s_languageSelector').val(lang); // selects "Two"
             });
             </script>
@@ -476,7 +489,7 @@
 
         <?php
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' )
         {
             // CASES
             //
@@ -489,19 +502,19 @@
             // - Do Delete all Events
 
             // -----------------------------------------------------------------------
-            // doChangeUserPW (START)
+            // bt_doChangeUserPW (START)
             // -----------------------------------------------------------------------
-            if ( isset($_POST["doChangeUserPW"]) )
+            if ( isset ( $_POST[ "bt_doChangeUserPW" ] ) )
             {
                 // get values
-                $username = $_SESSION['username'];
-                $newPassword1= filter_input(INPUT_POST, "newPassword1", FILTER_SANITIZE_STRING);
-                $newPassword2= filter_input(INPUT_POST, "newPassword2", FILTER_SANITIZE_STRING);
+                $username = $_SESSION[ 'monoto' ][ 'username' ];
+                $newPassword = filter_input(INPUT_POST, "newPassword", FILTER_SANITIZE_STRING);
+                $newPasswordConfirm = filter_input(INPUT_POST, "newPasswordConfirm", FILTER_SANITIZE_STRING);
 
                 // Check if user entered two times the same new password
-                if($newPassword1 == $newPassword2)
+                if ( $newPassword == $newPasswordConfirm )
                 {
-                    $hash = hash('sha256', $password1); // playing with hash
+                    $hash = hash('sha256', $newPassword); // playing with hash
                     function createSalt() // playing with salt - creates a 3 character sequence
                     {
                         $string = md5(uniqid(rand(), true));
@@ -512,7 +525,7 @@
 
                     // update user password
                     $query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$username'";
-                    mysqli_query($con, $query);
+                    mysqli_query ( $con, $query );
 
                     displayNoty('Changed password','success');
                 }
@@ -527,7 +540,7 @@
             // -----------------------------------------------------------------------
             // doChangeUserLanguage (START)
             // -----------------------------------------------------------------------
-            if ( isset($_POST["doChangeUserLanguage"]) )
+            if ( isset($_POST[ "doChangeUserLanguage" ] ) )
             {
                 $selectedLang= filter_input(INPUT_POST, "s_languageSelector", FILTER_SANITIZE_STRING);
 
@@ -535,7 +548,7 @@
                 $query = "UPDATE m_users SET language='$selectedLang' WHERE username='$username'";
                 mysqli_query($con, $query);
 
-                $_SESSION['lang'] = $selectedLang; // store as session variable
+                $_SESSION[ 'monoto' ][ 'lang' ] = $selectedLang; // store as session variable
                 displayNoty('Language set to: '.$selectedLang,'notification');
             }
 
@@ -544,7 +557,7 @@
             // doImport Textfiles (START)
             // -----------------------------------------------------------------------
             //
-            if ( isset($_POST["doImport"]) )
+            if ( isset($_POST[ "doImport" ] ) )
             {
                 require 'config/config.php';
 
@@ -557,7 +570,7 @@
 
                 <?php
 
-                $username = $_SESSION['username'];
+                $username = $_SESSION[ 'monoto' ][ 'username' ];
 
                 $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
                 if (!$con)
@@ -622,7 +635,7 @@
             // -----------------------------------------------------------------------
             // doImportCSV (START)
             // -----------------------------------------------------------------------
-            if ( isset($_POST["doImportCSV"]) )
+            if ( isset($_POST[ "doImportCSV" ] ) )
             {
                 ?>
 
@@ -641,7 +654,7 @@
                         die('Could not connect: ' . mysqli_connect_error());
                     }
 
-                    $username = $_SESSION['username'];
+                    $username = $_SESSION[ 'monoto' ][ 'username' ];
                     $target_dir = "";
                     $target_file = $target_dir . basename($_FILES["impFile"]["tmp_name"]);
                     $uploadOk = 1;
@@ -711,13 +724,10 @@
             // -----------------------------------------------------------------------
             // doExport (START)
             // -----------------------------------------------------------------------
-            if ( isset($_POST["doExport"]) )
+            if ( isset ($_POST[ "doExport" ] ) )
             {
                 echo '<script type="text/javascript" language="javascript">window.open("inc/noteExport.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");</script>';
             }
 
-
         } // End: Check if request method was POST
-
-
-        ?>
+?>
