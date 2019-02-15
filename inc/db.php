@@ -8,9 +8,9 @@ function connectToDB()
 {
 	require 'config/config.php';
 
-    $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
+    $con = new mysqli ( $databaseServer, $databaseUser, $databasePW, $databaseDB );
 
-    if ($conn->connect_errno)
+    if ($con->connect_errno)
     {
         echo "Error: Unable to connect to MySQL." . PHP_EOL;
     	echo "ErrNo: " . mysqli_connect_errno() . PHP_EOL;

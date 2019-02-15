@@ -57,15 +57,12 @@ function deleteAllMyUserEvents()
             {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
                 $noty.close();
                 $.post("inc/delMyUserEvents.php");
-                $.cookie("lastAction", "Deleted all your event-entries."); // store last Action in cookie
-                //noty({text: "Deleted all events from log", type: "success"});
                 createNoty("Deleted all events from log","success");
                 location.reload();
             }
         },
         {addClass: "btn btn-danger", text: "Cancel", onClick: function($noty) {
             $noty.close();
-            //noty({text: "Aborted", type: "error"});
             createNoty("Aborted","information");
         }
     }
@@ -95,8 +92,6 @@ function deleteAllMyUserNotes()
             {
                 $noty.close();
                 $.post("inc/delMyUserNotes.php");
-                $.cookie("lastAction", "Deleted all your notes."); // store last Action in cookie
-                //noty({text: "Deleted all notes", type: "success"});
                 createNoty("Deleted all notes","success");
                 location.reload();
             }
@@ -105,7 +100,6 @@ function deleteAllMyUserNotes()
             addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
             {
                 $noty.close();
-                //noty({text: "Aborted", type: "error"});
                 createNoty("Aborted","information");
             }
         }

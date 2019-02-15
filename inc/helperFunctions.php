@@ -87,7 +87,7 @@ function translateString( $textForTranslation )
 // -----------------------------------------------------------------------------
 // Playground for phpunit
 // -----------------------------------------------------------------------------
-function odd_or_even( $num )
+function oddOrEven( $num )
 {
     return $num%2; // Returns 0 for odd and 1 for even
 }

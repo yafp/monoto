@@ -629,7 +629,7 @@ function saveNote()
             $(oTable.column(0).nodes()).addClass( "highlight" );
             $(oTable.column(0).nodes()).addClass( "selected" );
             $(oTable.column(0).nodes()).addClass( "row_selected" );
-            var row = oTable.row( '0' ).node();
+            var row = oTable.row( "0" ).node();
             $(row).addClass("row_selected");
             console.log("saveNote ::: Select first row of table.________________________END");
 
@@ -742,8 +742,8 @@ function reloadAllNotesFromDB()
     console.log("reloadAllNotesFromDB ::: Trying to load all user notes from server");
 
     // destroy old datatable
-    $('#example').DataTable().destroy();
-    $('example').empty();
+    $( "#example" ).DataTable().destroy();
+    $( "example" ).empty();
 
     // re-init datatable
     initDataTable();
@@ -1297,5 +1297,5 @@ function onReady()
     // set focus to search (shouldnt be needed anymore due to autofocus)
     //$("#searchField").focus();
 
-    console.debug("onReady ::: Stop"); 
+    console.debug("onReady ::: Stop");
 }
