@@ -5,7 +5,7 @@
 
     <!-- specific -->
     <!-- css -->
-    <link rel="stylesheet" type="text/css" href="css/setup.css">
+    <link rel="stylesheet" type="text/css" href="css/monoto/setup.css">
 </head>
 
 <body role="document">
@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <h2><i class="fas fa-database fa-2x"></i> Database</h2>
-                    <p class="lead">Please create a database and all related tables according to the instructions in <span class="badge badge-secondary">doc/INSTALL.md</span> and adjust the values in <span class="badge badge-secondary">config/config.php</span> according to it.</p>
+                    <p class="lead">Please create a database and all related tables according to the instructions in <span class="badge badge-secondary">docs/INSTALL.md</span> and adjust the values in <span class="badge badge-secondary">config/config.php</span> according to it.</p>
                 </div>
             </div>
         </div>
@@ -90,33 +90,33 @@
                             </div>
                         </div>
 
-                        <!-- Password 1 -->
+                        <!-- Password  -->
                         <div class="row">
                             <div class="col">
                                 Password
                             </div>
                             <div class="col">
-                                <input type="password" name="password1" placeholder="Password" required="required" autocomplete="new-password" />
+                                <input type="password" name="password" placeholder="Password" required="required" autocomplete="off" />
                             </div>
                             <div class="col">
                                 <small>(desired password)</small>
                             </div>
                         </div>
 
-                        <!-- Password 2 -->
+                        <!-- Password confirm -->
                         <div class="row">
                             <div class="col">
                                 Password
                             </div>
                             <div class="col">
-                                <input type="password" name="password2" placeholder="Password" required="required" autocomplete="new-password" />
+                                <input type="password" name="password_confirm" placeholder="Password" required="required" autocomplete="off" />
                             </div>
                             <div class="col">
                                 <small>(again the desired password)</small>
                             </div>
                         </div>
 
-                        <!-- Password 2 -->
+                        <!-- Submit -->
                         <div class="row">
                             <div class="col">
                                 <input type="submit" class="btn btn-primary" value="Create" name="doCreateAdminAccount"  />
@@ -167,34 +167,27 @@
 
 
 // creating the initial admin-account
-if ( isset($_POST["doCreateAdminAccount"]) )
+if ( isset( $_POST[ "doCreateAdminAccount" ] ) )
 {
     $con = connectToDB();
 
     // check if user has already manually created the table: m_users
-    $val = mysqli_query($con, 'select 1 from `m_users`');
+    $val = mysqli_query( $con, 'select 1 from `m_users`' );
     if($val !== FALSE)
     {
         // table m_users EXISTS - get the data
-        //$username = $_POST['username'];
         $username= filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
-
-        //$email = $_POST['email'];
         $email= filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
-
-        //$password1 = $_POST['password1'];
-        $password1= filter_input(INPUT_POST, "password1", FILTER_SANITIZE_STRING);
-
-        //$password2 = $_POST['password2'];
-        $password2= filter_input(INPUT_POST, "password2", FILTER_SANITIZE_STRING);
+        $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
+        $password_confirm= filter_input(INPUT_POST, "password_confirm", FILTER_SANITIZE_STRING);
 
         //$username = mysqli_real_escape_string($con, $username);
 
         // compare passwords
-        if($password1 == $password2) // both passwords do match
+        if($password == $password_confirm) // both passwords do match
         {
             // playing with hash
-            $hash = hash('sha256', $password1);
+            $hash = hash('sha256', $password);
             function createSalt() // playing with salt - creates a 3 character sequence
             {
                 $string = md5(uniqid(rand(), true));
