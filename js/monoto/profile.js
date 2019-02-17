@@ -5,7 +5,7 @@ function validatePasswordChangeInput()
 {
     console.debug("validatePasswordChangeInput ::: Started validating user input");
 
-    if ($('#newPassword').val() === $('#newPasswordConfirm').val())
+    if ($("#newPassword").val() === $("#newPasswordConfirm").val())
     {
             // password & passwordConfirm do match
 

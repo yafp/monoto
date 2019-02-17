@@ -659,7 +659,7 @@ function deleteNote()
     var deleteTitle = $("#noteTitle").val();
     var deleteContent = $("#editor1").val();
 
-    if ((deleteID.length > 0) && (deleteID != "" ))
+    if ((deleteID.length > 0) && (deleteID !== "" ))
     {
         // confirm dialog
         var x = noty({

@@ -17,8 +17,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )	// check if the user-session is val
 
     // note content:
     // cant use filter_sanitize here, as it breaks the html code
-	$modifiedNoteContent = $_POST[ 'modifiedNoteContent' ];
-    //$modifiedNoteContent= filter_input(INPUT_POST, "modifiedNoteContent", FILTER_SANITIZE_STRING);
+	$modifiedNoteContent = $_POST[ "modifiedNoteContent" ];
 
     // note version / save count
     $modifiedNoteCounter = filter_input( INPUT_POST, "modifiedNoteCounter", FILTER_SANITIZE_STRING );
