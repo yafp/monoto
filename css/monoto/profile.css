@@ -1,0 +1,17 @@
+#changePassword {
+    margin:10px;
+}
+label {
+    font-family:verdana;
+    font-size:10px;
+}
+input {
+    padding:2px;
+    color:gray;
+}
+#passstrength {
+    color:red;
+    font-family:verdana;
+    font-size:10px;
+    font-weight:bold;
+}
