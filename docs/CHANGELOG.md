@@ -49,6 +49,9 @@
 * Profile
     * [#279] Pages: Renamed MyMonoto to Profile
     * [#281] Improve password change function
+    * [#282] Show password strength
+* Keyboard
+    * [#283] Keyboard-look - pimp page with css
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation

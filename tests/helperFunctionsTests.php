@@ -3,8 +3,9 @@
 /**
  * Tests
  * Playground for unit tests
+ * @link: https://github.com/yafp/monoto
  */
-class test extends phpUnitFrameworkTestCase
+class Test extends phpUnitFrameworkTestCase
 {
     public function testOddOrEvenToTrue()
     {

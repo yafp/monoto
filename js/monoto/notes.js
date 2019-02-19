@@ -107,16 +107,6 @@ function initCKEditor()
                 return;
             },
 
-            /*
-            // has issues: if focus is in editor and i click to notetitle, it jumps directly back to editor.
-            blur: function(event)
-            {
-                console.log("initCKEditor ::: CKEditor lost focus");
-                CKEDITOR.instances.editor1.execCommand( "toolbarCollapse", false ); // #241
-                return;
-            },
-            */
-
             focus: function(event)
             {
                 console.log("initCKEditor ::: CKEditor got focus");
@@ -178,9 +168,6 @@ function initCKEditor()
                             console.log("initCKEditor ::: Pressed F2 in CKEditor");
                             CKEDITOR.instances.editor1.execCommand( "maximize" );
                             break;
-
-
-
 
                         //default:
                             //console.log("initCKEditor ::: Default case");
