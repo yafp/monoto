@@ -154,10 +154,10 @@
 
 
     <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/setup/jquery.easing.min.js"></script>
 
     <!-- Custom JavaScript for this theme -->
-    <script src="js/scrolling-nav.js"></script>
+    <script src="js/setup/scrolling-nav.js"></script>
 
 </body>
 </html>
@@ -165,52 +165,57 @@
 
 <?php
 
-
-// creating the initial admin-account
-if ( isset( $_POST[ "doCreateAdminAccount" ] ) )
+if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
 {
-    $con = connectToDB();
-
-    // check if user has already manually created the table: m_users
-    $val = mysqli_query( $con, 'select 1 from `m_users`' );
-    if($val !== FALSE)
+    // creating the initial admin-account
+    if ( isset( $_POST[ "doCreateAdminAccount" ] ) )
     {
-        // table m_users EXISTS - get the data
-        $username= filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
-        $email= filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
-        $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
-        $password_confirm= filter_input(INPUT_POST, "password_confirm", FILTER_SANITIZE_STRING);
+        $con = connectToDB();
 
-        //$username = mysqli_real_escape_string($con, $username);
-
-        // compare passwords
-        if($password == $password_confirm) // both passwords do match
+        // check if user has already manually created the table: m_users
+        $val = mysqli_query( $con, 'select 1 from `m_users`' );
+        if($val !== FALSE)
         {
-            // playing with hash
-            $hash = hash('sha256', $password);
-            function createSalt() // playing with salt - creates a 3 character sequence
+            // table m_users EXISTS - get the data
+            $username= filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
+            $email= filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
+            $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
+            $password_confirm= filter_input(INPUT_POST, "password_confirm", FILTER_SANITIZE_STRING);
+
+            //$username = mysqli_real_escape_string($con, $username);
+
+            // compare passwords
+            if($password == $password_confirm) // both passwords do match
             {
-                $string = md5(uniqid(rand(), true));
-                return substr($string, 0, 3);
+                // playing with hash
+                $hash = hash('sha256', $password);
+                function createSalt() // playing with salt - creates a 3 character sequence
+                {
+                    $string = md5(uniqid(rand(), true));
+                    return substr($string, 0, 3);
+                }
+                $salt = createSalt();
+                $hash = hash('sha256', $salt . $hash);
+
+                $query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
+                mysqli_query($con, $query) or die ("Failed Query of " . $query);
+                mysqli_close($con); // close sql connection
+
+                displayNoty('Finished installer. Forwarding to login page.', 'success');
+                echo '<script type="text/javascript">window.location="index.php"</script>'; // whyever that works - but header not anymore. must be related to our header rework
             }
-            $salt = createSalt();
-            $hash = hash('sha256', $salt . $hash);
-
-            $query = "INSERT INTO m_users ( username, password, salt, is_admin, email, admin_note ) VALUES ( '$username' , '$hash' , '$salt', '1', '$email', 'monoto-admin' );";
-            mysqli_query($con, $query) or die ("Failed Query of " . $query);
-            mysqli_close($con); // close sql connection
-
-            displayNoty('Finished installer. Forwarding to login page.', 'success');
-            echo '<script type="text/javascript">window.location="index.php"</script>'; // whyever that works - but header not anymore. must be related to our header rework
+            else // Password mismatch
+            {
+                displayNoty('Password issues: password mismatch.', 'error');
+            }
         }
-        else // Password mismatch
+        else // mysql tables dont exist
         {
-            displayNoty('Password issues: password mismatch.', 'error');
+            displayNoty('Database issues: table m_users does not exist.', 'error');
         }
     }
-    else // mysql tables dont exist
-    {
-        displayNoty('Database issues: table m_users does not exist.', 'error');
-    }
-}
+
+} // END: POST
+
+
 ?>
