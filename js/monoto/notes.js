@@ -611,13 +611,10 @@ function saveNote()
             //dataTable.row(':eq(0)').select();
             console.log("saveNote ::: Select first row of table.________________________START");
             // FIXME
-            $("#example tbody td:eq(0)").addClass("selected"); // change background as well
-            //$('#example tbody tr:eq(0)').click();
-            $(oTable.column(0).nodes()).addClass( "highlight" );
-            $(oTable.column(0).nodes()).addClass( "selected" );
-            $(oTable.column(0).nodes()).addClass( "row_selected" );
-            var row = oTable.row( "0" ).node();
-            $(row).addClass("row_selected");
+
+            // wird getriggert - aber ohne highlight
+            $('#example tbody tr:eq(0)').click();
+
             console.log("saveNote ::: Select first row of table.________________________END");
 
 
@@ -747,23 +744,20 @@ function reloadAllNotesFromDB()
 function initDataTable()
 {
     console.debug("initDataTable ::: Start");
-
     console.log("initDataTable ::: Initializing the DataTable");
 
     oTable = $('#example').DataTable( {
         // test
     "searching": true,
     "info": true,
-
+    // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
+    "mark": true,
     "select": {
             "style": 'single'
         },
-
-
     "processing": true,
     //"serverSide": true, // might conflict with .search in datatable
     "ajax": "inc/getAllNotes.php",
-
     "dom": 'irt<"clear">',
     "paging": false,
     "aaSorting": [[ 3, "desc" ]], // default sorting
@@ -919,6 +913,29 @@ function onReady()
     //console.log("onReady ::: Re-setting current selected row to -1");
     var curSelectedTableRow;
     initDataTable(); // initialize the DataTable
+
+
+
+
+
+
+    $('#example tbody').on( 'click', 'tr', function ()
+    {
+        console.error("-----------------");
+        if ( $(this).hasClass('selected') )
+        {
+            console.error("1");
+            $(this).removeClass('selected');
+        }
+        else
+        {
+            console.error("2");
+            oTable.$('tr.selected').removeClass('selected');
+            $(this).addClass('row_selected');
+        }
+        console.error("-----------------");
+    } );
+
 
 
     // DataTable: add a click handler to the rows (<tr>)
