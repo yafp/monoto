@@ -1,5 +1,12 @@
 <!--  FOOTER -->
-<?php require 'config/build.php'; ?>
+<?php
+// -----------------------------------------------------------------------------
+// Name:		footer.php
+// Function:	This file contains the footer.
+// -----------------------------------------------------------------------------
+    require 'config/build.php';
+
+?>
 
 <div id="footer" class="clear" style="text-align:center;">
 <hr>

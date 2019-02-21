@@ -1,7 +1,12 @@
-RewriteEngine on
-#if requested resource isn't a file
-# and isn't a directory
+# Rewrite Handling
+#
+# if requested resource isn't a file and isn't a directory
 # then serve local error script
+RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* 404.php [L] 
+RewriteRule .* 404.php [L]
+
+# Don't allow dir listings
+#
+#Options All -Indexes

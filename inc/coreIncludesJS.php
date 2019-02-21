@@ -14,6 +14,10 @@
 <!-- 1.10.18 -->
 <script type="text/javascript" language="javascript" src="js/datatables/1.10.18/js/jquery.dataTables.min.js"></script>
 
+<!-- # mark.js ####################################################### -->
+<script type="text/javascript" language="javascript" src="js/mark.js/jquery.mark.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/mark.js/datatables.mark.js"></script>
+
 
 <!-- # FontAwesome ######################################################### -->
 <!-- 5.2.0 -->

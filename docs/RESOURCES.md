@@ -21,6 +21,10 @@
 * [https://jquery.com/](https://jquery.com/)
 * Version: 3.3.1
 
+## Mark.JS
+* [https://markjs.io/](https://markjs.io/)
+* Version: 9.0.0
+
 ## Noty
 * [http://needim.github.io/noty/](http://needim.github.io/noty/)
 * Version: 2.4.1

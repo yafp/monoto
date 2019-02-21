@@ -1,4 +1,12 @@
-<?php include 'inc/checkSession.php'; ?>
+<?php
+// -----------------------------------------------------------------------------
+// Name:		navigation.php
+// Function:	Contains the main navigation
+// -----------------------------------------------------------------------------
+
+include 'inc/checkSession.php';
+
+?>
 
 <!--  NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">

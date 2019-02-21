@@ -16,6 +16,7 @@
   * [#264] Redesign of the login screen
 * Search
   * [#260] Removed unused button
+  * [#242] Highlight search string in datatable
 * Note creation
   * [#244] DataTable is now hidden while creating a new note
   * [#245] Added cancel button to abort note creation process
