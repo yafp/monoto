@@ -14,7 +14,7 @@
     $(document).ready( function ()
     {
         // init
-        $('#example').DataTable( {
+        $('#myDataTable').DataTable( {
             "bSort": false, // dont sort - trust the sql-select and its sort-order
             "sPaginationType": "simple_numbers",
             "iDisplayLength" : 10,
@@ -342,7 +342,7 @@
                 <!-- Tab: activity log -->
                 <div role="tabpanel" class="tab-pane fade" id="activity">
                         <h3><i class="fas fa-clipboard-list"></i> <?php echo translateString("Activity Log"); ?></h3>
-                        <table cellpadding="0" cellspacing="0" class="display" id="example" style="width:100%">
+                        <table cellpadding="0" cellspacing="0" class="display" id="myDataTable" style="width:100%">
                             <thead>
                                 <tr><th>id</th><th>event</th><th>details</th><th>timestamp</th></tr>
                             </thead>

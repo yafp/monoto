@@ -47,17 +47,28 @@ function unmarkAllTableRows()
         var data = this.data();
         //console.log(data);
 
-        // ... do something with data(), or this.node(), etc
-        //$(this.nTr).removeClass("row_selected");
-        //$(this.node).removeClass("row_selected");
-
-        // select the top record
-        //$("#example tbody tr:eq("+currentRow+")").click();
-
-        // change background as well (mark as selected)
-        $("#example tbody tr:eq("+rowIdx+")").removeClass("row_selected");
+        // remove class row_selected
+        $("#myDataTable tbody tr:eq("+rowIdx+")").removeClass("row_selected");
     } );
 }
+
+
+// -----------------------------------------------------------------------------
+// DataTable:
+// Selects/clicks a single row from DataTable
+// -----------------------------------------------------------------------------
+function selectSingleDataTableRow(rowNumber)
+{
+    console.debug("selectSingleDataTableRow ::: Start");
+
+    unmarkAllTableRows();
+
+    console.log("selectSingleDataTableRow ::: Trying to click row: " + rowNumber );
+    $(oTable.row(rowNumber).node()).click();
+
+    console.debug("selectSingleDataTableRow ::: Stop");
+}
+
 
 
 // -----------------------------------------------------------------------------
@@ -361,8 +372,9 @@ function resetNotesUI()
     // DataTable
     //
     // enable dataTable
-    $("#example").prop("disabled",false);
-    $("#example").fadeIn(500); // fade in DataTable (if needed)
+    $("#myDataTable").prop("disabled",false); // enable DataTable
+    $("#myDataTable").fadeIn(500); // fade in DataTable (if needed)
+    $("#myDataTable_info").fadeIn(500); // hide dataTable info about records
 
     // reset all DataTable filter - to see all records of the table
     oTable.search("").draw();
@@ -421,9 +433,10 @@ function prepareNewNoteStepOne()
     $("#bt_saveNote").hide();
 
     // hide datatable
-    $("#example").prop("disabled",true); // disable search-field
-    $("#example").fadeOut(500); // hide search field
-    //$("#example").parents("div.dataTables_wrapper").first().hide();
+    $("#myDataTable").prop("disabled",true); // disable datatable
+    $("#myDataTable").fadeOut(500); // hide  DataTablesearch field
+    $("#myDataTable_info").fadeOut(500); // hide dataTable info about records
+    //$("#myDataTable").parents("div.dataTables_wrapper").first().hide();
 
     // Enable read-write of editor
     // Upate:
@@ -522,13 +535,11 @@ function createNewNote()
 
         var jqxhr = $.post( "inc/noteNew.php", { newNoteTitle: newNoteTitle, newNoteContent : newNoteContent}, function()
         {
-            console.log("SUCCESS");
+            console.log("createNewNote ::: success creasting new note");
         })
         .done(function()
         {
-            console.log("DONE");
-            //console.log(jqxhr.textStatus);
-            //console.log(jqxhr.data);
+            console.log("createNewNote ::: done");
 
             // reload all notes
             reloadAllNotesFromDB();
@@ -575,7 +586,7 @@ function saveNote()
     }
     else
     {
-        // gnoteID
+        // noteID
         var modifiedNoteID = document.myform.noteID.value;
 
         // noteVersion
@@ -594,31 +605,74 @@ function saveNote()
         // if we have a note-id - save the change to db
         if((modifiedNoteID.length > 0) && (modifiedNoteID !== "ID"))
         {
-            $.post("inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-
-            // reload all notes
-            reloadAllNotesFromDB();
-
-            // reset search field (as all notes got reloaded in the step before)
-            console.log("saveNote ::: Resetting search field.");
-            $("#searchField").val("");
-
-            // disable save button
-            disableNoteSavingButton();
+            //$.post("inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
 
 
-            // TODO: should highlight 1 record in table
-            //dataTable.row(':eq(0)').select();
-            console.log("saveNote ::: Select first row of table.________________________START");
-            // FIXME
 
-            // wird getriggert - aber ohne highlight
-            $('#example tbody tr:eq(0)').click();
+            var jqxhr = $.post( "inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter}, function()
+            {
+                console.log("saveNote ::: success creasting new note");
+            })
+            .done(function()
+            {
+                console.log("saveNote ::: done");
 
-            console.log("saveNote ::: Select first row of table.________________________END");
+                // reload all notes
+                reloadAllNotesFromDB();
+
+                // reset UI
+                resetNotesUI();
+
+                // reset search field (as all notes got reloaded in the step before)
+                //
+                //console.log("saveNote ::: Resetting search field.");
+                //$("#searchField").val("");
+
+                // disable save button
+                //disableNoteSavingButton();
 
 
-            createNoty("Saved note <b>" + modifiedNoteTitle + "</b>.", "success");
+                //var overallRowCount = oTable.rows().count();
+                //console.log("saveNote ::: Table has currently " + overallRowCount + " rows");
+
+                //$(oTable.row(10).node()).click();
+                //$(oTable.row(overallRowCount).node()).click();
+
+                // reload all notes
+                //reloadAllNotesFromDB();
+
+                //selectSingleDataTableRow(overallRowCount);
+
+
+
+                // simulate keypress - arrow down:
+                //$("#searchField").focus(); // as arrow up/down needs focus to work
+                //jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(40) });
+
+                //console.log("saveNote ::: Simulating arrow down key press");
+                //var event = jQuery.Event('keypress');
+                //event.which = 40;
+                //event.keyCode = 40; //keycode to trigger this for simulating enter
+                //jQuery(this).trigger(event);
+
+                createNoty("Saved note <b>" + modifiedNoteTitle + "</b>.", "success");
+
+            })
+            .fail(function(jqxhr, textStatus, errorThrown)
+            {
+                alert("Saving note failed.");
+
+                console.error("saveNote ::: Saving note failed");
+                //console.log(jqxhr);
+                //console.log(textStatus);
+                //console.log(errorThrown);
+            })
+            .always(function()
+            {
+                // doing nothing so far
+            });
+
+
         }
         else // should never happen as the save button is not always enabled.
         {
@@ -627,6 +681,11 @@ function saveNote()
     }
     console.debug("saveNote ::: Stop");
 }
+
+
+
+
+
 
 
 // -----------------------------------------------------------------------------
@@ -726,8 +785,8 @@ function reloadAllNotesFromDB()
     console.log("reloadAllNotesFromDB ::: Trying to load all user notes from server");
 
     // destroy old datatable
-    $( "#example" ).DataTable().destroy();
-    $( "example" ).empty();
+    $( "#myDataTable" ).DataTable().destroy();
+    $( "myDataTable" ).empty();
 
     // re-init datatable
     initDataTable();
@@ -746,15 +805,16 @@ function initDataTable()
     console.debug("initDataTable ::: Start");
     console.log("initDataTable ::: Initializing the DataTable");
 
-    oTable = $('#example').DataTable( {
+    oTable = $('#myDataTable').DataTable( {
+    "select": true,
+    "select": {
+            "style": 'single'
+    },
         // test
     "searching": true,
     "info": true,
     // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
     "mark": true,
-    "select": {
-            "style": 'single'
-        },
     "processing": true,
     //"serverSide": true, // might conflict with .search in datatable
     "ajax": "inc/getAllNotes.php",
@@ -800,11 +860,11 @@ function selectAndMarkTableRow(currentRow)
     console.log("selectAndMarkTableRow ::: Selecting and marking the row: "+currentRow);
 
     // click the record to load the data to UI
-    //$("#example tbody tr:eq("+currentRow+")").click();
-    $("#example tbody td:eq("+currentRow+")").click();
+    //$("#myDataTable tbody tr:eq("+currentRow+")").click();
+    $("#myDataTable tbody td:eq("+currentRow+")").click();
 
     // change background as well (mark as selected)
-    $("#example tbody tr:eq("+currentRow+")").addClass("row_selected");
+    $("#myDataTable tbody tr:eq("+currentRow+")").addClass("row_selected");
 
     console.debug("selectAndMarkTableRow ::: Stop");
 }
@@ -919,7 +979,7 @@ function onReady()
 
 
 
-    $('#example tbody').on( 'click', 'tr', function ()
+    $('#myDataTable tbody').on( 'click', 'tr', function ()
     {
         console.error("-----------------");
         if ( $(this).hasClass('selected') )
@@ -939,7 +999,7 @@ function onReady()
 
 
     // DataTable: add a click handler to the rows (<tr>)
-    $('#example tbody').on('click', 'tr', function ()
+    $('#myDataTable tbody').on('click', 'tr', function ()
     {
         console.log("onReady ::: clicked a record row <tr>");
 
@@ -1042,7 +1102,7 @@ function onReady()
         //curRow =sData[1];
 
         // get all currently visible rows
-        //var filteredrows = $("#example").DataTable()._("tr", {"filter": "applied"});
+        //var filteredrows = $("#myDataTable").DataTable()._("tr", {"filter": "applied"});
 
         // go over all rows and get selected row
         /*
@@ -1247,11 +1307,11 @@ function onReady()
 
             case 1: // there is one record in selection after processing search
                 console.log("Got 1 result");
-                //$("#example tbody tr:eq(0)").click(); // select the only record left after search
-                $("#example tbody td:eq(0)").click(); // select the only record left after search
+                //$("#myDataTable tbody tr:eq(0)").click(); // select the only record left after search
+                $("#myDataTable tbody td:eq(0)").click(); // select the only record left after search
 
                 console.log("Mark/Highlight the current record");
-                $("#example tbody tr:eq(0)").addClass("row_selected"); // change background as well
+                $("#myDataTable tbody tr:eq(0)").addClass("row_selected"); // change background as well
 
                 CKEDITOR.config.readOnly = false; // enable the editor
                 break;
@@ -1261,7 +1321,7 @@ function onReady()
                 console.log("onReady ::: Got > 1 result");
 
                 // check if there is already one note selected or not
-                var table = $("#example").DataTable();
+                var table = $("#myDataTable").DataTable();
                 if (table.rows( '.row_selected' ).any() )
                 {
                     console.log("onReady ::: > 1 result BUT 1 is selected");

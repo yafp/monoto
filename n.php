@@ -18,6 +18,11 @@
     <!-- note specific functios -->
     <script type="text/javascript" src="js/monoto/notes.js"></script>
 
+
+    <script type="text/javascript" src="js/datatables/Select-1.2.6/js/dataTables.select.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/datatables/Select-1.2.6/css/select.dataTables.min.css" title="default" />
+
+
     <!-- -->
     <script type="text/javascript">
 
@@ -109,7 +114,7 @@
                     <!-- DataTable -->
                     <div class="row">
                         <div class="col-sm-10">
-                            <table id="example" class="display" style="width:100%">
+                            <table id="myDataTable" class="display" style="width:100%">
                                 <tbody>
                                 </tbody>
                             </table>

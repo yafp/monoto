@@ -26,7 +26,7 @@ if( ( $_SESSION[ 'monoto' ][ 'valid' ] != 1 ) || ( $_SESSION[ 'monoto' ][ 'admin
     <!-- DataTable -->
     <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-        $('#example').DataTable( {
+        $('#myDataTable').DataTable( {
             "bSort": false, // dont sort - trust the sql-select and its sort-order
             "sPaginationType": "full_numbers",
             "iDisplayLength" : 25,
@@ -94,7 +94,7 @@ if( ( $_SESSION[ 'monoto' ][ 'valid' ] != 1 ) || ( $_SESSION[ 'monoto' ][ 'admin
 
                     <!-- Users -->
                     <h3><i class="fas fa-users"></i> <?php echo translateString("Users"); ?></h3>
-                    <table cellpadding="0" cellspacing="0" class="display" id="example" style="width: 100%">
+                    <table cellpadding="0" cellspacing="0" class="display" id="myDataTable" style="width: 100%">
                         <thead><tr><th>id</th><th><?php echo translateString("username"); ?></th><th><?php echo translateString("Notes"); ?></th><th><?php echo translateString("logins"); ?></th><th>current failed logins</th><th><?php echo translateString("mail"); ?></th><th>admin</th><th><?php echo translateString("comment"); ?></th></tr></thead>
                         <tbody>
                             <?php
