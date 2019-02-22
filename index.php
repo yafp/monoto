@@ -30,17 +30,22 @@ if ( isset( $_SESSION[ 'monoto' ][ 'valid' ] ) )
         <!-- username -->
         <label for="username" class="sr-only">username</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="Username" autocomplete="username" required autofocus>
+        <!-- /username -->
 
         <!-- Password -->
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" name="password" autocomplete="new-password" class="form-control" placeholder="Password" required>
+        <!-- /Password -->
 
-        <!-- button -->
+        <!-- button login -->
         <button class="btn btn-lg btn-primary btn-block" name="doLogin" id="doLogin" type="submit">Login</button>
+        <!-- /button login -->
 
         <!-- FOOTER -->
         <p class="mt-5 mb-3 text-muted"><?php require 'inc/footer.php'; ?></p>
+        <!-- /FOOTER -->
     </form>
+    <!-- /form -->
 </body>
 
 
@@ -49,9 +54,8 @@ if ( isset( $_SESSION[ 'monoto' ][ 'valid' ] ) )
 //
 // try to login
 //
-if ( isset( $_POST[ "doLogin" ] ) )
+if ( isset ( $_POST[ "doLogin" ] ) )
 {
-    //var_dump($_POST);
     $con = connectToDB();
 
     // input validation and sanitize post/get values

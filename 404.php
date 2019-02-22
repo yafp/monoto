@@ -21,31 +21,33 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
+    <!-- container theme-->
     <div class="container theme-showcase" role="main">
+
+        <!-- container -->
         <div id="container">
-            <div id="noteContentCo">
+            <h3><i class="fas fa-exclamation-triangle"></i> <?php echo translateString("Error"); ?> 404</h3>
 
-                <h3><i class="fas fa-exclamation-triangle"></i> <?php echo translateString("Error"); ?> 404</h3>
+            <!-- error image -->
+            <div class="text-center">
+                <img src="images/404/error.gif">
+            </div>
+            <!-- /error image -->
 
-                <!-- error image -->
-                <div class="text-center">
-                    <img src="images/content/error.gif">
-                </div>
+            <br>
 
-                <br>
-
-                <div class="alert alert-info" role="alert">
-                    <?php echo translateString("Click the logo in the header to continue"); ?>
-                </div>
-
+            <div class="alert alert-info" role="alert">
+                <?php echo translateString("Click the logo in the header to continue"); ?>
             </div>
         </div>
+        <!-- /container -->
 
         <!-- footer -->
         <?php require 'inc/footer.php'; ?>
+        <!-- /footer -->
 
-    </div> <!-- /container -->
+    </div>
+    <!-- /container theme -->
 
 </body>
 </html>

@@ -27,19 +27,6 @@ function displayNoty($notyText, $notyType)
 
 
 // -----------------------------------------------------------------------------
-// Update the cookie text (via javascript)
-// -----------------------------------------------------------------------------
-function updateCookie($message)
-{
-    writeToConsoleLog("updateCookie ::: Trying to update the cookie with value : _".$message."_.");
-
-    echo "<script>$.cookie('lastAction', '".$message."');</script>";
-
-    writeToConsoleLog("updateCookie ::: Finished updating the cookie.");
-}
-
-
-// -----------------------------------------------------------------------------
 // Write to JavaScript console (via javascript)
 // -----------------------------------------------------------------------------
 function writeToConsoleLog( $message )

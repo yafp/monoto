@@ -13,11 +13,15 @@
 
     <!-- Navigation -->
     <?php include 'inc/navigation.php'; ?>
+    <!-- /Navigation -->
 
-    <!-- Page Content -->
+    <!-- container theme -->
     <div class="container theme-showcase" role="main">
+        <!-- container -->
         <div id="container">
             <h3><?php echo translateString("notes-page"); ?></h3>
+
+            <!-- table -->
             <table class="tableWithBorders" style="width:100%">
                 <tr><th width="25%"><?php echo translateString("Key"); ?></th><th><?php echo translateString("Function"); ?></th></tr>
                 <tr><td><div class="key special"><span>ESC</span></div></td><td><?php echo translateString("Resets all input fields and sets focus to search"); ?></td></tr>
@@ -30,11 +34,15 @@
                 <tr><td><div class="key special"><span><i class="fas fa-arrow-up"></i></span></div> <?php echo translateString("(in search)"); ?></td><td><?php echo translateString("Selects the last record"); ?></td></tr>
                 <tr><td><div class="key special"><span><i class="fas fa-arrow-up"></i></span></div> <?php echo translateString("(with selected note)"); ?></td><td><?php echo translateString("Selects the previous record"); ?></td></tr>
             </table>
+            <!-- /table -->
 
             <!-- footer -->
             <?php require 'inc/footer.php'; ?>
+            <!-- /footer -->
 
         </div>
+        <!-- /container -->
     </div>
+    <!-- /container theme -->
 </body>
 </html>

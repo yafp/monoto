@@ -23,7 +23,6 @@
 
     var currentRow = -1; // fill var for ugly row-selection hack with a default value
     var oTable;
-    //var giRedraw = false;
 
     $(document).ready(function()
     {
@@ -38,7 +37,6 @@
     <!-- Navigation -->
     <?php include 'inc/navigation.php'; ?>
 
-
     <!-- Page Content -->
     <div class="container theme-showcase" role="main">
         <div id="container">
@@ -46,14 +44,16 @@
             <!-- content-->
             <div id="content">
 
+                <!-- show notice in case of development releases / versions -->
                 <?php
-                // display if it is not a stable/official release
                 if($m_release == false )
                 {
-                    echo '<div class="alert alert-warning" role="alert">This is a <strong>development release</strong>, please don\'t use for production environment.</div>';
+                    echo '<div class="alert alert-warning" role="alert"><strong><i class="fas fa-exclamation-circle"></i> Notice:</strong><br>This is a development release, please don\'t use for production environment.</div>';
                 }
                 ?>
+                <!-- /End devel notice -->
 
+                <!-- form -->
                 <form name="myform" method="post" action="n.php">
 
                     <!-- search -->
@@ -79,6 +79,7 @@
 
                         </div>
                     </div>
+                    <!-- /search -->
 
                     <!-- new note title -->
                     <div class="row">
@@ -91,6 +92,7 @@
                             <button type="button" class="btn btn-sm btn-success buttonNotes" style="display:none;" data-toggle="tooltip" title="" name="bt_createNewNote" id="bt_createNewNote" onClick="createNewNote()" disabled="disabled"><i class="fas fa-edit"></i> <?php echo translateString("create");?></button>
                         </div>
                     </div>
+                    <!-- /new note title -->
 
                     <!-- ckeditor -->
                     <div class="row">
@@ -100,33 +102,39 @@
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-sm btn-warning buttonNotes" style="display:none;" data-toggle="tooltip" title="" id="bt_cancelNewNote" name="bt_cancelNewNote" onClick="resetNotesUI()" disabled="disabled"><i class="fas fa-undo"></i> <?php echo translateString("cancel");?></button>
                             <button type="button" class="btn btn-sm btn-danger buttonNotes" style="display:none;" data-toggle="tooltip" title="" name="bt_deleteNote" id="bt_deleteNote" onClick="deleteNote();" disabled="disabled"><i class="fas fa-trash-alt"></i> <?php echo translateString("delete");?></button>
+                        </div>
                     </div>
-                </div>
+                    <!-- /ckeditor -->
 
-                <!-- DataTable -->
-                <div class="row">
-                    <div class="col-sm-10">
-                        <table id="example" class="display" style="width:100%">
-                            <tbody>
-                            </tbody>
-                        </table>
-
-                        <!-- /DataTable -->
+                    <!-- DataTable -->
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <table id="example" class="display" style="width:100%">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-2">
+                            &nbsp;
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        &nbsp;
-                    </div>
-                </div>
-            </form>
+                    <!-- /DataTable -->
 
-            <!-- footer -->
-            <?php require 'inc/footer.php'; ?>
+                </form>
+                <!-- /Form -->
 
-        </div> <!-- /content -->
+                <!-- footer -->
+                <?php require 'inc/footer.php'; ?>
+                <!-- /footer -->
 
-    </div> <!-- /container -->
-</div>
+            </div>
+            <!-- /content -->
 
-<script type="text/javascript" src="js/monoto/notesKeyPress.js"></script>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /container theme -->
+
+    <script type="text/javascript" src="js/monoto/notesKeyPress.js"></script>
 </body>
 </html>

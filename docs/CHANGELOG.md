@@ -53,11 +53,14 @@
     * [#282] Show password strength
 * Keyboard
     * [#283] Keyboard-look - pimp page with css
+* Setup
+    * [#285] Improve password validation
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation
   * [#276] Navigation: Moved to external file
   * [#280] PHP/Session: Using sub-array for Session variables
+  * [#284] Added .htaccess for some important folders
 
 
 ###  ```Removed```

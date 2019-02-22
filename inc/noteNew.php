@@ -53,7 +53,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )	// check if the user-session is val
         $sql="INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
         $result = mysqli_query($con, $sql);
 
-        return(true);
+        return ( true );
     }
     mysqli_close( $con );	// close sql connection
 }
