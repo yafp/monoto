@@ -1,3 +1,4 @@
+/* CSS file for monoto setup */
 
 header {
   padding: 54px 0 10px;
@@ -10,4 +11,20 @@ h1 {
 
 h2 {
     font-size: 30px !important;
+}
+
+input {
+    padding:2px;
+    color:gray;
+}
+
+#changePassword {
+    margin:10px;
+}
+
+#passstrength {
+    color:red;
+    font-family:verdana;
+    font-size:10px;
+    font-weight:bold;
 }

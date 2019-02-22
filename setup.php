@@ -6,6 +6,20 @@
     <!-- specific -->
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="css/monoto/setup.css">
+
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready( function ()
+    {
+        // #281
+        // compare input in password fields
+        // and enable or disable the 'update password' button
+        $('#newPassword, #newPasswordConfirm').on('keyup', function ()
+        {
+            validatePasswordChangeInput();
+        });
+
+    } );
+    </script>
 </head>
 
 <body role="document">
@@ -17,6 +31,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!--
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -27,14 +42,17 @@
                     </li>
                 </ul>
             </div>
+            -->
         </div>
     </nav>
 
     <!-- welcome foo -->
     <header class="bg-primary text-white">
         <div class="container text-center">
-            <h1>Welcome to monoto</h1>
+            <h1>monoto installer</h1>
+            <!--
             <p class="lead">This is a simple install script to get you started.</p>
+            -->
         </div>
     </header>
 
@@ -64,6 +82,7 @@
                     <h2><i class="fas fa-user-circle fa-2x"></i> Account</h2>
                     <p class="lead">As final step you can create your initial admin account</p>
                     <form name="login" action="setup.php" method="post" enctype="multipart/form-data">
+
                         <!-- Username -->
                         <div class="row">
                             <div class="col">
@@ -75,7 +94,11 @@
                             <div class="col">
                                 <small>(max. 64 chars)</small>
                             </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
                         </div>
+                        <!-- /username -->
 
                         <!-- Mail -->
                         <div class="row">
@@ -83,12 +106,17 @@
                                 <label for="email">Email</label>
                             </div>
                             <div class="col">
-                                <input type="email" name="email" placeholder="Email" required="required" autocomplete="email" />
+                                <input type="email" name="email" placeholder="foo@bar.com" required="required" autocomplete="email" />
                             </div>
                             <div class="col">
                                 &nbsp;
                             </div>
+                            <div class="col">
+                                &nbsp;
+                            </div>
+
                         </div>
+                        <!-- /Mail -->
 
                         <!-- Password  -->
                         <div class="row">
@@ -96,12 +124,17 @@
                                 Password
                             </div>
                             <div class="col">
-                                <input type="password" name="password" placeholder="Password" required="required" autocomplete="off" />
+                                <input type="password" id="newPassword" name="newPassword" placeholder="Password" required="required" pattern=".{8,}" autocomplete="off" onkeyup="passwordStrength()" />
                             </div>
                             <div class="col">
-                                <small>(desired password)</small>
+                                <small>(min 8 characters)</small>
                             </div>
+                            <div class="col">
+                                <span id="passstrength"></span>
+                            </div>
+
                         </div>
+                        <!-- /Password -->
 
                         <!-- Password confirm -->
                         <div class="row">
@@ -109,17 +142,21 @@
                                 Password
                             </div>
                             <div class="col">
-                                <input type="password" name="password_confirm" placeholder="Password" required="required" autocomplete="off" />
+                                <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" placeholder="Password" required="required" pattern=".{8,}" autocomplete="off" />
                             </div>
                             <div class="col">
-                                <small>(again the desired password)</small>
+                                <small>(confirm password)</small>
+                            </div>
+                            <div class="col">
+                                <span id="passwordDiff"></span>
                             </div>
                         </div>
+                        <!-- /password confirm -->
 
                         <!-- Submit -->
                         <div class="row">
                             <div class="col">
-                                <input type="submit" class="btn btn-primary" value="Create" name="doCreateAdminAccount"  />
+                                <input type="submit" class="btn btn-primary" value="Create" id="bt_continue" name="bt_continue"  disabled=disabled />
                             </div>
                             <div class="col">
                                 &nbsp;
@@ -128,6 +165,7 @@
                                 &nbsp;
                             </div>
                         </div>
+                        <!-- /Submit -->
                     </form>
                 </div>
             </div>
@@ -137,21 +175,19 @@
     <!-- spacer -->
     <div class="row">&nbsp;</div>
 
-    <!-- warning -->
+    <!-- warning to delete setup.php-->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <div class="alert alert-danger"><strong>Warning:</strong> &nbsp;Please delete <i>setup.php</i> after finishing the install procedure. It is a risk to keep that file.</div>
+                <div class="alert alert-danger"><strong><i class="fas fa-skull-crossbones"></i> Warning:</strong><br>Please delete <i>setup.php</i> after finishing the install procedure. It is a major risk to keep that file.</div>
             </div>
         </div>
     </div>
-
 
     <!-- Footer -->
     <div class="container">
             <p class="m-0 text-center text-white"><?php require 'inc/footer.php'; ?></p>
     </div>
-
 
     <!-- Plugin JavaScript -->
     <script src="js/setup/jquery.easing.min.js"></script>
@@ -168,7 +204,7 @@
 if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
 {
     // creating the initial admin-account
-    if ( isset( $_POST[ "doCreateAdminAccount" ] ) )
+    if ( isset( $_POST[ "bt_continue" ] ) )
     {
         $con = connectToDB();
 
@@ -181,8 +217,6 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
             $email= filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
             $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
             $password_confirm= filter_input(INPUT_POST, "password_confirm", FILTER_SANITIZE_STRING);
-
-            //$username = mysqli_real_escape_string($con, $username);
 
             // compare passwords
             if($password == $password_confirm) // both passwords do match
