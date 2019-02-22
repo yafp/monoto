@@ -1,16 +1,13 @@
-/*
- * Result- and filter result count in gray
- */
+/* CSS file for datatables in monoto */
+
+/* Result- and filter result count in gray */
 .dataTables_info {
     width: 60%;
     float: left;
     color: gray !important;
 }
 
-
-/*
- * Selected row
- */
+/* DataTables: Selected row */
 table.display tr.even.row_selected td {
     background-color: #4489c9;
 }

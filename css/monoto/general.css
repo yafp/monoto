@@ -1,64 +1,55 @@
-body{}
+/* CSS file for all monoto files */
 
-    h1 {
-        display: block;
-        font-size: 2em;
-        margin: 0.67em 0;
-        font-weight: bold;
-        border-bottom: 1px solid lightgray;
-    }
+body{
 
-    h2 {
-        display: block;
-        font-size: 0.1em;
-        margin: 0.83em 0;
-        font-weight: bold;
-    }
+}
 
-    h3 {
-        display: block;
-        font-size: 1em;
-        /*
-        margin-top: 1.5em !important;
-        margin-bottom: 0.5em !important;
-        margin-left: 0;
-        margin-right: 0;
-        */
-        margin: 1.5em 0 0.5em 0 !important;
-        font-weight: bold;
-        border-bottom: 1px solid lightgray;
-    }
+h1 {
+    display: block;
+    font-size: 2em;
+    margin: 0.67em 0;
+    font-weight: bold;
+    border-bottom: 1px solid lightgray;
+}
 
+h2 {
+    display: block;
+    font-size: 0.1em;
+    margin: 0.83em 0;
+    font-weight: bold;
+}
 
-    /* DEFAULT TABLES WITH VISUAL BORDERS */
-    .tableWithBorders td {
-        border: 1px solid lightgray;
-        padding-left: 10px;
-    }
-    .tableWithBorders th{
-        background-color: lightgray;
-        color: white;
-        padding-left: 10px;
-    }
+h3 {
+    display: block;
+    font-size: 1em;
+    /*
+    margin-top: 1.5em !important;
+    margin-bottom: 0.5em !important;
+    margin-left: 0;
+    margin-right: 0;
+    */
+    margin: 1.5em 0 0.5em 0 !important;
+    font-weight: bold;
+    border-bottom: 1px solid lightgray;
+}
 
 
-    /* BUTTONS */
-    /* Default buttons */
-    .buttonDefault {
-        width:180px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+/* BUTTONS */
+/* Default buttons */
+.buttonDefault {
+    width:180px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
+/* SUB-NAVIGATION TABS */
+.nav-tabs{
+    margin-top: 30px !important;
+}
 
-    /* SUB-NAVIGATION TABS */
-    .nav-tabs{
-        margin-top: 30px !important;
-    }
-
-    /* FOOTER */
-    #footer {
-        margin-top: 75px !important;
-        color: gray;
-        opacity: 1.0 !important;
-    }
+/* FOOTER */
+#footer {
+    margin-top: 75px !important;
+    color: gray;
+    opacity: 1.0 !important;
+}

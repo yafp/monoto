@@ -1,13 +1,15 @@
-body{}
+/* CSS file for monoto notes view */
 
 
+body{
+
+}
 
 /* Mark.JS - highlight search results in note titles */
 mark {
   padding: 0;
   background-color:Gold ;
 }
-
 
 /* SEARCH INPUT */
 #searchField{
@@ -39,8 +41,6 @@ mark {
     /* width:120px; */
     width:100%;
 }
-
-
 
 #editor1 {
     /*
