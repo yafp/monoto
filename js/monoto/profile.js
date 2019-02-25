@@ -1,6 +1,6 @@
-// -----------------------------------------------------------------------------
-// Ask the user if he reallys wants to delete all his events
-// -----------------------------------------------------------------------------
+/**
+ * @description Ask the user if he reallys wants to delete all his events
+ */
 function deleteAllMyUserEvents()
 {
     console.debug("deleteAllMyUserEvents ::: Start Delete-All-My-User-Events-Dialog.");
@@ -31,9 +31,9 @@ function deleteAllMyUserEvents()
 }
 
 
-// -----------------------------------------------------------------------------
-// Ask the user if he reallys wants to delete all his notes
-// -----------------------------------------------------------------------------
+/**
+ * @description Ask the user if he reallys wants to delete all his notes
+ */
 function deleteAllMyUserNotes()
 {
     console.debug("deleteAllMyUserNotes ::: Start Delete-All-My-User-Notes-Dialog.");

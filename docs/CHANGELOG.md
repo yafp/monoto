@@ -7,7 +7,6 @@
 * [#233] Implemented PHP7 compatibility
 * [#263] Added basic .htaccess to handle some common server errors with an error page
 * [#236] Added key-listener for ckeditor
-* [#256] Administration now shows used versions of the most relevant JS frameworks.
 * [#272] Added changelog to project
 * [#278] Switched to server processing. No more page reloads needed while working with notes.
 
@@ -55,6 +54,9 @@
     * [#283] Keyboard-look - pimp page with css
 * Setup
     * [#285] Improve password validation
+* Admin
+    * [#256] Administration now shows used versions of the most relevant JS frameworks.
+    * [#286] Show php version
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation

@@ -22,6 +22,10 @@
     * ```console.log```  for default informations (black)
     * ```console.warn```  for warnings (yellow)
     * ```console.error```  for errors (red)
+* Use ```jsdoc``` for function headers
+    * @description What the function does
+    * @param {string} parameterName - What the parameter is used for
+    * @returns {number}
 
 ## PHP
 * Consider [PHP Coding conventions](https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP)

@@ -3,7 +3,7 @@
 // Name:		footer.php
 // Function:	This file contains the footer.
 // -----------------------------------------------------------------------------
-    require 'config/build.php';
+require "config/build.php";
 
 ?>
 
@@ -11,14 +11,16 @@
 <hr>
 
 	<small>
-		<a href="https://github.com/yafp/monoto" title="visit monoto at github"><i class="fab fa-github"></i></a>
+		<a href="<?php echo $m_githubProjectLink; ?>" title="visit monoto at github"><i class="fab fa-github"></i></a>
 		&nbsp;<b><?php echo $m_name; ?></b>
         <br>
         Version: <?php echo $m_version; ?> (<?php echo $m_date; ?>)
         <br>
-        <a href="https://github.com/yafp/monoto/blob/master/docs/CHANGELOG.md">Changelog</a>
+        <a href="<?php echo $m_githubWikiLink; ?>">Documentation</a>
         &nbsp;/&nbsp;
-        <a href="https://github.com/yafp/monoto/wiki">Documentation</a>
+        <a href="<?php echo $m_githubChangelogLink; ?>">Changelog</a>
+        &nbsp;/&nbsp;
+        <a href="<?php echo $m_githubIssueLink; ?>">Issues</a>
 
 		<!--
 		<a href="pwreset.php" title="password reset"><i class="fas fa-key"></i></a>

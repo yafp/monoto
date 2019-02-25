@@ -1,15 +1,36 @@
-// -----------------------------------------------------------------------------
-// DISABLING the right click - used for the entire monoto userinterface
-// -----------------------------------------------------------------------------
-$(document).bind("contextmenu",function(e)
+/**
+ * @description executed on each page ready via inc/coreIncludesJS.php
+ */
+function onPageReady()
 {
-    return false;
-});
+    console.debug("onPageReady ::: Start");
+
+    // disable right click context menu
+    disableRightContextMenu();
+
+    // initialize the defaults for the Noty notifications
+    initNotyDefaults();
+
+    console.debug("onPageReady ::: End");
+}
 
 
-// -----------------------------------------------------------------------------
-// Calculates password strength
-// -----------------------------------------------------------------------------
+/**
+ * @description DISABLING the right click - used for the entire monoto userinterface
+ */
+function disableRightContextMenu()
+{
+    $(document).bind("contextmenu",function(e)
+    {
+        return false;
+    });
+}
+
+
+
+/**
+ * @description Calculates password strength
+ */
 function passwordStrength()
 {
     console.debug("passwordStrength ::: Start");
@@ -23,7 +44,7 @@ function passwordStrength()
     if (false === enoughRegex.test(curPasswordString)) // < 8 chars
     {
         console.log("passwordStrength ::: More characters");
-        $("#passstrength").html('More Characters');
+        $("#passstrength").html("More Characters");
     }
     else if (strongRegex.test(curPasswordString))
     {
@@ -50,9 +71,9 @@ function passwordStrength()
 }
 
 
-// -----------------------------------------------------------------------------
-// Compare password change fields and enable or disable the update button
-// -----------------------------------------------------------------------------
+/**
+ * @description Compare password change fields and enable or disable the update button
+ */
 function validatePasswordChangeInput()
 {
     console.debug("validatePasswordChangeInput ::: Started validating user input");
@@ -95,52 +116,55 @@ function validatePasswordChangeInput()
 }
 
 
-// -----------------------------------------------------------------------------
-// init noty notification
-// -----------------------------------------------------------------------------
-$.noty.defaults = {
-    layout: "topRight",
-    theme: "defaultTheme",
-    type: "alert",
-    text: "",
-    dismissQueue: true, // If you want to use queue feature set this true
-    template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-    animation:
-    {
-        open: {
-            //animation: 'animated fadeInRight', // ?
-            height: "toggle"
+/**
+ * @description init noty notification
+ */
+function initNotyDefaults()
+{
+    $.noty.defaults = {
+        layout: "topRight",
+        theme: "defaultTheme",
+        type: "alert",
+        text: "",
+        dismissQueue: true, // If you want to use queue feature set this true
+        template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+        animation:
+        {
+            open: {
+                //animation: 'animated fadeInRight', // ?
+                height: "toggle"
+            },
+            close: {
+                height: "toggle"
+            },
+            easing: "swing",
+            speed: 500 // opening & closing animation speed
         },
-        close: {
-            height: "toggle"
+        timeout: 5000, // delay for closing event. Set false for sticky notifications
+        force: false, // adds notification to the beginning of queue when set to true
+        modal: false,
+        closeWith: ["click"], // ['click', 'button', 'hover']
+        callback: {
+            /*
+            onShow: function() {},
+            afterShow: function() {},
+            onClose: function() {},
+            afterClose: function() {}
+            */
+
+            onShow() {},
+            afterShow() {},
+            onClose() {},
+            afterClose() {}
         },
-        easing: "swing",
-        speed: 500 // opening & closing animation speed
-    },
-    timeout: 5000, // delay for closing event. Set false for sticky notifications
-    force: false, // adds notification to the beginning of queue when set to true
-    modal: false,
-    closeWith: ["click"], // ['click', 'button', 'hover']
-    callback: {
-        /*
-        onShow: function() {},
-        afterShow: function() {},
-        onClose: function() {},
-        afterClose: function() {}
-        */
-
-        onShow() {},
-        afterShow() {},
-        onClose() {},
-        afterClose() {}
-    },
-    buttons: false // an array of buttons
-};
+        buttons: false // an array of buttons
+    };
+}
 
 
-// -----------------------------------------------------------------------------
-// Displays a noty logout dialog
-// -----------------------------------------------------------------------------
+/**
+ * @description Displays a noty logout dialog
+ */
 function showLogoutDialog()
 {
     console.debug("showLogoutDialog ::: Start Display-Logout-Dialog");
@@ -172,9 +196,11 @@ function showLogoutDialog()
 }
 
 
-// -----------------------------------------------------------------------------
-// Displays a noty notification
-// -----------------------------------------------------------------------------
+/**
+ * @description Displays a noty notification
+ * @param {string} text - The notification text
+ * @param {string} type - The notification type
+ */
 function createNoty(text, type)
 {
     //console.log("createNoty ::: Display a noty notification");

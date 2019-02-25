@@ -1,7 +1,6 @@
-// -----------------------------------------------------------------------------
-// UI: button "Save"
-// disables the save button
-// -----------------------------------------------------------------------------
+/**
+ * @description disables the save button (button "Save")
+ */
 function disableNoteSavingButton()
 {
     console.log("disableNoteSavingButton ::: Disabling save note button");
@@ -10,10 +9,9 @@ function disableNoteSavingButton()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: button "Save"
-// enables the save button if it has a title
-// -----------------------------------------------------------------------------
+/**
+ * @description enables the save button if it has a title (button "Save")
+ */
 function enableNoteSavingButton()
 {
     console.log("enableNoteSavingButton ::: Enabling save note button");
@@ -33,9 +31,9 @@ function enableNoteSavingButton()
 }
 
 
-// -----------------------------------------------------------------------------
-// DataTable: unselect/unmark all rows in table
-// -----------------------------------------------------------------------------
+/**
+ * @description unselect/unmark all rows in DataTable
+ */
 function unmarkAllTableRows()
 {
     console.log("unmarkAllTableRows ::: Removing the selected attribute from all table rows");
@@ -53,10 +51,10 @@ function unmarkAllTableRows()
 }
 
 
-// -----------------------------------------------------------------------------
-// DataTable:
-// Selects/clicks a single row from DataTable
-// -----------------------------------------------------------------------------
+/**
+ * @description Selects/clicks a single row from DataTable
+ * @param {string} rowNumber - the number of the selected row
+ */
 function selectSingleDataTableRow(rowNumber)
 {
     console.debug("selectSingleDataTableRow ::: Start");
@@ -71,9 +69,9 @@ function selectSingleDataTableRow(rowNumber)
 
 
 
-// -----------------------------------------------------------------------------
-// CKEditor: show the status of the editor
-// -----------------------------------------------------------------------------
+/**
+ * @description show the status of CKEditor
+ */
 function printCKEditorStatus()
 {
     console.debug("printCKEditorStatus ::: Start");
@@ -82,9 +80,9 @@ function printCKEditorStatus()
 }
 
 
-// -----------------------------------------------------------------------------
-// CKEditor: initialize Editor
-// -----------------------------------------------------------------------------
+/**
+ * @description initialize CKEditor
+ */
 function initCKEditor()
 {
     console.debug("initCKEditor ::: Start");
@@ -210,9 +208,9 @@ function initCKEditor()
 }
 
 
-// -----------------------------------------------------------------------------
-// CKEditor: handle editor height
-// -----------------------------------------------------------------------------
+/**
+ * @description handle CKEditor height
+ */
 function saveCKEditorHeightOnChange()
 {
     console.debug("saveCKEditorHeightOnChange ::: Start");
@@ -239,9 +237,9 @@ function saveCKEditorHeightOnChange()
 }
 
 
-// -----------------------------------------------------------------------------
-// CKEditor: enable READ-WRITE mode of the editor
-// -----------------------------------------------------------------------------
+/**
+ * @description enable READ-WRITE mode of CKEditor
+ */
 function enableCKEditorWriteMode()
 {
     console.debug("enableCKEditorWriteMode ::: Start");
@@ -258,9 +256,9 @@ function enableCKEditorWriteMode()
 }
 
 
-// -----------------------------------------------------------------------------
-// CKEditor: enable READ-ONLY mode of the editor
-// -----------------------------------------------------------------------------
+/**
+ * @description enable READ-ONLY mode of CKEditor
+ */
 function disableCKEditorWriteMode()
 {
     console.debug("disableCKEditorWriteMode ::: Start");
@@ -291,9 +289,9 @@ function disableCKEditorWriteMode()
 }
 
 
-// -----------------------------------------------------------------------------
-// CKEditor: resets the content of the editor
-// -----------------------------------------------------------------------------
+/**
+ * @description resets the content of CKEditor
+ */
 function resetCKEditor()
 {
     console.debug("resetCKEditor ::: Start");
@@ -312,9 +310,9 @@ function resetCKEditor()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: hide all buttons
-// -----------------------------------------------------------------------------
+/**
+ * @description: hide all buttons
+ */
 function hideAllButtons()
 {
     console.debug("hideAllButtons ::: Start");
@@ -332,10 +330,9 @@ function hideAllButtons()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: reset User-Interface
-// resets the entire notes user-interface back to default
-// -----------------------------------------------------------------------------
+/**
+ * @description: reset User-Interface (UI) back to defaults
+ */
 function resetNotesUI()
 {
     console.debug("resetNotesUI ::: Start");
@@ -399,10 +396,9 @@ function resetNotesUI()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: button: "new"
-// Prepars the User-Interface for the note creation process
-// -----------------------------------------------------------------------------
+/**
+ * @description Prepars the User-Interface for the note creation process
+ */
 function prepareNewNoteStepOne()
 {
     console.debug("prepareNewNoteStepOne ::: Start");
@@ -450,9 +446,9 @@ function prepareNewNoteStepOne()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: Triggered via "noteTitle" during "New Note creation"
-// -----------------------------------------------------------------------------
+/**
+ * @description Triggered via "noteTitle" during "New Note creation"
+ */
 function prepareNewNoteStepTwo()
 {
     console.debug("prepareNewNoteStepTwo ::: Start");
@@ -491,10 +487,31 @@ function prepareNewNoteStepTwo()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: button "create"
-// Prepare New Note creation Step 2
-// -----------------------------------------------------------------------------
+/**
+ * @description Redraw DataTable
+ */
+function reloadAllNotesFromDB()
+{
+    console.debug("reloadAllNotesFromDB ::: Start");
+
+    console.log("reloadAllNotesFromDB ::: Trying to load all user notes from server");
+
+    // destroy old datatable
+    $( "#myDataTable" ).DataTable().destroy();
+    $( "myDataTable" ).empty();
+
+    // re-init datatable
+    initDataTable();
+
+    console.log("reloadAllNotesFromDB ::: Finished loading all user notes from server");
+
+    console.debug("reloadAllNotesFromDB ::: Stop");
+}
+
+
+/**
+ * @description Prepare New Note creation Step 2 (button Creste)
+ */
 function createNewNote()
 {
     console.debug("createNewNote ::: Start");
@@ -535,7 +552,7 @@ function createNewNote()
 
         var jqxhr = $.post( "inc/noteNew.php", { newNoteTitle: newNoteTitle, newNoteContent : newNoteContent}, function()
         {
-            console.log("createNewNote ::: success creasting new note");
+            console.log("createNewNote ::: success creating new note");
         })
         .done(function()
         {
@@ -570,10 +587,9 @@ function createNewNote()
 
 
 
-// -----------------------------------------------------------------------------
-// UI: button "save"
-// used to store changes on an selected note
-// -----------------------------------------------------------------------------
+/**
+ * @description used to store changes on an selected note (button "save")
+ */
 function saveNote()
 {
     console.debug("saveNote ::: Start");
@@ -606,8 +622,6 @@ function saveNote()
         if((modifiedNoteID.length > 0) && (modifiedNoteID !== "ID"))
         {
             //$.post("inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-
-
 
             var jqxhr = $.post( "inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter}, function()
             {
@@ -684,14 +698,9 @@ function saveNote()
 
 
 
-
-
-
-
-// -----------------------------------------------------------------------------
-// UI: button "delete"
-// Used to delete a selected note
-// -----------------------------------------------------------------------------
+/**
+ * @description Used to delete a selected note (button "delete")
+ */
 function deleteNote()
 {
     console.debug("deleteNote ::: Start");
@@ -714,16 +723,40 @@ function deleteNote()
             buttons: [
                 {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
                     $noty.close();
-                    $.post("inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 
-                    // reload notes
-                    reloadAllNotesFromDB();
+                    //$.post("inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 
-                    // reset UI
-                    resetNotesUI();
+                    var jqxhr = $.post( "inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent}, function()
+                    {
+                        console.log("deleteNote ::: success deleting note");
+                    })
+                    .done(function()
+                    {
+                        console.log("deleteNote ::: done");
 
-                    // display noty
-                    createNoty("Deleted note <b>" + deleteTitle + "</b>.", "success");
+                        // reload notes
+                        reloadAllNotesFromDB();
+
+                        // reset UI
+                        resetNotesUI();
+
+                        // display noty
+                        createNoty("Deleted note <b>" + deleteTitle + "</b>.", "success");
+
+                    })
+                    .fail(function(jqxhr, textStatus, errorThrown)
+                    {
+                        alert("Deleting note failed.");
+
+                        console.error("FAIL");
+                        //console.log(jqxhr);
+                        //console.log(textStatus);
+                        //console.log(errorThrown);
+                    })
+                    .always(function()
+                    {
+                        // doing nothing so far
+                    });
                 }
             },
             {
@@ -733,7 +766,7 @@ function deleteNote()
                     createNoty("Aborted", "error");
 
                     // reload notes
-                    reloadAllNotesFromDB();
+                    //reloadAllNotesFromDB();
                 }
             }
             ]
@@ -759,9 +792,9 @@ function deleteNote()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: Reload all notes
-// -----------------------------------------------------------------------------
+/**
+ * @description Reload all notes
+ */
 function reloadCurrentPage()
 {
     console.debug("reloadCurrentPage ::: Start");
@@ -775,40 +808,19 @@ function reloadCurrentPage()
 }
 
 
-// -----------------------------------------------------------------------------
-// DataTable: Redraw table
-// -----------------------------------------------------------------------------
-function reloadAllNotesFromDB()
-{
-    console.debug("reloadAllNotesFromDB ::: Start");
 
-    console.log("reloadAllNotesFromDB ::: Trying to load all user notes from server");
-
-    // destroy old datatable
-    $( "#myDataTable" ).DataTable().destroy();
-    $( "myDataTable" ).empty();
-
-    // re-init datatable
-    initDataTable();
-
-    console.log("reloadAllNotesFromDB ::: Finished loading all user notes from server");
-
-    console.debug("reloadAllNotesFromDB ::: Stop");
-}
-
-
-// -----------------------------------------------------------------------------
-// DataTable: initialize Table
-// -----------------------------------------------------------------------------
+/**
+ * @description initialize DataTable
+ */
 function initDataTable()
 {
     console.debug("initDataTable ::: Start");
     console.log("initDataTable ::: Initializing the DataTable");
 
-    oTable = $('#myDataTable').DataTable( {
+    oTable = $("#myDataTable").DataTable( {
     "select": true,
     "select": {
-            "style": 'single'
+            "style": "single"
     },
         // test
     "searching": true,
@@ -850,9 +862,10 @@ function initDataTable()
 }
 
 
-// -----------------------------------------------------------------------------
-// DataTable: select and mark a single row in table
-// -----------------------------------------------------------------------------
+/**
+ * @description select and mark a single row in DataTable
+ * @param {string} currentRow - The row number
+ */
 function selectAndMarkTableRow(currentRow)
 {
     console.debug("selectAndMarkTableRow ::: Start");
@@ -870,9 +883,10 @@ function selectAndMarkTableRow(currentRow)
 }
 
 
-// -----------------------------------------------------------------------------
-// DataTable: update the current selected row
-// -----------------------------------------------------------------------------
+/**
+ * @description update the current selected row in DataTable
+ * @param {string} valueChange - the change
+ */
 function updateCurrentPosition(valueChange)
 {
     console.debug("updateCurrentPosition ::: Start");
@@ -883,7 +897,7 @@ function updateCurrentPosition(valueChange)
     console.log("------------------------------------");
 
     // count visible rows
-    amountOfRecordsAfterFilter = oTable.$('tr', {"filter":"applied"}).length;
+    amountOfRecordsAfterFilter = oTable.$("tr", {"filter":"applied"}).length;
     console.log("Visible records after search: "+amountOfRecordsAfterFilter);
 
     // if curSelectedTableRow is not yet defined - set a default value
@@ -921,9 +935,9 @@ function updateCurrentPosition(valueChange)
 }
 
 
-// -----------------------------------------------------------------------------
-// DataTable: select next row
-// -----------------------------------------------------------------------------
+/**
+ * @description select next row in DataTable
+ */
 function selectNextRow()
 {
     console.debug("selectNextRow ::: Start");
@@ -935,9 +949,9 @@ function selectNextRow()
 }
 
 
-// -----------------------------------------------------------------------------
-// DataTable: select the upper row
-// -----------------------------------------------------------------------------
+/**
+ * @description select the upper row in DataTable
+ */
 function selectUpperRow()
 {
     console.debug("selectUpperRow ::: Start");
@@ -949,9 +963,9 @@ function selectUpperRow()
 }
 
 
-// -----------------------------------------------------------------------------
-// UI: init the notes view
-// -----------------------------------------------------------------------------
+/**
+ * @description init the notes view
+ */
 function onReady()
 {
     console.debug("onReady ::: Start");
@@ -975,23 +989,19 @@ function onReady()
     initDataTable(); // initialize the DataTable
 
 
-
-
-
-
     $('#myDataTable tbody').on( 'click', 'tr', function ()
     {
         console.error("-----------------");
-        if ( $(this).hasClass('selected') )
+        if ( $(this).hasClass("selected") )
         {
             console.error("1");
-            $(this).removeClass('selected');
+            $(this).removeClass("selected");
         }
         else
         {
             console.error("2");
-            oTable.$('tr.selected').removeClass('selected');
-            $(this).addClass('row_selected');
+            oTable.$("tr.selected").removeClass("selected");
+            $(this).addClass("row_selected");
         }
         console.error("-----------------");
     } );
@@ -999,13 +1009,13 @@ function onReady()
 
 
     // DataTable: add a click handler to the rows (<tr>)
-    $('#myDataTable tbody').on('click', 'tr', function ()
+    $("#myDataTable tbody").on("click", "tr", function ()
     {
         console.log("onReady ::: clicked a record row <tr>");
 
         // count visible rows
         //amountOfRecordsAfterFilter = 0;
-        amountOfRecordsAfterFilter = oTable.$('tr', {"filter":"applied"}).length;
+        amountOfRecordsAfterFilter = oTable.$("tr", {"filter":"applied"}).length;
         console.log("onReady ::: Click Table row: Visible records after search: "+amountOfRecordsAfterFilter);
 
         // get ID of selected record
@@ -1014,7 +1024,7 @@ function onReady()
 
         // get IDs of all visible records
         console.log("onReady ::: Click Table row: Records IDs in selection:");
-        var foo = oTable.rows({filter: 'applied'});
+        var foo = oTable.rows({filter: "applied"});
         console.log(foo);
         for ( var i = 0; i < foo[0].length; i++ )
         {
@@ -1031,7 +1041,7 @@ function onReady()
 
     // Datatable: Add a click handler to the rows (<td>)
     //
-    $('.dataTable').on('click', 'tbody td', function(event)
+    $(".dataTable").on("click", "tbody td", function(event)
     {
         console.log("onReady ::: clicked a record cell <td>");
 
@@ -1041,9 +1051,8 @@ function onReady()
         // Add selected attribute to current row
         $(event.target.parentNode).addClass("row_selected");
 
-
         // get data from current record
-        var data = oTable.row( $(this).parents('tr') ).data();
+        var data = oTable.row( $(this).parents("tr") ).data();
         noteID = data[0];
         noteTitle = data[1];
         noteContent = data[2];
@@ -1267,7 +1276,7 @@ function onReady()
         //
         // get data from current record
         /*
-        var data = oTable.row( $(this).parents('tr') ).data();
+        var data = oTable.row( $(this).parents("tr") ).data();
         noteID = data[0];
         noteTitle = data[1];
         noteContent = data[2];
@@ -1322,9 +1331,9 @@ function onReady()
 
                 // check if there is already one note selected or not
                 var table = $("#myDataTable").DataTable();
-                if (table.rows( '.row_selected' ).any() )
+                if (table.rows( ".row_selected" ).any() )
                 {
-                    console.log("onReady ::: > 1 result BUT 1 is selected");
+        DataTable:             console.log("onReady ::: > 1 result BUT 1 is selected");
                     // one record is selected - editor should not be modified
                 }
                 else

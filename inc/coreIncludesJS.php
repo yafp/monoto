@@ -32,4 +32,11 @@
 
 
 <!-- # monoto ############################################################## -->
+<!-- -->
 <script type="text/javascript" language="javascript" src="js/monoto/universal.js"></script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        onPageReady();
+    });
+</script>

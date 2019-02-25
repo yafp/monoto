@@ -3,7 +3,9 @@
 // Name:		noteNew.php
 // Function:	used for new note creation from n.php
 // -----------------------------------------------------------------------------
-header('Content-type: text/xml');
+
+//header('Content-type: text/xml');
+header('Content-type: application/xml');
 
 session_start();
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )	// check if the user-session is valid or not

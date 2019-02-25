@@ -18,21 +18,18 @@
     <!-- note specific functios -->
     <script type="text/javascript" src="js/monoto/notes.js"></script>
 
-
+    <!-- FIXME DataTable Select tests--> 
     <script type="text/javascript" src="js/datatables/Select-1.2.6/js/dataTables.select.min.js"></script>
     <link rel="stylesheet" type="text/css" href="js/datatables/Select-1.2.6/css/select.dataTables.min.css" title="default" />
 
-
-    <!-- -->
+    <!-- init the page -->
     <script type="text/javascript">
-
-    var currentRow = -1; // fill var for ugly row-selection hack with a default value
-    var oTable;
-
-    $(document).ready(function()
-    {
-        onReady();
-    });
+        var currentRow = -1; // fill var for ugly row-selection hack with a default value
+        var oTable;
+        $(document).ready(function()
+        {
+            onReady();
+        });
     </script>
 </head>
 
