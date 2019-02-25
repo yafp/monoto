@@ -1,6 +1,8 @@
 <?php
-session_start();
-if( ( $_SESSION[ 'monoto' ][ 'valid' ] != 1 ) || ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) )    // check if the user-session is valid or not
+
+include 'inc/checkSession.php';
+
+if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is valid or not
 {
     header('Location: index.php');
 }
@@ -111,6 +113,16 @@ if( ( $_SESSION[ 'monoto' ][ 'valid' ] != 1 ) || ( $_SESSION[ 'monoto' ][ 'admin
                             ?>
                         </tbody>
                     </table>
+
+
+
+                    <!-- PHP -->
+                    <!-- #286 -->
+                    <h3><i class="fab fa-php"></i> <?php echo translateString("PHP"); ?></h3>
+                    <div class="form-group">
+                        <label for="libVersionJQuery">PHP Version</label>
+                        <input type="text" class="form-control" aria-describedby="jqueryHelp" placeholder="php version" value="<?php echo phpversion(); ?>" disabled>
+                    </div>
 
 
                     <!-- Libraries -->
