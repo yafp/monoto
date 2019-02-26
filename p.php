@@ -65,7 +65,7 @@
                     <?php
                     // get email for this account
                     $con = connectToDB();
-                    $sql="SELECT email FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username']."' "; // mail
+                    $sql = "SELECT email FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username']."' "; // mail
                     $result = mysqli_query($con, $sql);
                     while ( $row = mysqli_fetch_array ( $result) )
                     {
@@ -73,7 +73,7 @@
                     }
 
                     // get amounf of logins
-                    $sql="SELECT login_counter FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username' ]."' "; // login_counter
+                    $sql = "SELECT login_counter FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username' ]."' "; // login_counter
                     $result = mysqli_query($con, $sql);
                     while ( $row = mysqli_fetch_array ( $result ) )
                     {
@@ -81,7 +81,7 @@
                     }
 
                     // since:
-                    $sql="SELECT date_first_login FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username' ]."' "; // date first login
+                    $sql = "SELECT date_first_login FROM m_users WHERE username='".$_SESSION[ 'monoto' ][ 'username' ]."' "; // date first login
                     $result = mysqli_query($con, $sql);
                     while ( $row = mysqli_fetch_array ( $result ) )
                     {
@@ -574,7 +574,7 @@
                 $username = $_SESSION[ 'monoto' ][ 'username' ];
 
                 $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
-                if (!$con)
+                if ( !$con )
                 {
                     die('Could not connect: ' . mysqli_connect_error());
                 }
@@ -583,13 +583,13 @@
                 echo "Amount of files: " . $total;
 
                 // Loop through each file
-                for ( $i=0 ; $i < $total ; $i++ )
+                for ( $i=0; $i < $total; $i++ )
                 {
                     //Get the temp file path
                     $tmpFilePath = $_FILES['impFilesT']['tmp_name'][$i];
 
                     //Make sure we have a file path
-                    if ($tmpFilePath != "")
+                    if ( $tmpFilePath != "" )
                     {
                         // define insert vars
                         $newNoteTitle = $_FILES["impFilesT"]["name"][$i];
@@ -599,7 +599,7 @@
                         // check if the new title is in use already by this user - if so modify the title
                         $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
                         $result = mysqli_query($con, $sql);
-                        if(mysqli_num_rows($result)>0)
+                        if( mysqli_num_rows ( $result ) > 0 )
                         {
                             // adjust Title
                             $current_timestamp = date('Ymd-his');
@@ -607,9 +607,9 @@
                         }
 
                         // do create note and do log it - aka: insert into m_notes
-                        $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
+                        $sql = "INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
                         $result = mysqli_query($con, $sql);
-                        if (!$result)
+                        if ( !$result )
                         {
                             die('Error: ' . mysqli_connect_error()); // display error output
                         }
@@ -636,7 +636,7 @@
             // -----------------------------------------------------------------------
             // doImportCSV (START)
             // -----------------------------------------------------------------------
-            if ( isset($_POST[ "doImportCSV" ] ) )
+            if ( isset( $_POST[ "doImportCSV" ] ) )
             {
                 ?>
 
@@ -647,10 +647,10 @@
 
                 <?php
 
-                if (is_uploaded_file($_FILES['impFile']['tmp_name']))
+                if ( is_uploaded_file($_FILES['impFile']['tmp_name']))
                 {
                     $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
-                    if (!$con)
+                    if ( !$con )
                     {
                         die('Could not connect: ' . mysqli_connect_error());
                     }
@@ -682,7 +682,7 @@
                             // check if the new title is in use already by this user
                             $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
                             $result = mysqli_query($con, $sql);
-                            if(mysqli_num_rows($result)>0)
+                            if ( mysqli_num_rows($result) > 0 )
                             {
                                 // adjust Title
                                 $current_timestamp = date('Ymd-his');
@@ -690,9 +690,9 @@
                             }
 
                             // create single note
-                            $sql="INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
+                            $sql = "INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
                             $result = mysqli_query($con, $sql);
-                            if (!$result)
+                            if ( !$result )
                             {
                                 die('Error: ' . mysqli_connect_error()); // display error output
                             }
