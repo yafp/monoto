@@ -1,10 +1,6 @@
 /* CSS file for monoto notes view */
 
 
-body{
-
-}
-
 /* Mark.JS - highlight search results in note titles */
 mark {
   padding: 0;
@@ -42,13 +38,6 @@ mark {
     width:100%;
 }
 
-#editor1 {
-    /*
-    background-image: url("../../images/logo/monotoLogoBlack.png") !important;
-	background-repeat: repeat-x;
-	background-attachment: local !important;
-    */
-}
 
 /* CKEditor */
 .ck-editor__editable {

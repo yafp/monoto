@@ -1,21 +1,4 @@
 /**
- * @description executed on each page ready via inc/coreIncludesJS.php
- */
-function onPageReady()
-{
-    console.debug("onPageReady ::: Start");
-
-    // disable right click context menu
-    disableRightContextMenu();
-
-    // initialize the defaults for the Noty notifications
-    initNotyDefaults();
-
-    console.debug("onPageReady ::: End");
-}
-
-
-/**
  * @description DISABLING the right click - used for the entire monoto userinterface
  */
 function disableRightContextMenu()
@@ -25,7 +8,6 @@ function disableRightContextMenu()
         return false;
     });
 }
-
 
 
 /**
@@ -99,7 +81,7 @@ function validatePasswordChangeInput()
             $("#bt_continue").prop("disabled",true);
             // update status icon
             $("#passwordDiff").text("");
-            $("#passwordDiff").append('<i class="far fa-frown"></i>');
+            $("#passwordDiff").append("<i class='far fa-frown'></i>");
         }
     }
     else
@@ -109,7 +91,7 @@ function validatePasswordChangeInput()
         $("#bt_continue").prop("disabled",true);
         // update status icon
         $("#passwordDiff").text("");
-        $("#passwordDiff").append('<i class="far fa-frown"></i>');
+        $("#passwordDiff").append("<i class='far fa-frown'></i>");
     }
 
     console.debug("validatePasswordChangeInput ::: Finished validating user input");
@@ -214,4 +196,21 @@ function createNoty(text, type)
 	// notification
 	// success
     var n = noty({text: text, type: type});
+}
+
+
+/**
+ * @description executed on each page ready via inc/coreIncludesJS.php
+ */
+function onPageReady()
+{
+    console.debug("onPageReady ::: Start");
+
+    // disable right click context menu
+    disableRightContextMenu();
+
+    // initialize the defaults for the Noty notifications
+    initNotyDefaults();
+
+    console.debug("onPageReady ::: End");
 }

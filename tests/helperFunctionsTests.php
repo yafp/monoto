@@ -3,9 +3,9 @@
 /**
  * Tests
  * Playground for unit tests
+ * @version 0.1
  * @see https://github.com/yafp/monoto
  * @link https://github.com/yafp/monoto
- * @version 0.1
  */
 class Test extends phpUnitFrameworkTestCase
 {

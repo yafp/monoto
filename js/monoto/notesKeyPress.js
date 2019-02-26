@@ -1,6 +1,6 @@
-// -----------------------------------------------------------------------------
-// KeyPresses: genereal key press handler for notes
-// -----------------------------------------------------------------------------
+/**
+ * @description KeyPresses: genereal key press handler for notes
+ */
 document.onkeyup = KeyCheck;
 function KeyCheck(e)
 {

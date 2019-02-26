@@ -583,7 +583,7 @@
                 echo "Amount of files: " . $total;
 
                 // Loop through each file
-                for( $i=0 ; $i < $total ; $i++ )
+                for ( $i=0 ; $i < $total ; $i++ )
                 {
                     //Get the temp file path
                     $tmpFilePath = $_FILES['impFilesT']['tmp_name'][$i];
@@ -660,7 +660,8 @@
                     $target_file = $target_dir . basename($_FILES["impFile"]["tmp_name"]);
                     $uploadOk = 1;
 
-                    if(($handle = fopen($_FILES['impFile']['tmp_name'], 'r')) !== FALSE)         // read linewise and import if note doesnt exist already
+                    // read linewise and import if note doesnt exist already
+                    if(($handle = fopen($_FILES["impFile"]["tmp_name"], "r")) !== FALSE)
                     {
                         echo "<hr>";
                         set_time_limit(0);
