@@ -1,9 +1,10 @@
 <?php
-// -----------------------------------------------------------------------------
-// Name:		db.php
-// Function:	connect to a mySQL database
-// -----------------------------------------------------------------------------
-
+/**
+ * Connects to a mysql database
+ *
+ * @author yafp
+ * @return the connection variable $con
+ */
 function connectToDB()
 {
 	require 'config/config.php';
@@ -15,10 +16,10 @@ function connectToDB()
         echo "Error: Unable to connect to MySQL." . PHP_EOL;
     	echo "ErrNo: " . mysqli_connect_errno() . PHP_EOL;
     	echo "Error: " . mysqli_connect_error() . PHP_EOL;
+		return;
     }
-    else // connection worked
-    {
-        return $con;
-    }
+
+	// connection worked
+	return $con;
 }
 ?>

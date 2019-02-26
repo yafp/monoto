@@ -993,59 +993,12 @@ function onClickDataTableCell(data)
     // enable note title field
     $("#noteTitle").prop("disabled",false);
 
-    /*
-    console.log(oTable.row( this ).index());
-    console.log(oTable.row( this ));
-    console.log(event.target.parentNode);
-    */
-
-
-    // Get position of current data
-    //var sData = oTable.fnGetData( this );
-    //var aPos = oTable.fnGetPosition(this);
-
-    // Get data array for this row
-    //var aData = oTable.fnGetData( aPos[1] );
-    //
-    //var curRow =sData[0];
-    //var rowCount = oTable.fnSettings().fnRecordsTotal();
-    //currentRow = rowCount - curRow -1;
-
-    // get amount of records after filter
-    //var amountOfRecordsAfterFilter = oTable.fnSettings().fnRecordsDisplay();
-
-    /*
-    console.log("++++++++++++++++++++++++++");
-    var amountOfRecordsAfterFilter = oTable.$('tr', {"search":"applied"}).length;
-    console.log("++++++++++++++++++++++++++");
-    console.log(amountOfRecordsAfterFilter);
-    */
-
-
-    //curRow =sData[1];
-
-    // get all currently visible rows
-    //var filteredrows = $("#myDataTable").DataTable()._("tr", {"filter": "applied"});
-
-    // go over all rows and get selected row
-    /*
-    for ( var i = 0; i < filteredrows.length; i++ )
-    {
-        if(filteredrows[i][1]=== curRow)
-        {
-            curSelectedTableRow = i;
-            console.log("onReady ::: Clicked row: "+curSelectedTableRow);
-        }
-    }
-    */
-
     console.log("onClickDataTableCell ::: Updating notes UI with note ID: "+noteID+ " and title: '"+noteTitle+"'.");
 
     // update UI
     $("#noteID").val(noteID);   // fill id field
     $("#noteTitle").val(noteTitle); // fill title field
     $("#noteVersion").val(noteSaveCount); // fill version -  is hidden
-
 
     // set focus to search
     $("#searchField").focus(); // as arrow up/down needs focus to work
@@ -1324,10 +1277,6 @@ function onReady()
         // search the table
         //
         console.log("onReady ::: Keypress in search field - Searching table for: " + $(this).val());
-        // for dataTable
-        //oTable.fnFilter( $(this).val() );
-        //
-        // for DataTable
         oTable.search( $(this).val() ).draw();
 
         // count visible rows
@@ -1339,9 +1288,6 @@ function onReady()
         // - reset ckeditor
         // - hide delete button
         onFilterDataTable(amountOfRecordsAfterFilter);
-
-
-
 
         // finished reacting on results after filtering
     });

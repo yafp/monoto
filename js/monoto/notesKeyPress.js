@@ -1,7 +1,10 @@
+document.onkeyup = KeyCheck;
+
+
 /**
  * @description KeyPresses: genereal key press handler for notes
+ * @param {event} e - Event / Key
  */
-document.onkeyup = KeyCheck;
 function KeyCheck(e)
 {
     var KeyID = (window.event) ? event.keyCode : e.keyCode;

@@ -2,14 +2,29 @@
 ==========
 
 # Structure
-* config/           Contains config files for MySQL DB & Version informations
-* css/              Contains all css files
-* docs/             Contains the documentation
-* images/           Contains the images (logo)
-* inc/              Contains all includes php files
-* js/               Contains all Javascripts
-* locale/           Contains translations
-* tests/            Contains PHPUnit tests
+* config/
+> Contains config files for MySQL DB & Version informations
+
+* css/
+> Contains all css files
+
+* docs/
+> Contains the documentation
+
+* images/
+> Contains the images (logo)
+
+* inc/
+> Contains all includes php files
+
+* js/
+> Contains all Javascripts (monoto and 3rd party)
+
+* locale/
+> Contains the translations
+
+* tests/
+> Contains PHPUnit tests
 
 
 # Coding conventions
@@ -29,3 +44,4 @@
 
 ## PHP
 * Consider [PHP Coding conventions](https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP)
+* Use ```phpDocumentor``` for function headers
