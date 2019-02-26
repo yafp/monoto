@@ -12,7 +12,11 @@
 	],
 	"license": "GPL3",
 	"dependencies": {
-		"jquery": ">=1.7"
+        "bootstrap": ">=4.2.1",
+        "ckeditor": ">=4.11.2",
+        "DataTables": ">=1.10.18",
+        "jquery": ">=3.3.0",
+        "noty": ">=2.4.1"
 	},
 	"author": {
 		"name": "Florian Poeck",
