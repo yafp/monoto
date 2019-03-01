@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monotoLogoBlack.png) credits
+![logo](https://raw.githubusercontent.com/yafp/monoto/master/www/images/logo/monotoLogoBlack.png) credits
 ==========
 
 # Code

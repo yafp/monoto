@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monotoLogoBlack.png) changelog
+![logo](https://raw.githubusercontent.com/yafp/monoto/master/www/images/logo/monotoLogoBlack.png) changelog
 ==========
 
 # Changelog
@@ -33,7 +33,7 @@
 * Updated several libraries  
   * [#246] Updated jQuery (from 2.2.3 to 3.3.1)
   * [#247] Updated Bootstrap (from 3.3.5 to 4.2.1)
-  * [#231] Updated CKEditor (from 4.4.7 to 4.11.2)
+  * [#231] Updated CKEditor (from 4.4.7 to 4.11.3)
   * [#248] Updated FontAwesome (from 4.6.3 to 5.7.0)
   * [#253] Updated DataTables (from 1.10.5 to 1.10.18)
   * [#274] Updated noty (from 2.3.8 to 2.4.1)

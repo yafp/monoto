@@ -4,16 +4,16 @@
 	"title": "Monoto Notes",
 	"main": "",
 	"files": [
-		"js/monoto/universal.js",
-		"js/monoto/notes.js",
-		"js/monoto/notesKeyPress.js",
-		"js/monoto/profile.js",
-		"js/monoto/navigation.js"
+		"www/js/monoto/generic.js",
+        "www/js/monoto/navigation.js",
+		"www/js/monoto/notes.js",
+		"www/js/monoto/notesKeyPress.js",
+		"www/js/monoto/profile.js"
 	],
 	"license": "GPL3",
 	"dependencies": {
         "bootstrap": ">=4.2.1",
-        "ckeditor": ">=4.11.2",
+        "ckeditor": ">=4.11.3",
         "DataTables": ">=1.10.18",
         "jquery": ">=3.3.0",
         "noty": ">=2.4.1"
@@ -33,17 +33,4 @@
 	},
 	"homepage": "http://yafp.github.io/monoto/",
 
-	"jspm": {
-		"dependencies": {
-			"css": "^0.1.5",
-			"jquery": "*"
-		},
-		"registry": "jspm",
-		"shim": {
-			"js/monoto": {
-				"deps": ["jquery", "../css/jquery.dataTables.css!"],
-				"exports": "$"
-			}
-		}
-	}
 }

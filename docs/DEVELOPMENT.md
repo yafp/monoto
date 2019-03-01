@@ -2,29 +2,32 @@
 ==========
 
 # Structure
-* config/
-> Contains config files for MySQL DB & Version informations
-
-* css/
-> Contains all css files
-
 * docs/
 > Contains the documentation
 
-* images/
-> Contains the images (logo)
-
-* inc/
-> Contains all includes php files
-
-* js/
-> Contains all Javascripts (monoto and 3rd party)
-
-* locale/
-> Contains the translations
-
 * tests/
 > Contains PHPUnit tests
+
+* www/
+> Contains all files needed to run monoto
+
+    * config/
+    > Config files for MySQL DB & monoto version informations
+
+    * css/
+    > All css files
+
+    * locale/
+    > Translations
+
+    * images/
+    > All images
+
+    * inc/
+    > Included php scripts
+
+    * js/
+    > All Javascripts (monoto and 3rd party)
 
 
 # Coding conventions
@@ -37,11 +40,16 @@
     * ```console.log```  for default informations (black)
     * ```console.warn```  for warnings (yellow)
     * ```console.error```  for errors (red)
-* Use ```jsdoc``` for function headers
-    * @description What the function does
-    * @param {string} parameterName - What the parameter is used for
-    * @returns {number}
+* ```jsdoc```
+    * Use ```jsdoc``` for function headers
+        * @description What the function does
+        * @param {string} parameterName - What the parameter is used for
+        * @returns {number}
+    * Generation:
+        * Navigate to the repository
+        * jsdoc v2.x.x: ```jsdoc www/js/monoto/ --directory=docs/jsdocs```
+        * jsdoc v3.3.0+: ```jsdoc --readme README.md www/js/monoto/ --package=package.json --directory=docs/jsdocs ```
 
 ## PHP
 * Consider [PHP Coding conventions](https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP)
-* Use ```phpDocumentor``` for function headers
+* Use ```phpDocumentor``` style DocBlock for function headers

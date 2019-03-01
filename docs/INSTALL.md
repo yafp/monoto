@@ -16,7 +16,7 @@ Download the latest monoto version from github
 * Check **config/config.php** and modify the mysql access settings to your needs
 
 ## 5. Upload
-* Upload the extracted files to your webserver target url
+* Upload the extreacted content of the www folder to your webserver target url
 
 ## 6. Setup
 * Visit **setup.php** in your browser and create your monoto admin user with this script
