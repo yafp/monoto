@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/yafp/monoto/master/images/logo/monotoLogoBlack.png) installation
+![logo](https://raw.githubusercontent.com/yafp/monoto/master/www/images/logo/monotoLogoBlack.png) installation
 ==========
 
 ## 1. Download
@@ -6,7 +6,7 @@ Download the latest monoto version from github
 * [https://github.com/macfidelity/monoto/zipball/master](https://github.com/macfidelity/monoto/zipball/master)
 
 ## 2. Extract
-* Extract the archive on disk
+* Extract the download archive
 
 ## 3. Prepare database
 * create databases (using the informations from MYSQL_STRUCT.txt)
@@ -16,7 +16,7 @@ Download the latest monoto version from github
 * Check ```config/config.php``` and modify the mysql access settings to your needs
 
 ## 5. Upload
-* Upload the extracted content of the ```www``` folder to your webserver target url
+* Upload the extracted content of the ```www``` folder to your webserver
 
 ## 6. Setup
 * Visit ```setup.php``` in your browser and create your monoto admin user with this script
@@ -28,4 +28,4 @@ Download the latest monoto version from github
 
 ## 8. Apache & .htaccess (optional)
 * ```.htaccess``` is needed for error handling (404)
-* AllowOverride must be set to All, otherwise .htaccess won't work.
+* ```AllowOverride``` must be set to ```All```, otherwise .htaccess won't work.
