@@ -13,19 +13,19 @@ Download the latest monoto version from github
 * create user for new database
 
 ## 4. Adjust config
-* Check **config/config.php** and modify the mysql access settings to your needs
+* Check ```config/config.php``` and modify the mysql access settings to your needs
 
 ## 5. Upload
-* Upload the extracted content of the `www` folder to your webserver target url
+* Upload the extracted content of the ```www``` folder to your webserver target url
 
 ## 6. Setup
-* Visit **setup.php** in your browser and create your monoto admin user with this script
+* Visit ```setup.php``` in your browser and create your monoto admin user with this script
 
 ## 7. Cleanup
 * Secure your monoto install
-  * **config/config.php** (only webserver should be allowed to read this file)
-  * delete **setup.php**
+  * ```config/config.php``` (only webserver should be allowed to read this file)
+  * delete ```setup.php```
 
 ## 8. Apache & .htaccess (optional)
-* **.htaccess** is needed for error handling (404)
+* ```.htaccess``` is needed for error handling (404)
 * AllowOverride must be set to All, otherwise .htaccess won't work.
