@@ -1,13 +1,13 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		noteUpdate.php
-// Function:	used to update an existing note from n.php
+// noteUpdate.php
+// used to update an existing note from n.php
 // -----------------------------------------------------------------------------
 header('Content-type: text/xml');
 
 session_start();
 
-if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )	// check if the user-session is valid or not
+if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is valid or not
 {
     // note id
     $modifiedNoteID = filter_input( INPUT_POST, "modifiedNoteID", FILTER_SANITIZE_STRING );

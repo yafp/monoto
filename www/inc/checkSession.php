@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		checkSession.php
-// Function:	Checks for valid sesstion and redirects back to login page if needed
+// checkSession.php
+// Checks for valid sesstion and redirects back to login page if needed
 // -----------------------------------------------------------------------------
 
 

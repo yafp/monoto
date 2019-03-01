@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		noteDelete.php
-// Function:	This file acts as script in monoto to delete single/selected notes.
+// noteDelete.php
+// This file acts as script in monoto to delete single/selected notes.
 // -----------------------------------------------------------------------------
 header('Content-type: text/xml');
 
@@ -34,7 +34,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     {
         die('Error: ' . mysqli_connect_error());
     }
-    else  // update m_log
+    else // update m_log
     {
         $event = "delete";
         $details = "Note: <b>".$deleteTitle."</b>. ID: <b>".$deleteID." </b>is now gone.";

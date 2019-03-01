@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		profileDeleteMyUserNotes.php
-// Function:	This file acts as script in monoto to delete all notes of a single user.
+// profileDeleteMyUserNotes.php
+// This file acts as script in monoto to delete all notes of a single user.
 // -----------------------------------------------------------------------------
 header('Content-type: text/xml');
 

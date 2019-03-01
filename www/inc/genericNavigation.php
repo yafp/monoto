@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		genericNavigation.php
-// Function:	Contains the main navigation which is used after login
+// genericNavigation.php
+// Contains the main navigation which is used after login
 // -----------------------------------------------------------------------------
 
 include 'inc/checkSession.php';

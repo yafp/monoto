@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		noteGetAllNotes.php
-// Function:	Fetches all notes from a single user - server-side processing
+// noteGetAllNotes.php
+// Fetches all notes from a single user - server-side processing
 // -----------------------------------------------------------------------------
 
 /*

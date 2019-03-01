@@ -1,8 +1,8 @@
 <?php
 
 // -----------------------------------------------------------------------------
-// Name:		helperFunctions.php
-// Function:	This file contains several php methods used in this project
+// helperFunctions.php
+// This file contains several php methods used in this project
 // -----------------------------------------------------------------------------
 
 

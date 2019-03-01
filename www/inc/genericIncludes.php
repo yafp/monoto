@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		genericIncludes.php
-// Function:	Gets included in main files, includes most relevant files itself
+// genericIncludes.php
+// Gets included in main files, includes most relevant files itself
 // -----------------------------------------------------------------------------
 
     // HTML Head

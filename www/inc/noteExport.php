@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		noteExport.php
-// Function:	This file acts as script in monoto to export notes from a user.
+// noteExport.php
+// This file acts as script in monoto to export notes from a user.
 // -----------------------------------------------------------------------------
 
 session_start();

@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		genericFooter.php
-// Function:	This file contains the footer.
+// genericFooter.php
+// This file contains the footer.
 // -----------------------------------------------------------------------------
 require "config/build.php";
 

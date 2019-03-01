@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		profileDeleteMyUserEvents.php
-// Function:	This file acts as script in monoto to delete all events in the event log of a single user.
+// profileDeleteMyUserEvents.php
+// This file acts as script in monoto to delete all events in the event log of a single user.
 // -----------------------------------------------------------------------------
 header('Content-type: text/xml');
 
