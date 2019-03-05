@@ -236,7 +236,7 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                                     <select name="userDeleteSelector" required>
                                         <option value="" disabled selected>Username</option>
                                         <?php
-                                        $result = mysqli_query($con, "SELECT id, username  FROM m_users ORDER by id ");
+                                        $result = mysqli_query($con, "SELECT id, username  FROM m_users WHERE is_admin is NULL ORDER by id ");
                                         while ( $row = mysqli_fetch_array ( $result ) ) // fill user-select box
                                         {
                                             echo '<option value="'.$row[ 0 ].'">'.$row[ 1 ].'</option>';
@@ -255,6 +255,42 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                             </tr>
                         </table>
                     </form>
+
+
+
+                    <!-- reset login-lock (#288) -->
+                    <form action="a.php" method="post" enctype="multipart/form-data">
+                        <h3><i class="fas fa-unlock-alt"></i> <?php echo translateString("Reset failed-login count"); ?></h3>
+                        <table style="width: 100%">
+                            <tr>
+                                <td width='30%'>Select a user:</td>
+                                <td>
+                                    <select name="userResetSelector" required>
+                                        <option value="" disabled selected>Username</option>
+                                        <?php
+                                        $result = mysqli_query($con, "SELECT id, username  FROM m_users  WHERE failed_logins_in_a_row > 2 ORDER by id");
+                                        while ( $row = mysqli_fetch_array ( $result ) ) // fill user-select box
+                                        {
+                                            echo '<option value="'.$row[ 0 ].'">'.$row[ 1 ].'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Enter CONFIRM (uppercase)</td>
+                                <td><input type="text" name="confirmResetFailedLoginCount" placeholder="no" required></td>
+                            </tr>
+                            <tr>
+                                <td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td>
+                                <td><button type="submit" class="btn btn-danger buttonDefault" name="doResetFailedLoginCount"><i class="fas fa-trash-alt"></i> <?php echo translateString("reset"); ?></button> </td>
+                            </tr>
+                        </table>
+                    </form>
+
+
+
+
 
                     <h3><i class="fas fa-envelope"></i> <?php echo translateString("Broadcast message"); ?></h3>
                     <div class="panel-body">
@@ -376,8 +412,6 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
                     $result = mysqli_query( $con, $sql );
 
                     displayNoty("Deleted user, his notes and the related log entries", "notification");
-
-                    writeToConsoleLog("test7");
                 }
 
                 mysqli_close($con); // close sql connection
@@ -397,9 +431,68 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
     // END: DELETE USER
 
 
-    //
+
+
+    // ---------------------------------------------------------------------
+    // RESET LOGIN-LOCK FROM USER
+    // ---------------------------------------------------------------------
+    if ( isset ( $_POST[ "doResetFailedLoginCount" ] ) )
+    {
+        $userID= filter_input(INPUT_POST, "userResetSelector", FILTER_SANITIZE_STRING);
+        $confirmText= filter_input(INPUT_POST, "confirmResetFailedLoginCount", FILTER_SANITIZE_STRING);
+
+        if ( $userID != "" )
+        {
+            if ( $confirmText == "CONFIRM" )
+            {
+                // get username of selected ID
+                $query = "SELECT username FROM m_users WHERE id = '$userID';";
+                $result = mysqli_query($con, $query);
+                while($row = mysqli_fetch_array($result))
+                {
+                    $usernameToDelete = $row[ 0 ];
+                }
+
+                // delete user
+                $sql = "UPDATE m_users SET failed_logins_in_a_row = 0 WHERE id='$userID'";
+                $result = mysqli_query( $con, $sql );
+                if ( !$result )
+                {
+                    die('Error: ' . mysqli_connect_error());
+                }
+                else  // update m_log
+                {
+                    /*
+                    $event = "User delete";
+                    $details = "User: <b>".$userID." </b>is now gone.";
+                    $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
+                    $result = mysqli_query( $con, $sql );
+
+                    displayNoty("Deleted user, his notes and the related log entries", "notification");
+                    */
+                }
+
+                mysqli_close($con); // close sql connection
+            }
+            else // user hasnt entered CONFIRM
+            {
+                displayNoty("Please enter CONFIRM in the related field and try it again", "error");
+                return;
+            }
+        }
+        else
+        {
+            displayNoty("Please select a user first", "error");
+            return;
+        }
+    }
+
+
+
+
+    // ---------------------------------------------------------------------
     // OPTIMIZE MYSQL TABLES
-    //
+    // ---------------------------------------------------------------------
     if ( isset($_POST["doOptimize"]) )
     {
         connectToDatabase();  // connect to mysql
@@ -415,9 +508,9 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
     // END: OPTIMIZE MYSQL TABLES
 
 
-    //
+    // ---------------------------------------------------------------------
     // TRUNCATE EVENTS
-    //
+    // ---------------------------------------------------------------------
     if ( isset($_POST["doTruncateEvents"]) )
     {
         $con = connectToDatabase(); // connect to mysql
@@ -427,9 +520,9 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
     // END: TRUNCATE EVENTS
 
 
-    //
+    // ---------------------------------------------------------------------
     // TRUNCATE NOTES
-    //
+    // ---------------------------------------------------------------------
     if ( isset($_POST["doTruncateNotes"]) )
     {
         $con = connectToDatabase(); // connect to mysql
@@ -439,9 +532,9 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
     // END: TRUNCATE NOTES
 
 
-    //
+    // ---------------------------------------------------------------------
     // CREATE NEW USER
-    //
+    // ---------------------------------------------------------------------
     if ( isset($_POST["doCreateNewUserAccount"]) )
     {
         writeToConsoleLog("doCreateNewUserAccount ::: Trying to create new user account");
