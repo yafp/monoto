@@ -19,15 +19,15 @@ php:
   # aliased to a recent 5.6.x version
   - 5.6
   # aliased to a recent 7.x version
-  - 7.0
-  dist: trusty
-  - 7.1
-  dist: trusty
-  - 7.2
-  dist: trusty
+  #- 7.0
+  #dist: trusty
+  #- 7.1
+  #dist: trusty
+  #- 7.2
+  #dist: trusty
   # aliased to a recent hhvm version
-  - hhvm # not supported on Ubuntu precise. Consider using trusty
-  dist: trusty
+  #- hhvm # not supported on Ubuntu precise. Consider using trusty
+  #dist: trusty
 
 # optionally specify a list of environments, for example to test different RDBMS
 env:
@@ -52,6 +52,11 @@ env:
 # use the $DB env variable to determine the phpunit.xml to use
 script:
   - phpunit --bootstrap www/inc/helperFunctions.php www/tests/helperFunctionsTests.php
+  - npm run docs
+
+
+after_success:
+  - ./.travis_publish_docs
 
 # configure notifications (email, IRC, campfire etc)
 #notifications:
