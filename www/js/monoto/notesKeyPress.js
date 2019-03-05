@@ -28,7 +28,7 @@ function KeyCheck(e)
             // specialcase: if focus in search -> jump to first record in table
             if(document.activeElement.id === "searchField")
             {
-                selectUpperRow();
+                selectPreviousDataTableRow();
             }
             break;
 
@@ -37,7 +37,7 @@ function KeyCheck(e)
             // specialcase: if focus in search -> jump to first record in table
             if(document.activeElement.id === "searchField")
             {
-                selectNextRow();
+                selectNextDataTableRow();
             }
             break;
 

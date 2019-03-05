@@ -4,18 +4,24 @@
 # Changelog
 ## monoto 4.0.0 (Quadrangulum)
 ###  ```Added```
-* [#233] Implemented PHP7 compatibility
-* [#263] Added basic .htaccess to handle some common server errors with an error page
-* [#236] Added key-listener for ckeditor
-* [#272] Added changelog to project
-* [#278] Switched to server processing. No more page reloads needed while working with notes.
+* General
+  * [#233] Implemented PHP7 compatibility
+  * [#272] Added changelog to project
+* Notes handling
+  * [#278] Switched to server processing. No more page reloads needed while working with notes.
+  * [#236] Added key-listener for ckeditor
+* Access  
+  * [#263] Added basic .htaccess to handle some common server errors with an error page
+* Login screen
+  * [#287] Notification mail when account gets locked
+* Search
+  * [#242] Highlight search string in DataTable
+* Administration
+  * [#288] Added option to reset failed_logins_in_a_row for an user account
 
 ###  ```Changed```
 * Login screen
   * [#264] Redesign of the login screen
-* Search
-  * [#260] Removed unused button
-  * [#242] Highlight search string in datatable
 * Note creation
   * [#244] DataTable is now hidden while creating a new note
   * [#245] Added cancel button to abort note creation process
@@ -53,17 +59,17 @@
 * Keyboard
     * [#283] Keyboard-look - pimp page with css
 * Setup
-    * [#285] Improve password validation
+    * [#285] Improved password validation
 * Admin
-    * [#256] Administration now shows used versions of the most relevant JS frameworks.
+    * [#256] Show used versions of the most relevant JS frameworks.
     * [#286] Show php version
+    * [#289] Delete user works only for non-admin accounts
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation
   * [#276] Navigation: Moved to external file
   * [#280] PHP/Session: Using sub-array for Session variables
   * [#284] Added .htaccess for some important folders
-
 
 ###  ```Removed```
 * [#261] Removed update check from admin section
@@ -75,6 +81,8 @@
 * [#243] Removed desktop notifications
 * [#275] Removed maintenance mode
 * [#277] Removed javascript jquery cookie usage. Related with [#278]
+* Search
+  * [#260] Removed unused button
 
 ###  ```Fixed```
 * [#262] Improved code for resizing and storing of editor height

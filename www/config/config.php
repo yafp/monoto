@@ -23,12 +23,12 @@
     // SECTION 3 - Configure debug output for developers
     // #################################################################################
     //
-    if (!defined('DEVELOPMENT'))
+    if ( !defined ('DEVELOPMENT') )
     {
         define('DEVELOPMENT', true);
     }
 
-    if (DEVELOPMENT === true)
+    if ( DEVELOPMENT === true )
     {
         ini_set('display_errors', 1);
     }

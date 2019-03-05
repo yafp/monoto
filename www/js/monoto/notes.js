@@ -3,7 +3,7 @@
 
 
 /**
- * @function disableNoteSavingButton
+ * @name disableNoteSavingButton
  * @description disables the save button (button "Save")
  * @memberof notes
  */
@@ -16,6 +16,7 @@ function disableNoteSavingButton()
 
 
 /**
+ * @name enableNoteSavingButton
  * @description enables the save button if it has a title (button "Save")
  * @memberof notes
  */
@@ -38,12 +39,14 @@ function enableNoteSavingButton()
 
 
 /**
+ * @name unmarkAllDataTableRows
  * @description unselect/unmark all rows in DataTable
  * @memberof notes
  */
-function unmarkAllTableRows()
+function unmarkAllDataTableRows()
 {
-    console.log("unmarkAllTableRows ::: Removing the selected attribute from all table rows");
+    console.log("unmarkAllDataTableRows ::: Removing the selected attribute from all table rows");
+
 
     oTable.rows().every( function ( rowIdx, tableLoop, rowLoop )
     {
@@ -56,10 +59,15 @@ function unmarkAllTableRows()
         // remove class selected
         $("#myDataTable tbody tr:eq("+rowIdx+")").removeClass("selected");
     } );
+
+    // reset info about amount of records
+    var table = $('#myDataTable').DataTable();
+    table.rows().deselect();
 }
 
 
 /**
+ * @name selectSingleDataTableRow
  * @description Selects/clicks a single row from DataTable
  * @memberof notes
  * @param {string} rowNumber - the number of the selected row
@@ -68,7 +76,7 @@ function selectSingleDataTableRow(rowNumber)
 {
     console.debug("selectSingleDataTableRow ::: Start");
 
-    unmarkAllTableRows();
+    unmarkAllDataTableRows();
 
     console.log("selectSingleDataTableRow ::: Trying to click row: " + rowNumber );
     $(oTable.row(rowNumber).node()).click();
@@ -79,6 +87,7 @@ function selectSingleDataTableRow(rowNumber)
 
 
 /**
+ * @name printCKEditorStatus
  * @description show the status of CKEditor
  * @memberof notes
  */
@@ -91,6 +100,7 @@ function printCKEditorStatus()
 
 
 /**
+ * @name initCKEditor
  * @description initialize CKEditor
  * @memberof notes
  */
@@ -220,6 +230,7 @@ function initCKEditor()
 
 
 /**
+ * @name saveCKEditorHeightOnChange
  * @description handle CKEditor height
  * @memberof notes
  */
@@ -250,6 +261,7 @@ function saveCKEditorHeightOnChange()
 
 
 /**
+ * @name enableCKEditorWriteMode
  * @description enable READ-WRITE mode of CKEditor
  * @memberof notes
  */
@@ -259,8 +271,6 @@ function enableCKEditorWriteMode()
 
     console.log("enableCKEditorWriteMode ::: Trying to set CKEditor to RW");
 
-    //CKEDITOR.config.readOnly = false; // enable the editor
-    //CKEDITOR.config.setReadOnly = false; // disable the editor
     CKEDITOR.instances.editor1.setReadOnly( false );
 
     printCKEditorStatus();
@@ -270,6 +280,7 @@ function enableCKEditorWriteMode()
 
 
 /**
+ * @name disableCKEditorWriteMode
  * @description enable READ-ONLY mode of CKEditor
  * @memberof notes
  */
@@ -295,8 +306,6 @@ function disableCKEditorWriteMode()
     }
     initialLoad = false;
 
-    //CKEDITOR.instances["editor1"].config.readOnly = true;
-
     printCKEditorStatus();
 
     console.debug("disableCKEditorWriteMode ::: Stop");
@@ -304,6 +313,7 @@ function disableCKEditorWriteMode()
 
 
 /**
+ * @name resetCKEditor
  * @description resets the content of CKEditor
  * @memberof notes
  */
@@ -326,6 +336,7 @@ function resetCKEditor()
 
 
 /**
+ * @name hideAllButtons
  * @description hide all buttons
  * @memberof notes
  */
@@ -347,6 +358,7 @@ function hideAllButtons()
 
 
 /**
+ * @name resetNotesUI
  * @description reset User-Interface (UI) back to defaults
  * @memberof notes
  */
@@ -393,8 +405,12 @@ function resetNotesUI()
     // reset all DataTable filter - to see all records of the table
     oTable.search("").draw();
 
+    //var table = $('#myDataTable').DataTable();
+    //table.clear().draw();
+
+
     // unmark all DataTable records
-    unmarkAllTableRows();
+    unmarkAllDataTableRows();
 
     // reset selected row number
     //curSelectedTableRow = -1;
@@ -417,6 +433,7 @@ function resetNotesUI()
 
 
 /**
+ * @name prepareNewNoteStepOne
  * @description Prepars the User-Interface for the note creation process
  * @memberof notes
  */
@@ -453,7 +470,6 @@ function prepareNewNoteStepOne()
     $("#myDataTable").prop("disabled",true); // disable datatable
     $("#myDataTable").fadeOut(500); // hide  DataTablesearch field
     $("#myDataTable_info").fadeOut(500); // hide dataTable info about records
-    //$("#myDataTable").parents("div.dataTables_wrapper").first().hide();
 
     // Enable read-write of editor
     // Upate:
@@ -468,6 +484,7 @@ function prepareNewNoteStepOne()
 
 
 /**
+ * @name prepareNewNoteStepTwo
  * @description Triggered via "noteTitle" during "New Note creation"
  * @memberof notes
  */
@@ -510,6 +527,7 @@ function prepareNewNoteStepTwo()
 
 
 /**
+ * @name reloadAllNotesFromDB
  * @description Redraw DataTable
  * @memberof notes
  */
@@ -533,6 +551,7 @@ function reloadAllNotesFromDB()
 
 
 /**
+ * @name createNewNote
  * @description Prepare new-note-creation Step 2 (button "create")
  * @memberof notes
  */
@@ -612,6 +631,7 @@ function createNewNote()
 
 
 /**
+ * @name saveNote
  * @description used to store changes on an selected note (button "save")
  * @memberof notes
  */
@@ -724,6 +744,7 @@ function saveNote()
 
 
 /**
+ * @name deleteNote
  * @description Used to delete a selected note (button "delete")
  * @memberof notes
  */
@@ -819,6 +840,7 @@ function deleteNote()
 
 
 /**
+ * @name reloadCurrentPage
  * @description Reload all notes
  * @memberof notes
  */
@@ -837,6 +859,7 @@ function reloadCurrentPage()
 
 
 /**
+ * @name initDataTable
  * @description initialize DataTable
  * @memberof notes
  */
@@ -890,6 +913,7 @@ function initDataTable()
 
 
 /**
+ * @name selectAndMarkTableRow
  * @description select and mark a single row in DataTable
  * @memberof notes
  * @param {string} currentRow - The row number
@@ -912,13 +936,14 @@ function selectAndMarkTableRow(currentRow)
 
 
 /**
+ * @name updateCurrentSelectedRowInDataTable
  * @description update the current selected row in DataTable
  * @memberof notes
  * @param {string} valueChange - the change
  */
-function updateCurrentPosition(valueChange)
+function updateCurrentSelectedRowInDataTable(valueChange)
 {
-    console.debug("updateCurrentPosition ::: Start");
+    console.debug("updateCurrentSelectedRowInDataTable ::: Start");
 
     // count visible rows
     amountOfRecordsAfterFilter = oTable.$("tr", {"filter":"applied"}).length;
@@ -932,65 +957,68 @@ function updateCurrentPosition(valueChange)
         console.warn("...initializing curSelectedTableRow to: " + curSelectedTableRow);
     }
     else {
-        console.log("curSelectedTableRow was: " + curSelectedTableRow);
+        console.log("updateCurrentSelectedRowInDataTable was: " + curSelectedTableRow);
         curSelectedTableRow = curSelectedTableRow + valueChange;
-        console.log("curSelectedTableRow is now: " + curSelectedTableRow);
+        console.log("updateCurrentSelectedRowInDataTable is now: " + curSelectedTableRow);
 
     }
 
     if ( curSelectedTableRow < 0 )  // doesnt make sense -> jump to last row
     {
         curSelectedTableRow = amountOfRecordsAfterFilter - 1;
-        console.log("updateCurrentPosition ::: Set curSelectedTableRow to: " + curSelectedTableRow);
+        console.log("updateCurrentSelectedRowInDataTable ::: Set curSelectedTableRow to: " + curSelectedTableRow);
     }
 
     // doesnt make sense -> jump to last row
     if ( curSelectedTableRow > amountOfRecordsAfterFilter - 1 )
     {
         curSelectedTableRow = 0;
-        console.log("updateCurrentPosition ::: Set curSelectedTableRow to: " + curSelectedTableRow);
+        console.log("updateCurrentSelectedRowInDataTable ::: Set curSelectedTableRow to: " + curSelectedTableRow);
 
     }
 
     // update UI
-    unmarkAllTableRows();
+    unmarkAllDataTableRows();
     selectAndMarkTableRow(curSelectedTableRow);
 
-    console.debug("updateCurrentPosition ::: Stop");
+    console.debug("updateCurrentSelectedRowInDataTable ::: Stop");
 }
 
 
 /**
+ * @name selectNextDataTableRow
  * @description select next row in DataTable
  * @memberof notes
  */
-function selectNextRow()
+function selectNextDataTableRow()
 {
-    console.debug("selectNextRow ::: Start");
+    console.debug("selectNextDataTableRow ::: Start");
 
-    console.log("selectNextRow ::: Selecting next row in dataTable");
-    updateCurrentPosition(1);
+    console.log("selectNextDataTableRow ::: Selecting next row in dataTable");
+    updateCurrentSelectedRowInDataTable(1);
 
-    console.debug("selectNextRow ::: Stop");
+    console.debug("selectNextDataTableRow ::: Stop");
 }
 
 
 /**
- * @description select the upper row in DataTable
+ * @name selectPreviousDataTableRow
+ * @description select the previous row in DataTable
  * @memberof notes
  */
-function selectUpperRow()
+function selectPreviousDataTableRow()
 {
-    console.debug("selectUpperRow ::: Start");
+    console.debug("selectPreviousDataTableRow ::: Start");
 
-    console.log("selectUpperRow ::: Selecting previous row in dataTable");
-    updateCurrentPosition(-1);
+    console.log("selectPreviousDataTableRow ::: Selecting previous row in dataTable");
+    updateCurrentSelectedRowInDataTable(-1);
 
-    console.debug("selectUpperRow ::: Stop");
+    console.debug("selectPreviousDataTableRow ::: Stop");
 }
 
 
 /**
+ * @name onClickDataTableCell
  * @description Executed if a cell in the DataTable is clicked
  * @memberof notes
  * @param {array} data - Contains all fields of the selected note
@@ -1111,6 +1139,7 @@ function onClickDataTableCell(data)
 
 
 /**
+ * @name onFilterDataTable
  * @description Executed after the raw filtering of datatable is done
  * @memberof notes
  * @param {number} amountOfRecordsAfterFilter - The amount of visible DataTable records
@@ -1122,11 +1151,13 @@ function onFilterDataTable(amountOfRecordsAfterFilter)
     switch(amountOfRecordsAfterFilter)
     {
         case 0: // there is 0 record in selection after processing search
-            console.log("Got 0 results");
+            console.log("onFilterDataTable ::: Got 0 results");
             // reset noteID field
             $("#noteID").val("");
             // reset noteVersion field
             $("#noteVersion").val("");
+            // reset noteTitle
+            $("#noteTitle").val("");
 
             // hide all buttons
             hideAllButtons();
@@ -1136,7 +1167,7 @@ function onFilterDataTable(amountOfRecordsAfterFilter)
             break;
 
         case 1: // there is one record in selection after processing search
-            console.log("Got 1 result");
+            console.log("onFilterDataTable ::: Got 1 result");
             //$("#myDataTable tbody tr:eq(0)").click(); // select the only record left after search
             $("#myDataTable tbody td:eq(0)").click(); // select the only record left after search
 
@@ -1185,9 +1216,8 @@ function onFilterDataTable(amountOfRecordsAfterFilter)
 }
 
 
-
-
 /**
+ * @name onNotesPageReady
  * @description init the notes view
  * @memberof notes
  */
@@ -1249,7 +1279,7 @@ function onNotesPageReady()
     $(".dataTable").on("click", "tbody td", function(event)
     {
         // unmark all records
-        unmarkAllTableRows();
+        unmarkAllDataTableRows();
 
         // Add selected attribute to current row
         $(event.target.parentNode).addClass("row_selected");
@@ -1260,8 +1290,6 @@ function onNotesPageReady()
         onClickDataTableCell(data);
     });
     // End of datatable <td> click handler
-
-
 
 
     // Datatable: Add a doubleclick handler to the table <tr>

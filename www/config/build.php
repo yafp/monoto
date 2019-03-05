@@ -8,7 +8,7 @@
 
     // version / release
     $m_version = "4.0.0 RC1"; // version
-    $m_date	= "20190228"; // build-date
+    $m_date	= "20190305"; // build-date
     $m_release = false; // true for officials builds
 
     // github links
