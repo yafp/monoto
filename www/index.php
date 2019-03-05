@@ -1,9 +1,8 @@
 <?php
 // -----------------------------------------------------------------------------
-// Name:		index.php
-// Function:	handles the login
+// index.php
+// handles the login
 // -----------------------------------------------------------------------------
-
 session_start();
 if ( isset( $_SESSION[ 'monoto' ][ 'valid' ] ) )
 {
@@ -69,7 +68,7 @@ if ( isset ( $_POST[ "doLogin" ] ) )
     $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
 
     // check if there is a user with matching data
-    $query = "SELECT password, salt FROM m_users WHERE username = '$username';";
+    $query = "SELECT password, salt, email FROM m_users WHERE username = '$username';";
     $result = mysqli_query($con, $query);
     if(mysqli_num_rows($result) < 1) // no such user exists
     {
@@ -79,6 +78,7 @@ if ( isset ( $_POST[ "doLogin" ] ) )
     {
         $userData = mysqli_fetch_array($result);
         $hash = hash('sha256', $userData[ 'salt' ] . hash('sha256', $password) );
+        $email = $userData[ 'email' ];
 
         // check if user-account is locked already cause it had 3 failed logins in a row
         $sql = "SELECT failed_logins_in_a_row FROM m_users WHERE username='".$username."'  ";
@@ -118,8 +118,26 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$username' )";
                 $result = mysqli_query ( $con, $sql );
 
-                displayNoty("Login failed.", "error");
-            }
+                // #287 - send notification about locking account
+                if ( $failCounterInARow == 3 )
+                {
+                    $messageSubject = "Your monoto account is now locked";
+                    $messageText = "Your monoto account is now locked, after 3 wrong login attempts in a row.";
+                    if ( @mail ( $email, $messageSubject, $messageText ) ) // try to send notification email
+                    {
+                        displayNoty("Lock-notification email sent.", "success");
+                    }
+                    else
+                    {
+                        displayNoty("Unable to sent lock-notification email.", "error");
+                    }
+                    displayNoty("Login failed, account is now locked.", "error");
+                }
+                else
+                {
+                    displayNoty("Login failed.", "error");
+                }
+            } // incorrect password
             else //login successful
             {
                 $_SESSION[ 'monoto' ][ 'username' ] = $username; // add session-info
@@ -190,6 +208,8 @@ if ( isset ( $_POST[ "doLogin" ] ) )
         else         // login is not possible anymore - admin must remove the login lock
         {
             displayNoty("Account is locked", "error");
+
+            // #287 -
         }
     }
 }
