@@ -1,4 +1,4 @@
-### Welcome to.
+### Welcome to
 
 ![logo](https://raw.githubusercontent.com/yafp/monoto/master/www/images/logo/monotoLogoBlack.png)
 
