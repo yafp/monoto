@@ -47,7 +47,7 @@ function unmarkAllDataTableRows()
 {
     console.log("unmarkAllDataTableRows ::: Removing the selected attribute from all table rows");
 
-    if(initialLoad == false) // only if it isnt the initial load of the page
+    if(initialLoad === false) // only if it isnt the initial load of the page
     {
         oTable.rows().every( function ( rowIdx, tableLoop, rowLoop )
         {
@@ -405,7 +405,7 @@ function resetNotesUI()
     $("#myDataTable_info").fadeIn(500); // hide dataTable info about records
 
     // reset all DataTable filter - to see all records of the table
-    if(initialLoad == false)
+    if(initialLoad === false)
     {
         oTable.search("").draw();
     }
