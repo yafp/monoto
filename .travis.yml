@@ -20,7 +20,7 @@ php:
 
   # aliased to a recent 5.6.x version
   - 5.6
-  
+
   # aliased to a recent 7.x version
   #- 7.0
   #- 7.1
@@ -53,7 +53,7 @@ env:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
-  - phpunit --bootstrap www/inc/helperFunctions.php www/tests/helperFunctionsTests.php
+  - phpunit --bootstrap www/inc/helperFunctions.php tests/helperFunctionsTests.php
   - npm run docs
 
 after_success:
