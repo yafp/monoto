@@ -20,6 +20,7 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
     <!-- specific -->
 
     <!-- JS -->
+    <script type="text/javascript" src="js/monoto/admin.js"></script>
     <!-- ckeditor-->
     <!-- needed to show library version in UI-->
     <!-- 4.11.3 -->
@@ -28,12 +29,11 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
     <!-- DataTable -->
     <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-        $('#myDataTable').DataTable( {
-            "bSort": false, // dont sort - trust the sql-select and its sort-order
-            "sPaginationType": "full_numbers",
-            "iDisplayLength" : 25,
-            "aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]]
-        } );
+
+        getJavaScriptVersions();
+
+        initMonotoUsersDataTable();
+
     } );
     </script>
 
@@ -71,7 +71,8 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                     <br>
 
                     <?php
-                    if (file_exists('setup.php'))     // check if setup.php still exists - if so - display a warning
+                    // check if setup.php still exists - if so - display a warning
+                    if (file_exists('setup.php'))
                     {
                         echo '<div class="alert alert-danger">';
                         echo '<strong><i class="fas fa-skull-crossbones"></i> Warning:</strong><br>';
@@ -80,6 +81,17 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                     }
                     ?>
 
+                    <!-- Requirements -->
+                    <h3><i class="fas fa-puzzle-piece"></i> <?php echo translateString("Requirements"); ?></h3>
+                    <?php
+                        checkGetTextSupport();
+                    ?>
+                    <!-- /Requirements -->
+
+                    <!-- spacer -->
+                    <div class="row">&nbsp;</div>
+
+                    <!-- Database informations -->
                     <h3><i class="fas fa-database"></i> <?php echo translateString("Database"); ?></h3>
                     <?php
                         // get entire database size
@@ -93,10 +105,14 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                         }
                         echo $entireDBSize." MB";
                     ?>
+                    <!-- /Database informations -->
+
+                    <!-- spacer -->
+                    <div class="row">&nbsp;</div>
 
                     <!-- Users -->
                     <h3><i class="fas fa-users"></i> <?php echo translateString("Users"); ?></h3>
-                    <table cellpadding="0" cellspacing="0" class="display" id="myDataTable" style="width: 100%">
+                    <table cellpadding="0" cellspacing="0" class="display" id="myMonotoUserDataTable" style="width: 100%">
                         <thead><tr><th>id</th><th><?php echo translateString("username"); ?></th><th><?php echo translateString("Notes"); ?></th><th><?php echo translateString("logins"); ?></th><th>current failed logins</th><th><?php echo translateString("mail"); ?></th><th>admin</th><th><?php echo translateString("comment"); ?></th></tr></thead>
                         <tbody>
                             <?php
@@ -108,13 +124,62 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                             // fill DataTable
                             while($row = mysqli_fetch_array($result))
                             {
-                                echo '<tr class="odd gradeU"><td>'.$row[ 0 ].'</td><td>'.$row[ 1 ].'</td><td>'.$row[ 2 ].'</td><td>'.$row[ 3 ].'</td><td>'.$row[ 4 ].'</td><td>'.$row[ 5 ].'</td><td>'.$row[ 6 ].'</td><td>'.$row[ 7 ].'</td></tr>';
+                                echo '<tr class="odd gradeU">';
+
+                                // id
+                                echo '<td>'.$row[ 0 ].'</td>';
+
+                                // username
+                                echo '<td>'.$row[ 1 ].'</td>';
+
+                                // notes
+                                echo '<td>'.$row[ 2 ].'</td>';
+
+                                // login count
+                                echo '<td>'.$row[ 3 ].'</td>';
+
+                                // current failed logins
+                                switch ( $row[ 4 ] )
+                                {
+                                    case 0:
+                                        echo '<td bgcolor="#2ECC40">'.$row[ 4 ].'</td>';
+                                        break;
+                                    case 1:
+                                        echo '<td bgcolor="#FFDC00">'.$row[ 4 ].'</td>';
+                                        break;
+                                    case 2:
+                                        echo '<td bgcolor="#FF851B">'.$row[ 4 ].'</td>';
+                                        break;
+                                    default:
+                                        echo '<td bgcolor="#FF4136">'.$row[ 4 ].' (login locked)</td>';
+                                        break;
+                                }
+
+                                // mail
+                                echo '<td>'.$row[ 5 ].'</td>';
+
+                                // admin
+                                switch ( $row[ 6 ] )
+                                {
+                                    case 1:
+                                        echo '<td bgcolor="#7FDBFF">'.$row[ 6 ].'</td>';
+                                        break;
+                                    default:
+                                        echo '<td>'.$row[ 6 ].'</td>';
+                                        break;
+                                }
+
+                                // comment
+                                echo '<td>'.$row[ 7 ].'</td>';
+                                echo '</tr>';
                             }
                             ?>
                         </tbody>
                     </table>
                     <!-- /Users -->
 
+                    <!-- spacer -->
+                    <div class="row">&nbsp;</div>
 
                     <!-- PHP -->
                     <!-- #286 -->
@@ -125,57 +190,40 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                     </div>
                     <!-- /PHP -->
 
-                    <!-- Libraries -->
+                    <!-- spacer -->
+                    <div class="row">&nbsp;</div>
+
+                    <!-- JS Libraries -->
                     <h3><i class="fab fa-js"></i> <?php echo translateString("Libraries"); ?></h3>
 
-                    <!-- Bootstrap -->
+                    <!-- JS: Bootstrap -->
                     <div class="form-group">
                         <label for="libVersionBootstrap">Bootstrap</label>
                         <input type="text" class="form-control" id="libVersionBootstrap" aria-describedby="bootstrapHelp" placeholder="bootstrap version" disabled>
                         <small class="form-text text-muted">Required monoto-wide</small>
                     </div>
 
-                    <!-- CKEditor -->
+                    <!-- JS: CKEditor -->
                     <div class="form-group">
                         <label for="libVersionCKEditor">CKEditor</label>
                         <input type="text" class="form-control" id="libVersionCKEditor" aria-describedby="ckeditorHelp" placeholder="ckeditor version" disabled>
                         <small class="form-text text-muted">Required for notes UI</small>
                     </div>
 
-                    <!-- DataTable -->
+                    <!-- JS: DataTable -->
                     <div class="form-group">
                         <label for="libVersionDataTables">DataTable</label>
                         <input type="text" class="form-control" id="libVersionDataTable" aria-describedby="datatableHelp" placeholder="datatable version" disabled>
                         <small class="form-text text-muted">Required for notes UI and activity log</small>
                     </div>
 
-                    <!-- jQuery -->
+                    <!-- JS: jQuery -->
                     <div class="form-group">
                         <label for="libVersionJQuery">jQuery</label>
                         <input type="text" class="form-control" id="libVersionJQuery" aria-describedby="jqueryHelp" placeholder="jquery version" disabled>
                         <small class="form-text text-muted">Required monoto-wide</small>
                     </div>
 
-                    <!-- get libraries version and show them -->
-                    <script type="text/javascript" charset="utf-8">
-
-                    // bootstrap
-                    var bootstrap_version = ($().modal||$().tab).Constructor.VERSION.split(',');
-                    $("#libVersionBootstrap").val(bootstrap_version);
-
-                    // ckeditor
-                    $("#libVersionCKEditor").val(CKEDITOR.version);
-
-                    // DataTables
-                    var datatable_version = $.fn.dataTable.version;
-                    $("#libVersionDataTable").val(datatable_version);
-
-                    // jquery
-                    if (typeof jQuery != 'undefined')
-                    {
-                        $("#libVersionJQuery").val(jQuery.fn.jquery);
-                    }
-                    </script>
                     <!-- /Libraries -->
 
                 </div><!-- /tab -->
@@ -189,32 +237,37 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                     <div class="row">&nbsp;</div>
 
                     <!-- invite user -->
-                    <h3><i class="fas fa-user-plus"></i> <?php echo translateString("Invite user"); ?></h3>
+                    <h3><i class="fas fa-user-plus"></i> <?php echo translateString("Invite new user"); ?></h3>
                     <form id="inviteForm" action="a.php" method="post" enctype="multipart/form-data">
                         <table style="width: 100%">
                             <tr>
-                                <td width='30%'>Username:</td>
+                                <td width='30%'>Username</td>
                                 <td><input type="text" name="newUsername" placeholder="Username" required="required" /></td>
+                                <td><small id="usernameHelp" class="form-text text-muted">The login name</small></td>
                             </tr>
                             <tr>
-                                <td>Mail:</td>
+                                <td>Mail</td>
                                 <td><input type="email" name="newUserMail" placeholder="Email" required="required" /></td>
+                                <td><small id="emailHelp" class="form-text text-muted">Email adress of the user</small></td>
                             </tr>
                             <tr>
-                                <td>Password:</td>
-                                <td><input type="password" name="password" placeholder="Password" required="required" autocomplete="off" /></td>
+                                <td>Password</td>
+                                <td><input type="password" name="password" pattern=".{8,}" placeholder="Password" required="required" autocomplete="off" /></td>
+                                <td><small id="passwordHelp" class="form-text text-muted">min length is 8 characters</small></td>
                             </tr>
                             <tr>
-                                <td>Repeat Password:</td>
-                                <td><input type="password" name="password_confirm" placeholder="Repeat password" required="required" autocomplete="off" /></td>
+                                <td>Repeat Password</td>
+                                <td><input type="password" name="password_confirm" pattern=".{8,}" placeholder="Repeat password" required="required" autocomplete="off" /></td>
                             </tr>
                             <tr>
-                                <td>Send notification mail to new user: (optional)</td>
+                                <td>Notification mail</td>
                                 <td><input type="checkbox" name="sendNotification" value="sendNotification" /></td>
+                                <td><small id="emailNotificationHelp" class="form-text text-muted">Optional: sends an email to the new user</small></td>
                             </tr>
                             <tr>
-                                <td>Admin note about this invite or user: (optional)</td>
+                                <td>Admin note</td>
                                 <td><input type="text" name="newUserNote" placeholder="Comment" /></td>
+                                <td><small id="adminNoteHelp" class="form-text text-muted">Optional: information for the monoto admin about this user-account</small></td>
                             </tr>
                             <tr>
                                 <td><button type="submit" class="btn btn-primary buttonDefault" name="doCreateNewUserAccount" value="Invite" title="Starts the add user function if all informations are provided."><i class="fas fa-envelope"></i> <?php echo translateString("invite"); ?></button></td>
@@ -231,9 +284,9 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                         <h3><i class="fas fa-user-minus"></i> <?php echo translateString("Delete account"); ?></h3>
                         <table style="width: 100%">
                             <tr>
-                                <td width='30%'>Select a user:</td>
+                                <td width='30%'><?php echo translateString("Account"); ?></td>
                                 <td>
-                                    <select name="userDeleteSelector" required>
+                                    <select class="selectpicker" name="userDeleteSelector" required>
                                         <option value="" disabled selected>Username</option>
                                         <?php
                                         $result = mysqli_query($con, "SELECT id, username  FROM m_users WHERE is_admin is NULL ORDER by id ");
@@ -244,28 +297,45 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                                         ?>
                                     </select>
                                 </td>
+                                <td><small id="deleteUserSelectionHelp" class="form-text text-muted">Select an existing account which should be deleted.</small></td>
                             </tr>
                             <tr>
-                                <td>Enter CONFIRM (uppercase)</td>
+                                <td>Enter CONFIRM</td>
                                 <td><input type="text" name="confirmDeleteUser" placeholder="no" required></td>
+                                <td><small id="confirmHelp" class="form-text text-muted">For security reasons</small></td>
                             </tr>
                             <tr>
-                                <td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td>
+                                <td>&nbsp;</td>
                                 <td><button type="submit" class="btn btn-danger buttonDefault" name="doDeleteUser"><i class="fas fa-trash-alt"></i> <?php echo translateString("delete"); ?></button> </td>
+                                <td><small id="deleteButtonHelp" class="form-text text-muted">Deletes the user and all his notes plus all user-related events in the log</small></td>
                             </tr>
                         </table>
                     </form>
 
 
+                    <!-- spacer -->
+                    <div class="row">&nbsp;</div>
+
 
                     <!-- reset login-lock (#288) -->
                     <form action="a.php" method="post" enctype="multipart/form-data">
-                        <h3><i class="fas fa-unlock-alt"></i> <?php echo translateString("Reset failed-login count"); ?></h3>
+                        <h3><i class="fas fa-unlock-alt"></i> <?php echo translateString("Unlock account"); ?></h3>
                         <table style="width: 100%">
                             <tr>
-                                <td width='30%'>Select a user:</td>
+                                <td width='30%'><?php echo translateString("Account"); ?></td>
                                 <td>
-                                    <select name="userResetSelector" required>
+                                    <!--
+                                    <div class="dropdown">
+                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Username</button>
+                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                             <a class="dropdown-item" href="#">Action</a>
+                                             <a class="dropdown-item" href="#">Another action</a>
+                                             <a class="dropdown-item" href="#">Something else here</a>
+                                         </div>
+                                    </div>
+                                    -->
+
+                                    <select class="selectpicker" name="userResetSelector" required>
                                         <option value="" disabled selected>Username</option>
                                         <?php
                                         $result = mysqli_query($con, "SELECT id, username  FROM m_users  WHERE failed_logins_in_a_row > 2 ORDER by id");
@@ -276,20 +346,24 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
                                         ?>
                                     </select>
                                 </td>
+                                <td><small id="resetLoginLockAccountSelectionHelp" class="form-text text-muted">Select an existing account which should get unlocked. Only locked accounts are shown.</small></td>
                             </tr>
                             <tr>
-                                <td>Enter CONFIRM (uppercase)</td>
+                                <td>Enter CONFIRM</td>
                                 <td><input type="text" name="confirmResetFailedLoginCount" placeholder="no" required></td>
+                                <td><small id="confirmHelp" class="form-text text-muted">For security reasons</small></td>
                             </tr>
                             <tr>
-                                <td>Press the delete button to delete the user and all his notes plus all user-related events in the log</td>
-                                <td><button type="submit" class="btn btn-danger buttonDefault" name="doResetFailedLoginCount"><i class="fas fa-trash-alt"></i> <?php echo translateString("reset"); ?></button> </td>
+                                <td>&nbsp;</td>
+                                <td><button type="submit" class="btn btn-warning buttonDefault" name="doResetFailedLoginCount"><i class="fas fa-door-open"></i> <?php echo translateString("reset"); ?></button> </td>
+                                <td><small id="resetLoginLockButtonHelp" class="form-text text-muted">Press the reset button to reset the failed-login count. This unlocks the account again.</small></td>
                             </tr>
                         </table>
                     </form>
 
 
-
+                    <!-- spacer -->
+                    <div class="row">&nbsp;</div>
 
 
                     <h3><i class="fas fa-envelope"></i> <?php echo translateString("Broadcast message"); ?></h3>
@@ -453,23 +527,16 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
                     $usernameToDelete = $row[ 0 ];
                 }
 
-                // delete user
+                // reset login-lock
                 $sql = "UPDATE m_users SET failed_logins_in_a_row = 0 WHERE id='$userID'";
                 $result = mysqli_query( $con, $sql );
                 if ( !$result )
                 {
                     die('Error: ' . mysqli_connect_error());
                 }
-                else  // update m_log
+                else  // reset did work
                 {
-                    /*
-                    $event = "User delete";
-                    $details = "User: <b>".$userID." </b>is now gone.";
-                    $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-                    $result = mysqli_query( $con, $sql );
-
-                    displayNoty("Deleted user, his notes and the related log entries", "notification");
-                    */
+                    displayNoty("Reseted login-lock.", "notification");
                 }
 
                 mysqli_close($con); // close sql connection
@@ -486,8 +553,6 @@ if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
             return;
         }
     }
-
-
 
 
     // ---------------------------------------------------------------------
