@@ -4,6 +4,14 @@
 // used for new note creation from n.php
 // -----------------------------------------------------------------------------
 
+// prevent direct call of this script
+if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteNew.php') !== false)
+{
+    header('Location: ../index.php'); // back to login page
+    die();
+}
+
+
 //header('Content-type: text/xml');
 header('Content-type: application/xml');
 
@@ -42,11 +50,11 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     // do create note and do log it
     //
     // insert into m_notes
-    $sql = "INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', '1' )";
+    $sql = "INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$owner', 1 )";
     $result = mysqli_query ( $con, $sql );
     if (!$result)
     {
-        die('Error: ' . mysqli_connect_error()); // display error output
+        die('Erro____r: ' . mysqli_connect_error()); // display error output
     }
     else // update m_log
     {
@@ -55,7 +63,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
         $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
         $result = mysqli_query($con, $sql);
 
-        return ( true );
+        //return ( true );
     }
     mysqli_close( $con ); // close sql connection
 }

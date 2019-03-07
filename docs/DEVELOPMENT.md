@@ -11,23 +11,23 @@
 * www/
 > Contains all files needed to run monoto
 
-    * config/
-    > Config files for MySQL DB & monoto version informations
+* www/config/
+> Config files for MySQL DB & monoto version informations
 
-    * css/
-    > All css files
+* www/css/
+> All css files
 
-    * locale/
-    > Translations
+* www/locale/
+> Translations
 
-    * images/
-    > All images
+* www/images/
+> All images
 
-    * inc/
-    > Included php scripts
+* www/inc/
+> Included php scripts
 
-    * js/
-    > All Javascripts (monoto and 3rd party)
+* www/js/
+> All Javascripts (monoto and 3rd party)
 
 
 # Coding conventions
@@ -35,20 +35,18 @@
 * If possible, use  (lower)[camelCase](https://en.wikipedia.org/wiki/Camel_case) for variables and functions.
 
 ## JavaScript
-* How to use the ```console``` command:
-    * ```console.verbose``` for start and end messages of single js functions
-    * ```console.log```  for default informations (black)
-    * ```console.warn```  for warnings (yellow)
-    * ```console.error```  for errors (red)
+* ```console```
+    * A lot of logging is used in this project to offer debug help
+    * How to use the ```console``` command:
+        * ```console.verbose``` for start and end messages of single js functions
+        * ```console.log``` for default informations (black)
+        * ```console.warn``` for warnings (yellow)
+        * ```console.error``` for errors (red)
+
 * ```jsdoc```
     * Use ```jsdoc``` for function headers
-        * @description What the function does
-        * @param {string} parameterName - What the parameter is used for
-        * @returns {number}
-    * Generation:
-        * Navigate to the repository
-        * jsdoc v2.x.x: ```jsdoc www/js/monoto/ --directory=docs/jsdocs```
-        * jsdoc v3.3.0+: ```jsdoc --readme README.md www/js/monoto/ --package=package.json --directory=docs/jsdocs ```
+    * From main repository directory, using jsdoc v2.x.x: ```jsdoc www/js/monoto/ --directory=docs/jsdocs```
+    * From main repository directory, using jsdoc v3.3.0+: ```jsdoc --readme README.md www/js/monoto/ --package=package.json --directory=docs/jsdocs```
 
 ## PHP
 * Consider [PHP Coding conventions](https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP)

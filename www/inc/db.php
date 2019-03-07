@@ -1,4 +1,13 @@
 <?php
+
+// prevent direct call of this script
+if (strpos($_SERVER['SCRIPT_FILENAME'], 'db.php') !== false)
+{
+    header('Location: ../index.php'); // back to login page
+    die();
+}
+
+
 /**
  * Connects to a mysql database
  *

@@ -1,8 +1,16 @@
 <?php
+
 // -----------------------------------------------------------------------------
 // genericNavigation.php
 // Contains the main navigation which is used after login
 // -----------------------------------------------------------------------------
+
+// prevent direct call of this script
+if (strpos($_SERVER['SCRIPT_FILENAME'], 'genericNavigation.php') !== false)
+{
+    header('Location: ../index.php'); // back to login page
+    die();
+}
 
 include 'inc/checkSession.php';
 

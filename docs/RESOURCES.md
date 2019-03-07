@@ -5,6 +5,10 @@
 * [https://getbootstrap.com/](https://getbootstrap.com/)
 * Version: 4.1.3
 
+## Bootstrap-select
+* [https://developer.snapappointments.com/bootstrap-select/](https://developer.snapappointments.com/bootstrap-select/)
+* Version: 1.13.2
+
 ## CKEditor
 * [http://ckeditor.com/](http://ckeditor.com/)
 * Version: 4.11.2 (Standard Package)

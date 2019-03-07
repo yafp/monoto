@@ -3,6 +3,14 @@
 // profileDeleteMyUserEvents.php
 // This file acts as script in monoto to delete all events in the event log of a single user.
 // -----------------------------------------------------------------------------
+
+// prevent direct call of this script
+if (strpos($_SERVER['SCRIPT_FILENAME'], 'profileDeleteMyUserEvents.php') !== false)
+{
+    header('Location: ../index.php'); // back to login page
+    die();
+}
+
 header('Content-type: text/xml');
 
 session_start();

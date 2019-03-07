@@ -6,6 +6,13 @@
 // -----------------------------------------------------------------------------
 
 
+// prevent direct call of this script
+if (strpos($_SERVER['SCRIPT_FILENAME'], 'helperFunctions.php') !== false)
+{
+    header('Location: ../index.php'); // back to login page
+    die();
+}
+
 
 /**
  * Creates a noty notification popup
@@ -40,6 +47,23 @@ function writeToConsoleLog( $message )
 }
 
 
+/**
+ * Check if php gettext is supported
+ * and display information according to the install-state
+ */
+function checkGetTextSupport()
+{
+    if ( !function_exists( "gettext" ) ) // gettext is not installed
+    {
+        echo "<i class='fas fa-times'></i>&nbsp;<span class='badge badge-secondary'>PHP: gettext</span> is not installed. Translations will fail";
+    }
+    else // gettext is installed
+    {
+        echo "<i class='fas fa-thumbs-up'></i>&nbsp;<span class='badge badge-secondary'>PHP: gettext</span> is installed.";
+    }
+}
+
+
 /*
  * Translating the UserInterface (#210)
  *
@@ -51,11 +75,12 @@ function translateString( $textForTranslation )
     if ( $_SESSION[ 'monoto' ][ 'getText' ] == 0 ) // gettext is not installed - fallback
     {
         $translation = $textForTranslation;
-        writeToConsoleLog("translateString ::: getText is not installed. Unable to translate.");
+        //writeToConsoleLog("translateString ::: getText is not installed. Unable to translate.");
         return $translation;
     }
 
     // otherwise: gettext is installed -> try to translate
+    writeToConsoleLog("translateString ::: Trying to translate...");
 
     // I18N support information here
     $language = $_SESSION[ 'monoto' ][ 'lang' ];

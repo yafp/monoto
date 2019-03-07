@@ -2,9 +2,8 @@
  var profile = {};
 
 /**
- * @description Offer an option to delete all events from users account
+ * @description deletes all events from the current user account
  * @memberof profile
- * @author Florian Poeck <yafp@users.noreply.github.com>
  */
 function deleteAllMyUserEvents()
 {
@@ -17,19 +16,23 @@ function deleteAllMyUserEvents()
         layout: "topRight",
         theme: "defaultTheme",
         buttons: [
-            {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
-                $noty.close();
-                $.post("inc/profileDeleteMyUserEvents.php");
-                createNoty("Deleted all events from log","success");
-                location.reload();
+            {
+                addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+                {
+                    $noty.close();
+                    $.post("inc/profileDeleteMyUserEvents.php");
+                    createNoty("Deleted all events from log","success");
+                    location.reload();
+                }
+            },
+            {
+                addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+                {
+                    $noty.close();
+                    createNoty("Aborted","information");
+                }
             }
-        },
-        {addClass: "btn btn-danger", text: "Cancel", onClick: function($noty) {
-            $noty.close();
-            createNoty("Aborted","information");
-        }
-    }
-    ]
+        ]
     });
 
     console.debug("deleteAllMyUserEvents ::: Finished Delete-All-My-User-Events-Dialog.");
@@ -37,9 +40,8 @@ function deleteAllMyUserEvents()
 
 
 /**
- * @description Offer an option to delete all notes from users account
+ * @description deletes all notes from the current user account
  * @memberof profile
- * @author Florian Poeck <yafp@users.noreply.github.com>
  */
 function deleteAllMyUserNotes()
 {

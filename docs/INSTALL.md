@@ -13,7 +13,7 @@ Download the latest monoto version from github
 * create user for new database
 
 ## 4. Adjust config
-* Check ```config/config.php``` and modify the mysql access settings to your needs
+* Check ```www/config/config.php``` and modify the mysql access settings to your needs
 
 ## 5. Upload
 * Upload the extracted content of the ```www``` folder to your webserver

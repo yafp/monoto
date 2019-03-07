@@ -5,6 +5,7 @@ exclude_paths:
   - 'docs/**'
   - 'www/inc/ssp.class.php'
   - 'www/js/bootstrap/**'
+  - 'www/js/bootstrap-select/**'
   - 'www/js/ckeditor/**'
   - 'www/js/datatables/**'
   - 'www/js/FontAwesome/**'

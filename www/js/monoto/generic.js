@@ -3,7 +3,7 @@
 
 
 /**
- * @description DISABLING the right click - used for the entire monoto userinterface
+ * @description disabling the right click context menu  (used for the entire monoto userinterface)
  * @memberof generic
  */
 function disableRightContextMenu()
@@ -20,7 +20,7 @@ function disableRightContextMenu()
 
 
 /**
- * @description Calculates password strength
+ * @description calculates password strength
  * @memberof generic
  */
 function passwordStrength()
@@ -64,7 +64,7 @@ function passwordStrength()
 
 
 /**
- * @description Compare password change fields and enable or disable the update button
+ * @description compare content of password-change fields and enables or disables the related update button
  * @memberof generic
  */
 function validatePasswordChangeInput()
@@ -73,9 +73,9 @@ function validatePasswordChangeInput()
 
     if ($("#newPassword").val() === $("#newPasswordConfirm").val())
     {
-            // password & passwordConfirm do match
+        // password & passwordConfirm do match
 
-            // now check if min length is reached
+        // now check if min length is reached
         if($("#newPassword").val().length > 7)
         {
                 console.log("p.php ::: Passwords do match and min length is reached");
@@ -85,7 +85,7 @@ function validatePasswordChangeInput()
                 $("#passwordDiff").text("");
                 $("#passwordDiff").append("<i class='fas fa-smile'></i>");
         }
-        else
+        else // password min length is not reached
         {
             console.warn("p.php ::: Passwords do match but min length is not reached");
             // disable button
@@ -95,11 +95,13 @@ function validatePasswordChangeInput()
             $("#passwordDiff").append("<i class='far fa-frown'></i>");
         }
     }
-    else
+    else // passwords dont match
     {
         console.warn("p.php ::: Passwords do not match");
+
         // disable button
         $("#bt_continue").prop("disabled",true);
+
         // update status icon
         $("#passwordDiff").text("");
         $("#passwordDiff").append("<i class='far fa-frown'></i>");
@@ -110,7 +112,7 @@ function validatePasswordChangeInput()
 
 
 /**
- * @description init noty notification
+ * @description initialize the defaults for noty notification
  * @memberof generic
  */
 function initNotyDefaults()
@@ -160,7 +162,7 @@ function initNotyDefaults()
 
 
 /**
- * @description Displays a noty logout dialog
+ * @description displays a noty logout confirm dialog
  * @memberof generic
  */
 function showLogoutDialog()
@@ -195,7 +197,7 @@ function showLogoutDialog()
 
 
 /**
- * @description Displays a noty notification
+ * @description displays a simple noty notification
  * @memberof generic
  * @param {string} text - The notification text
  * @param {string} type - The notification type

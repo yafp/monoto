@@ -4,6 +4,10 @@
 <!-- 4.2.1 -->
 <link rel="stylesheet" type="text/css" href="js/bootstrap/4.2.1/css/bootstrap.min.css">
 
+<!-- Bootstrap-select -->
+<!-- 1.13.2 -->
+<link rel="stylesheet" type="text/css" href="js/bootstrap-select/1.13.2/dist/css/bootstrap-select.min.css">
+
 <!-- DataTables -->
 <!-- 1.10.18 -->
 <link rel="stylesheet" type="text/css" href="js/datatables/1.10.18/css/jquery.dataTables.min.css" />

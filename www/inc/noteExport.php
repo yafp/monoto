@@ -4,6 +4,14 @@
 // This file acts as script in monoto to export notes from a user.
 // -----------------------------------------------------------------------------
 
+// prevent direct call of this script
+if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteExport.php') !== false)
+{
+    header('Location: ../index.php'); // back to login page
+    die();
+}
+
+
 session_start();
 
 // check if the user-session is valid or not

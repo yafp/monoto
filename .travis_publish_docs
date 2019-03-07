@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-# Trying to auto-generaste jsdoc on commits to main branch
-# to gh-pages
+# Trying to auto-publish docs on commits from main branch to gh-pages
 #
 # source: https://github.com/RubenVerborgh/AsyncIterator/commit/ac05f7675f9a2f5e9e8e74d59a9c5189dd4359b3
 

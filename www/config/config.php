@@ -17,6 +17,9 @@
     // #################################################################################
     //
     // for installation specific admin settings
+    //
+    // project name
+    $m_name	= "monoto";
 
 
     // #################################################################################
@@ -25,11 +28,17 @@
     //
     if ( !defined ('DEVELOPMENT') )
     {
-        define('DEVELOPMENT', true);
+        define('DEVELOPMENT', true); // to enable php 'display_errors'
+        //define('DEVELOPMENT', false); // to disable php 'display_errors'
+
+        if ( DEVELOPMENT === true )
+        {
+            // display_errors
+            //
+            // This determines whether errors should be printed to the screen
+            // as part of the output or if they should be hidden from the user.
+            ini_set('display_errors', 1);
+        }
     }
 
-    if ( DEVELOPMENT === true )
-    {
-        ini_set('display_errors', 1);
-    }
 ?>

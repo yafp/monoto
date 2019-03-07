@@ -59,6 +59,27 @@
     <!-- spacer -->
     <div class="row">&nbsp;</div>
 
+    <!-- section: requirements -->
+    <section id="database" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2><i class="fas fa-puzzle-piece fa-2x"></i> Requirements</h2>
+                    <p class="lead">
+                        <?php
+                            checkGetTextSupport();
+                        ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /requirements -->
+
+    <!-- spacer -->
+    <div class="row">&nbsp;</div>
+
+
     <!-- section: database -->
     <section id="database" class="bg-light">
         <div class="container">
@@ -70,6 +91,7 @@
             </div>
         </div>
     </section>
+    <!-- /database -->
 
     <!-- spacer -->
     <div class="row">&nbsp;</div>
@@ -171,6 +193,7 @@
             </div>
         </div>
     </section>
+    <!-- / accounts -->
 
     <!-- spacer -->
     <div class="row">&nbsp;</div>

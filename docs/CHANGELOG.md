@@ -64,12 +64,16 @@
     * [#256] Show used versions of the most relevant JS frameworks.
     * [#286] Show php version
     * [#289] Delete user works only for non-admin accounts
+    * [#292] User account table: highlight admin accounts
+    * [#293] User account table: highlight existing failed logins
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation
   * [#276] Navigation: Moved to external file
   * [#280] PHP/Session: Using sub-array for Session variables
   * [#284] Added .htaccess for some important folders
+  * [#291] Localize datatable
+  * [#290] Bootstrap <select>
 
 ###  ```Removed```
 * [#261] Removed update check from admin section

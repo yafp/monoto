@@ -1,6 +1,6 @@
 # see http://about.travis-ci.org/docs/user/languages/php/ for more hints
 language: php
-dist: trusty
+dist: precise
 
 # list any PHP version you want to test against
 php:
@@ -8,26 +8,26 @@ php:
 
   # aliased to 5.2.17
   - 5.2
-  dist: precise
+
   # aliased to 5.3.29
   - 5.3
-  dist: precise
+
   # aliased to a recent 5.4.x version
   - 5.4
+
   # aliased to a recent 5.5.x version
   - 5.5
+
   # aliased to a recent 5.6.x version
   - 5.6
+  
   # aliased to a recent 7.x version
   #- 7.0
-  #dist: trusty
   #- 7.1
-  #dist: trusty
   #- 7.2
-  #dist: trusty
   # aliased to a recent hhvm version
   #- hhvm # not supported on Ubuntu precise. Consider using trusty
-  #dist: trusty
+  #- nightly
 
 # optionally specify a list of environments, for example to test different RDBMS
 env:
@@ -42,10 +42,12 @@ env:
 #    - php: 7.0
 #    - php: hhvm
 
+#before_install:
+
+#install:
+
 # execute any number of scripts before the test run, custom env's are available as variables
 #before_script:
-#  - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS hello_world_test;" -U postgres; fi
-#  - if [[ "$DB" == "pgsql" ]]; then psql -c "create database hello_world_test;" -U postgres; fi
 #  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hello_world_test;" -uroot; fi
 
 # omitting "script:" will default to phpunit
@@ -54,9 +56,15 @@ script:
   - phpunit --bootstrap www/inc/helperFunctions.php www/tests/helperFunctionsTests.php
   - npm run docs
 
-
 after_success:
   - ./.travis_publish_docs
+
+#after_script:
+
+#before_deploy:
+
+#after_deploy:
+
 
 # configure notifications (email, IRC, campfire etc)
 #notifications:

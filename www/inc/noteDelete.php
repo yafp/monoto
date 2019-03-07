@@ -3,6 +3,14 @@
 // noteDelete.php
 // This file acts as script in monoto to delete single/selected notes.
 // -----------------------------------------------------------------------------
+
+// prevent direct call of this script
+if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteDelete.php') !== false)
+{
+    header('Location: ../index.php'); // back to login page
+    die();
+}
+
 header('Content-type: text/xml');
 
 session_start();

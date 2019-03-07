@@ -10,12 +10,17 @@
 <script type="text/javascript" language="javascript" src="js/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
 
 
-<!-- # datatable ####################################################### -->
+<!-- # Bootstrap-select #################################################### -->
+<!-- 1.13.2 -->
+<script type="text/javascript" language="javascript" src="js/bootstrap-select/1.13.2/dist/js/bootstrap-select.min.js"></script>
+
+
+<!-- # datatable ########################################################### -->
 <!-- 1.10.18 -->
 <script type="text/javascript" language="javascript" src="js/datatables/1.10.18/js/jquery.dataTables.min.js"></script>
 
 
-<!-- # mark.js ####################################################### -->
+<!-- # mark.js ############################################################# -->
 <script type="text/javascript" language="javascript" src="js/mark.js/jquery.mark.min.js"></script>
 <script type="text/javascript" language="javascript" src="js/mark.js/datatables.mark.js"></script>
 

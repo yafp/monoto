@@ -1,36 +1,40 @@
 {
-	"name": "monoto",
-	"version": "4.0.0",
-	"title": "Monoto Notes",
-	"main": "",
-	"files": [
-		"www/js/monoto/generic.js",
+    "name": "monoto",
+    "version": "4.0.0",
+    "title": "Monoto Notes",
+    "description": "Monoto is a self-hostable notes-keeper.",
+    "homepage": "http://yafp.github.io/monoto/",
+    "bugs": "https://github.com/yafp/monoto/issues",
+    "license": "GPL3",
+    "main": "",
+    "files": [
+        "www/js/monoto/generic.js",
         "www/js/monoto/navigation.js",
-		"www/js/monoto/notes.js",
-		"www/js/monoto/notesKeyPress.js",
-		"www/js/monoto/profile.js"
-	],
-	"license": "GPL3",
-	"dependencies": {
+        "www/js/monoto/notes.js",
+        "www/js/monoto/notesKeyPress.js",
+        "www/js/monoto/profile.js"
+    ],
+
+    "dependencies": {
         "bootstrap": ">=4.2.1",
+        "bootstrap-select": ">=1.13.2",
         "ckeditor": ">=4.11.3",
         "DataTables": ">=1.10.18",
+        "FontAwesome": ">=5.2.0",
         "jquery": ">=3.3.0",
+        "mark.js": ">=9.0.0",
         "noty": ">=2.4.1"
-	},
-	"author": {
-		"name": "Florian Poeck",
-		"url": "http://yafp.de"
-	},
-	"description": "Monoto is a self-hostable notes-keeper.",
-	"keywords": [
-		"Notes",
-		"notes-keeper"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/yafp/monoto.git"
-	},
-	"homepage": "http://yafp.github.io/monoto/",
-
+    },
+    "author": {
+        "name": "Florian Poeck",
+        "url": "http://yafp.de"
+    },
+    "keywords": [
+        "Notes",
+        "notes-keeper"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yafp/monoto.git"
+    },
 }

@@ -163,7 +163,7 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 }
 
                 // store servers getText situation in session variable for later usage (#211)
-                if ( !function_exists( "gettext" ) ) // gettext is not installed - fallback
+                if ( !function_exists( "get_text" ) ) // gettext is not installed - fallback
                 {
                     $_SESSION[ 'monoto' ][ 'getText' ] = 0;
                 }

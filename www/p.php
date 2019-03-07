@@ -176,7 +176,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <form id="changeLanguage" action="p.php" method="post" enctype="multipart/form-data">
-                                <select name="s_languageSelector" id="s_languageSelector">
+                                <select class="selectpicker" name="s_languageSelector" id="s_languageSelector">
                                     <option value="de_DE.UTF-8">de_DE.UTF-8</option>
                                     <option value="en_US">en_US</option>
                                 </select>
