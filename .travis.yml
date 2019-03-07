@@ -44,7 +44,8 @@ env:
 
 #before_install:
 
-#install:
+install:
+  - composer install --no-interaction
 
 # execute any number of scripts before the test run, custom env's are available as variables
 #before_script:
