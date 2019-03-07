@@ -7,11 +7,13 @@
 
 
 // prevent direct call of this script
+/*
 if (strpos($_SERVER['SCRIPT_FILENAME'], 'helperFunctions.php') !== false)
 {
     header('Location: ../index.php'); // back to login page
     die();
 }
+*/
 
 
 /**
