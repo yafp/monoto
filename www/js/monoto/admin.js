@@ -13,9 +13,9 @@ function getJavaScriptVersions()
     // BootStrap
     //
     // get bootstrap version
-    var bootstrap_version = ($().modal||$().tab).Constructor.VERSION.split(',');
+    var bootstrapVersion = ($().modal||$().tab).Constructor.VERSION.split(',');
     // update gui
-    $("#libVersionBootstrap").val(bootstrap_version);
+    $("#libVersionBootstrap").val(bootstrapVersion);
 
     // ckeditor
     //
@@ -25,9 +25,9 @@ function getJavaScriptVersions()
     // DataTables
     //
     // get DataTables version
-    var datatable_version = $.fn.dataTable.version;
+    var datatableVersion = $.fn.dataTable.version;
     // update gui
-    $("#libVersionDataTable").val(datatable_version);
+    $("#libVersionDataTable").val(datatableVersion);
 
     // jquery
     //
