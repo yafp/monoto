@@ -47,17 +47,21 @@
             <!-- content-->
             <div id="content">
 
-                <!-- show notice in case of development releases / versions -->
-                <?php
-                if($m_release == false )
-                {
-                    echo '<div class="alert alert-warning" role="alert"><strong><i class="fas fa-exclamation-circle"></i> Notice:</strong><br>This is a development release, please don\'t use for production environment.</div>';
-                }
-                ?>
-                <!-- /End devel notice -->
-
                 <!-- form -->
                 <form name="myform" method="post" action="n.php">
+
+                    <!-- development release/version notice -->
+                    <?php
+                        if($m_stableRelease == false )
+                        {
+                            echo "<div class='row top-buffer'>&nbsp;</div>";
+                            echo '<div class="alert alert-warning" role="alert"><strong><i class="fas fa-exclamation-circle"></i> Notice:</strong><br>This is a development release, please don\'t use for production environment.</div>';
+                        }
+                    ?>
+                    <!-- /End devel notice -->
+
+                    <!-- spacer -->
+                    <div class="row top-buffer">&nbsp;</div>
 
                     <!-- search -->
                     <div class="row">
@@ -67,17 +71,16 @@
                         <div class="col-sm-2">
 
                             <?php
-
-                            if($m_release == true ) // its a release: hide'em
-                            {
-                                echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note ID" name="noteID" id="noteID" tabindex="-1" disabled placeholder="Note ID" />';
-                                echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note version" name="noteVersion" id="noteVersion" tabindex="-1" disabled placeholder="Note version">';
-                            }
-                            else // its nbot a release: show'em
-                            {
-                                echo '<input type="text" class="form-control" title="Note ID" name="noteID" id="noteID" tabindex="-1" disabled placeholder="Note ID" />';
-                                echo '<input type="text" class="form-control" title="Note version" name="noteVersion" id="noteVersion" tabindex="-1" disabled placeholder="Note version">';
-                            }
+                                if($m_stableRelease == true ) // its a release: hide'em
+                                {
+                                    echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note ID" name="noteID" id="noteID" tabindex="-1" disabled placeholder="Note ID" />';
+                                    echo '<input type="hidden" class="form-control" style="width: 90px; padding: 2px" title="Note version" name="noteVersion" id="noteVersion" tabindex="-1" disabled placeholder="Note version">';
+                                }
+                                else // its nbot a release: show'em
+                                {
+                                    echo '<input type="text" class="form-control" title="Note ID" name="noteID" id="noteID" tabindex="-1" disabled placeholder="Note ID" />';
+                                    echo '<input type="text" class="form-control" title="Note version" name="noteVersion" id="noteVersion" tabindex="-1" disabled placeholder="Note version">';
+                                }
                             ?>
 
                         </div>

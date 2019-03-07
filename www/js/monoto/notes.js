@@ -4,7 +4,7 @@
 
 /**
  * @name disableNoteSavingButton
- * @description disables the save button (button "Save")
+ * @description disables the save button
  * @memberof notes
  */
 function disableNoteSavingButton()
@@ -47,28 +47,30 @@ function unmarkAllDataTableRows()
 {
     console.log("unmarkAllDataTableRows ::: Removing the selected attribute from all table rows");
 
-
-    oTable.rows().every( function ( rowIdx, tableLoop, rowLoop )
+    if(initialLoad == false) // only if it isnt the initial load of the page
     {
-        var data = this.data();
-        //console.log(data);
+        oTable.rows().every( function ( rowIdx, tableLoop, rowLoop )
+        {
+            var data = this.data();
+            //console.log(data);
 
-        // remove class row_selected
-        $("#myDataTable tbody tr:eq("+rowIdx+")").removeClass("row_selected");
+            // remove class row_selected
+            $("#myDataTable tbody tr:eq("+rowIdx+")").removeClass("row_selected");
 
-        // remove class selected
-        $("#myDataTable tbody tr:eq("+rowIdx+")").removeClass("selected");
-    } );
+            // remove class selected
+            $("#myDataTable tbody tr:eq("+rowIdx+")").removeClass("selected");
+        } );
 
-    // reset info about amount of records
-    var table = $('#myDataTable').DataTable();
-    table.rows().deselect();
+        // reset info about amount of records
+        var table = $('#myDataTable').DataTable();
+        table.rows().deselect();
+    }
 }
 
 
 /**
  * @name selectSingleDataTableRow
- * @description Selects/clicks a single row from DataTable
+ * @description selects and clicks a single row in the notes DataTable
  * @memberof notes
  * @param {string} rowNumber - the number of the selected row
  */
@@ -88,7 +90,7 @@ function selectSingleDataTableRow(rowNumber)
 
 /**
  * @name printCKEditorStatus
- * @description show the status of CKEditor
+ * @description shows the status of CKEditor
  * @memberof notes
  */
 function printCKEditorStatus()
@@ -231,7 +233,7 @@ function initCKEditor()
 
 /**
  * @name saveCKEditorHeightOnChange
- * @description handle CKEditor height
+ * @description handles resize events of CKEditor
  * @memberof notes
  */
 function saveCKEditorHeightOnChange()
@@ -337,7 +339,7 @@ function resetCKEditor()
 
 /**
  * @name hideAllButtons
- * @description hide all buttons
+ * @description hide all buttons in the notes interface
  * @memberof notes
  */
 function hideAllButtons()
@@ -346,12 +348,12 @@ function hideAllButtons()
 
     console.log("hideAllButtons ::: Hiding all buttons at once");
 
-    // hide some UI items
+    // hide the buttons
     $("#bt_prepareNoteCreation").hide();
     $("#bt_cancelNewNote").hide();
     $("#bt_createNewNote").hide();
-    $("#bt_deleteNote").hide(); // hide delete button
-    $("#bt_saveNote").hide(); // hide save buttons
+    $("#bt_deleteNote").hide();
+    $("#bt_saveNote").hide();
 
     console.debug("hideAllButtons ::: Stop");
 }
@@ -403,7 +405,10 @@ function resetNotesUI()
     $("#myDataTable_info").fadeIn(500); // hide dataTable info about records
 
     // reset all DataTable filter - to see all records of the table
-    oTable.search("").draw();
+    if(initialLoad == false)
+    {
+        oTable.search("").draw();
+    }
 
     //var table = $('#myDataTable').DataTable();
     //table.clear().draw();
@@ -434,7 +439,7 @@ function resetNotesUI()
 
 /**
  * @name prepareNewNoteStepOne
- * @description Prepars the User-Interface for the note creation process
+ * @description prepars the User-Interface for the note creation process
  * @memberof notes
  */
 function prepareNewNoteStepOne()
@@ -485,7 +490,7 @@ function prepareNewNoteStepOne()
 
 /**
  * @name prepareNewNoteStepTwo
- * @description Triggered via "noteTitle" during "New Note creation"
+ * @description triggered via "noteTitle" during "New Note creation"
  * @memberof notes
  */
 function prepareNewNoteStepTwo()
@@ -528,7 +533,7 @@ function prepareNewNoteStepTwo()
 
 /**
  * @name reloadAllNotesFromDB
- * @description Redraw DataTable
+ * @description redraws the notes DataTable
  * @memberof notes
  */
 function reloadAllNotesFromDB()
@@ -552,7 +557,7 @@ function reloadAllNotesFromDB()
 
 /**
  * @name createNewNote
- * @description Prepare new-note-creation Step 2 (button "create")
+ * @description creates a new note via post to inc/noteNew.php
  * @memberof notes
  */
 function createNewNote()
@@ -609,12 +614,12 @@ function createNewNote()
         })
         .fail(function(jqxhr, textStatus, errorThrown)
         {
-            alert("Note creation failed.");
-
             console.error("FAIL");
-            //console.log(jqxhr);
-            //console.log(textStatus);
-            //console.log(errorThrown);
+            console.log(jqxhr);
+            console.log(textStatus);
+            console.log(errorThrown);
+
+            alert("Note creation failed.");
         })
         .always(function()
         {
@@ -632,7 +637,7 @@ function createNewNote()
 
 /**
  * @name saveNote
- * @description used to store changes on an selected note (button "save")
+ * @description updates an existing note via post to inc/noteUpdate.php
  * @memberof notes
  */
 function saveNote()
@@ -666,8 +671,6 @@ function saveNote()
         // if we have a note-id - save the change to db
         if((modifiedNoteID.length > 0) && (modifiedNoteID !== "ID"))
         {
-            //$.post("inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter  } );
-
             var jqxhr = $.post( "inc/noteUpdate.php", { modifiedNoteID: modifiedNoteID, modifiedNoteTitle: modifiedNoteTitle, modifiedNoteContent: modifiedNoteContent, modifiedNoteCounter: modifiedNoteCounter}, function()
             {
                 console.log("saveNote ::: success creasting new note");
@@ -702,8 +705,6 @@ function saveNote()
 
                 //selectSingleDataTableRow(overallRowCount);
 
-
-
                 // simulate keypress - arrow down:
                 //$("#searchField").focus(); // as arrow up/down needs focus to work
                 //jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(40) });
@@ -719,12 +720,12 @@ function saveNote()
             })
             .fail(function(jqxhr, textStatus, errorThrown)
             {
-                alert("Saving note failed.");
-
                 console.error("saveNote ::: Saving note failed");
-                //console.log(jqxhr);
-                //console.log(textStatus);
-                //console.log(errorThrown);
+                console.log(jqxhr);
+                console.log(textStatus);
+                console.log(errorThrown);
+
+                alert("Saving note failed.");
             })
             .always(function()
             {
@@ -745,7 +746,7 @@ function saveNote()
 
 /**
  * @name deleteNote
- * @description Used to delete a selected note (button "delete")
+ * @description deletes an existing note via post to inc/noteDelete.php
  * @memberof notes
  */
 function deleteNote()
@@ -770,8 +771,6 @@ function deleteNote()
             buttons: [
                 {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
                     $noty.close();
-
-                    //$.post("inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent } );
 
                     var jqxhr = $.post( "inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent}, function()
                     {
@@ -841,7 +840,7 @@ function deleteNote()
 
 /**
  * @name reloadCurrentPage
- * @description Reload all notes
+ * @description reloads the current page
  * @memberof notes
  */
 function reloadCurrentPage()
@@ -857,10 +856,9 @@ function reloadCurrentPage()
 }
 
 
-
 /**
  * @name initDataTable
- * @description initialize DataTable
+ * @description initializes the notes DataTable
  * @memberof notes
  */
 function initDataTable()
@@ -868,43 +866,91 @@ function initDataTable()
     console.debug("initDataTable ::: Start");
     console.log("initDataTable ::: Initializing the DataTable");
 
-    oTable = $("#myDataTable").DataTable( {
-    "select": {
-            "style": "single"
-    },
-        // test
-    "searching": true,
-    "info": true,
-    // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
-    "mark": true,
-    "processing": true,
-    //"serverSide": true, // might conflict with .search in datatable
-    "ajax": "inc/noteGetAllNotes.php",
-    "dom": "irt<'clear'>",
-    "paging": false,
-    "aaSorting": [[ 3, "desc" ]], // default sorting
-    "aoColumnDefs": [ // disable sorting for all visible columns - as it breaks keyboard navigation
-        { "bSortable": false, "aTargets": [ 0 ] }, // id
-        { "bSortable": false, "aTargets": [ 1 ] }, // title
-        { "bSortable": false, "aTargets": [ 2 ] }, // content
-        { "bSortable": true, "aTargets": [ 3 ] }, // date mod
-        { "bSortable": false, "aTargets": [ 4 ] }, // date create
-        { "bSortable": false, "aTargets": [ 5 ] }, // version
-        { "bSortable": false, "aTargets": [ 6 ] }, // owner
-    ],
-    "aoColumns"   : [
-        { "bSearchable": false, "bVisible": false, "sWidth": "5%" },
-        { "bSearchable": true, "bVisible": true, "sWidth": "100%" },
-        { "bSearchable": true, "bVisible": false},
-        { "bSearchable": false, "bVisible": false},
-        { "bSearchable": false, "bVisible": false},
-        { "bSearchable": false, "bVisible": false },
-        { "bSearchable": false, "bVisible": false}
-    ],
+    langUrl = "";
 
-    } );
+    var jqxhr = $.post( "inc/getLang.php", { post: 1}, function(responseText)
+    {
+        console.log("initDataTable ::: Queried user session language");
+        console.log(jqxhr);
+        console.log(responseText);
 
-    // FIXME - test
+        if(responseText.includes("de_DE.UTF-8"))
+        {
+            langUrl = "js/datatables/German.json";
+        }
+        else
+        {
+            langUrl = "js/datatables/English.json";
+        }
+        console.log("initDataTable ::: Configured language-file is: " + langUrl);
+
+        oTable = $("#myDataTable").DataTable( {
+            "select": {
+                "style": "single"
+            },
+
+            "language": {
+                "url": langUrl,
+                "loadingRecords": "Loading...",
+                "processing": "Processing...",
+                "search": "Search:",
+                "emptyTable": "No matches found",
+                "zeroRecords": "No notes found",
+                "info": "Showing _TOTAL_ notes",
+                "infoEmpty": "No notes available",
+                "infoFiltered": " - after searching all _MAX_ notes.",
+                "select": {
+                    "rows": "%d selected",
+                }
+            },
+                // test
+            "searching": true,
+            "info": true,
+            // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
+            "mark": true,
+            "processing": true,
+            //"serverSide": true, // might conflict with .search in datatable
+            "ajax": "inc/noteGetAllNotes.php",
+            "dom": "irt<'clear'>",
+            "paging": false,
+            "aaSorting": [[ 3, "desc" ]], // default sorting
+            "aoColumnDefs": [ // disable sorting for all visible columns - as it breaks keyboard navigation
+                { "bSortable": false, "aTargets": [ 0 ] }, // id
+                { "bSortable": false, "aTargets": [ 1 ] }, // title
+                { "bSortable": false, "aTargets": [ 2 ] }, // content
+                { "bSortable": true, "aTargets": [ 3 ] }, // date mod
+                { "bSortable": false, "aTargets": [ 4 ] }, // date create
+                { "bSortable": false, "aTargets": [ 5 ] }, // version
+                { "bSortable": false, "aTargets": [ 6 ] }, // owner
+            ],
+            "aoColumns"   : [
+                { "bSearchable": false, "bVisible": false, "sWidth": "5%" },
+                { "bSearchable": true, "bVisible": true, "sWidth": "100%" },
+                { "bSearchable": true, "bVisible": false},
+                { "bSearchable": false, "bVisible": false},
+                { "bSearchable": false, "bVisible": false},
+                { "bSearchable": false, "bVisible": false },
+                { "bSearchable": false, "bVisible": false}
+            ],
+
+        } );
+    })
+    .done(function()
+    {
+        console.log("initDataTable ::: Finished selecting user session language");
+    })
+    .fail(function(jqxhr, textStatus, errorThrown)
+    {
+        console.error("initDataTable :: Post failed");
+        console.log(jqxhr);
+        console.log(textStatus);
+        console.log(errorThrown);
+    })
+    .always(function()
+    {
+        // doing nothing so far
+    });
+
     // amountOfRecordsAfterFilter should be set to count of all records, not 0
     amountOfRecordsAfterFilter = 0;
 
@@ -987,7 +1033,7 @@ function updateCurrentSelectedRowInDataTable(valueChange)
 
 /**
  * @name selectNextDataTableRow
- * @description select next row in DataTable
+ * @description selects the next row in notes DataTable
  * @memberof notes
  */
 function selectNextDataTableRow()
@@ -1003,7 +1049,7 @@ function selectNextDataTableRow()
 
 /**
  * @name selectPreviousDataTableRow
- * @description select the previous row in DataTable
+ * @description selects the previous row in notes DataTable
  * @memberof notes
  */
 function selectPreviousDataTableRow()
@@ -1019,13 +1065,15 @@ function selectPreviousDataTableRow()
 
 /**
  * @name onClickDataTableCell
- * @description Executed if a cell in the DataTable is clicked
+ * @description executed if a cell in the notes DataTable is clicked
  * @memberof notes
  * @param {array} data - Contains all fields of the selected note
  */
 function onClickDataTableCell(data)
 {
     console.debug("onClickDataTableCell ::: Start");
+
+    console.log("onClickDataTableCell ::: A cell of the DataTable was clicked - try to load the note_______.");
 
     // get data from current record
     noteID = data[0];
@@ -1090,7 +1138,7 @@ function onClickDataTableCell(data)
         //
         CKEDITOR.instances.editor1.on("change", function(ev)
         {
-            console.log("onClickDataTableCell ::: Created a OnChangeListener for CKEditor");
+            console.log("onClickDataTableCell ::: OnChangeListener for CKEditor");
 
             // check if button is disabled - if so - enable it
             if($("#bt_saveNote").is(":disabled"))
@@ -1140,7 +1188,7 @@ function onClickDataTableCell(data)
 
 /**
  * @name onFilterDataTable
- * @description Executed after the raw filtering of datatable is done
+ * @description executed after the raw filtering of notes DataTable is done
  * @memberof notes
  * @param {number} amountOfRecordsAfterFilter - The amount of visible DataTable records
  */
@@ -1230,9 +1278,6 @@ function onNotesPageReady()
 
     console.log("onNotesPageReady ::: Starting to initializing the notes view");
 
-    // hide all buttons on start to avoid flickering
-    //hideAllButtons();
-
     // CKEditor
     //
     initCKEditor();
@@ -1240,10 +1285,9 @@ function onNotesPageReady()
 
     // DataTable
     //
-    initDataTable(); // initialize the DataTable
+    initDataTable(); // initializes the DataTable
 
     // DataTable: add a click handler to the rows (<tr>)
-    //
     $("#myDataTable tbody").on("click", "tr", function ()
     {
         console.log("onNotesPageReady ::: clicked a record row <tr>");
@@ -1276,7 +1320,7 @@ function onNotesPageReady()
 
     // Datatable: Add a click handler to the rows (<td>)
     //
-    $(".dataTable").on("click", "tbody td", function(event)
+    $("#myDataTable").on("click", "tbody td", function(event)
     {
         // unmark all records
         unmarkAllDataTableRows();
@@ -1357,9 +1401,6 @@ function onNotesPageReady()
 
     // reset notes UI
     resetNotesUI();
-
-    // set focus to search (shouldnt be needed anymore due to autofocus)
-    //$("#searchField").focus();
 
     console.debug("onNotesPageReady ::: Stop");
 }

@@ -1,0 +1,24 @@
+
+{
+	"sEmptyTable":     "No matches found",
+	"sInfo":           "Showing _TOTAL_ notes",
+	"sInfoEmpty":      "No notes available",
+	"sInfoFiltered":   " - after searching all _MAX_ notes.",
+	"sInfoPostFix":    "",
+	"sInfoThousands":  ",",
+	"sLengthMenu":     "Show _MENU_ entries",
+	"sLoadingRecords": "Loading...",
+	"sProcessing":     "Processing...",
+	"sSearch":         "Search:",
+	"sZeroRecords":    "No notes found",
+	"oPaginate": {
+		"sFirst":    "First",
+		"sLast":     "Last",
+		"sNext":     "Next",
+		"sPrevious": "Previous"
+	},
+	"oAria": {
+		"sSortAscending":  ": activate to sort column ascending",
+		"sSortDescending": ": activate to sort column descending"
+	}
+}
