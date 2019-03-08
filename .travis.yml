@@ -48,7 +48,7 @@ install:
 # use the $DB env variable to determine the phpunit.xml to use
 script:
   - phpunit --bootstrap www/inc/helperFunctions.php tests/helperFunctionsTests.php
-  - npm run docs
+  #- npm run docs
 
 after_success:
   - ./.travis_publish_docs
