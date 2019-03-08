@@ -1,8 +1,10 @@
 {
    "require": {
-      "ext-gettext": "*"
+      "ext-gettext": "*",
+      "phpunit/phpunit": "*"
     },
     "require-dev": {
-      "ext-gettext": "*"
+      "ext-gettext": "*",
+      "phpunit/phpunit": "*"
    }
 }
