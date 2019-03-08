@@ -11,7 +11,7 @@ function initProfileEventsDataTable()
     console.debug("initProfileEventsDataTable ::: Start");
 
      // init
-     $('#myDataTable').DataTable( {
+     $("#myDataTable").DataTable( {
          "bSort": false, // dont sort - trust the sql-select and its sort-order
          "sPaginationType": "simple_numbers",
          "iDisplayLength" : 10,

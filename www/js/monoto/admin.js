@@ -13,7 +13,7 @@ function getJavaScriptVersions()
     // BootStrap
     //
     // get bootstrap version
-    var bootstrapVersion = ($().modal||$().tab).Constructor.VERSION.split(',');
+    var bootstrapVersion = ($().modal||$().tab).Constructor.VERSION.split(",");
     // update gui
     $("#libVersionBootstrap").val(bootstrapVersion);
 
@@ -31,7 +31,7 @@ function getJavaScriptVersions()
 
     // jquery
     //
-    if (typeof jQuery != 'undefined')
+    if (typeof jQuery != "undefined")
     {
         // update gui
         $("#libVersionJQuery").val(jQuery.fn.jquery);
@@ -52,7 +52,7 @@ function initMonotoUsersDataTable()
 
     console.log("initMonotoUsersDataTable ::: Initializing Monoto Users DataTable");
 
-    $('#myMonotoUserDataTable').DataTable( {
+    $("#myMonotoUserDataTable").DataTable( {
         "select": {
             "style": "single"
         },

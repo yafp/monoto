@@ -62,7 +62,7 @@ function unmarkAllDataTableRows()
         } );
 
         // reset info about amount of records
-        var table = $('#myDataTable').DataTable();
+        var table = $("#myDataTable").DataTable();
         table.rows().deselect();
     }
 }
@@ -516,6 +516,82 @@ function prepareNewNoteStepTwo()
 }
 
 
+/**
+ * @name initDataTable
+ * @description initializes the notes DataTable
+ * @memberof notes
+ */
+function initDataTable(sessionLanguage)
+{
+    console.debug("initDataTable ::: Start");
+    console.log("initDataTable ::: Initializing the DataTable with language set to: " + sessionLanguage);
+
+    if( sessionLanguage === "de_DE.UTF-8")
+    {
+        langUrl = "js/datatables/German.json";
+    }
+    else {
+        langUrl = "js/datatables/English.json";
+    }
+    console.log("initDataTable ::: Language file is set to: " + langUrl);
+
+    oTable = $("#myDataTable").DataTable( {
+        "select": {
+            "style": "single"
+        },
+
+        "language": {
+            "url": langUrl,
+            "loadingRecords": "Loading...",
+            "processing": "Processing...",
+            "search": "Search:",
+            "emptyTable": "No matches found",
+            "zeroRecords": "No notes found",
+            "info": "Showing _TOTAL_ notes",
+            "infoEmpty": "No notes available",
+            "infoFiltered": " - after searching all _MAX_ notes.",
+            "select": {
+                "rows": "%d selected",
+            }
+        },
+        // test
+        "searching": true,
+        "info": true,
+        // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
+        "mark": true,
+        "processing": true,
+        //"serverSide": true, // might conflict with .search in datatable
+        "ajax": "inc/noteGetAllNotes.php",
+        "dom": "irt<'clear'>",
+        "paging": false,
+        "aaSorting": [[ 3, "desc" ]], // default sorting
+        "aoColumnDefs": [ // disable sorting for all visible columns - as it breaks keyboard navigation
+            { "bSortable": false, "aTargets": [ 0 ] }, // id
+            { "bSortable": false, "aTargets": [ 1 ] }, // title
+            { "bSortable": false, "aTargets": [ 2 ] }, // content
+            { "bSortable": true, "aTargets": [ 3 ] }, // date mod
+            { "bSortable": false, "aTargets": [ 4 ] }, // date create
+            { "bSortable": false, "aTargets": [ 5 ] }, // version
+            { "bSortable": false, "aTargets": [ 6 ] }, // owner
+        ],
+        "aoColumns"   : [
+            { "bSearchable": false, "bVisible": false, "sWidth": "5%" },
+            { "bSearchable": true, "bVisible": true, "sWidth": "100%" },
+            { "bSearchable": true, "bVisible": false},
+            { "bSearchable": false, "bVisible": false},
+            { "bSearchable": false, "bVisible": false},
+            { "bSearchable": false, "bVisible": false },
+            { "bSearchable": false, "bVisible": false}
+        ],
+    } );
+    console.log("initDataTable ::: Finished initializing the DataTable");
+
+    // amountOfRecordsAfterFilter should be set to count of all records, not 0
+    amountOfRecordsAfterFilter = 0;
+
+    console.debug("initDataTable ::: Stop");
+}
+
 
 /**
  * @name reloadAllNotesFromDB
@@ -838,83 +914,6 @@ function reloadCurrentPage()
     window.location = loc.protocol + "//" + loc.host + loc.pathname + loc.search;
 
     console.debug("reloadCurrentPage ::: Stop");
-}
-
-
-/**
- * @name initDataTable
- * @description initializes the notes DataTable
- * @memberof notes
- */
-function initDataTable(sessionLanguage)
-{
-    console.debug("initDataTable ::: Start");
-    console.log("initDataTable ::: Initializing the DataTable with language set to: " + sessionLanguage);
-
-    if( sessionLanguage === "de_DE.UTF-8")
-    {
-        langUrl = "js/datatables/German.json";
-    }
-    else {
-        langUrl = "js/datatables/English.json";
-    }
-    console.log("initDataTable ::: Language file is set to: " + langUrl);
-
-    oTable = $("#myDataTable").DataTable( {
-        "select": {
-            "style": "single"
-        },
-
-        "language": {
-            "url": langUrl,
-            "loadingRecords": "Loading...",
-            "processing": "Processing...",
-            "search": "Search:",
-            "emptyTable": "No matches found",
-            "zeroRecords": "No notes found",
-            "info": "Showing _TOTAL_ notes",
-            "infoEmpty": "No notes available",
-            "infoFiltered": " - after searching all _MAX_ notes.",
-            "select": {
-                "rows": "%d selected",
-            }
-        },
-        // test
-        "searching": true,
-        "info": true,
-        // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
-        "mark": true,
-        "processing": true,
-        //"serverSide": true, // might conflict with .search in datatable
-        "ajax": "inc/noteGetAllNotes.php",
-        "dom": "irt<'clear'>",
-        "paging": false,
-        "aaSorting": [[ 3, "desc" ]], // default sorting
-        "aoColumnDefs": [ // disable sorting for all visible columns - as it breaks keyboard navigation
-            { "bSortable": false, "aTargets": [ 0 ] }, // id
-            { "bSortable": false, "aTargets": [ 1 ] }, // title
-            { "bSortable": false, "aTargets": [ 2 ] }, // content
-            { "bSortable": true, "aTargets": [ 3 ] }, // date mod
-            { "bSortable": false, "aTargets": [ 4 ] }, // date create
-            { "bSortable": false, "aTargets": [ 5 ] }, // version
-            { "bSortable": false, "aTargets": [ 6 ] }, // owner
-        ],
-        "aoColumns"   : [
-            { "bSearchable": false, "bVisible": false, "sWidth": "5%" },
-            { "bSearchable": true, "bVisible": true, "sWidth": "100%" },
-            { "bSearchable": true, "bVisible": false},
-            { "bSearchable": false, "bVisible": false},
-            { "bSearchable": false, "bVisible": false},
-            { "bSearchable": false, "bVisible": false },
-            { "bSearchable": false, "bVisible": false}
-        ],
-    } );
-    console.log("initDataTable ::: Finished initializing the DataTable");
-
-    // amountOfRecordsAfterFilter should be set to count of all records, not 0
-    amountOfRecordsAfterFilter = 0;
-
-    console.debug("initDataTable ::: Stop");
 }
 
 
