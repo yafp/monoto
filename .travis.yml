@@ -7,8 +7,8 @@ php:
   # using major version aliases
 
   # aliased to 5.x
-  - 5.2
-  - 5.3
+  #- 5.2 # only on precise
+  #- 5.3 # only on precise
   - 5.4
   - 5.5
   - 5.6
