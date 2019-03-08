@@ -399,10 +399,10 @@ function resetNotesUI()
 
     // DataTable
     //
-    // enable dataTable
+    // enable DataTable
     $("#myDataTable").prop("disabled",false); // enable DataTable
     $("#myDataTable").fadeIn(500); // fade in DataTable (if needed)
-    $("#myDataTable_info").fadeIn(500); // hide dataTable info about records
+    $("#myDataTable_info").fadeIn(500); // hide DataTable info about records
 
     // reset all DataTable filter - to see all records of the table
     if(initialLoad === false)
@@ -410,15 +410,8 @@ function resetNotesUI()
         oTable.search("").draw();
     }
 
-    //var table = $('#myDataTable').DataTable();
-    //table.clear().draw();
-
-
     // unmark all DataTable records
     unmarkAllDataTableRows();
-
-    // reset selected row number
-    //curSelectedTableRow = -1;
 
     // CKEditor
     //
@@ -474,15 +467,7 @@ function prepareNewNoteStepOne()
     // hide datatable
     $("#myDataTable").prop("disabled",true); // disable datatable
     $("#myDataTable").fadeOut(500); // hide  DataTablesearch field
-    $("#myDataTable_info").fadeOut(500); // hide dataTable info about records
-
-    // Enable read-write of editor
-    // Upate:
-    // moved that to onChange of note title.
-    // as enabling editor while creating a new note  makes only sense
-    // if there is a noteTitle
-    //
-    //enableCKEditorWriteMode();
+    $("#myDataTable_info").fadeOut(500); // hide DataTable info about records
 
     console.debug("prepareNewNoteStepOne ::: Stop");
 }
@@ -531,6 +516,7 @@ function prepareNewNoteStepTwo()
 }
 
 
+
 /**
  * @name reloadAllNotesFromDB
  * @description redraws the notes DataTable
@@ -547,7 +533,7 @@ function reloadAllNotesFromDB()
     $( "myDataTable" ).empty();
 
     // re-init datatable
-    initDataTable();
+    initDataTable(userLanguage);
 
     console.log("reloadAllNotesFromDB ::: Finished loading all user notes from server");
 
@@ -614,12 +600,13 @@ function createNewNote()
         })
         .fail(function(jqxhr, textStatus, errorThrown)
         {
-            console.error("FAIL");
+            console.error("createNewNote ::: $.post failed");
+
             console.log(jqxhr);
             console.log(textStatus);
             console.log(errorThrown);
 
-            alert("Note creation failed.");
+            createNoty("Note creation failed", "error");
         })
         .always(function()
         {
@@ -720,12 +707,12 @@ function saveNote()
             })
             .fail(function(jqxhr, textStatus, errorThrown)
             {
-                console.error("saveNote ::: Saving note failed");
+                console.error("saveNote ::: $.post failed");
                 console.log(jqxhr);
                 console.log(textStatus);
                 console.log(errorThrown);
 
-                alert("Saving note failed.");
+                createNoty("Saving note failed", "error");
             })
             .always(function()
             {
@@ -757,7 +744,7 @@ function deleteNote()
 
     var deleteID = $("#noteID").val();
     var deleteTitle = $("#noteTitle").val();
-    var deleteContent = $("#editor1").val();
+    //var deleteContent = $("#editor1").val();
 
     if ((deleteID.length > 0) && (deleteID !== "" ))
     {
@@ -772,7 +759,7 @@ function deleteNote()
                 {addClass: "btn btn-primary", text: "Ok", onClick: function($noty) {
                     $noty.close();
 
-                    var jqxhr = $.post( "inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle, deleteContent: deleteContent}, function()
+                    var jqxhr = $.post( "inc/noteDelete.php", { deleteID: deleteID, deleteTitle: deleteTitle }, function()
                     {
                         console.log("deleteNote ::: success deleting note");
                     })
@@ -792,12 +779,13 @@ function deleteNote()
                     })
                     .fail(function(jqxhr, textStatus, errorThrown)
                     {
-                        alert("Deleting note failed.");
+                        console.error("deleteNote ::: .$post failed");
 
-                        console.error("FAIL");
-                        //console.log(jqxhr);
-                        //console.log(textStatus);
-                        //console.log(errorThrown);
+                        console.log(jqxhr);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+
+                        createNoty("Deleting note failed", "error");
                     })
                     .always(function()
                     {
@@ -810,9 +798,6 @@ function deleteNote()
                 {
                     $noty.close();
                     createNoty("Aborted", "error");
-
-                    // reload notes
-                    //reloadAllNotesFromDB();
                 }
             }
             ]
@@ -861,95 +846,70 @@ function reloadCurrentPage()
  * @description initializes the notes DataTable
  * @memberof notes
  */
-function initDataTable()
+function initDataTable(sessionLanguage)
 {
     console.debug("initDataTable ::: Start");
-    console.log("initDataTable ::: Initializing the DataTable");
+    console.log("initDataTable ::: Initializing the DataTable with language set to: " + sessionLanguage);
 
-    langUrl = "";
-
-    var jqxhr = $.post( "inc/getLang.php", { post: 1}, function(responseText)
+    if( sessionLanguage === "de_DE.UTF-8")
     {
-        console.log("initDataTable ::: Queried user session language");
-        console.log(jqxhr);
-        console.log(responseText);
+        langUrl = "js/datatables/German.json";
+    }
+    else {
+        langUrl = "js/datatables/English.json";
+    }
+    console.log("initDataTable ::: Language file is set to: " + langUrl);
 
-        if(responseText.includes("de_DE.UTF-8"))
-        {
-            langUrl = "js/datatables/German.json";
-        }
-        else
-        {
-            langUrl = "js/datatables/English.json";
-        }
-        console.log("initDataTable ::: Configured language-file is: " + langUrl);
+    oTable = $("#myDataTable").DataTable( {
+        "select": {
+            "style": "single"
+        },
 
-        oTable = $("#myDataTable").DataTable( {
+        "language": {
+            "url": langUrl,
+            "loadingRecords": "Loading...",
+            "processing": "Processing...",
+            "search": "Search:",
+            "emptyTable": "No matches found",
+            "zeroRecords": "No notes found",
+            "info": "Showing _TOTAL_ notes",
+            "infoEmpty": "No notes available",
+            "infoFiltered": " - after searching all _MAX_ notes.",
             "select": {
-                "style": "single"
-            },
-
-            "language": {
-                "url": langUrl,
-                "loadingRecords": "Loading...",
-                "processing": "Processing...",
-                "search": "Search:",
-                "emptyTable": "No matches found",
-                "zeroRecords": "No notes found",
-                "info": "Showing _TOTAL_ notes",
-                "infoEmpty": "No notes available",
-                "infoFiltered": " - after searching all _MAX_ notes.",
-                "select": {
-                    "rows": "%d selected",
-                }
-            },
-                // test
-            "searching": true,
-            "info": true,
-            // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
-            "mark": true,
-            "processing": true,
-            //"serverSide": true, // might conflict with .search in datatable
-            "ajax": "inc/noteGetAllNotes.php",
-            "dom": "irt<'clear'>",
-            "paging": false,
-            "aaSorting": [[ 3, "desc" ]], // default sorting
-            "aoColumnDefs": [ // disable sorting for all visible columns - as it breaks keyboard navigation
-                { "bSortable": false, "aTargets": [ 0 ] }, // id
-                { "bSortable": false, "aTargets": [ 1 ] }, // title
-                { "bSortable": false, "aTargets": [ 2 ] }, // content
-                { "bSortable": true, "aTargets": [ 3 ] }, // date mod
-                { "bSortable": false, "aTargets": [ 4 ] }, // date create
-                { "bSortable": false, "aTargets": [ 5 ] }, // version
-                { "bSortable": false, "aTargets": [ 6 ] }, // owner
-            ],
-            "aoColumns"   : [
-                { "bSearchable": false, "bVisible": false, "sWidth": "5%" },
-                { "bSearchable": true, "bVisible": true, "sWidth": "100%" },
-                { "bSearchable": true, "bVisible": false},
-                { "bSearchable": false, "bVisible": false},
-                { "bSearchable": false, "bVisible": false},
-                { "bSearchable": false, "bVisible": false },
-                { "bSearchable": false, "bVisible": false}
-            ],
-
-        } );
-    })
-    .done(function()
-    {
-        console.log("initDataTable ::: Finished selecting user session language");
-    })
-    .fail(function(jqxhr, textStatus, errorThrown)
-    {
-        console.error("initDataTable :: Post failed");
-        console.log(jqxhr);
-        console.log(textStatus);
-        console.log(errorThrown);
-    })
-    .always(function()
-    {
-        // doing nothing so far
-    });
+                "rows": "%d selected",
+            }
+        },
+        // test
+        "searching": true,
+        "info": true,
+        // #242 - Highlight search strings in datatable using mark.js & datatables.mark.js
+        "mark": true,
+        "processing": true,
+        //"serverSide": true, // might conflict with .search in datatable
+        "ajax": "inc/noteGetAllNotes.php",
+        "dom": "irt<'clear'>",
+        "paging": false,
+        "aaSorting": [[ 3, "desc" ]], // default sorting
+        "aoColumnDefs": [ // disable sorting for all visible columns - as it breaks keyboard navigation
+            { "bSortable": false, "aTargets": [ 0 ] }, // id
+            { "bSortable": false, "aTargets": [ 1 ] }, // title
+            { "bSortable": false, "aTargets": [ 2 ] }, // content
+            { "bSortable": true, "aTargets": [ 3 ] }, // date mod
+            { "bSortable": false, "aTargets": [ 4 ] }, // date create
+            { "bSortable": false, "aTargets": [ 5 ] }, // version
+            { "bSortable": false, "aTargets": [ 6 ] }, // owner
+        ],
+        "aoColumns"   : [
+            { "bSearchable": false, "bVisible": false, "sWidth": "5%" },
+            { "bSearchable": true, "bVisible": true, "sWidth": "100%" },
+            { "bSearchable": true, "bVisible": false},
+            { "bSearchable": false, "bVisible": false},
+            { "bSearchable": false, "bVisible": false},
+            { "bSearchable": false, "bVisible": false },
+            { "bSearchable": false, "bVisible": false}
+        ],
+    } );
+    console.log("initDataTable ::: Finished initializing the DataTable");
 
     // amountOfRecordsAfterFilter should be set to count of all records, not 0
     amountOfRecordsAfterFilter = 0;
@@ -1040,7 +1000,7 @@ function selectNextDataTableRow()
 {
     console.debug("selectNextDataTableRow ::: Start");
 
-    console.log("selectNextDataTableRow ::: Selecting next row in dataTable");
+    console.log("selectNextDataTableRow ::: Selecting next row in DataTable");
     updateCurrentSelectedRowInDataTable(1);
 
     console.debug("selectNextDataTableRow ::: Stop");
@@ -1056,7 +1016,7 @@ function selectPreviousDataTableRow()
 {
     console.debug("selectPreviousDataTableRow ::: Start");
 
-    console.log("selectPreviousDataTableRow ::: Selecting previous row in dataTable");
+    console.log("selectPreviousDataTableRow ::: Selecting previous row in DataTable");
     updateCurrentSelectedRowInDataTable(-1);
 
     console.debug("selectPreviousDataTableRow ::: Stop");
@@ -1073,7 +1033,7 @@ function onClickDataTableCell(data)
 {
     console.debug("onClickDataTableCell ::: Start");
 
-    console.log("onClickDataTableCell ::: A cell of the DataTable was clicked - try to load the note_______.");
+    console.log("onClickDataTableCell ::: A cell of the DataTable was clicked - try to load the note.");
 
     // get data from current record
     noteID = data[0];
@@ -1264,6 +1224,7 @@ function onFilterDataTable(amountOfRecordsAfterFilter)
 }
 
 
+
 /**
  * @name onNotesPageReady
  * @description init the notes view
@@ -1285,7 +1246,7 @@ function onNotesPageReady()
 
     // DataTable
     //
-    initDataTable(); // initializes the DataTable
+    initDataTable(userLanguage); // initializes the DataTable
 
     // DataTable: add a click handler to the rows (<tr>)
     $("#myDataTable tbody").on("click", "tr", function ()

@@ -22,6 +22,12 @@
     <script type="text/javascript" src="js/datatables/Select-1.2.6/js/dataTables.select.min.js"></script>
     <link rel="stylesheet" type="text/css" href="js/datatables/Select-1.2.6/css/select.dataTables.min.css" title="default" />
 
+    <script type="text/javascript">
+        var userLanguage = '<?php echo $_SESSION["monoto"]["lang"]; ?>';
+        console.log(userLanguage);
+    </script>
+
+
     <!-- init the page -->
     <script type="text/javascript">
         var currentRow = -1; // fill var for ugly row-selection hack with a default value
@@ -32,6 +38,8 @@
             onNotesPageReady();
         });
     </script>
+
+
 </head>
 
 
