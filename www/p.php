@@ -13,16 +13,7 @@
     <script type="text/javascript" charset="utf-8">
     $(document).ready( function ()
     {
-        // init
-        $('#myDataTable').DataTable( {
-            "bSort": false, // dont sort - trust the sql-select and its sort-order
-            "sPaginationType": "simple_numbers",
-            "iDisplayLength" : 10,
-            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
-        } );
-
-
-        console.log("p.php ::: Finished intializing DataTable");
+        initProfileEventsDataTable();
 
         // #281
         // compare input in password fields
@@ -31,7 +22,6 @@
         {
             validatePasswordChangeInput();
         });
-
     } );
     </script>
 </head>
@@ -149,16 +139,13 @@
                             <b><?php echo translateString( "Changing password" ); ?></b><br>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-sm">
-                            <form id="changePassword" name="changePassword" action="p.php" method="post" enctype="multipart/form-data">
-                                <input type="password" id="newPassword" name="newPassword" pattern=".{8,}" placeholder="Password (min 8 chars)" onkeyup="passwordStrength()" required="required" autocomplete="off" />
-                                <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" pattern=".{8,}" placeholder="Confirm new password" required="required" autocomplete="off" />
-                                <span id="passwordDiff"></span>
-                                <button type="submit" class="btn btn-primary buttonDefault" id="bt_continue" name="bt_continue"  title="Starts the change password function if the user provided the new password twice." disabled=disabled><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
-                                <span id="passstrength"></span>
-                            </form>
+                            <input type="password" id="newPassword" name="newPassword" pattern=".{8,}" placeholder="Password (min 8 chars)" onkeyup="passwordStrength()" required="required" autocomplete="off" />
+                            <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" pattern=".{8,}" placeholder="Confirm new password" required="required" autocomplete="off" />
+                            <span id="passwordDiff"></span>
+                            <button type="submit" class="btn btn-primary buttonDefault" id="bt_continue" name="bt_continue" onClick="doChangeProfilePassword();" title="Starts the change password function if the user provided the new password twice." disabled=disabled><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
+                            <span id="passstrength"></span>
                         </div>
                     </div>
                     <!-- /Password change -->
@@ -175,13 +162,17 @@
 
                     <div class="row">
                         <div class="col-sm">
+                            <!--
                             <form id="changeLanguage" action="p.php" method="post" enctype="multipart/form-data">
+                            -->
                                 <select class="selectpicker" name="s_languageSelector" id="s_languageSelector">
                                     <option value="de_DE.UTF-8">de_DE.UTF-8</option>
                                     <option value="en_US">en_US</option>
                                 </select>
-                                <button type="submit" class="btn btn-primary buttonDefault" name="doChangeUserLanguage" title="Starts the change language function if the user provided the new language selection."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
+                                <button type="submit" class="btn btn-primary buttonDefault" name="doChangeUserLanguage" onClick="doChangeProfileLanguage();" title="Starts the change language function if the user provided the new language selection."><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>
+                            <!--
                             </form>
+                            -->
                         </div>
                     </div>
                     <!-- /Language change -->
@@ -273,7 +264,6 @@
                             {
                                 $stats_note_with_shortest_content_id = $row[ 1 ];
                                 $stats_note_with_shortest_content_chars = $row[ 0 ];
-
                             }
 
                             // longest note-content
@@ -479,9 +469,11 @@
 
             <!-- JS-->
             <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
+            $(document).ready(function()
+            {
+                // init the language select
                 var lang = '<?php echo $_SESSION[ 'monoto' ]["lang"]; ?>';
-                $('#s_languageSelector').val(lang); // selects "Two"
+                $('#s_languageSelector').val(lang);
             });
             </script>
 </body>
@@ -494,65 +486,12 @@
     {
         // CASES
         //
-        // - Do Change Userpassword
-        // - Do Change Language
         // - Do Import (Textfiles)
         // - Do Import (csv)
         // - Do Export (csv)
-        // - Do Delete all Notes
-        // - Do Delete all Events
-
-        // -----------------------------------------------------------------------
-        // bt_doChangeUserPW (START)
-        // -----------------------------------------------------------------------
-        if ( isset ( $_POST[ "bt_doChangeUserPW" ] ) )
-        {
-            // get values
-            $username = $_SESSION[ 'monoto' ][ 'username' ];
-            $newPassword = filter_input(INPUT_POST, "newPassword", FILTER_SANITIZE_STRING);
-            $newPasswordConfirm = filter_input(INPUT_POST, "newPasswordConfirm", FILTER_SANITIZE_STRING);
-
-            // Check if user entered two times the same new password
-            if ( $newPassword == $newPasswordConfirm )
-            {
-                $hash = hash('sha256', $newPassword); // playing with hash
-                function createSalt() // playing with salt - creates a 3 character sequence
-                {
-                    $string = md5(uniqid(rand(), true));
-                    return substr($string, 0, 3);
-                }
-                $salt = createSalt();
-                $hash = hash('sha256', $salt . $hash);
-
-                // update user password
-                $query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$username'";
-                mysqli_query ( $con, $query );
-
-                displayNoty('Changed password', 'success');
-            }
-            else // User entered 2 different password - cant change pw like that.
-            {
-                displayNoty('Password mismatch', 'error');
-            }
-        }
-
-
-
-        // -----------------------------------------------------------------------
-        // doChangeUserLanguage (START)
-        // -----------------------------------------------------------------------
-        if ( isset($_POST[ "doChangeUserLanguage" ] ) )
-        {
-            $selectedLang= filter_input(INPUT_POST, "s_languageSelector", FILTER_SANITIZE_STRING);
-
-            // update users language setting
-            $query = "UPDATE m_users SET language='$selectedLang' WHERE username='$username'";
-            mysqli_query($con, $query);
-
-            $_SESSION[ 'monoto' ][ 'lang' ] = $selectedLang; // store as session variable
-            displayNoty('Language set to: '.$selectedLang, 'notification');
-        }
-
+        //
+        // TODO:
+        // ajax them all
 
         // -----------------------------------------------------------------------
         // doImport Textfiles (START)
