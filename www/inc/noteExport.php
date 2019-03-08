@@ -5,7 +5,8 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteExport.php') !== false)
+//if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteExport.php') !== false)
+if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'noteExport.php') !== false)
 {
     header('Location: ../index.php'); // back to login page
     die();

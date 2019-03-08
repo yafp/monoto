@@ -1,5 +1,9 @@
 <?php
 
+
+use PHPunit\Framework\TestCase;
+
+
 /**
  * Tests
  * Playground for unit tests
@@ -8,11 +12,7 @@
  * @link https://github.com/yafp/monoto
  * @todo add some real tests
  */
-
-use PHPunit\Framework\TestCase;
-
-class Test extends TestCase 
-//class Test extends PHPUnit_Framework_TestCase
+class Test extends TestCase
 {
     public function testOddOrEvenToTrue()
     {

@@ -404,7 +404,8 @@ if( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is vali
 
 <?php
 
-if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
+//if ($_SERVER[ 'REQUEST_METHOD' ] === 'POST')
+if (filter_input(INPUT_SERVER, 'REQUEST_METHOD',FILTER_DEFAULT) === 'POST')
 {
     require "config/config.php";
 

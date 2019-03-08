@@ -1,0 +1,8 @@
+{
+   "require": {
+      "ext-gettext": "*"
+    },
+    "require-dev": {
+      "ext-gettext": "*"
+   }
+}

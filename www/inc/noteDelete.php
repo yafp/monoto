@@ -5,11 +5,14 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteDelete.php') !== false)
+//if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteDelete.php') !== false)
+/*
+if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'noteDelete.php') !== false)
 {
     header('Location: ../index.php'); // back to login page
     die();
 }
+*/
 
 header('Content-type: text/xml');
 
@@ -23,7 +26,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     // get post data
     $deleteID = filter_input ( INPUT_POST, "deleteID", FILTER_SANITIZE_STRING );
     $deleteTitle = filter_input ( INPUT_POST, "deleteTitle", FILTER_SANITIZE_STRING );
-    $deleteContent = filter_input ( INPUT_POST, "deleteContent", FILTER_SANITIZE_STRING );
+    //$deleteContent = filter_input ( INPUT_POST, "deleteContent", FILTER_SANITIZE_STRING );
 
     // get session data
     $owner = $_SESSION[ 'monoto' ][ 'username' ];

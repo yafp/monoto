@@ -24,7 +24,6 @@
     <!-- Page Content -->
     <div class="container theme-showcase" role="main">
         <div id="container">
-            <h3><i class="fas fa-sign-out-alt"></i> <?php echo translateString("Logout"); ?></h3>
             <?php
                 // update logout conter
                 $con = connectToDatabase();

@@ -5,11 +5,12 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteNew.php') !== false)
-{
-    header('Location: ../index.php'); // back to login page
-    die();
-}
+//if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteNew.php') !== false)
+//if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'noteNew.php') !== false)
+//{
+//    header('Location: ../index.php'); // back to login page
+//    die();
+//}
 
 
 //header('Content-type: text/xml');
@@ -54,7 +55,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     $result = mysqli_query ( $con, $sql );
     if (!$result)
     {
-        die('Erro____r: ' . mysqli_connect_error()); // display error output
+        die('Error: ' . mysqli_connect_error()); // display error output
     }
     else // update m_log
     {

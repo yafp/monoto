@@ -5,11 +5,12 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteUpdate.php') !== false)
-{
-    header('Location: ../index.php'); // back to login page
-    die();
-}
+//if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteUpdate.php') !== false)
+//if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'noteUpdate.php') !== false)
+//{
+    //header('Location: ../index.php'); // back to login page
+    //die();
+//}
 
 
 //header('Content-type: text/xml');
