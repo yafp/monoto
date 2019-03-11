@@ -146,7 +146,7 @@
                                 Password
                             </div>
                             <div class="col">
-                                <input type="password" id="newPassword" name="newPassword" placeholder="Password" required="required" pattern=".{8,}" autocomplete="off" onkeyup="passwordStrength()" />
+                                <input type="password" id="newPassword" name="newPassword" placeholder="Password" required="required" pattern=".{8,}" autocomplete="off" onkeyup="calculatePasswordStrength()" />
                             </div>
                             <div class="col">
                                 <small>(min 8 characters)</small>

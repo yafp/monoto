@@ -62,3 +62,36 @@ img:hover {
   opacity: 1.0;
   filter: alpha(opacity=100); /* For IE8 and earlier */
 }
+
+
+
+#passstrength {
+    color:salmon;
+    font-family:verdana;
+    font-size:10px;
+    font-weight:bold;
+}
+
+
+
+
+/* COLORS */
+.m_blue {
+    background-color: LightBlue;
+}
+
+.m_green{
+    background-color: LightGreen;
+}
+
+.m_yellow{
+    background-color: lemonchiffon;
+}
+
+.m_orange{
+    background-color: khaki;
+}
+
+.m_red {
+    background-color: salmon;
+}

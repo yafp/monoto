@@ -3,6 +3,7 @@
 
 
 /**
+ * @name disableRightContextMenu
  * @description disabling the right click context menu  (used for the entire monoto userinterface)
  * @memberof generic
  */
@@ -20,12 +21,17 @@ function disableRightContextMenu()
 
 
 /**
+ * @name calculatePasswordStrength
  * @description calculates password strength
  * @memberof generic
  */
-function passwordStrength()
+function calculatePasswordStrength()
 {
-    console.debug("passwordStrength ::: Start");
+    console.debug("calculatePasswordStrength ::: Start");
+
+    console.log("calculatePasswordStrength ::: Validating password strength");
+
+    currentPasswordStrength = "";
 
     var strongRegex = new RegExp("^(?=.{10,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
     var mediumRegex = new RegExp("^(?=.{9,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
@@ -35,36 +41,37 @@ function passwordStrength()
 
     if (false === enoughRegex.test(curPasswordString)) // < 8 chars
     {
-        console.log("passwordStrength ::: More characters");
-        $("#passstrength").html("More Characters");
+        currentPasswordStrength = "... not valid yet (too short)";
+        $("#passstrength").html("too short");
     }
     else if (strongRegex.test(curPasswordString))
     {
-        console.log("passwordStrength ::: OK");
+        currentPasswordStrength = "ok";
         $("#passstrength").className = "ok";
         $("#passstrength").html("Strong");
      }
      else if (mediumRegex.test(curPasswordString))
      {
-        console.log("passwordStrength ::: alert");
+        currentPasswordStrength = "medium";
         $("#passstrength").className = "alert";
         $("#passstrength").html("Medium");
      }
      else
      {
-        console.log("passwordStrength ::: error");
+        currentPasswordStrength = "weak";
         $("#passstrength").className = "error";
         $("#passstrength").html("Weak");
      }
 
-    console.debug("passwordStrength ::: End");
+    console.log("calculatePasswordStrength ::: Current password strength is: " + currentPasswordStrength );
 
-    //return true;
+    console.debug("calculatePasswordStrength ::: End");
 }
 
 
 /**
- * @description compare content of password-change fields and enables or disables the related update button
+ * @name validatePasswordChangeInput
+ * @description compare content of password-change fields and enables or disables the related button
  * @memberof generic
  */
 function validatePasswordChangeInput()
@@ -112,6 +119,7 @@ function validatePasswordChangeInput()
 
 
 /**
+ * @name initNotyDefaults
  * @description initialize the defaults for noty notification
  * @memberof generic
  */
@@ -162,6 +170,7 @@ function initNotyDefaults()
 
 
 /**
+ * @name showLogoutDialog
  * @description displays a noty logout confirm dialog
  * @memberof generic
  */
@@ -197,6 +206,7 @@ function showLogoutDialog()
 
 
 /**
+ * @name createNoty
  * @description displays a simple noty notification
  * @memberof generic
  * @param {string} text - The notification text
@@ -219,6 +229,7 @@ function createNoty(text, type)
 
 
 /**
+ * @name onGenericPageReady
  * @description executed on each page ready via inc/coreIncludesJS.php
  * @memberof generic
  */

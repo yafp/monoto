@@ -141,7 +141,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <input type="password" id="newPassword" name="newPassword" pattern=".{8,}" placeholder="Password (min 8 chars)" onkeyup="passwordStrength()" required="required" autocomplete="off" />
+                            <input type="password" id="newPassword" name="newPassword" pattern=".{8,}" placeholder="Password (min 8 chars)" onkeyup="calculatePasswordStrength()" required="required" autocomplete="off" />
                             <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" pattern=".{8,}" placeholder="Confirm new password" required="required" autocomplete="off" />
                             <span id="passwordDiff"></span>
                             <button type="submit" class="btn btn-primary buttonDefault" id="bt_continue" name="bt_continue" onClick="doChangeProfilePassword();" title="Starts the change password function if the user provided the new password twice." disabled=disabled><i class="fas fa-save"></i> <?php echo translateString("update"); ?></button>

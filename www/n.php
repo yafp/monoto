@@ -27,7 +27,6 @@
         console.log(userLanguage);
     </script>
 
-
     <!-- init the page -->
     <script type="text/javascript">
         var currentRow = -1; // fill var for ugly row-selection hack with a default value
@@ -90,7 +89,6 @@
                                     echo '<input type="text" class="form-control" title="Note version" name="noteVersion" id="noteVersion" tabindex="-1" disabled placeholder="Note version">';
                                 }
                             ?>
-
                         </div>
                     </div>
                     <!-- /search -->
@@ -98,10 +96,10 @@
                     <!-- new note title -->
                     <div class="row">
                         <div class="col-sm-10">
-                            <input type="text" id="noteTitle" name="noteTitle" placeholder="<?php echo translateString("Note title");?>" disabled style="width:100%; " class="form-control" onkeyUp="prepareNewNoteStepTwo();" />
+                            <input type="text" id="noteTitle" name="noteTitle" placeholder="<?php echo translateString("Note title");?>" disabled style="width:100%; " class="form-control" onkeyUp="checkTitleWhileNewNoteCreation();" />
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-sm btn-primary buttonNotes" style="display:none;" data-toggle="tooltip" title="" name="bt_prepareNoteCreation" id="bt_prepareNoteCreation" onClick="prepareNewNoteStepOne();" tabindex="2"><i class="fas fa-plus"></i> <?php echo translateString("new");?></button>
+                            <button type="button" class="btn btn-sm btn-primary buttonNotes" style="display:none;" data-toggle="tooltip" title="" name="bt_prepareNoteCreation" id="bt_prepareNoteCreation" onClick="prepareNewNoteCreation();" tabindex="2"><i class="fas fa-plus"></i> <?php echo translateString("new");?></button>
                             <button type="button" class="btn btn-sm btn-success buttonNotes" style="display:none;" data-toggle="tooltip" title="" name="bt_saveNote" id="bt_saveNote" onClick="saveNote();" disabled="disabled"><i class="fas fa-save"></i> <?php echo translateString("save");?></button>
                             <button type="button" class="btn btn-sm btn-success buttonNotes" style="display:none;" data-toggle="tooltip" title="" name="bt_createNewNote" id="bt_createNewNote" onClick="createNewNote()" disabled="disabled"><i class="fas fa-edit"></i> <?php echo translateString("create");?></button>
                         </div>
@@ -125,6 +123,7 @@
                         <div class="col-sm-10">
                             <table id="myDataTable" class="display" style="width:100%">
                                 <tbody>
+                                    <!-- gets filled via inc/noteGetAllNotes.php -->
                                 </tbody>
                             </table>
                         </div>

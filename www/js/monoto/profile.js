@@ -3,6 +3,7 @@
 
 
 /**
+ * @name initProfileEventsDataTable
  * @description initializes the profile-events DataTable
  * @memberof profile
  */
@@ -25,6 +26,7 @@ function initProfileEventsDataTable()
 
 
 /**
+ * @name doChangeProfilePassword
  * @description realizes a password change
  * @memberof profile
  */
@@ -69,6 +71,7 @@ function doChangeProfilePassword()
 
 
 /**
+ * @name doChangeProfileLanguage
  * @description realizes a profile language change
  * @memberof profile
  */
@@ -107,6 +110,7 @@ function doChangeProfileLanguage()
 
 
 /**
+ * @name deleteAllMyUserEvents
  * @description deletes all events from the current user account
  * @memberof profile
  */
@@ -145,6 +149,7 @@ function deleteAllMyUserEvents()
 
 
 /**
+ * @name deleteAllMyUserNotes
  * @description deletes all notes from the current user account
  * @memberof profile
  */

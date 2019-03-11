@@ -431,15 +431,15 @@ function resetNotesUI()
 
 
 /**
- * @name prepareNewNoteStepOne
+ * @name prepareNewNoteCreation
  * @description prepars the User-Interface for the note creation process
  * @memberof notes
  */
-function prepareNewNoteStepOne()
+function prepareNewNoteCreation()
 {
-    console.debug("prepareNewNoteStepOne ::: Start");
+    console.debug("prepareNewNoteCreation ::: Start");
 
-    console.log("prepareNewNoteStepOne ::: Preparing note creation - Step 1");
+    console.log("prepareNewNoteCreation ::: Preparing note creation - Step 1");
 
     // first of all ... reset the User-Interface
     resetNotesUI();
@@ -469,20 +469,20 @@ function prepareNewNoteStepOne()
     $("#myDataTable").fadeOut(500); // hide  DataTablesearch field
     $("#myDataTable_info").fadeOut(500); // hide DataTable info about records
 
-    console.debug("prepareNewNoteStepOne ::: Stop");
+    console.debug("prepareNewNoteCreation ::: Stop");
 }
 
 
 /**
- * @name prepareNewNoteStepTwo
+ * @name checkTitleWhileNewNoteCreation
  * @description triggered via "noteTitle" during "New Note creation"
  * @memberof notes
  */
-function prepareNewNoteStepTwo()
+function checkTitleWhileNewNoteCreation()
 {
-    console.debug("prepareNewNoteStepTwo ::: Start");
+    console.debug("checkTitleWhileNewNoteCreation ::: Start");
 
-    console.log("prepareNewNoteStepTwo ::: Preparing note creation - Step 2");
+    console.log("checkTitleWhileNewNoteCreation ::: Preparing note creation - Step 2");
 
     var noteTitle = document.myform.noteTitle.value;
 
@@ -512,7 +512,7 @@ function prepareNewNoteStepTwo()
             disableCKEditorWriteMode(); // Keep CKEditor in ReadOnly mode
         }
     }
-    console.debug("prepareNewNoteStepTwo ::: Stop");
+    console.debug("checkTitleWhileNewNoteCreation ::: Stop");
 }
 
 
@@ -1263,12 +1263,11 @@ function onNotesPageReady()
 
         // get IDs of all visible records
         console.log("onNotesPageReady ::: Click Table row: Records IDs in selection:");
-        var foo = oTable.rows({filter: "applied"});
-        console.log(foo);
-        for ( var i = 0; i < foo[0].length; i++ )
+        var visRecords = oTable.rows({filter: "applied"});
+        console.log(visRecords);
+        for ( var i = 0; i < visRecords[0].length; i++ )
         {
-            //console.log(foo[0][i]);
-            if(idOfSelectedRecord === foo[0][i])
+            if ( idOfSelectedRecord === visRecords[0][i] )
             {
                 curSelectedTableRow = i;
                 console.log("onNotesPageReady ::: Set curSelectedTableRow to: " + curSelectedTableRow);

@@ -66,6 +66,7 @@
     * [#289] Delete user works only for non-admin accounts
     * [#292] User account table: highlight admin accounts
     * [#293] User account table: highlight existing failed logins
+    * [#294] Use ajax for admin functions
 * Misc
   * [#272] Footer: Added link to changelog
   * [#249] Footer: Added link to documentation
