@@ -71,29 +71,29 @@ function initMonotoUsersDataTable()
         {
             // overall logins
             if ( data[2] === "0" ) {
-              $('td:eq(3)', row).addClass('m_red');
+              $("td:eq(3)", row).addClass("m_red");
             }
 
             // failed failed_logins_in_a_row
             if ( data[3] === "0" ) {
-              $('td:eq(3)', row).addClass('m_green');
+              $("td:eq(3)", row).addClass("m_green");
             }
 
             if ( data[3] === "1" ) {
-              $('td:eq(3)', row).addClass('m_yellow');
+              $("td:eq(3)", row).addClass("m_yellow");
             }
 
             if ( data[3] === "2" ) {
-              $('td:eq(3)', row).addClass('m_orange');
+              $("td:eq(3)", row).addClass("m_orange");
             }
 
             if ( data[3] === "3" ) {
-              $('td:eq(3)', row).addClass('m_red');
+              $("td:eq(3)", row).addClass("m_red");
             }
 
             // is_admin
             if ( data[5] === "1" ) {
-              $('td:eq(5)', row).addClass('m_blue');
+              $("td:eq(5)", row).addClass("m_blue");
             }
         }
 
