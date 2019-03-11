@@ -115,6 +115,18 @@ function translateString( $textForTranslation )
 
 
 /*
+ * Create a new record in the log table
+ *
+ * @param {string} $logType - The log type
+ * @param {string} $logMessage - The log message
+ */
+function writeNewLogEntry( $logType, $logMessage )
+{
+    // TODO
+}
+
+
+/*
  * Playground for phpunit
  *
  * @param {number} $num - a number
