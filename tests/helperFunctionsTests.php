@@ -2,7 +2,7 @@
 /**
  * Tests
  *
- * @package monoto
+ * @package Monoto
  * @author yafp
  * @link https://github.com/yafp/monoto
  *
@@ -15,7 +15,7 @@ use PHPunit\Framework\TestCase;
  * Tests
  * Playground for unit tests
  *
- * @package monoto
+ * @package Monoto
  * @version 0.1
  * @link https://github.com/yafp/monoto
  *

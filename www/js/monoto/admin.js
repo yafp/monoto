@@ -147,7 +147,7 @@ function userAccountCreateNew()
     // checkbox
     //
     var sendNotification;
-    if ( $('#sendNotification').is(":checked") )
+    if ( $("#sendNotification").is(":checked") )
     {
         sendNotification = true;
     }

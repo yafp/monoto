@@ -58,12 +58,11 @@ function checkGetTextSupport()
     if ( !function_exists( "gettext" ) ) // gettext is not installed
     {
         echo "<i class='fas fa-times'></i>&nbsp;<span class='badge badge-secondary'>PHP: gettext</span> is not installed. Translations will fail";
-        die();
+        return;
     }
 
     // gettext is installed
     echo "<i class='fas fa-thumbs-up'></i>&nbsp;<span class='badge badge-secondary'>PHP: gettext</span> is installed.";
-
 }
 
 
@@ -77,13 +76,13 @@ function translateString( $textForTranslation )
 {
     if ( $_SESSION[ 'monoto' ][ 'getText' ] == 0 ) // gettext is not installed - fallback
     {
-        $translation = $textForTranslation;
         //writeToConsoleLog("translateString ::: getText is not installed. Unable to translate.");
+        $translation = $textForTranslation;
         return $translation;
     }
 
     // otherwise: gettext is installed -> try to translate
-    writeToConsoleLog("translateString ::: Trying to translate...");
+    //writeToConsoleLog("translateString ::: Trying to translate...");
 
     // I18N support information here
     $language = $_SESSION[ 'monoto' ][ 'lang' ];
@@ -129,33 +128,27 @@ function writeNewLogEntry( $eventType, $eventMessage )
         require '../config/config.php';
 
         // validate $eventType
-        switch ($eventType)
+        switch ( $eventType )
         {
             case "create":
-                break;
             case "save":
-                break;
             case "delete":
-                    break;
             case "login":
-                break;
             case "login error":
-                break;
             case "events eraser":
-                    break;
             case "notes eraser":
-                    break;
             case "password change":
-                    break;
+                // = expected events
+                break;
             default:
                 $eventType = "Undefined";
         }
 
         // open database connection
         $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
-        if (!$con)
+        if ( !$con )
         {
-            die('Could not connect: ' . mysqli_connect_error());
+            exit('Could not connect: ' . mysqli_connect_error());
         }
 
         $owner = $_SESSION[ 'monoto' ][ 'username' ];

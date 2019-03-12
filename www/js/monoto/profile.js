@@ -81,17 +81,17 @@ function initProfileEventsDataTable()
         //
         initComplete: function () {
             //this.api().columns().every( function () {
-            this.api().columns(':eq(1)').every(function () {
+            this.api().columns(":eq(1)").every(function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
                     .appendTo( $(column.footer()).empty() )
-                    .on( 'change', function () {
+                    .on( "change", function () {
                         var val = $.fn.dataTable.util.escapeRegex(
                             $(this).val()
                         );
 
                         column
-                            .search( val ? '^'+val+'$' : '', true, false )
+                            .search( val ? "^"+val+"$" : "", true, false )
                             .draw();
                     } );
 
