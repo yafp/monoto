@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
 // adminUserUnlock.php
-// used for account unlocking from a.php
+// used for account unlocking from admin.php
 // -----------------------------------------------------------------------------
 
 header('Content-type: application/xml');

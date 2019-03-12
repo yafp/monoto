@@ -18,12 +18,6 @@ h2 {
 h3 {
     display: block;
     font-size: 1em;
-    /*
-    margin-top: 1.5em !important;
-    margin-bottom: 0.5em !important;
-    margin-left: 0;
-    margin-right: 0;
-    */
     margin: 1.5em 0 0.5em 0 !important;
     font-weight: bold;
     border-bottom: 1px solid lightgray;
@@ -38,10 +32,14 @@ h3 {
     margin-bottom: 10px;
 }
 
+
+
 /* SUB-NAVIGATION TABS */
 .nav-tabs{
     margin-top: 30px !important;
 }
+
+
 
 /* FOOTER */
 #footer {
@@ -52,10 +50,11 @@ h3 {
 
 
 
+/* IMAGES & HOVER */
 /* Used for logo img in inc/genericNavigation.php */
 img {
-  opacity: 0.7;
-  filter: alpha(opacity=70); /* For IE8 and earlier */
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
 }
 
 img:hover {
@@ -65,33 +64,65 @@ img:hover {
 
 
 
+/* COLORS */
+.m_blueLight {
+    background-color: LightBlue;
+}
+
+.m_blueDark {
+    background-color: CornflowerBlue;
+}
+
+.m_greenLight{
+    background-color: LightGreen;
+}
+
+.m_greenDark{
+    background-color: SeaGreen;
+}
+
+.m_yellowLight{
+    background-color: LightYellow;
+}
+
+.m_yellowDark{
+    background-color: Khaki;
+}
+
+.m_orangeLight{
+    background-color: Coral;
+}
+
+.m_orangeDark{
+    background-color: DarkOrange;
+}
+
+.m_redLight {
+    background-color: IndianRed;
+}
+
+.m_redDark {
+    background-color: FireBrick;
+}
+
+.m_pinkLight {
+    background-color: LightPink;
+}
+
+.m_pinkDark {
+    background-color: PaleVioletRed;
+}
+
+.m_gray {
+    background-color: LightGray;
+}
+
+
+
+/* Password Strength */
 #passstrength {
     color:salmon;
     font-family:verdana;
     font-size:10px;
     font-weight:bold;
-}
-
-
-
-
-/* COLORS */
-.m_blue {
-    background-color: LightBlue;
-}
-
-.m_green{
-    background-color: LightGreen;
-}
-
-.m_yellow{
-    background-color: lemonchiffon;
-}
-
-.m_orange{
-    background-color: khaki;
-}
-
-.m_red {
-    background-color: salmon;
 }

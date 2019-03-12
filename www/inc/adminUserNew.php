@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
 // adminUserNew.php
-// used for new account creation from a.php
+// used for new account creation from admin.php
 // in additional an example note gets created for the new account
 // -----------------------------------------------------------------------------
 

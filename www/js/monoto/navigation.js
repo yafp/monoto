@@ -14,23 +14,23 @@ console.log("navigation.js ::: Current page is: '" + page + "'.");
 // set current nav list item active
 switch(page)
 {
-    case "n.php":
-        $("#n").addClass("active");
+    case "notes.php":
+        $("#navNotes").addClass("active");
         console.log("navigation.js ::: Set " + page + " as active navigation entry.");
         break;
 
-    case "p.php":
-        $("#p").addClass("active");
+    case "profile.php":
+        $("#navProfile").addClass("active");
         console.log("navigation.js ::: Set " + page + " as active navigation entry.");
         break;
 
-    case "k.php":
-        $("#k").addClass("active");
+    case "keyboard.php":
+        $("#navKeyboard").addClass("active");
         console.log("navigation.js ::: Set " + page + " as active navigation entry.");
         break;
 
-    case "a.php":
-        $("#a").addClass("active");
+    case "admin.php":
+        $("#navAdmin").addClass("active");
         console.log("navigation.js ::: Set " + page + " as active navigation entry.");
         break;
 

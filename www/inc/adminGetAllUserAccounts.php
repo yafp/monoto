@@ -1,6 +1,6 @@
 <?php
 // -----------------------------------------------------------------------------
-// noteGetAllNotes.php
+// adminGetAllUserAccounts.php
 // Fetches all user accounts - server-side processing
 // -----------------------------------------------------------------------------
 
@@ -47,9 +47,6 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 
         // simple
         SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
-
-        // complex with where
-        //SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns, null )
     );
 }
 

@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
 // profileChangeUserPW.php
-// used for password changes from p.php
+// used for password changes from profile.php
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
@@ -43,19 +43,10 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     $query = "UPDATE m_users SET  password='$hash', salt='$salt' WHERE username='$username'";
     mysqli_query ( $con, $query );
 
-
-    // TODO
     // update m_log
-    /*
-    {
-        $event = "create";
-        $details = "Note: <b>".$newNoteTitle."</b>";
-        $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
-        $result = mysqli_query($con, $sql);
+    writeNewLogEntry("password change", "Changed user password.");
 
-        //return ( true );
-    }
-    */
-    mysqli_close( $con ); // close sql connection
+    // close sql connection
+    mysqli_close( $con );
 }
 ?>

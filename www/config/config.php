@@ -9,7 +9,7 @@
     $databaseServer = "localhost"; // define your mysql server here
     $databaseDB = "monoto"; // define your mysql db here
     $databaseUser = "monoto"; // define your mysql user here
-    $databasePW	= "monoto"; // define the mysql user pw here
+    $databasePW = "monoto"; // define the mysql user pw here
 
 
     // #################################################################################
@@ -19,7 +19,7 @@
     // for installation specific admin settings
     //
     // project name
-    $m_name	= "monoto";
+    $m_name = "monoto";
 
 
     // #################################################################################

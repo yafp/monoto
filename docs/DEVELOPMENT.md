@@ -5,6 +5,9 @@
 * docs/
 > Contains the documentation
 
+* docs/jsdocs
+> Contains the jsdoc files for all monoto javascript files
+
 * tests/
 > Contains PHPUnit tests
 
@@ -45,9 +48,12 @@
 
 * ```jsdoc```
     * Use ```jsdoc``` for function headers
-    * From main repository directory, using jsdoc v2.x.x: ```jsdoc www/js/monoto/ --directory=docs/jsdocs```
-    * From main repository directory, using jsdoc v3.3.0+: ```jsdoc --readme README.md www/js/monoto/ --package=package.json --directory=docs/jsdocs```
+    * Generation: From main repository directory, using jsdoc v3.3.0+: ```jsdoc --configure jsdoc.json --readme README.md --package package.json --destination docs/jsdocs/```
 
 ## PHP
 * Consider [PHP Coding conventions](https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP)
 * Use ```phpDocumentor``` style DocBlock for function headers
+
+
+## package.json
+* Validate using ```http://package-json-validator.com/```

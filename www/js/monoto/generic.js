@@ -85,7 +85,7 @@ function validatePasswordChangeInput()
         // now check if min length is reached
         if($("#newPassword").val().length > 7)
         {
-                console.log("p.php ::: Passwords do match and min length is reached");
+                console.log("Passwords do match and min length is reached");
                 // enable button
                 $("#bt_continue").prop("disabled",false);
                 // update status icon
@@ -94,7 +94,7 @@ function validatePasswordChangeInput()
         }
         else // password min length is not reached
         {
-            console.warn("p.php ::: Passwords do match but min length is not reached");
+            console.warn("Passwords do match but min length is not reached");
             // disable button
             $("#bt_continue").prop("disabled",true);
             // update status icon
@@ -104,7 +104,7 @@ function validatePasswordChangeInput()
     }
     else // passwords dont match
     {
-        console.warn("p.php ::: Passwords do not match");
+        console.warn("Passwords do not match");
 
         // disable button
         $("#bt_continue").prop("disabled",true);

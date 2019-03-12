@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
 // adminUserDelete.php
-// used for account deletion from a.php
+// used for account deletion from admin.php
 // -----------------------------------------------------------------------------
 
 header('Content-type: application/xml');
@@ -37,12 +37,10 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     {
         die('Error: ' . mysqli_connect_error());
     }
-    else  // update m_log
+    else
     {
-        $event = "User delete";
-        $details = "User: <b>".$userID." </b>is now gone.";
-        $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-        $result = mysqli_query( $con, $sql );
+        // update m_log
+        writeNewLogEntry("account eraser", "Deleted account: <b>".$userID." </b>.");
 
         // delete his notes as well
         $sql = "DELETE FROM m_notes WHERE owner='$usernameToDelete'";
@@ -54,7 +52,6 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     }
 
     // Close sql connection
-    //
-    mysqli_close( $con ); // close sql connection
+    mysqli_close( $con );
 }
 ?>

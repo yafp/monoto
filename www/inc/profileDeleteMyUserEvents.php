@@ -6,11 +6,13 @@
 
 // prevent direct call of this script
 //if (strpos($_SERVER['SCRIPT_FILENAME'], 'profileDeleteMyUserEvents.php') !== false)
+/*
 if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'profileDeleteMyUserEvents.php') !== false)
 {
     header('Location: ../index.php'); // back to login page
     die();
 }
+*/
 
 header('Content-type: text/xml');
 
@@ -30,15 +32,12 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 
     $owner = $_SESSION[ 'monoto' ][ 'username' ];
 
-    // update m_notes = delete events
+    // delete events in m_log
     $sql = "DELETE FROM m_log WHERE owner='".$owner."' ";
     $result = mysqli_query( $con, $sql );
 
     // update m_log
-    $event = "events eraser";
-    $details = "All user events deleted with eraser.";
-    $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-    $result = mysqli_query( $con, $sql );
+    writeNewLogEntry("events eraser", "All user events deleted with eraser.");
 
     // close sql connection
     mysqli_close( $con );

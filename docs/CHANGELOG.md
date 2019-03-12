@@ -77,17 +77,22 @@
   * [#290] Bootstrap <select>
 
 ###  ```Removed```
-* [#261] Removed update check from admin section
-* [#234] Removed broken timeout handler
-* [#240] Removed quotes
-* [#239] Removed random logout images
-* [#249] Removed keyboard listener for online help. Is now linked in footer.
-* [#209] Removed old word count plugin from CKEditor
-* [#243] Removed desktop notifications
-* [#275] Removed maintenance mode
-* [#277] Removed javascript jquery cookie usage. Related with [#278]
+* Notes
+  * [#209] Removed old word count plugin from CKEditor
+* Admin
+  * [#261] Removed update check from admin section
+  * [#275] Removed maintenance mode
+* Profile
+  * [#295] Removed statistics section
 * Search
   * [#260] Removed unused button
+* Misc
+  * [#234] Removed broken timeout handler
+  * [#240] Removed quotes
+  * [#239] Removed random logout images
+  * [#249] Removed keyboard listener for online help. Is now linked in footer.
+  * [#243] Removed desktop notifications
+  * [#277] Removed javascript jquery cookie usage. Related with [#278]
 
 ###  ```Fixed```
 * [#262] Improved code for resizing and storing of editor height

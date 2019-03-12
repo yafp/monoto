@@ -6,7 +6,7 @@
 session_start();
 if ( isset( $_SESSION[ 'monoto' ][ 'valid' ] ) )
 {
-    header('Location: n.php'); // if session is valid - redirect to main-notes interface.
+    header('Location: notes.php'); // if session is valid - redirect to main-notes interface.
 }
 ?>
 
@@ -62,8 +62,6 @@ if ( isset ( $_POST[ "doLogin" ] ) )
     // examples:
     //$name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
     //$email= filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
-
-    // get data
     $username= filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
     $password= filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
 
@@ -83,16 +81,16 @@ if ( isset ( $_POST[ "doLogin" ] ) )
         // check if user-account is locked already cause it had 3 failed logins in a row
         $sql = "SELECT failed_logins_in_a_row FROM m_users WHERE username='".$username."'  ";
         $result = mysqli_query($con, $sql);
-        while($row = mysqli_fetch_array($result))
+        while ( $row = mysqli_fetch_array ($result) )
         {
             // get amount of failed-logins-in-a-row of this account
             $failCounterInARow = $row[0];
         }
 
-        if($failCounterInARow < 3) // try to login
+        if( $failCounterInARow < 3 ) // Account is not locked -> try to login
         {
             //check for incorrect password
-            if($hash != $userData[ 'password' ])
+            if ( $hash != $userData[ 'password' ] )
             {
                 // log incorrect login attempt - date
                 $sql = "UPDATE m_users SET date_last_login_fail = now() WHERE username='".$username."' ";
@@ -112,7 +110,9 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $sql = "UPDATE m_users SET failed_logins='".$failCounter."', failed_logins_in_a_row='".$failCounterInARow."' WHERE username='".$username."' ";
                 $result = mysqli_query ( $con, $sql );
 
-                // record to log - that we had a successfull user login
+                // can not use 'writeNewLogEntry' here - this function can only be used from within inc/
+                //writeNewLogEntry("login", "User: <b>".$username."</b> failed to login.");
+                //
                 $event = "login error";
                 $details = "User: <b>".$username."</b> failed to login.";
                 $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$username' )";
@@ -137,10 +137,14 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 {
                     displayNoty("Login failed.", "error");
                 }
-            } // incorrect password
-            else //login successful
+            } // /incorrect password
+            else
             {
-                $_SESSION[ 'monoto' ][ 'username' ] = $username; // add session-info
+                //login successful
+
+                // init most relevant session-info
+                //
+                $_SESSION[ 'monoto' ][ 'username' ] = $username;
                 $_SESSION[ 'monoto' ][ 'valid' ] = 1;
 
                 // if user is admin - add the info to our session
@@ -192,7 +196,9 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $sql = "UPDATE m_users SET date_last_login= now(), login_counter='".$loginCounter."' WHERE username='".$username."' ";
                 $result = mysqli_query ( $con, $sql );
 
-                // record to log - that we had a successfull user login
+                // can not use 'writeNewLogEntry' here - this function can only be used from within inc/
+                //writeNewLogEntry("login", "User: <b>".$username."</b> logged in successfully.");
+                //
                 $event = "login";
                 $details = "User: <b>".$username."</b> logged in successfully.";
                 $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$username' )";
@@ -202,14 +208,13 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $sql = "UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$username."' ";
                 $result = mysqli_query($con, $sql);
 
-                echo '<script type="text/javascript">window.location="n.php"</script>';
+                echo '<script type="text/javascript">window.location="notes.php"</script>';
             }
         }
-        else         // login is not possible anymore - admin must remove the login lock
+        else // login is not possible anymore - admin must remove the login lock
         {
+            // #287
             displayNoty("Account is locked", "error");
-
-            // #287 -
         }
     }
 }

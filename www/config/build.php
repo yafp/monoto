@@ -5,11 +5,11 @@
     //
     // version / release
     $m_version = "4.0.0 RC1"; // version
-    $m_date = "20190311"; // build-date
+    $m_date = "20190312"; // build-date
 
     $m_stableRelease = false; // true for officials builds
-    // true = official build
-    // false = warning & hidden fields displayed on n.php. Truncate functions visible on a.php
+    // - true = official build
+    // - false = warning & hidden fields displayed on notes.php. Truncate functions visible on admin.php
 
     // #########################################################################
     // Github Links

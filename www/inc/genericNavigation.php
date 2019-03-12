@@ -20,19 +20,19 @@ include 'inc/checkSession.php';
 <!--  NAVIGATION -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="n.php"><img src="images/logo/monotoLogoWhite.png" height="26"></a>
+        <a class="navbar-brand" href="notes.php"><img src="images/logo/monotoLogoWhite.png" height="26"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item" id="n"><a class="nav-link" href="n.php"><i class="fas fa-edit"></i> <?php echo translateString("Notes") ?><span class="sr-only">(current)</span></a></li>
-                <li class="nav-item" id="p"><a class="nav-link" href="p.php"><i class="fas fa-user"></i> <?php echo translateString("Profile") ?></a></li>
-                <li class="nav-item" id="k"><a class="nav-link" href="k.php"><i class="fas fa-keyboard"></i> <?php echo translateString("Keyboard") ?></a></li>
+                <li class="nav-item" id="navNotes"><a class="nav-link" href="notes.php"><i class="fas fa-edit"></i> <?php echo translateString("Notes") ?><span class="sr-only">(current)</span></a></li>
+                <li class="nav-item" id="navProfile"><a class="nav-link" href="profile.php"><i class="fas fa-user"></i> <?php echo translateString("Profile") ?></a></li>
+                <li class="nav-item" id="navKeyboard"><a class="nav-link" href="keyboard.php"><i class="fas fa-keyboard"></i> <?php echo translateString("Keyboard") ?></a></li>
                 <?php
                 if ( $_SESSION[ 'monoto' ][ 'admin' ] == 1 ) // show admin-section
                 {
-                    echo '<li class="nav-item" id="a"><a class="nav-link" href="a.php"><i class="fas fa-cog"></i>';
+                    echo '<li class="nav-item" id="navAdmin"><a class="nav-link" href="admin.php"><i class="fas fa-cog"></i>';
                     echo translateString("Admin");
                     echo '</a></li>';
                 }

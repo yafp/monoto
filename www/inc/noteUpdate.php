@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
 // noteUpdate.php
-// used to update an existing note from n.php
+// used to update an existing note from notes.php
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
@@ -20,6 +20,9 @@ session_start();
 
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is valid or not
 {
+    require '../config/config.php';
+    require 'helperFunctions.php'; // to access writeNewLogentry
+
     // note id
     $noteID = filter_input( INPUT_POST, "modifiedNoteID", FILTER_SANITIZE_STRING );
 
@@ -36,8 +39,6 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
 
     // Fix for issue: #191 - eating backslashes
     $modifiedNoteContent = str_replace('\\', '\\\\', $modifiedNoteContent);
-
-    require '../config/config.php';
 
     $con = new mysqli( $databaseServer, $databaseUser, $databasePW, $databaseDB );
     if ( !$con )
@@ -57,14 +58,6 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
         $modifiedNoteTitle = $modifiedNoteTitle."___".$current_timestamp;
     }
 
-    /*
-    if ( mysqli_num_rows ( $result ) > 0 )
-    {
-        $current_timestamp = date('Ymd-his');
-        $modifiedNoteTitle = $modifiedNoteTitle."___".$current_timestamp;
-    }
-    */
-
     // update the actual note
     //
     $sql = "UPDATE m_notes SET title='$modifiedNoteTitle', content='$modifiedNoteContent', save_count='$modifiedNoteCounter' WHERE id='$noteID'"; // update m_notes
@@ -75,11 +68,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     }
     else
     {
-        // update m_log
-        $event = "save";
-        $details = "Note: <b>".$modifiedNoteTitle."</b>";
-        $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now() , '$owner')";
-        $result = mysqli_query ( $con, $sql );
+        writeNewLogEntry("save", "Note: <b>".$modifiedNoteTitle."</b> saved.");
     }
     mysqli_close( $con ); // close sql connection
 }

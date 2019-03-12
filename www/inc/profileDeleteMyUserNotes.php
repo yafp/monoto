@@ -6,11 +6,13 @@
 
 // prevent direct call of this script
 //if (strpos($_SERVER['SCRIPT_FILENAME'], 'profileDeleteMyUserNotes.php') !== false)
+/*
 if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'profileDeleteMyUserNotes.php') !== false)
 {
     header('Location: ../index.php'); // back to login page
     die();
 }
+*/
 
 header('Content-type: text/xml');
 
@@ -34,10 +36,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     $result = mysqli_query ( $con, $sql );
 
     // update m_log
-    $event = "notes eraser";
-    $details = "All user notes deleted with eraser.";
-    $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$owner' )";
-    $result = mysqli_query ( $con, $sql );
+    writeNewLogEntry("notes eraser", "All user notes deleted with eraser.");
 
     // close sql connection
     mysqli_close( $con );

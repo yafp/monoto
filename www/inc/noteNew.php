@@ -1,7 +1,7 @@
 <?php
 // -----------------------------------------------------------------------------
 // noteNew.php
-// used for new note creation from n.php
+// used for new note creation from notes.php
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
@@ -20,6 +20,7 @@ session_start();
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is valid or not
 {
     require '../config/config.php';
+    require 'helperFunctions.php'; // to access writeNewLogentry
 
     // note title
     $newNoteTitle= filter_input(INPUT_POST, "newNoteTitle", FILTER_SANITIZE_STRING);
@@ -59,12 +60,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     }
     else // update m_log
     {
-        $event = "create";
-        $details = "Note: <b>".$newNoteTitle."</b>";
-        $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event','$details', now(), '$owner' )";
-        $result = mysqli_query($con, $sql);
-
-        //return ( true );
+        writeNewLogEntry("create", "Note: <b>".$newNoteTitle."</b> created.");
     }
     mysqli_close( $con ); // close sql connection
 }
