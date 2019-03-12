@@ -64,40 +64,42 @@ function initMonotoUsersDataTable()
 
         "processing": true,
         //"serverSide": true, // might conflict with .search in datatable
-        "ajax": "inc/noteGetAllUserAccounts.php",
+        "ajax": "inc/adminGetAllUserAccounts.php",
 
         // colorize single cells
         "rowCallback": function( row, data )
         {
             // overall logins
             if ( data[2] === "0" ) {
-              $("td:eq(3)", row).addClass("m_red");
+              $("td:eq(3)", row).addClass("m_redLight");
             }
 
             // failed failed_logins_in_a_row
             if ( data[3] === "0" ) {
-              $("td:eq(3)", row).addClass("m_green");
+              $("td:eq(3)", row).addClass("m_greenLight");
             }
 
             if ( data[3] === "1" ) {
-              $("td:eq(3)", row).addClass("m_yellow");
+              $("td:eq(3)", row).addClass("m_yellowLight");
             }
 
             if ( data[3] === "2" ) {
-              $("td:eq(3)", row).addClass("m_orange");
+              $("td:eq(3)", row).addClass("m_orangeLight");
             }
 
             if ( data[3] === "3" ) {
-              $("td:eq(3)", row).addClass("m_red");
+              $("td:eq(3)", row).addClass("m_redLight");
             }
 
             // is_admin
             if ( data[5] === "1" ) {
-              $("td:eq(5)", row).addClass("m_blue");
+              $("td:eq(5)", row).addClass("m_blueLight");
             }
         }
 
     } );
+
+    console.log("initMonotoUsersDataTable ::: Finished initializing Monoto Users DataTable");
 
     console.debug("initMonotoUsersDataTable ::: Stop");
 }
@@ -110,12 +112,18 @@ function initMonotoUsersDataTable()
  */
 function reInitMonotoUsersDataTable()
 {
+    console.debug("reInitMonotoUsersDataTable ::: Start");
+
+    console.log("reInitMonotoUsersDataTable ::: Starting to re-init the Monoto Users DataTable");
+
     // Destroy datatable
     $( "#myMonotoUserDataTable" ).DataTable().destroy();
     $( "myMonotoUserDataTable" ).empty();
 
     // reload datatable
     initMonotoUsersDataTable();
+
+    console.debug("reInitMonotoUsersDataTable ::: Stop");
 }
 
 
@@ -221,7 +229,7 @@ function userAccountDelete()
             // reset fields
             //
             //$("#userDeleteSelector").val("");
-            $('#userDeleteSelector').val($(this).find('option:first').val());
+            $("#userDeleteSelector").val($(this).find("option:first").val());
             $("#confirmDeleteUser").val("");
 
             // reload the DataTable
@@ -281,7 +289,7 @@ function userAccountUnlock()
             // reset fields
             //
             //$("#userDeleteSelector").val("");
-            $('#userUnlockSelector').val($(this).find('option:first').val());
+            $("#userUnlockSelector").val($(this).find("option:first").val());
             $("#confirmDeleteUser").val("");
 
             // reload the DataTable

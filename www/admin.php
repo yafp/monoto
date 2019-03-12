@@ -124,7 +124,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                     <table cellpadding="0" cellspacing="0" class="display" id="myMonotoUserDataTable" style="width: 100%">
                         <thead><tr><th>id</th><th><?php echo translateString("username"); ?></th><th><?php echo translateString("logins"); ?></th><th>current failed logins</th><th><?php echo translateString("mail"); ?></th><th>admin</th><th><?php echo translateString("comment"); ?></th></tr></thead>
                         <tbody>
-                            <!-- gets filled via inc/noteGetAllUserAccounts.php -->
+                            <!-- gets filled via inc/adminGetAllUserAccounts.php -->
                         </tbody>
                     </table>
                     <!-- /Users -->
@@ -313,7 +313,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                     <h3><i class="fas fa-envelope"></i> <?php echo translateString("Broadcast message"); ?></h3>
                     <div class="panel-body">
                         Send an email to all monoto-accounts.
-                        <form action="a.php" method="post" enctype="multipart/form-data">
+                        <form action="admin.php" method="post" enctype="multipart/form-data">
                             <input type="text" placeholder="Subject" name="broadcastSubject" style="width:100%"><br>
                             <textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br>
                             <button type="submit" class="btn btn-primary buttonDefault" name="doSendBroastcast" value="Send" style="width:200px" title="Sends a broadcast email to all users." /><i class="fas fa-envelope"></i> send</button>
@@ -321,7 +321,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                     </div>
 
                     <h3><?php echo translateString("Misc"); ?></h3>
-                    <form action="a.php" method="post" enctype="multipart/form-data">
+                    <form action="admin.php" method="post" enctype="multipart/form-data">
                         <button type="submit" class="btn btn-info" name="doOptimize" value="Optimize" title="Starts MySQL Optimize tables command.">Optimize tables</button> This will optimize your entire monoto mysql database.<br><br>
 
                         <?php

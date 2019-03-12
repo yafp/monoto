@@ -55,7 +55,7 @@
             <div id="content">
 
                 <!-- form -->
-                <form name="myform" method="post" action="n.php">
+                <form name="myform" method="post">
 
                     <!-- development release/version notice -->
                     <?php
