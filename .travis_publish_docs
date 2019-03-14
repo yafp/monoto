@@ -21,7 +21,7 @@ echo -e "Publishing docs...\n"
 #
 DOCS=$PWD/docs
 pushd $HOME
-git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/yafp/monoto gh-pages 2>&1 > /dev/null
+git clone --quiet --branch=gh-pages https://c0a4ec214a9f16a44be1d315f251993a3cd6dc7f@github.com/yafp/monoto gh-pages 2>&1 > /dev/null
 cd gh-pages
 # Don't update if they are already at the latest version
 if [[ `git log -1 --pretty=%B` == *$TRAVIS_COMMIT* ]]; then
