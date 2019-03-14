@@ -89,10 +89,6 @@ msgstr "aktualisieren"
 msgid "Account"
 msgstr "Konto"
 
-# Sub-Tab: Statistics
-msgid "Statistics"
-msgstr "Statistik"
-
 # Sub-Tab: Activity-Log
 msgid "Activity Log"
 msgstr "Aktivit&auml;ten Protokoll"
@@ -244,20 +240,20 @@ msgid "(with selected note)"
 msgstr "(bei selektierter Notiz)"
 
 # Desc: Arrow-Down (in search)
-msgid "Selects the top record"
+msgid "Selects the first note"
 msgstr "Wechselt zur ersten Notiz der Ergebnistabelle"
 
 # Desc: Arrow Down (if record selected)
-msgid "Selects the next record"
+msgid "Selects the next note"
 msgstr "Springt zur n&auml;chsten Notiz"
 
 #  Desc: Arrow up (if record selected)
-msgid "Selects the previous record"
-msgstr "Springt zur vorherigen Notiz der Ergebnistabelle"
+msgid "Selects the previous note"
+msgstr "Springt zur vorherigen Notiz"
 
 #  Desc: Arrow up (in search)
-msgid "Selects the last record"
-msgstr "Springt zur letzten Notiz der Ergebnistabelle"
+msgid "Selects the last note"
+msgstr "Springt zur letzten Notiz"
 
 # ###############################################################################
 # ## Tab: Admin #################################################################
@@ -271,8 +267,6 @@ msgstr "Allgemeine Informationen"
 # Sub-Tab: Tasks
 msgid "Tasks"
 msgstr "Aufgaben"
-
-
 
 # Warning - Delete setup.php
 msgid "Please delete <i>setup.php</i>. It is a risk to keep that file."
