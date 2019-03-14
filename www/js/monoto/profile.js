@@ -196,7 +196,7 @@ function enableUpdateUserProfileLanguageButton()
     console.debug("enableUpdateUserProfileLanguageButton ::: Start.");
 
     // enable the update profile language button
-    $("#doChangeUserLanguage").prop('disabled', false);
+    $("#doChangeUserLanguage").prop("disabled", false);
 
     console.log("enableUpdateUserProfileLanguageButton ::: Enabled the profile language update button.");
 
@@ -227,7 +227,7 @@ function doChangeProfileLanguage()
         createNoty("Successfully changed language to "+ language,"success");
 
         // enable the update profile language button
-        $("#doChangeUserLanguage").prop('disabled', true);
+        $("#doChangeUserLanguage").prop("disabled", true);
     })
     .fail(function(jqxhr, textStatus, errorThrown)
     {
@@ -387,8 +387,8 @@ function exportAllNotesFromUserAccount()
 function toggleImportNotesFromCSVButton()
 {
     console.debug("toggleImportNotesFromCSVButton ::: Start");
-    var selectedCSVFileToImport = $('#impFile').val();
-    if (selectedCSVFileToImport == "")
+    var selectedCSVFileToImport = $("#impFile").val();
+    if (selectedCSVFileToImport === "")
     {
         // disable import CSV button
         $("#doImportCSV").prop("disabled",true);
