@@ -5,12 +5,15 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-//if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteNew.php') !== false)
-//if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'noteNew.php') !== false)
-//{
-//    header('Location: ../index.php'); // back to login page
-//    die();
-//}
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) )
+{
+    // Up to you which header to send, some prefer 404 even if
+    // the files does exist for security
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+
+    // choose the appropriate page to redirect users
+    die( header( 'location: ../404.php' ) );
+}
 
 
 //header('Content-type: text/xml');

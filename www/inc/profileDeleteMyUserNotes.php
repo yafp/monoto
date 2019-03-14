@@ -5,14 +5,15 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-//if (strpos($_SERVER['SCRIPT_FILENAME'], 'profileDeleteMyUserNotes.php') !== false)
-/*
-if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'profileDeleteMyUserNotes.php') !== false)
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) )
 {
-    header('Location: ../index.php'); // back to login page
-    die();
+    // Up to you which header to send, some prefer 404 even if
+    // the files does exist for security
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+
+    // choose the appropriate page to redirect users
+    die( header( 'location: ../404.php' ) );
 }
-*/
 
 header('Content-type: text/xml');
 
@@ -22,6 +23,7 @@ session_start();
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 {
     require '../config/config.php';
+    require 'helperFunctions.php'; // to access writeNewLogentry
 
     // connect to mysql
     $con = new mysqli ( $databaseServer, $databaseUser, $databasePW, $databaseDB );
@@ -36,7 +38,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     $result = mysqli_query ( $con, $sql );
 
     // update m_log
-    writeNewLogEntry("notes eraser", "All user notes deleted with eraser.");
+    writeNewLogEntry("Eraser user notes", "All user notes deleted with eraser.");
 
     // close sql connection
     mysqli_close( $con );
