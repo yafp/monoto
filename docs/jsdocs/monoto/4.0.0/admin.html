@@ -171,7 +171,7 @@
 
 
 <div class="description">
-    <p>init the monoto user DataTable in admin view</p>
+    <p>init the monoto user DataTable in admin view. Colorizes some cells under specific conditions</p>
 </div>
 
 
@@ -227,13 +227,13 @@
 
         
             
-<h4 class="name" id=".reInitMonotoUsersDataTable"><span class="type-signature">(static) </span>reInitMonotoUsersDataTable<span class="type-signature"></span></h4>
+<h4 class="name" id=".optimizeDatabaseTables"><span class="type-signature">(static) </span>optimizeDatabaseTables<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>destroy and re-init the monoto user DataTable in admin view</p>
+    <p>runs optimize on all monoto mysql database tables.</p>
 </div>
 
 
@@ -271,7 +271,255 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line108">line 108</a>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line322">line 322</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".reInitMonotoUsersDataTable"><span class="type-signature">(static) </span>reInitMonotoUsersDataTable<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>destroy and re-init the monoto user DataTable in admin view (used after data changes in the table m_users).</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line109">line 109</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".sendMailToAllUsers"><span class="type-signature">(static) </span>sendMailToAllUsers<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>sends an email to all existing user accounts.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line450">line 450</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".truncateAllEvents"><span class="type-signature">(static) </span>truncateAllEvents<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Truncates the table m_events. This affects all accounts (useful for developers only)</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line365">line 365</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".truncateAllNotes"><span class="type-signature">(static) </span>truncateAllNotes<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>truncates the table m_notes. This affects all accounts (useful for developers only)</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line407">line 407</a>
     </li></ul></dd>
     
 
@@ -295,7 +543,7 @@
 
 
 <div class="description">
-    <p>creates a new monoto user account</p>
+    <p>creates a new monoto user account.</p>
 </div>
 
 
@@ -333,7 +581,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line131">line 131</a>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -357,7 +605,7 @@
 
 
 <div class="description">
-    <p>deletes an existing monoto user account</p>
+    <p>deletes an existing monoto user account.</p>
 </div>
 
 
@@ -395,7 +643,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line201">line 201</a>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line202">line 202</a>
     </li></ul></dd>
     
 
@@ -419,7 +667,7 @@
 
 
 <div class="description">
-    <p>unlocks an existing monoto user account</p>
+    <p>unlocks an existing monoto user account (login-lock after 3 failed login attempts in a row)</p>
 </div>
 
 
@@ -457,7 +705,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line261">line 261</a>
+        <a href="admin.js.html">admin.js</a>, <a href="admin.js.html#line262">line 262</a>
     </li></ul></dd>
     
 
@@ -497,7 +745,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 12 2019 15:04:48 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Mar 13 2019 11:40:42 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

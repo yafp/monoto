@@ -1060,114 +1060,127 @@ function onClickDataTableCell(data)
 {
     console.debug("onClickDataTableCell ::: Start");
 
-    console.log("onClickDataTableCell ::: A cell of the DataTable was clicked - try to load the note.");
 
-    // get data from current record
-    noteID = data[0];
-    noteTitle = data[1];
-    noteContent = data[2];
-    noteDateMod = data[3];
-    noteDateCreate = data[4];
-    noteSaveCount = data[5];
-    noteOwner = data[6];
 
-    // output record datas
-    console.log("Note ID: " + noteID);
-    console.log("Note title:" + noteTitle);
-    console.log("Note Content:" + noteContent);
-    console.log("Note Date Mod: " + noteDateMod);
-    console.log("Note Date Create:" + noteDateCreate);
-    console.log("Note Save Count:" + noteSaveCount);
-    console.log("Note Owner:" + noteOwner);
 
-    // disable button (no changes yet)
-    disableNoteSavingButton();
+    //console.warn(oTable.rows().count());
 
-    // enable the delete button
-    $("#bt_deleteNote").prop("disabled",false);
-
-    // enable note title field
-    $("#noteTitle").prop("disabled",false);
-
-    console.log("onClickDataTableCell ::: Updating notes UI with note ID: "+noteID+ " and title: '"+noteTitle+"'.");
-
-    // update UI
-    $("#noteID").val(noteID);   // fill id field
-    $("#noteTitle").val(noteTitle); // fill title field
-    $("#noteVersion").val(noteSaveCount); // fill version -  is hidden
-
-    // set focus to search
-    $("#searchField").focus(); // as arrow up/down needs focus to work
-
-    // load note to ckeditor
-    console.log("onClickDataTableCell ::: Trying to load note content to editor");
-    console.log("onClickDataTableCell ::: NoteContent: " + noteContent);
-
-    CKEDITOR.instances.editor1.setData(noteContent,function()
+    if ( oTable.rows().count() > 0) // this code makes only sense if notes counter > 0
     {
-        // set data of editor to noteContent
-        CKEDITOR.instances.editor1.setData(noteContent); // #201
+        console.log("onClickDataTableCell ::: A cell of the DataTable was clicked - try to load the note.");
 
-        // enable ckeditor
-        enableCKEditorWriteMode();
+        // get data from current record
+        noteID = data[0];
+        noteTitle = data[1];
+        noteContent = data[2];
+        noteDateMod = data[3];
+        noteDateCreate = data[4];
+        noteSaveCount = data[5];
+        noteOwner = data[6];
 
-        // disable save button
+        // output record datas
+        console.log("Note ID: " + noteID);
+        console.log("Note title:" + noteTitle);
+        console.log("Note Content:" + noteContent);
+        console.log("Note Date Mod: " + noteDateMod);
+        console.log("Note Date Create:" + noteDateCreate);
+        console.log("Note Save Count:" + noteSaveCount);
+        console.log("Note Owner:" + noteOwner);
+
+        // disable button (no changes yet)
         disableNoteSavingButton();
 
-        // show cancel button
-        $("#bt_cancelNewNote").show();
+        // enable the delete button
+        $("#bt_deleteNote").prop("disabled",false);
 
-        // enable cancel button
-        $("#bt_cancelNewNote").prop("disabled",false);
+        // enable note title field
+        $("#noteTitle").prop("disabled",false);
 
-        // On Change listener for CKEditor
-        // to detect if note content has changed after loading a note
-        //
-        CKEDITOR.instances.editor1.on("change", function(ev)
+        console.log("onClickDataTableCell ::: Updating notes UI with note ID: "+noteID+ " and title: '"+noteTitle+"'.");
+
+        // update UI
+        $("#noteID").val(noteID);   // fill id field
+        $("#noteTitle").val(noteTitle); // fill title field
+        $("#noteVersion").val(noteSaveCount); // fill version -  is hidden
+
+        // set focus to search
+        $("#searchField").focus(); // as arrow up/down needs focus to work
+
+        // load note to ckeditor
+        console.log("onClickDataTableCell ::: Trying to load note content to editor");
+        console.log("onClickDataTableCell ::: NoteContent: " + noteContent);
+
+        CKEDITOR.instances.editor1.setData(noteContent,function()
         {
-            console.log("onClickDataTableCell ::: OnChangeListener for CKEditor");
+            // set data of editor to noteContent
+            CKEDITOR.instances.editor1.setData(noteContent); // #201
 
-            // check if button is disabled - if so - enable it
-            if($("#bt_saveNote").is(":disabled"))
-            {
-                enableNoteSavingButton();
-            }
-        });
+            // enable ckeditor
+            enableCKEditorWriteMode();
 
-        // On Change Listener for noteTitle
-        // to detect if note title has changed after loading a note
-        $("#noteTitle").on("change keyup paste", function()
-        {
-            // Enable or disable the save button, based on the fact if the noteTitle is still > 0
-            var value = document.getElementById("noteTitle").value;
-            if (value.length > 0)
+            // disable save button
+            disableNoteSavingButton();
+
+            // show cancel button
+            $("#bt_cancelNewNote").show();
+
+            // enable cancel button
+            $("#bt_cancelNewNote").prop("disabled",false);
+
+            // On Change listener for CKEditor
+            // to detect if note content has changed after loading a note
+            //
+            CKEDITOR.instances.editor1.on("change", function(ev)
             {
+                console.log("onClickDataTableCell ::: OnChangeListener for CKEditor");
+
                 // check if button is disabled - if so - enable it
                 if($("#bt_saveNote").is(":disabled"))
                 {
                     enableNoteSavingButton();
                 }
-            }
-            else
+            });
+
+            // On Change Listener for noteTitle
+            // to detect if note title has changed after loading a note
+            $("#noteTitle").on("change keyup paste", function()
             {
-                // check if button is enabled - if so - disable it
-                if($("#bt_saveNote").is(":enabled"))
+                // Enable or disable the save button, based on the fact if the noteTitle is still > 0
+                var value = document.getElementById("noteTitle").value;
+                if (value.length > 0)
                 {
-                    disableNoteSavingButton();
+                    // check if button is disabled - if so - enable it
+                    if($("#bt_saveNote").is(":disabled"))
+                    {
+                        enableNoteSavingButton();
+                    }
                 }
-            }
+                else
+                {
+                    // check if button is enabled - if so - disable it
+                    if($("#bt_saveNote").is(":enabled"))
+                    {
+                        disableNoteSavingButton();
+                    }
+                }
+            });
         });
-    });
 
-    // update button visibilty
-    // show some buttons
-    $("#bt_deleteNote").show(); // show delete button
-    $("#bt_saveNote").show(); // show save button
+        // update button visibilty
+        // show some buttons
+        $("#bt_deleteNote").show(); // show delete button
+        $("#bt_saveNote").show(); // show save button
 
-    // hide some buttons and fields
-    $("#newNoteTitle").hide(); // hide field for new note name
-    $("#bt_createNewNote").hide(); // hide button to create a new note
-    $("#bt_prepareNoteCreation").hide(); // hide button to create a new note
+        // hide some buttons and fields
+        $("#newNoteTitle").hide(); // hide field for new note name
+        $("#bt_createNewNote").hide(); // hide button to create a new note
+        $("#bt_prepareNoteCreation").hide(); // hide button to create a new note
+    }
+    else {
+        console.warn("onClickDataTableCell ::: Trying to click, while no rows exist at all.");
+        $("#bt_prepareNoteCreation").show(); // show 'new' button (keep it visible)
+        return;
+    }
 
     console.debug("onClickDataTableCell ::: Stop");
 }
@@ -1407,7 +1420,7 @@ function onNotesPageReady()
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 12 2019 15:04:48 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Mar 13 2019 11:40:42 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
