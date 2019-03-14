@@ -15,6 +15,7 @@ if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERV
     die( header( 'location: ../404.php' ) );
 }
 
+
 header('Content-type: application/xml');
 
 session_start();
@@ -23,7 +24,8 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     require '../config/config.php';
 
     // post values
-    $existingUserID = filter_input(INPUT_POST, "existingUserID", FILTER_SANITIZE_STRING);
+    $mailSubject = filter_input(INPUT_POST, "mailSubject", FILTER_SANITIZE_STRING);
+    $mailText = filter_input(INPUT_POST, "mailText", FILTER_SANITIZE_STRING);
 
     $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
     if (!$con)
@@ -31,13 +33,24 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
         die('Could not connect: ' . mysqli_connect_error());
     }
 
-    // reset login-lock
-    //
-    $sql = "UPDATE m_users SET failed_logins_in_a_row = 0 WHERE id='$existingUserID'";
-    $result = mysqli_query( $con, $sql );
+    // select all users & email-data
+    $query = "SELECT username, email FROM m_users;";
+    $result = mysqli_query ( $con, $query );
+    while ( $row = mysqli_fetch_array ( $result ) )
+    {
+        $username = $row[ 0 ];
+        $email = $row[ 1 ];
+        if ( @mail ( $email, $messageSubject, $messageText ) ) // try to send notification email
+        {
+            // sending
+        }
+        else
+        {
+            // unable to send
+        }
+    }
 
     // Close sql connection
-    //
-    mysqli_close( $con ); // close sql connection
+    mysqli_close( $con );
 }
 ?>

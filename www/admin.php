@@ -33,6 +33,10 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
 
         initMonotoUsersDataTable();
 
+        initCKEditor();
+
+        updateTaskSelectorDeleteAccount();
+
         // #281
         // compare input in password fields
         // and enable or disable the 'update password' button
@@ -234,7 +238,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                         <tr>
                             <td width='30%'><?php echo translateString("Account"); ?></td>
                             <td>
-                                <select class="selectpicker" id="userDeleteSelector" name="userDeleteSelector" required>
+                                <select class="selectpicker" id="userDeleteSelector" name="userDeleteSelector" onChange="enableUserAccountDeleteButton();" required>
                                     <option value="" disabled selected>Username</option>
                                     <?php
                                         $result = mysqli_query($con, "SELECT id, username  FROM m_users WHERE is_admin is NULL ORDER by id ");
@@ -249,12 +253,12 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                         </tr>
                         <tr>
                             <td>Enter CONFIRM</td>
-                            <td><input type="text" id="confirmDeleteUser" name="confirmDeleteUser" placeholder="no" required></td>
+                            <td><input type="text" id="confirmDeleteUser" name="confirmDeleteUser" onChange="enableUserAccountDeleteButton();" placeholder="no" required></td>
                             <td><small id="confirmHelp" class="form-text text-muted">For security reasons</small></td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td><button type="submit" class="btn btn-danger buttonDefault" id="doDeleteUser" name="doDeleteUser" onClick="userAccountDelete();"><i class="fas fa-trash-alt"></i> <?php echo translateString("delete"); ?></button> </td>
+                            <td><button type="submit" class="btn btn-danger buttonDefault" id="doDeleteUser" name="doDeleteUser" onClick="userAccountDelete();" disabled="disabled"><i class="fas fa-trash-alt"></i> <?php echo translateString("delete"); ?></button> </td>
                             <td><small id="deleteButtonHelp" class="form-text text-muted">Deletes the user and all his notes plus all user-related events in the log</small></td>
                         </tr>
                     </table>
@@ -305,7 +309,6 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                         </table>
 
 
-
                     <!-- spacer -->
                     <div class="row">&nbsp;</div>
 
@@ -313,27 +316,22 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                     <h3><i class="fas fa-envelope"></i> <?php echo translateString("Broadcast message"); ?></h3>
                     <div class="panel-body">
                         Send an email to all monoto-accounts.
-                        <form action="admin.php" method="post" enctype="multipart/form-data">
-                            <input type="text" placeholder="Subject" name="broadcastSubject" style="width:100%"><br>
-                            <textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" name="broadcastMessage"></textarea><br>
-                            <button type="submit" class="btn btn-primary buttonDefault" name="doSendBroastcast" value="Send" style="width:200px" title="Sends a broadcast email to all users." /><i class="fas fa-envelope"></i> send</button>
-                        </form>
+                            <input type="text" placeholder="Subject" id="broadcastSubject" name="broadcastSubject" style="width:100%"><br>
+                            <textarea rows="4" cols="50" style="width:100%" placeholder="Insert your broadcast message text here" id="editor1" name="editor1"></textarea><br>
+                            <button type="submit" class="btn btn-primary buttonDefault" id="doSendBroadcast" name="doSendBroastcast" onClick="sendMailToAllUsers();" value="Send" style="width:200px" title="Sends a broadcast email to all users." /><i class="fas fa-envelope"></i> send</button>
                     </div>
 
                     <h3><?php echo translateString("Misc"); ?></h3>
-                    <form action="admin.php" method="post" enctype="multipart/form-data">
-                        <button type="submit" class="btn btn-info" name="doOptimize" value="Optimize" title="Starts MySQL Optimize tables command.">Optimize tables</button> This will optimize your entire monoto mysql database.<br><br>
+                        <button type="submit" class="btn btn-info" id="doOptimize" name="doOptimize" onClick="optimizeDatabaseTables();" value="Optimize" title="Starts MySQL Optimize tables command.">Optimize tables</button> This will optimize your entire monoto mysql database.<br><br>
 
                         <?php
                             if ( $m_stableRelease == false )
                             {
-                                echo '<button type="submit" class="btn btn-warning" name="doTruncateEvents" value="Truncate events" title="Deletes the entire content of the event-table. Affects all users. Be careful with that.">Truncate events</button> Warning: This will delete <b>ALL events</b> from the table: m_log.<br><br>';
-                                echo '<button type="submit" class="btn btn-danger" name="doTruncateNotes" value="Truncate notes" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too.">Truncate notes</button> Warning: This will delete <b>ALL notes</b> from the table: m_notes.';
+                                echo '<button type="submit" class="btn btn-warning" id="doTruncateEvents" name="doTruncateEvents" onClick="truncateAllEvents();" value="Truncate events" title="Deletes the entire content of the event-table. Affects all users. Be careful with that.">Truncate events</button> Warning: This will delete <b>ALL events</b> from the table: m_log. (Developers ONLY)<br><br>';
+                                echo '<button type="submit" class="btn btn-danger" id="doTruncateNotes" name="doTruncateNotes" onClick="truncateAllNotes();" value="Truncate notes" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too.">Truncate notes</button> Warning: This will delete <b>ALL notes</b> from the table: m_notes. (Developers ONLY)';
                             }
 
                         ?>
-
-                    </form>
 
                 </div>
                 <!-- /Tab: tasks -->
@@ -352,103 +350,3 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
 
 </body>
 </html>
-
-
-<?php
-
-if (filter_input(INPUT_SERVER, 'REQUEST_METHOD',FILTER_DEFAULT) === 'POST')
-{
-    require "config/config.php";
-
-    // CASES
-    //
-    // - Send broadcast to all user
-    // - Optimize mysql tables
-    // - Truncate events
-    // - Truncate notes
-    //
-    // TODO:
-    // ajax them all
-
-
-
-    // ---------------------------------------------------------------------
-    // Send broastcast to all users (email)
-    // ---------------------------------------------------------------------
-    if ( isset( $_POST[ "doSendBroastcast" ] ) )
-    {
-        $messageSubject= filter_input(INPUT_POST, "broadcastSubject", FILTER_SANITIZE_STRING);
-        $messageText= filter_input(INPUT_POST, "broadcastMessage", FILTER_SANITIZE_STRING);
-
-        if ( ( $messageText != "" ) && ( $messageSubject != "" ) )
-        {
-            // select all users & email-data
-            $query = "SELECT username, email FROM m_users;";
-            $result = mysqli_query($con, $query);
-            while ( $row = mysqli_fetch_array ( $result ) )
-            {
-                $username = $row[ 0 ];
-                $email = $row[ 1 ];
-                if ( @mail ( $email, $messageSubject, $messageText ) ) // try to send notification email
-                {
-                    displayNoty("Notification emails sent.", "success");
-                }
-                else
-                {
-                    displayNoty("Unable to sent notification mails.", "error");
-                }
-            }
-        }
-        else
-        {
-            displayNoty("Error: Please enter a message text", "error");
-        }
-    }
-    // END: BROADCAST MAIL
-
-
-    // ---------------------------------------------------------------------
-    // OPTIMIZE MYSQL TABLES
-    // ---------------------------------------------------------------------
-    if ( isset($_POST["doOptimize"]) )
-    {
-        connectToDatabase();  // connect to mysql
-
-        // select all table with (> 10% overhead) AND at (least > 100k free space)
-        $res = mysqli_query($con, 'SHOW TABLE STATUS WHERE Data_free / Data_length > 0.1 AND Data_free > 102400');
-        while($row = mysqli_fetch_assoc($res))
-        {
-            mysqli_query($con, 'OPTIMIZE TABLE ' . $row[ 'Name' ]);
-        }
-        displayNoty("Database optimized", "notification");
-    }
-    // END: OPTIMIZE MYSQL TABLES
-
-
-    // ---------------------------------------------------------------------
-    // TRUNCATE EVENTS
-    // ---------------------------------------------------------------------
-    if ( isset($_POST["doTruncateEvents"]) )
-    {
-        $con = connectToDatabase(); // connect to mysql
-        mysqli_query($con, 'TRUNCATE TABLE m_log'); // truncate log-/events-table
-        displayNoty("Truncated all eventlog entries", "notification");
-    }
-    // END: TRUNCATE EVENTS
-
-
-    // ---------------------------------------------------------------------
-    // TRUNCATE NOTES
-    // ---------------------------------------------------------------------
-    if ( isset($_POST["doTruncateNotes"]) )
-    {
-        $con = connectToDatabase(); // connect to mysql
-        mysqli_query($con, 'TRUNCATE TABLE m_notes'); // truncate notes-table
-        displayNoty("Truncated all user notes", "notification");
-    }
-    // END: TRUNCATE NOTES
-
-
-} // End: check if request was POST
-
-?>

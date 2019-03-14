@@ -43,7 +43,7 @@ function getJavaScriptVersions()
 
 /**
  * @name initMonotoUsersDataTable
- * @description init the monoto user DataTable in admin view
+ * @description init the monoto user DataTable in admin view. Colorizes some cells under specific conditions
  * @memberof admin
  */
 function initMonotoUsersDataTable()
@@ -71,29 +71,30 @@ function initMonotoUsersDataTable()
         {
             // overall logins
             if ( data[2] === "0" ) {
-              $("td:eq(3)", row).addClass("m_redLight");
+                $("td:eq(2)", row).addClass("m_redLight");
             }
 
             // failed failed_logins_in_a_row
             if ( data[3] === "0" ) {
-              $("td:eq(3)", row).addClass("m_greenLight");
+                $("td:eq(3)", row).addClass("m_greenLight");
             }
 
             if ( data[3] === "1" ) {
-              $("td:eq(3)", row).addClass("m_yellowLight");
+                $("td:eq(3)", row).addClass("m_yellowLight");
             }
 
             if ( data[3] === "2" ) {
-              $("td:eq(3)", row).addClass("m_orangeLight");
+                $("td:eq(3)", row).addClass("m_orangeLight");
             }
 
             if ( data[3] === "3" ) {
-              $("td:eq(3)", row).addClass("m_redLight");
+                $("td:eq(3)", row).addClass("m_redLight");
             }
 
             // is_admin
             if ( data[5] === "1" ) {
-              $("td:eq(5)", row).addClass("m_blueLight");
+                $("td:eq(5)", row).addClass("m_blueLight");
+                $('td:eq(5)', row).html( '<i class="fas fa-clipboard-check"></i> yes' );
             }
         }
 
@@ -107,7 +108,7 @@ function initMonotoUsersDataTable()
 
 /**
  * @name reInitMonotoUsersDataTable
- * @description destroy and re-init the monoto user DataTable in admin view
+ * @description destroy and re-init the monoto user DataTable in admin view (used after data changes in the table m_users).
  * @memberof admin
  */
 function reInitMonotoUsersDataTable()
@@ -130,7 +131,7 @@ function reInitMonotoUsersDataTable()
 
 /**
  * @name userAccountCreateNew
- * @description creates a new monoto user account
+ * @description creates a new monoto user account.
  * @memberof admin
  */
 function userAccountCreateNew()
@@ -199,8 +200,34 @@ function userAccountCreateNew()
 
 
 /**
+ * @name enableUserAccountDeleteButton
+ * @description enables the user account delete button
+ * @memberof admin
+ */
+function enableUserAccountDeleteButton()
+{
+    console.debug("enableUserAccountDeleteButton ::: Start.");
+
+    var existingUserID = $("#userDeleteSelector").val();
+    var confirmText = $("#confirmDeleteUser").val();
+
+    // if a user is selected and confirm is entered -> enable the button
+    if ( (confirmText === "CONFIRM") && (existingUserID !== null ) )
+    {
+        // enable the user-delete button
+        $("#doDeleteUser").prop('disabled', false);
+
+        console.log("enableUserAccountDeleteButton ::: Enabled the user account delete button.");
+    }
+
+    console.debug("enableUserAccountDeleteButton ::: Stop.");
+}
+
+
+
+/**
  * @name userAccountDelete
- * @description deletes an existing monoto user account
+ * @description deletes an existing monoto user account.
  * @memberof admin
  */
 function userAccountDelete()
@@ -221,6 +248,9 @@ function userAccountDelete()
         {
             console.log("userAccountDelete ::: Successfully deleted an existing user account");
             createNoty("Deleted user, his notes and the related log entries", "success");
+
+            // disable the user-delete button
+            $("#doDeleteUser").prop('disabled', true);
         })
         .done(function()
         {
@@ -260,7 +290,7 @@ function userAccountDelete()
 
 /**
  * @name userAccountUnlock
- * @description unlocks an existing monoto user account
+ * @description unlocks an existing monoto user account (login-lock after 3 failed login attempts in a row)
  * @memberof admin
  */
 function userAccountUnlock()
@@ -315,4 +345,306 @@ function userAccountUnlock()
     }
 
     console.debug("userAccountUnlock ::: Stop");
+}
+
+
+/**
+ * @name optimizeDatabaseTables
+ * @description runs optimize on all monoto mysql database tables.
+ * @memberof admin
+ */
+function optimizeDatabaseTables()
+{
+    console.debug("optimizeDatabaseTables ::: Start");
+
+    console.log("optimizeDatabaseTables ::: Ask user if he wants to run optimize on all tables");
+
+    var x = noty({
+        text: "Really optimize all datatabase tables?",
+        type: "confirm",
+        dismissQueue: false,
+        layout: "topRight",
+        theme: "defaultTheme",
+        buttons: [
+            {
+                addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+                {
+                    $noty.close();
+                    console.log("optimizeDatabaseTables ::: User confirmed to optimize tables. Starting now ...");
+                    $.post("inc/adminOptimizeDatabaseTables.php");
+                    createNoty("Executed optimize tasks","success");
+                }
+            },
+            {
+                addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+                {
+                    $noty.close();
+                    console.log("optimizeDatabaseTables ::: User cancelled the optimize tasks");
+                    createNoty("Aborted","information");
+                }
+            }
+        ]
+    });
+
+    console.debug("optimizeDatabaseTables ::: Stop");
+}
+
+
+
+/**
+ * @name truncateAllEvents
+ * @description Truncates the table m_events. This affects all accounts (useful for developers only)
+ * @memberof admin
+ */
+function truncateAllEvents()
+{
+    console.debug("truncateAllEvents ::: Start");
+
+    console.log("truncateAllEvents ::: Ask user if he wants to truncate the table m_log");
+
+    var x = noty({
+        text: "Really truncate the entire log/events table?",
+        type: "confirm",
+        dismissQueue: false,
+        layout: "topRight",
+        theme: "defaultTheme",
+        buttons: [
+            {
+                addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+                {
+                    $noty.close();
+                    console.log("truncateAllEvents ::: User confirmed to truncate log/events table. Starting now ...");
+                    $.post("inc/adminTruncateAllEvents.php");
+                    createNoty("Executed truncate of all events","success");
+                }
+            },
+            {
+                addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+                {
+                    $noty.close();
+                    console.log("truncateAllEvents ::: User cancelled the truncate of all events");
+                    createNoty("Aborted","information");
+                }
+            }
+        ]
+    });
+
+    console.debug("truncateAllEvents ::: Stop");
+}
+
+
+/**
+ * @name truncateAllNotes
+ * @description truncates the table m_notes. This affects all accounts (useful for developers only)
+ * @memberof admin
+ */
+function truncateAllNotes()
+{
+    console.debug("truncateAllNotes ::: Start");
+
+    console.log("truncateAllNotes ::: Ask user if he wants to truncate the table m_notes");
+
+    var x = noty({
+        text: "Really truncate the entire notes table?",
+        type: "confirm",
+        dismissQueue: false,
+        layout: "topRight",
+        theme: "defaultTheme",
+        buttons: [
+            {
+                addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+                {
+                    $noty.close();
+                    console.log("truncateAllNotes ::: User confirmed to truncate notess table. Starting now ...");
+                    $.post("inc/adminTruncateAllNotes.php");
+                    createNoty("Executed truncate of all notes","success");
+                }
+            },
+            {
+                addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+                {
+                    $noty.close();
+                    console.log("truncateAllNotes ::: User cancelled the truncate of all notes");
+                    createNoty("Aborted","information");
+                }
+            }
+        ]
+    });
+
+    console.debug("truncateAllNotes ::: Stop");
+}
+
+
+
+/**
+ * @name sendMailToAllUsers
+ * @description sends an email to all existing user accounts.
+ * @memberof admin
+ */
+function sendMailToAllUsers()
+{
+    console.debug("sendMailToAllUsers ::: Start");
+
+    // get values
+    var mailSubject = $("#broadcastSubject").val();
+    var mailText = CKEDITOR.instances.editor1.getData();
+
+    if ( mailSubject && mailText ) // if both variables are set
+    {
+        console.log("Subject: "+ mailSubject);
+        console.log("Message: " + mailText);
+
+        console.log("sendMailToAllUsers ::: Ask user if he wants to send an email to all user accounts");
+
+        var x = noty({
+            text: "Really send an email to all users?",
+            type: "confirm",
+            dismissQueue: false,
+            layout: "topRight",
+            theme: "defaultTheme",
+            buttons: [
+                {
+                    addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+                    {
+                        $noty.close();
+                        console.log("sendMailToAllUsers ::: User confirmed to send a broadcast mail to all users. Starting now ...");
+
+                        var jqxhr = $.post( "inc/adminSendMailToAllUsers.php", { mailSubject: mailSubject, mailText: mailText }, function()
+                        {
+                            console.log("sendMailToAllUsers ::: Successfully send email to all user accounts");
+                            createNoty("Finished sending broadcast mail to all users", "success");
+                        })
+                        .done(function()
+                        {
+                            console.log("sendMailToAllUsers ::: done");
+
+                            // reset fields
+                            //
+                            $("#broadcastSubject").val("");
+                            $("#broadcastMessage").val("");
+
+                        })
+                        .fail(function(jqxhr, textStatus, errorThrown)
+                        {
+                            console.error("sendMailToAllUsers ::: $.post failed");
+                            console.log(jqxhr);
+                            console.log(textStatus);
+                            console.log(errorThrown);
+
+                            createNoty("Sending broadcast mail to all user accounts failed", "error");
+                        })
+                        .always(function()
+                        {
+                            // doing nothing so far
+                        });
+
+                    }
+                },
+                {
+                    addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+                    {
+                        $noty.close();
+                        console.log("sendMailToAllUsers ::: User cancelled the broadcast mail to all users");
+                        createNoty("Aborted","information");
+                    }
+                }
+            ]
+        });
+
+    }
+    else {
+        createNoty("Unable to send mails. Please fill both Subject and Message", "error");
+        console.warn("sendMailToAllUsers ::: Either subject or message or both are empty.");
+        console.warn("Subject: " + mailSubject);
+        console.warn("Text: " + mailText);
+
+    }
+
+    console.debug("sendMailToAllUsers ::: Stop");
+}
+
+
+
+
+/**
+ * @name initCKEditor
+ * @description sends an email to all existing user accounts.
+ * @memberof admin
+ */
+function initCKEditor()
+{
+    console.debug("initCKEditor ::: Start");
+
+    // START CKEDITOR
+    CKEDITOR.replace( "editor1",
+    {
+        // key press handling
+        on:
+        {
+            instanceReady: function()
+            {
+                //CKEDITOR.instances.editor1.setReadOnly(false); // set RO mode
+                CKEDITOR.config.toolbarCanCollapse = false; /* Enable collapse function for toolbar */
+                return;
+            },
+        }, // end: on
+
+        // other things
+        //
+        enterMode: CKEDITOR.ENTER_BR,
+        toolbarCanCollapse: true, // enable collapse option
+        toolbarStartupExpanded : true,  // define collapsed as default
+        //removePlugins: 'elementspath',
+        toolbar:
+        [
+            { name: "tools",       items : [ "Maximize" ] },
+            { name: "basicstyles", items : [ "Bold","Italic","Strike","RemoveFormat" ] },
+            { name: "paragraph",   items : [ "NumberedList","BulletedList","-","Outdent","Indent","Blockquote" ] },
+            { name: "insert",      items : [ "Link","Image","Table","HorizontalRule","SpecialChar" ] },
+            { name: "styles",      items : [ "Styles","Format" ] },
+            { name: "document",    items : [ "Source" ] }
+        ]
+    });
+
+
+    console.debug("initCKEditor ::: Stop");
+}
+
+
+
+
+
+/**
+ * @name updateTaskSelectorDeleteAccount
+ * @description ...
+ * @memberof admin
+ */
+function updateTaskSelectorDeleteAccount()
+{
+    console.debug("updateTaskSelectorDeleteAccount ::: Start.");
+
+    var jqxhr = $.post( "inc/adminFillUserDeleteSelector.php", { }, function(data)
+    {
+        console.log("updateTaskSelectorDeleteAccount ::: Successfully fetched all users for delete-selector");
+        console.log(data);
+    })
+    .done(function()
+    {
+        console.log("updateTaskSelectorDeleteAccount ::: done");
+
+    })
+    .fail(function(jqxhr, textStatus, errorThrown)
+    {
+        console.error("updateTaskSelectorDeleteAccount ::: $.post failed");
+        console.log(jqxhr);
+        console.log(textStatus);
+        console.log(errorThrown);
+    })
+    .always(function()
+    {
+        // doing nothing so far
+    });
+
+
+    console.debug("updateTaskSelectorDeleteAccount ::: Stop.");
 }
