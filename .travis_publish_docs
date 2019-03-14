@@ -4,8 +4,14 @@
 #
 # source: https://github.com/RubenVerborgh/AsyncIterator/commit/ac05f7675f9a2f5e9e8e74d59a9c5189dd4359b3
 
+echo "Starting script on after_success ..."
+
 # Only publish from the main repository's master branch
 if [ "$TRAVIS_REPO_SLUG" != "yafp/monoto" ] || [ "$TRAVIS_BRANCH" != "master" ] || [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+  echo $TRAVIS_REPO_SLUG
+  echo $TRAVIS_BRANCH
+  echo $TRAVIS_PULL_REQUEST
+  echo "Aborting script"
   exit
 fi
 
