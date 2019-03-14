@@ -2,18 +2,11 @@
     "name": "monoto",
     "version": "4.0.0",
     "title": "Monoto Notes",
-    "description": "Monoto is a self-hostable notes-keeper.",
-    "homepage": "http://yafp.github.io/monoto/",
+    "description": "Monoto is a self-hostable web-based notes-keeper.",
+    "homepage": "https://yafp.github.io/monoto/",
     "bugs": "https://github.com/yafp/monoto/issues",
     "license": "GPL3",
     "main": "",
-    "files": [
-        "www/js/monoto/generic.js",
-        "www/js/monoto/navigation.js",
-        "www/js/monoto/notes.js",
-        "www/js/monoto/notesKeyPress.js",
-        "www/js/monoto/profile.js"
-    ],
     "dependencies": {
         "bootstrap": ">=4.2.1",
         "bootstrap-select": ">=1.13.2",
@@ -30,7 +23,10 @@
     },
     "keywords": [
         "Notes",
-        "notes-keeper"
+        "notes-keeper",
+        "note-taking",
+        "self-hosted",
+        "self-host"
     ],
     "repository": {
         "type": "git",
