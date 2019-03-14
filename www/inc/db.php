@@ -1,14 +1,5 @@
 <?php
 
-// prevent direct call of this script
-//if (strpos($_SERVER['SCRIPT_FILENAME'], 'db.php') !== false)
-if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'db.php') !== false)
-{
-    header('Location: ../index.php'); // back to login page
-    die();
-}
-
-
 /**
  * Connects to a mysql database
  *
