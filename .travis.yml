@@ -41,7 +41,10 @@ install:
   - composer install --no-interaction
 
 # execute any number of scripts before the test run, custom env's are available as variables
-#before_script:
+before_script:
+  - composer self-update -q
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
+  - composer show -i
 #  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hello_world_test;" -uroot; fi
 
 # omitting "script:" will default to phpunit
