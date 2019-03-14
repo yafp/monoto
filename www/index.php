@@ -111,9 +111,9 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $result = mysqli_query ( $con, $sql );
 
                 // can not use 'writeNewLogEntry' here - this function can only be used from within inc/
-                //writeNewLogEntry("login", "User: <b>".$username."</b> failed to login.");
+                //writeNewLogEntry("Login error", "User: <b>".$username."</b> failed to login.");
                 //
-                $event = "login error";
+                $event = "Login error";
                 $details = "User: <b>".$username."</b> failed to login.";
                 $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(), '$username' )";
                 $result = mysqli_query ( $con, $sql );
@@ -196,11 +196,16 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $sql = "UPDATE m_users SET date_last_login= now(), login_counter='".$loginCounter."' WHERE username='".$username."' ";
                 $result = mysqli_query ( $con, $sql );
 
+                // get user-browser
+                $userBrowser = $_SERVER['HTTP_USER_AGENT'];
+                // get user-ip
+                $userIp = $_SERVER['REMOTE_ADDR'];
+
                 // can not use 'writeNewLogEntry' here - this function can only be used from within inc/
-                //writeNewLogEntry("login", "User: <b>".$username."</b> logged in successfully.");
+                //writeNewLogEntry("Login", "User: <b>".$username."</b> logged in successfully.");
                 //
-                $event = "login";
-                $details = "User: <b>".$username."</b> logged in successfully.";
+                $event = "Login";
+                $details = "User: <b>".$username."</b> logged in successfully<br><small>from ".$userIp."<br>using ".$userBrowser.".</small>";
                 $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$username' )";
                 $result = mysqli_query($con, $sql);
 
