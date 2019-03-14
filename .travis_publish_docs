@@ -7,6 +7,7 @@
 echo "Starting script on after_success ..."
 
 # Only publish from the main repository's master branch
+#
 if [ "$TRAVIS_REPO_SLUG" != "yafp/monoto" ] || [ "$TRAVIS_BRANCH" != "master" ] || [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo $TRAVIS_REPO_SLUG
   echo $TRAVIS_BRANCH
