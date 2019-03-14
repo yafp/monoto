@@ -29,10 +29,10 @@
                 <tr><td><div class="key special"><span>F5</span></div></td><td><?php echo translateString("Reloads all notes from db"); ?></td></tr>
                 <tr><td><div class="key special"><span>F9</span></div></td><td><?php echo translateString("Saves a selected note"); ?></td></tr>
                 <tr><td><div class="key special"><span><?php echo translateString("Del"); ?></span></div></td><td><?php echo translateString("Deletes the selected note"); ?></td></tr>
-                <tr><td><div class="key special"><span><i class="fas fa-arrow-down"></i></span></div> <?php echo translateString("(in search)"); ?></td><td><?php echo translateString("Selects the top record"); ?></td></tr>
-                <tr><td><div class="key special"><span><i class="fas fa-arrow-down"></i></span></div> <?php echo translateString("(with selected note)"); ?></td><td><?php echo translateString("Selects the next record"); ?></td></tr>
-                <tr><td><div class="key special"><span><i class="fas fa-arrow-up"></i></span></div> <?php echo translateString("(in search)"); ?></td><td><?php echo translateString("Selects the last record"); ?></td></tr>
-                <tr><td><div class="key special"><span><i class="fas fa-arrow-up"></i></span></div> <?php echo translateString("(with selected note)"); ?></td><td><?php echo translateString("Selects the previous record"); ?></td></tr>
+                <tr><td><div class="key special"><span><i class="fas fa-arrow-down"></i></span></div> <?php echo translateString("(in search)"); ?></td><td><?php echo translateString("Selects the first note"); ?></td></tr>
+                <tr><td><div class="key special"><span><i class="fas fa-arrow-down"></i></span></div> <?php echo translateString("(with selected note)"); ?></td><td><?php echo translateString("Selects the next note"); ?></td></tr>
+                <tr><td><div class="key special"><span><i class="fas fa-arrow-up"></i></span></div> <?php echo translateString("(in search)"); ?></td><td><?php echo translateString("Selects the last note"); ?></td></tr>
+                <tr><td><div class="key special"><span><i class="fas fa-arrow-up"></i></span></div> <?php echo translateString("(with selected note)"); ?></td><td><?php echo translateString("Selects the previous note"); ?></td></tr>
             </table>
             <!-- /table -->
 

@@ -34,10 +34,10 @@
                 $result = mysqli_query($con, "UPDATE m_users SET logout_counter = logout_counter + 1 WHERE username='".$username."'");
 
                 // update activity log
-                $event = "logout";
+                $event = "Logout";
                 $details = "User: <b>".$username."</b> logged out successfully.";
                 $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$event', '$details', now(),'$username' )";
-                $result = mysqli_query($con, $sql);
+                mysqli_query( $con, $sql );
 
                 // destroy the user session
                 session_destroy();

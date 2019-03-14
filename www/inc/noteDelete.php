@@ -5,14 +5,16 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-//if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteDelete.php') !== false)
-/*
-if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'noteDelete.php') !== false)
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) )
 {
-    header('Location: ../index.php'); // back to login page
-    die();
+    // Up to you which header to send, some prefer 404 even if
+    // the files does exist for security
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+
+    // choose the appropriate page to redirect users
+    die( header( 'location: ../404.php' ) );
 }
-*/
+
 
 header('Content-type: text/xml');
 
@@ -47,7 +49,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     }
     else // update m_log
     {
-        writeNewLogEntry("delete", "Note: <b>".$deleteTitle."</b>. (ID: ".$deleteID.") deleted.");
+        writeNewLogEntry("Note delete", "Note: <b>".$deleteTitle."</b>. (ID: ".$deleteID.") deleted.");
     }
 
     // close sql connection

@@ -5,12 +5,17 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-//if (strpos($_SERVER['SCRIPT_FILENAME'], 'noteExport.php') !== false)
-if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'noteExport.php') !== false)
+/*
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) )
 {
-    header('Location: ../index.php'); // back to login page
-    die();
+    // Up to you which header to send, some prefer 404 even if
+    // the files does exist for security
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+
+    // choose the appropriate page to redirect users
+    die( header( 'location: ../404.php' ) );
 }
+*/
 
 
 session_start();
@@ -43,8 +48,8 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     $csv_export = "";
 
     // query to get data from database
-    $query = mysqli_query($conn, "SELECT * FROM ".$db_record." ".$where);
-    $field = mysqli_field_count($conn);
+    $query = mysqli_query($con, "SELECT * FROM ".$db_record." ".$where);
+    $field = mysqli_field_count($con);
 
     // create line with field names
     for ( $i = 0; $i < $field; $i++ )
@@ -52,7 +57,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
         //$csv_export.= mysqli_fetch_field_direct($query, $i)->name.';';
     }
 
-    // newline (seems to work both on Linux & Windows servers)
+    // newline after header (seems to work both on Linux & Windows servers)
     //$csv_export.= '
     //';
 

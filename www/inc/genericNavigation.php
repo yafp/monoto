@@ -6,14 +6,15 @@
 // -----------------------------------------------------------------------------
 
 // prevent direct call of this script
-//if (strpos($_SERVER['SCRIPT_FILENAME'], 'genericNavigation.php') !== false)
-if (strpos(filter_var($_SERVER['SCRIPT_FILENAME'], FILTER_SANITIZE_STRING), 'genericNavigation.php') !== false)
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) )
 {
-    header('Location: ../index.php'); // back to login page
-    die();
-}
+    // Up to you which header to send, some prefer 404 even if
+    // the files does exist for security
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
 
-include 'inc/checkSession.php';
+    // choose the appropriate page to redirect users
+    die( header( 'location: ../404.php' ) );
+}
 
 ?>
 
@@ -30,6 +31,7 @@ include 'inc/checkSession.php';
                 <li class="nav-item" id="navProfile"><a class="nav-link" href="profile.php"><i class="fas fa-user"></i> <?php echo translateString("Profile") ?></a></li>
                 <li class="nav-item" id="navKeyboard"><a class="nav-link" href="keyboard.php"><i class="fas fa-keyboard"></i> <?php echo translateString("Keyboard") ?></a></li>
                 <?php
+                include 'inc/checkSession.php';
                 if ( $_SESSION[ 'monoto' ][ 'admin' ] == 1 ) // show admin-section
                 {
                     echo '<li class="nav-item" id="navAdmin"><a class="nav-link" href="admin.php"><i class="fas fa-cog"></i>';

@@ -6,16 +6,6 @@
 // -----------------------------------------------------------------------------
 
 
-// prevent direct call of this script
-/*
-if (strpos($_SERVER['SCRIPT_FILENAME'], 'helperFunctions.php') !== false)
-{
-    header('Location: ../index.php'); // back to login page
-    die();
-}
-*/
-
-
 /**
  * Creates a noty notification popup
  *
@@ -130,14 +120,16 @@ function writeNewLogEntry( $eventType, $eventMessage )
         // validate $eventType
         switch ( $eventType )
         {
-            case "create":
-            case "save":
-            case "delete":
-            case "login":
-            case "login error":
-            case "events eraser":
-            case "notes eraser":
-            case "password change":
+            case "Note creation":
+            case "Note update":
+            case "Note delete":
+            case "Login":
+            case "Login error":
+            case "Eraser user events":
+            case "Eraser user notes":
+            case "Eraser user account":
+            case "Password update":
+            case "Database Optimizer":
                 // = expected events
                 break;
             default:
@@ -155,7 +147,7 @@ function writeNewLogEntry( $eventType, $eventMessage )
 
         // create event entry in datatabase
         $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$eventType','$eventMessage', now(), '$owner' )";
-        $result = mysqli_query($con, $sql);
+        $result = mysqli_query( $con, $sql );
     }
 }
 

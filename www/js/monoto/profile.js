@@ -26,48 +26,53 @@ function initProfileEventsDataTable()
          "rowCallback": function( row, data )
          {
             // event = create
-            if ( data[1] === "create" ) {
+            if ( data[1] === "Note creation" ) {
                $("td:eq(1)", row).addClass("m_greenLight");
             }
 
             // event = delete
-            if ( data[1] === "delete" ) {
+            if ( data[1] === "Note delete" ) {
                $("td:eq(1)", row).addClass("m_orangeLight");
             }
 
             // event = save
-            if ( data[1] === "save" ) {
+            if ( data[1] === "Note update" ) {
                $("td:eq(1)", row).addClass("m_yellowLight");
             }
 
             // event = login
-            if ( data[1] === "login" ) {
+            if ( data[1] === "Login" ) {
                $("td:eq(1)", row).addClass("m_blueLight");
             }
 
             // event = logout
-            if ( data[1] === "logout" ) {
+            if ( data[1] === "Logout" ) {
                $("td:eq(1)", row).addClass("m_blueDark");
             }
 
             // event = login error
-            if ( data[1] === "login error" ) {
+            if ( data[1] === "Login error" ) {
                $("td:eq(1)", row).addClass("m_redLight");
             }
 
             // event = event eraser
-            if ( data[1] === "events eraser" ) {
+            if ( data[1] === "Eraser user events" ) {
                $("td:eq(1)", row).addClass("m_pinkLight");
             }
 
             // event = event eraser
-            if ( data[1] === "notes eraser" ) {
+            if ( data[1] === "Eraser user notes" ) {
                $("td:eq(1)", row).addClass("m_pinkDark");
             }
 
             // event = account eraser
-            if ( data[1] === "account eraser" ) {
+            if ( data[1] === "Eraser user account" ) {
                $("td:eq(1)", row).addClass("m_orangeDark");
+            }
+
+            // event = database optimizer
+            if ( data[1] === "Database Optimizer" ) {
+               $("td:eq(1)", row).addClass("m_greenDark");
             }
 
             // event = Undefined
@@ -83,7 +88,7 @@ function initProfileEventsDataTable()
             //this.api().columns().every( function () {
             this.api().columns(":eq(1)").every(function () {
                 var column = this;
-                var select = $('<select><option value=""></option></select>')
+                var select = $("<select><option value=''></option></select>")
                     .appendTo( $(column.footer()).empty() )
                     .on( "change", function () {
                         var val = $.fn.dataTable.util.escapeRegex(
@@ -96,7 +101,8 @@ function initProfileEventsDataTable()
                     } );
 
                 column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' );
+                    //select.append( '<option value="'+d+'">'+d+'</option>' );
+                    select.append( "<option value='"+d+"'>"+d+"</option>" );
                 } );
             } );
         }
@@ -181,6 +187,25 @@ function doChangeProfilePassword()
 
 
 /**
+ * @name enableUpdateUserProfileLanguageButton
+ * @description enables the update button for the language selection in a users profile
+ * @memberof profile
+ */
+function enableUpdateUserProfileLanguageButton()
+{
+    console.debug("enableUpdateUserProfileLanguageButton ::: Start.");
+
+    // enable the update profile language button
+    $("#doChangeUserLanguage").prop('disabled', false);
+
+    console.log("enableUpdateUserProfileLanguageButton ::: Enabled the profile language update button.");
+
+    console.debug("enableUpdateUserProfileLanguageButton ::: Stop.");
+}
+
+
+
+/**
  * @name doChangeProfileLanguage
  * @description realizes a profile language change
  * @memberof profile
@@ -199,7 +224,10 @@ function doChangeProfileLanguage()
     .done(function()
     {
         console.log("doChangeProfileLanguage ::: done");
-        createNoty("Successfully changed language","success");
+        createNoty("Successfully changed language to "+ language,"success");
+
+        // enable the update profile language button
+        $("#doChangeUserLanguage").prop('disabled', true);
     })
     .fail(function(jqxhr, textStatus, errorThrown)
     {
@@ -264,6 +292,7 @@ function deleteAllMyUserEvents()
 }
 
 
+
 /**
  * @name deleteAllMyUserNotes
  * @description deletes all notes from the current user account
@@ -303,3 +332,295 @@ function deleteAllMyUserNotes()
     });
     console.debug("deleteAllMyUserNotes ::: Finished Delete-All-My-User-Notes-Dialog.");
 }
+
+
+
+
+/**
+ * @name exportAllNotesFromUserAccount
+ * @description exports all notes from a single user account
+ * @memberof profile
+ */
+function exportAllNotesFromUserAccount()
+{
+    console.debug("exportAllNotesFromUserAccount ::: Start exporting notes from this account.");
+
+    console.log("exportAllNotesFromUserAccount ::: Ask user if he wants to export all his notes");
+
+    var x = noty({
+        text: "Do you really want to export all your notes?",
+        type: "confirm",
+        dismissQueue: false,
+        layout: "topRight",
+        theme: "defaultTheme",
+        buttons: [
+        {
+            addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+            {
+                $noty.close();
+                console.log("exportAllNotesFromUserAccount ::: User confirmed to export all notes. Starting now ...");
+
+                // start generation and download of export as csv
+                window.open("inc/noteExport.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");
+            }
+        },
+        {
+            addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+            {
+                $noty.close();
+                console.log("exportAllNotesFromUserAccount ::: User cancelled the exporter");
+                createNoty("Aborted","information");
+            }
+        }
+    ]
+    });
+    console.debug("exportAllNotesFromUserAccount ::: Finished exporting all notes from current account.");
+}
+
+
+
+/**
+ * @name toggleImportNotesFromCSVButton
+ * @description toggles the import-from-csv-startbutton. If a csv file is selected, it enables it, otherwise it disables it.
+ * @memberof profile
+ */
+function toggleImportNotesFromCSVButton()
+{
+    console.debug("toggleImportNotesFromCSVButton ::: Start");
+    var selectedCSVFileToImport = $('#impFile').val();
+    if (selectedCSVFileToImport == "")
+    {
+        // disable import CSV button
+        $("#doImportCSV").prop("disabled",true);
+    }
+    else
+    {
+        // enable import CSV button
+        $("#doImportCSV").prop("disabled",false);
+    }
+    console.debug("toggleImportNotesFromCSVButton ::: End");
+}
+
+
+
+
+
+
+
+
+
+/**
+ * @name importNotesFromCSV
+ * @description imports notes from a single CSV file (semicolon as separator)
+ * @memberof profile
+ */
+function importNotesFromCSV()
+{
+    console.debug("importNotesFromCSV ::: Start exporting notes from this account.");
+
+    console.log("importNotesFromCSV ::: Ask user if he wants to import notes from csv file");
+
+    var x = noty({
+        text: "Do you really want to import notes from the selected csv file?",
+        type: "confirm",
+        dismissQueue: false,
+        layout: "topRight",
+        theme: "defaultTheme",
+        buttons: [
+        {
+            addClass: "btn btn-primary", text: "Ok", onClick: function($noty)
+            {
+                $noty.close();
+                console.log("importNotesFromCSV ::: User confirmed to import notes from csv. Starting now ...");
+
+
+
+
+
+
+                /*
+                var jqxhr = $.post( "inc/profileImportFromCSV.php", { importCSV: importCSV }, function()
+                {
+                    console.log("importNotesFromCSV ::: successfully imported notes from csv");
+                })
+                .done(function()
+                {
+                    console.log("importNotesFromCSV ::: done");
+                    createNoty("Successfully imported notes from csv","success");
+                })
+                .fail(function(jqxhr, textStatus, errorThrown)
+                {
+                    console.error("importNotesFromCSV ::: $.post failed");
+                    console.log(jqxhr);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+
+                    createNoty("Importing notes from csv failed", "error");
+                })
+                .always(function()
+                {
+                    // doing nothing so far
+                });
+                */
+
+
+
+
+
+            }
+        },
+        {
+            addClass: "btn btn-danger", text: "Cancel", onClick: function($noty)
+            {
+                $noty.close();
+                console.log("importNotesFromCSV ::: User cancelled the csv importer");
+                createNoty("Aborted","information");
+            }
+        }
+    ]
+    });
+    console.debug("importNotesFromCSV ::: Finished exporting all notes from current account.");
+}
+
+
+
+
+
+
+
+
+
+/**
+ * @name onProfilePageReady
+ * @description init the notes view
+ * @memberof profile
+ */
+function onProfilePageReady()
+{
+    console.debug("onProfilePageReady ::: Start");
+
+    console.log("onProfilePageReady ::: Profile is ready");
+
+    // prepare the csv importer
+    /*
+    $("#impFile").on("change", function (e)
+    {
+        var file = $(this)[0].files[0];
+        var upload = new Upload(file);
+
+        // maby check size or type here with upload.getSize() and upload.getType()
+        console.log("onProfilePageReady ::: Starting upload of csv file for importer");
+
+        // execute upload
+        upload.doUpload();
+
+    });
+    */
+
+    console.debug("onProfilePageReady ::: End");
+}
+
+
+
+
+
+
+
+
+
+// https://stackoverflow.com/questions/2320069/jquery-ajax-file-upload
+
+
+
+
+var Upload = function (file) {
+    this.file = file;
+};
+
+Upload.prototype.getType = function() {
+    return this.file.type;
+};
+Upload.prototype.getSize = function() {
+    return this.file.size;
+};
+Upload.prototype.getName = function() {
+    return this.file.name;
+};
+Upload.prototype.doUpload = function () {
+    var that = this;
+    var formData = new FormData();
+
+    // add assoc key values, this will be posts values
+    formData.append("file", this.file, this.getName());
+    formData.append("upload_file", true);
+
+    $.ajax({
+        type: "POST",
+        url: "script",
+        xhr: function () {
+            var myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload)
+            {
+                myXhr.upload.addEventListener('progress', that.progressHandling, false);
+            }
+            return myXhr;
+        },
+        success: function (data)
+        {
+            console.warn("upload worked...");
+
+            // console.warn(that);
+            importCSV = that;
+
+            console.error(importCSV);
+
+            var jqxhr = $.post( "inc/profileImportFromCSV.php", { importCSV: importCSV }, function()
+            {
+                console.log("importNotesFromCSV ::: successfully imported notes from csv");
+            })
+            .done(function()
+            {
+                console.log("importNotesFromCSV ::: done");
+                createNoty("Successfully imported notes from csv","success");
+            })
+            .fail(function(jqxhr, textStatus, errorThrown)
+            {
+                console.error("importNotesFromCSV ::: $.post failed");
+                console.log(jqxhr);
+                console.log(textStatus);
+                console.log(errorThrown);
+
+                createNoty("Importing notes from csv failed", "error");
+            })
+            .always(function()
+            {
+                // doing nothing so far
+            });
+
+        },
+        error: function (error)
+        {
+            // handle error
+            console.error("upload failed...");
+        },
+        async: true,
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        timeout: 60000
+    });
+};
+
+Upload.prototype.progressHandling = function (event) {
+    var percent = 0;
+    var position = event.loaded || event.position;
+    var total = event.total;
+    var progress_bar_id = "#progress-wrp";
+    if (event.lengthComputable) {
+        percent = Math.ceil(position / total * 100);
+    }
+    // update progressbars classes so it fits your code
+    $(progress_bar_id + " .progress-bar").css("width", +percent + "%");
+    $(progress_bar_id + " .status").text(percent + "%");
+};
