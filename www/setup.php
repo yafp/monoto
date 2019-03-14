@@ -31,36 +31,24 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!--
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#database">Database</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#account">Account</a>
+                        <a class="nav-link js-scroll-trigger" href="#requirements">Installer</a>
                     </li>
                 </ul>
             </div>
-            -->
+
         </div>
     </nav>
 
-    <!-- welcome foo -->
-    <header class="bg-primary text-white">
-        <div class="container text-center">
-            <h1>monoto installer</h1>
-            <!--
-            <p class="lead">This is a simple install script to get you started.</p>
-            -->
-        </div>
-    </header>
-
     <!-- spacer -->
+    <div class="row">&nbsp;</div>
     <div class="row">&nbsp;</div>
 
     <!-- section: requirements -->
-    <section id="database" class="bg-light">
+    <section id="requirements" class="bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
