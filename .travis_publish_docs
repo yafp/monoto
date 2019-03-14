@@ -15,7 +15,9 @@ if [ "$TRAVIS_REPO_SLUG" != "yafp/monoto" ] || [ "$TRAVIS_BRANCH" != "master" ] 
   exit
 fi
 
+
 echo -e "Publishing docs...\n"
+
 
 # Update docs in repository
 #
