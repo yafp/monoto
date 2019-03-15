@@ -176,11 +176,25 @@
                 <div role="tabpanel" class="tab-pane fade" id="activity">
                         <h3><i class="fas fa-clipboard-list"></i> <?php echo translateString("Activity Log"); ?></h3>
                         <table cellpadding="0" cellspacing="0" class="display" id="myEventsDataTable" style="width:100%">
-                            <thead><tr><th><?php echo translateString("ID"); ?></th><th><?php echo translateString("Type"); ?></th><th><?php echo translateString("Message"); ?></th><th><?php echo translateString("Date"); ?></th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th><?php echo translateString("ID"); ?></th>
+                                    <th><?php echo translateString("Type"); ?></th>
+                                    <th><?php echo translateString("Message"); ?></th>
+                                    <th><?php echo translateString("Date"); ?></th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <!-- gets filled via inc/profileGetAllUserEvents.php -->
                             </tbody>
-                            <tfoot><tr><th><?php echo translateString("ID"); ?></th><th><?php echo translateString("Type"); ?></th><th><?php echo translateString("Message"); ?></th><th><?php echo translateString("Date"); ?></th></tr></tfoot>
+                            <tfoot>
+                                <tr>
+                                    <th><?php echo translateString("ID"); ?></th>
+                                    <th><?php echo translateString("Type"); ?></th>
+                                    <th><?php echo translateString("Message"); ?></th>
+                                    <th><?php echo translateString("Date"); ?></th>
+                                </tr>
+                            </tfoot>
                         </table>
 
                         <!-- show all known colors -->
@@ -230,7 +244,6 @@
                             <div class="status">0%</div>
                         </div>
                         -->
-
 
                         </form>
                         <span class="badge badge-secondary"><?php echo translateString("References"); ?></span>
@@ -387,8 +400,9 @@
             </script>
 
             <?php
-
-                if ( is_uploaded_file($_FILES['impFile']['tmp_name']))
+                $inputFile = $_FILES['impFile']['tmp_name'];
+                //if ( is_uploaded_file($_FILES['impFile']['tmp_name']))
+                if ( is_uploaded_file ( $inputFile ) )
                 {
                     $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
                     if ( !$con )
@@ -398,11 +412,13 @@
 
                     $username = $_SESSION[ 'monoto' ][ 'username' ];
                     $target_dir = "";
-                    $target_file = $target_dir . basename($_FILES["impFile"]["tmp_name"]);
+                    //$target_file = $target_dir . basename($_FILES["impFile"]["tmp_name"]);
+                    $target_file = $target_dir . basename($inputFile);
                     $uploadOk = 1;
 
                     // read linewise and import if note doesnt exist already
-                    if(($handle = fopen($_FILES["impFile"]["tmp_name"], "r")) !== FALSE)
+                    //if(($handle = fopen($_FILES["impFile"]["tmp_name"], "r")) !== FALSE)
+                    if(($handle = fopen($inputFile, "r")) !== FALSE)
                     {
                         echo "<hr>";
                         set_time_limit(0);
@@ -419,30 +435,36 @@
                             $newNoteTitle = $data[1];
                             $newNoteContent = $data[2];
 
-                            // check if the new title is in use already by this user
-                            $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
-                            $result = mysqli_query($con, $sql);
-                            if ( mysqli_num_rows($result) > 0 )
+                            if ( ($newNoteTitle != null ) && ( $newNoteContent != null) )
                             {
-                                // adjust Title
-                                $current_timestamp = date('Ymd-his');
-                                $newNoteTitle = $newNoteTitle."___".$current_timestamp;
-                            }
+                                // TODO: should use inc/noteNew.php here
 
-                            // create single note
-                            $sql = "INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
-                            $result = mysqli_query($con, $sql);
-                            if ( !$result )
-                            {
-                                die('Error: ' . mysqli_connect_error()); // display error output
+
+                                // check if the new title is in use already by this user
+                                $sql = "SELECT title from m_notes where owner='".$username."' AND  title='".$newNoteTitle."' ";
+                                $result = mysqli_query($con, $sql);
+                                if ( mysqli_num_rows($result) > 0 )
+                                {
+                                    // adjust Title
+                                    $current_timestamp = date('Ymd-his');
+                                    $newNoteTitle = $newNoteTitle."___".$current_timestamp;
+                                }
+
+                                // create single note
+                                $sql = "INSERT INTO m_notes (title, content, date_create, date_mod, owner, save_count) VALUES ('$newNoteTitle', '$newNoteContent', now(), now(), '$username', '1' )";
+                                $result = mysqli_query($con, $sql);
+                                if ( !$result )
+                                {
+                                    die('Error: ' . mysqli_connect_error()); // display error output
+                                }
+                                else
+                                {
+                                    // write text to textarea
+                                    echo '<script type="text/javascript">$("#importLogCSV").append("Imported: '.$newNoteTitle.'.\n"); </script>';
+                                }
+                                // inc the row
+                                $row++;
                             }
-                            else
-                            {
-                                // write text to textarea
-                                echo '<script type="text/javascript">$("#importLogCSV").append("Imported: '.$newNoteTitle.'.\n"); </script>';
-                            }
-                            // inc the row
-                            $row++;
                         }
                         fclose($handle);
                     }

@@ -4,7 +4,8 @@
 
 /**
  * @name disableNoteSavingButton
- * @description disables the save button
+ * @summary Disable the save button
+ * @description disables the save-note button
  * @memberof notes
  */
 function disableNoteSavingButton()
@@ -17,7 +18,8 @@ function disableNoteSavingButton()
 
 /**
  * @name enableNoteSavingButton
- * @description enables the save button if it has a title (button "Save")
+ * @summary Enable the save button
+ * @description Enables the save button if title is not empty (button "Save")
  * @memberof notes
  */
 function enableNoteSavingButton()
@@ -40,7 +42,8 @@ function enableNoteSavingButton()
 
 /**
  * @name unmarkAllDataTableRows
- * @description unselect/unmark all rows in DataTable
+ * @summary unmark all notes
+ * @description unselect/unmark all rows/notes in the table (DataTable)
  * @memberof notes
  */
 function unmarkAllDataTableRows()
@@ -70,7 +73,8 @@ function unmarkAllDataTableRows()
 
 /**
  * @name selectSingleDataTableRow
- * @description selects and clicks a single row in the notes DataTable
+ * @summary Select a single row/note
+ * @description Selects and clicks a single row in the notes  table (DataTable)
  * @memberof notes
  * @param {string} rowNumber - the number of the selected row
  */
@@ -90,7 +94,8 @@ function selectSingleDataTableRow(rowNumber)
 
 /**
  * @name printCKEditorStatus
- * @description shows the status of CKEditor
+ * @summary Show the status of CKEditor
+ * @description Shows the status of CKEditor
  * @memberof notes
  */
 function printCKEditorStatus()
@@ -103,7 +108,8 @@ function printCKEditorStatus()
 
 /**
  * @name initCKEditor
- * @description initialize CKEditor
+ * @summary init CKEditor
+ * @description initialize CKEditor which is used to display the content of single notes
  * @memberof notes
  */
 function initCKEditor()
@@ -233,7 +239,8 @@ function initCKEditor()
 
 /**
  * @name saveCKEditorHeightOnChange
- * @description handles resize events of CKEditor
+ * @summary Handles resize events of CKEditor
+ * @description Handles resize events of CKEditor and stores the new height to localStorage (if supported)
  * @memberof notes
  */
 function saveCKEditorHeightOnChange()
@@ -264,6 +271,7 @@ function saveCKEditorHeightOnChange()
 
 /**
  * @name enableCKEditorWriteMode
+ * @summary Enable READ WRITe in CKEditor
  * @description enable READ-WRITE mode of CKEditor
  * @memberof notes
  */
@@ -283,6 +291,7 @@ function enableCKEditorWriteMode()
 
 /**
  * @name disableCKEditorWriteMode
+ * @summary Disable WRITE in CKEditor
  * @description enable READ-ONLY mode of CKEditor
  * @memberof notes
  */
@@ -316,7 +325,8 @@ function disableCKEditorWriteMode()
 
 /**
  * @name resetCKEditor
- * @description resets the content of CKEditor
+ * @summary Reset content of CKEditor
+ * @description Resets the content of CKEditor and jumps back to Read-Only mode
  * @memberof notes
  */
 function resetCKEditor()
@@ -339,7 +349,8 @@ function resetCKEditor()
 
 /**
  * @name hideAllButtons
- * @description hide all buttons in the notes interface
+ * @summary Hides all buttons
+ * @description Hides all buttons in the notes userinterface
  * @memberof notes
  */
 function hideAllButtons()
@@ -361,7 +372,8 @@ function hideAllButtons()
 
 /**
  * @name resetNotesUI
- * @description reset User-Interface (UI) back to defaults
+ * @summary Reset the notes UI back to defaults.
+ * @description reset User-Interface (UI) of notes back to defaults.
  * @memberof notes
  */
 function resetNotesUI()
@@ -432,7 +444,8 @@ function resetNotesUI()
 
 /**
  * @name prepareNewNoteCreation
- * @description prepars the User-Interface for the note creation process
+ * @summary Prepares note creation
+ * @description prepars the User-Interface for the note creation process. Disables the search UI, enables title, show Create button etc...
  * @memberof notes
  */
 function prepareNewNoteCreation()
@@ -475,6 +488,7 @@ function prepareNewNoteCreation()
 
 /**
  * @name checkTitleWhileNewNoteCreation
+ * @summary Watches the visibility of savew button
  * @description triggered via "noteTitle" during "New Note creation"
  * @memberof notes
  */
@@ -518,7 +532,8 @@ function checkTitleWhileNewNoteCreation()
 
 /**
  * @name initDataTable
- * @description initializes the notes DataTable
+ * @summary Init the notes table (DataTable)
+ * @description initializes the notes table (DataTable), handles languages etc..
  * @memberof notes
  */
 function initDataTable(sessionLanguage)
@@ -595,7 +610,8 @@ function initDataTable(sessionLanguage)
 
 /**
  * @name reloadAllNotesFromDB
- * @description redraws the notes DataTable
+ * @summary Reloads the notes table
+ * @description Destroys and re-creates the notes table (DataTable)
  * @memberof notes
  */
 function reloadAllNotesFromDB()
@@ -619,7 +635,9 @@ function reloadAllNotesFromDB()
 
 /**
  * @name createNewNote
+ * @summary Creates a new note
  * @description creates a new note via post to inc/noteNew.php
+ * @requires inc/noteNew.php
  * @memberof notes
  */
 function createNewNote()
@@ -700,7 +718,9 @@ function createNewNote()
 
 /**
  * @name saveNote
- * @description updates an existing note via post to inc/noteUpdate.php
+ * @summary Updates a note
+ * @description Updates an existing note via post to inc/noteUpdate.php
+ * @requires inc/noteUpdate.php
  * @memberof notes
  */
 function saveNote()
@@ -748,36 +768,6 @@ function saveNote()
                 // reset UI
                 resetNotesUI();
 
-                // reset search field (as all notes got reloaded in the step before)
-                //
-                //console.log("saveNote ::: Resetting search field.");
-                //$("#searchField").val("");
-
-                // disable save button
-                //disableNoteSavingButton();
-
-
-                //var overallRowCount = oTable.rows().count();
-                //console.log("saveNote ::: Table has currently " + overallRowCount + " rows");
-
-                //$(oTable.row(10).node()).click();
-                //$(oTable.row(overallRowCount).node()).click();
-
-                // reload all notes
-                //reloadAllNotesFromDB();
-
-                //selectSingleDataTableRow(overallRowCount);
-
-                // simulate keypress - arrow down:
-                //$("#searchField").focus(); // as arrow up/down needs focus to work
-                //jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(40) });
-
-                //console.log("saveNote ::: Simulating arrow down key press");
-                //var event = jQuery.Event('keypress');
-                //event.which = 40;
-                //event.keyCode = 40; //keycode to trigger this for simulating enter
-                //jQuery(this).trigger(event);
-
                 createNoty("Saved note <b>" + modifiedNoteTitle + "</b>.", "success");
 
             })
@@ -794,8 +784,6 @@ function saveNote()
             {
                 // doing nothing so far
             });
-
-
         }
         else // should never happen as the save button is not always enabled.
         {
@@ -809,7 +797,9 @@ function saveNote()
 
 /**
  * @name deleteNote
- * @description deletes an existing note via post to inc/noteDelete.php
+ * @summary Deletes a note
+ * @description Deletes an existing note via post to inc/noteDelete.php
+ * @requires inc/noteDelete.php
  * @memberof notes
  */
 function deleteNote()
@@ -901,6 +891,7 @@ function deleteNote()
 
 /**
  * @name reloadCurrentPage
+ * @summary reload the page
  * @description reloads the current page
  * @memberof notes
  */
@@ -919,6 +910,7 @@ function reloadCurrentPage()
 
 /**
  * @name selectAndMarkTableRow
+ * @summary Select a single note
  * @description select and mark a single row in DataTable
  * @memberof notes
  * @param {string} currentRow - The row number
@@ -942,7 +934,8 @@ function selectAndMarkTableRow(currentRow)
 
 /**
  * @name updateCurrentSelectedRowInDataTable
- * @description update the current selected row in DataTable
+ * @summary Get the current selected note position
+ * @description update the current selected row position in the table DataTable.
  * @memberof notes
  * @param {string} valueChange - the change
  */
@@ -992,7 +985,8 @@ function updateCurrentSelectedRowInDataTable(valueChange)
 
 /**
  * @name selectNextDataTableRow
- * @description selects the next row in notes DataTable
+ * @summary Jump to next note in table
+ * @description Selects the next row in the notes table (DataTable)
  * @memberof notes
  */
 function selectNextDataTableRow()
@@ -1008,7 +1002,8 @@ function selectNextDataTableRow()
 
 /**
  * @name selectPreviousDataTableRow
- * @description selects the previous row in notes DataTable
+ * @summary Jump to previous note in table
+ * @description Selects the previous row in the notes table (DataTable)
  * @memberof notes
  */
 function selectPreviousDataTableRow()
@@ -1024,6 +1019,7 @@ function selectPreviousDataTableRow()
 
 /**
  * @name onClickDataTableCell
+ * @summary Handles click on a single cell in table (Datatable)
  * @description executed if a cell in the notes DataTable is clicked
  * @memberof notes
  * @param {array} data - Contains all fields of the selected note
@@ -1031,9 +1027,6 @@ function selectPreviousDataTableRow()
 function onClickDataTableCell(data)
 {
     console.debug("onClickDataTableCell ::: Start");
-
-
-
 
     //console.warn(oTable.rows().count());
 
@@ -1160,7 +1153,8 @@ function onClickDataTableCell(data)
 
 /**
  * @name onFilterDataTable
- * @description executed after the raw filtering of notes DataTable is done
+ * @summary Executes all actions needed after thw raw filtering of the notes table
+ * @description executed after the raw filtering of notes DataTable is done. Resets some fields, disables some buttons etx
  * @memberof notes
  * @param {number} amountOfRecordsAfterFilter - The amount of visible DataTable records
  */
@@ -1239,7 +1233,8 @@ function onFilterDataTable(amountOfRecordsAfterFilter)
 
 /**
  * @name onNotesPageReady
- * @description init the notes view
+ * @summary Executes if notes page is ready
+ * @description Initializes the notes view, starts several init functions etc.
  * @memberof notes
  */
 function onNotesPageReady()

@@ -4,7 +4,8 @@
 
 /**
  * @name disableRightContextMenu
- * @description disabling the right click context menu  (used for the entire monoto userinterface)
+ * @summary Disable right click context menu
+ * @description Disabling the right click context menu  (used for the entire monoto userinterface) to simplify the user experience
  * @memberof generic
  */
 function disableRightContextMenu()
@@ -22,7 +23,8 @@ function disableRightContextMenu()
 
 /**
  * @name calculatePasswordStrength
- * @description calculates password strength
+ * @summary Calculates strength of a password
+ * @description calculates password strength from the content of input #newPassword (4 categories: too short, weak, medium, ok)
  * @memberof generic
  */
 function calculatePasswordStrength()
@@ -71,7 +73,8 @@ function calculatePasswordStrength()
 
 /**
  * @name validatePasswordChangeInput
- * @description compare content of password-change fields and enables or disables the related button
+ * @summary Compares content of password & password-confirm fields
+ * @description compare content of password-change fields, shows if they differ and enables or disables the related button to proceed
  * @memberof generic
  */
 function validatePasswordChangeInput()
@@ -120,7 +123,8 @@ function validatePasswordChangeInput()
 
 /**
  * @name initNotyDefaults
- * @description initialize the defaults for noty notification
+ * @summary init the default noty notification
+ * @description initialize the defaults for a simple noty notification
  * @memberof generic
  */
 function initNotyDefaults()
@@ -150,13 +154,6 @@ function initNotyDefaults()
         modal: false,
         closeWith: ["click"], // ['click', 'button', 'hover']
         callback: {
-            /*
-            onShow: function() {},
-            afterShow: function() {},
-            onClose: function() {},
-            afterClose: function() {}
-            */
-
             onShow() {},
             afterShow() {},
             onClose() {},
@@ -171,7 +168,9 @@ function initNotyDefaults()
 
 /**
  * @name showLogoutDialog
- * @description displays a noty logout confirm dialog
+ * @summary Show a logout dialog
+ * @description Displays a noty logout confirm dialog triggered via the navigation
+ * @requires logout.php
  * @memberof generic
  */
 function showLogoutDialog()
@@ -207,7 +206,8 @@ function showLogoutDialog()
 
 /**
  * @name createNoty
- * @description displays a simple noty notification
+ * @summary Creates a simple noty notification
+ * @description Displays a simple noty notification. Supports several noty types
  * @memberof generic
  * @param {string} text - The notification text
  * @param {string} type - The notification type
@@ -230,7 +230,8 @@ function createNoty(text, type)
 
 /**
  * @name onGenericPageReady
- * @description executed on each page ready via inc/coreIncludesJS.php
+ * @summary init all main pages
+ * @description executed on each pageReady via inc/coreIncludesJS.php
  * @memberof generic
  */
 function onGenericPageReady()

@@ -4,7 +4,9 @@
 
 /**
  * @name initProfileEventsDataTable
- * @description initializes the profile-events DataTable
+ * @summary Init the profile events table
+ * @description initializes the profile-events table (DataTable).
+ * @requires inc/profileGetAllUserEvents.php
  * @memberof profile
  */
 function initProfileEventsDataTable()
@@ -119,7 +121,8 @@ function initProfileEventsDataTable()
 
 /**
  * @name reInitProfileEventsDataTable
- * @description destroy and re-init the monoto events DataTable in profile view
+ * @summary Re-Init the profile events table
+ * @description Destroys and re-init the monoto events table (DataTable) in profile view. Useful to update the view after data has changed.
  * @memberof profile
  */
 function reInitProfileEventsDataTable()
@@ -143,7 +146,9 @@ function reInitProfileEventsDataTable()
 
 /**
  * @name doChangeProfilePassword
- * @description realizes a password change
+ * @summary Updates the user password
+ * @description Realizes a password change from the active user profile.
+ * @requires inc/profileChangeUserPW.php
  * @memberof profile
  */
 function doChangeProfilePassword()
@@ -188,7 +193,9 @@ function doChangeProfilePassword()
 
 /**
  * @name enableUpdateUserProfileLanguageButton
+ * @summary Enable update language button
  * @description enables the update button for the language selection in a users profile
+ * @event onChange
  * @memberof profile
  */
 function enableUpdateUserProfileLanguageButton()
@@ -207,7 +214,8 @@ function enableUpdateUserProfileLanguageButton()
 
 /**
  * @name doChangeProfileLanguage
- * @description realizes a profile language change
+ * @summary Update profile language
+ * @description realizes a profile language change and resets the related UI parts afterwards
  * @memberof profile
  */
 function doChangeProfileLanguage()
@@ -249,7 +257,9 @@ function doChangeProfileLanguage()
 
 /**
  * @name deleteAllMyUserEvents
- * @description deletes all events from the current user account
+ * @summary Delete all user events
+ * @description Deletes all events from the current user account from the table m_log.
+ * @requires inc/profileDeleteMyUserEvents.php
  * @memberof profile
  */
 function deleteAllMyUserEvents()
@@ -295,7 +305,9 @@ function deleteAllMyUserEvents()
 
 /**
  * @name deleteAllMyUserNotes
- * @description deletes all notes from the current user account
+ * @summary Deletes all user notes
+ * @description Deletes all notes from the current user account
+ * @requires inc/profileDeleteMyUserNotes.php
  * @memberof profile
  */
 function deleteAllMyUserNotes()
@@ -338,7 +350,9 @@ function deleteAllMyUserNotes()
 
 /**
  * @name exportAllNotesFromUserAccount
+ * @summary Export all notes
  * @description exports all notes from a single user account
+ * @requires inc/profileExportAllUserNotes.php
  * @memberof profile
  */
 function exportAllNotesFromUserAccount()
@@ -361,7 +375,7 @@ function exportAllNotesFromUserAccount()
                 console.log("exportAllNotesFromUserAccount ::: User confirmed to export all notes. Starting now ...");
 
                 // start generation and download of export as csv
-                window.open("inc/noteExport.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");
+                window.open("inc/profileExportAllUserNotes.php", "width=400,height=500,top=50,left=280,resizable,toolbar,scrollbars,menubar,");
             }
         },
         {
@@ -381,6 +395,7 @@ function exportAllNotesFromUserAccount()
 
 /**
  * @name toggleImportNotesFromCSVButton
+ * @summary Enables or disables the import from CSV button
  * @description toggles the import-from-csv-startbutton. If a csv file is selected, it enables it, otherwise it disables it.
  * @memberof profile
  */
@@ -402,20 +417,16 @@ function toggleImportNotesFromCSVButton()
 }
 
 
-
-
-
-
-
-
-
 /**
  * @name importNotesFromCSV
+ * @summary Import notes from CSV
  * @description imports notes from a single CSV file (semicolon as separator)
  * @memberof profile
  */
 function importNotesFromCSV()
 {
+    // TODO: not in use
+
     console.debug("importNotesFromCSV ::: Start exporting notes from this account.");
 
     console.log("importNotesFromCSV ::: Ask user if he wants to import notes from csv file");
@@ -432,10 +443,6 @@ function importNotesFromCSV()
             {
                 $noty.close();
                 console.log("importNotesFromCSV ::: User confirmed to import notes from csv. Starting now ...");
-
-
-
-
 
 
                 /*
@@ -463,10 +470,6 @@ function importNotesFromCSV()
                 });
                 */
 
-
-
-
-
             }
         },
         {
@@ -483,16 +486,10 @@ function importNotesFromCSV()
 }
 
 
-
-
-
-
-
-
-
 /**
  * @name onProfilePageReady
- * @description init the notes view
+ * @summary Init the profile page
+ * @description init the profile view onReady.
  * @memberof profile
  */
 function onProfilePageReady()
@@ -519,13 +516,6 @@ function onProfilePageReady()
 
     console.debug("onProfilePageReady ::: End");
 }
-
-
-
-
-
-
-
 
 
 // https://stackoverflow.com/questions/2320069/jquery-ajax-file-upload

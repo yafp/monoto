@@ -197,9 +197,9 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $result = mysqli_query ( $con, $sql );
 
                 // get user-browser
-                $userBrowser = $_SERVER['HTTP_USER_AGENT'];
+                $userBrowser = htmlspecialchars($_SERVER['HTTP_USER_AGENT']);  // created by client, can contain anything
                 // get user-ip
-                $userIp = $_SERVER['REMOTE_ADDR'];
+                $userIp = htmlspecialchars($_SERVER['REMOTE_ADDR']); // created by webserver, should be safe
 
                 // can not use 'writeNewLogEntry' here - this function can only be used from within inc/
                 //writeNewLogEntry("Login", "User: <b>".$username."</b> logged in successfully.");
@@ -213,6 +213,7 @@ if ( isset ( $_POST[ "doLogin" ] ) )
                 $sql = "UPDATE m_users SET failed_logins_in_a_row='0' WHERE username='".$username."' ";
                 $result = mysqli_query($con, $sql);
 
+                // forward to notes.php
                 echo '<script type="text/javascript">window.location="notes.php"</script>';
             }
         }

@@ -147,7 +147,7 @@ function writeNewLogEntry( $eventType, $eventMessage )
 
         // create event entry in datatabase
         $sql = "INSERT INTO m_log (event, details, activity_date, owner) VALUES ('$eventType','$eventMessage', now(), '$owner' )";
-        $result = mysqli_query( $con, $sql );
+        mysqli_query( $con, $sql );
     }
 }
 

@@ -26,7 +26,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     require 'helperFunctions.php'; // to access writeNewLogentry
 
     // note title
-    $newNoteTitle= filter_input(INPUT_POST, "newNoteTitle", FILTER_SANITIZE_STRING);
+    $newNoteTitle = filter_input(INPUT_POST, "newNoteTitle", FILTER_SANITIZE_STRING);
 
     // note content
     $newNoteContent = $_POST[ 'newNoteContent' ]; // dont filter content
@@ -35,9 +35,9 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     $newNoteContent = str_replace('\\', '\\\\', $newNoteContent);
 
     $con = new mysqli($databaseServer, $databaseUser, $databasePW, $databaseDB);
-    if (!$con)
+    if ( !$con )
     {
-        die('Could not connect: ' . mysqli_connect_error());
+        die ('Could not connect: ' . mysqli_connect_error() );
     }
 
     $owner = $_SESSION[ 'monoto' ][ 'username' ];
