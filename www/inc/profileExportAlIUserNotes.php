@@ -1,22 +1,8 @@
 <?php
 // -----------------------------------------------------------------------------
-// noteExport.php
+// profileExportAllUserNotes.php
 // This file acts as script in monoto to export notes from a user.
 // -----------------------------------------------------------------------------
-
-// prevent direct call of this script
-/*
-if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) )
-{
-    // Up to you which header to send, some prefer 404 even if
-    // the files does exist for security
-    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
-
-    // choose the appropriate page to redirect users
-    die( header( 'location: ../404.php' ) );
-}
-*/
-
 
 session_start();
 
@@ -52,10 +38,10 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     $field = mysqli_field_count($con);
 
     // create line with field names
-    for ( $i = 0; $i < $field; $i++ )
-    {
+    //for ( $i = 0; $i < $field; $i++ )
+    //{
         //$csv_export.= mysqli_fetch_field_direct($query, $i)->name.';';
-    }
+    //}
 
     // newline after header (seems to work both on Linux & Windows servers)
     //$csv_export.= '
@@ -69,8 +55,10 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
         {
             $csv_export.= '"'.$row[mysqli_fetch_field_direct($query, $i)->name].'";';
         }
+
+
         $csv_export.= '
-    ';
+';
     }
 
     // Export the data and prompt a csv file for download
