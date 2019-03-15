@@ -29,13 +29,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
     <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
 
-        getJavaScriptVersions();
-
-        initMonotoUsersDataTable();
-
-        initCKEditor();
-
-        updateTaskSelectorDeleteAccount();
+        onAdminPageReady();
 
         // #281
         // compare input in password fields
@@ -240,13 +234,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                             <td>
                                 <select class="selectpicker" id="userDeleteSelector" name="userDeleteSelector" onChange="enableUserAccountDeleteButton();" required>
                                     <option value="" disabled selected>Username</option>
-                                    <?php
-                                        $result = mysqli_query($con, "SELECT id, username  FROM m_users WHERE is_admin is NULL ORDER by id ");
-                                        while ( $row = mysqli_fetch_array ( $result ) ) // fill user-select box
-                                        {
-                                            echo '<option value="'.$row[ 0 ].'">'.$row[ 1 ].'</option>';
-                                        }
-                                    ?>
+                                    <!-- gets filled by inc/adminFillUserDeleteSelector -->
                                 </select>
                             </td>
                             <td><small id="deleteUserSelectionHelp" class="form-text text-muted">Select an existing account which should be deleted.</small></td>
@@ -272,38 +260,21 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                             <tr>
                                 <td width='30%'><?php echo translateString("Account"); ?></td>
                                 <td>
-                                    <!--
-                                    <div class="dropdown">
-                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Username</button>
-                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                             <a class="dropdown-item" href="#">Action</a>
-                                             <a class="dropdown-item" href="#">Another action</a>
-                                             <a class="dropdown-item" href="#">Something else here</a>
-                                         </div>
-                                    </div>
-                                    -->
-
-                                    <select class="selectpicker" id="userUnlockSelector" name="userUnlockSelector" required>
+                                    <select class="selectpicker" id="userUnlockSelector" name="userUnlockSelector" onChange="enableUserAccountUnlockButton();" required>
                                         <option value="" disabled selected>Username</option>
-                                        <?php
-                                        $result = mysqli_query($con, "SELECT id, username  FROM m_users  WHERE failed_logins_in_a_row > 2 ORDER by id");
-                                        while ( $row = mysqli_fetch_array ( $result ) ) // fill user-select box
-                                        {
-                                            echo '<option value="'.$row[ 0 ].'">'.$row[ 1 ].'</option>';
-                                        }
-                                        ?>
+                                        <!-- gets filled by inc/adminFillUserUnlockSelector -->
                                     </select>
                                 </td>
                                 <td><small id="resetLoginLockAccountSelectionHelp" class="form-text text-muted">Select an existing account which should get unlocked. Only locked accounts are shown.</small></td>
                             </tr>
                             <tr>
                                 <td>Enter CONFIRM</td>
-                                <td><input type="text" id="confirmResetFailedLoginCount" name="confirmResetFailedLoginCount" placeholder="no" required></td>
+                                <td><input type="text" id="confirmResetFailedLoginCount" name="confirmResetFailedLoginCount" placeholder="no" onChange="enableUserAccountUnlockButton();" required></td>
                                 <td><small id="confirmHelp" class="form-text text-muted">For security reasons</small></td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
-                                <td><button type="submit" class="btn btn-warning buttonDefault" id="doResetFailedLoginCount" name="doResetFailedLoginCount" onClick="userAccountUnlock();"><i class="fas fa-door-open"></i> <?php echo translateString("reset"); ?></button> </td>
+                                <td><button type="submit" class="btn btn-warning buttonDefault" id="doResetFailedLoginCount" name="doResetFailedLoginCount" onClick="userAccountUnlock();" disabled="disabled"><i class="fas fa-door-open"></i> <?php echo translateString("reset"); ?></button> </td>
                                 <td><small id="resetLoginLockButtonHelp" class="form-text text-muted">Press the reset button to reset the failed-login count. This unlocks the account again.</small></td>
                             </tr>
                         </table>
