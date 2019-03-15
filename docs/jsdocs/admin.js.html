@@ -31,7 +31,8 @@
 
 /**
  * @name getJavaScriptVersions
- * @description gets the version numbers of the major JavaScript Libraries and displays them in admin view
+ * @summary Reads the version numbers from the most relevant JS libs and displays them in admin view.
+ * @description Reads the version numbers from the major JavaScript Libraries (Bootstrap, ckEditor, DataTables and jQuery) and displays them in admin view
  * @memberof admin
  */
 function getJavaScriptVersions()
@@ -71,7 +72,8 @@ function getJavaScriptVersions()
 
 /**
  * @name initMonotoUsersDataTable
- * @description init the monoto user DataTable in admin view. Colorizes some cells under specific conditions
+ * @summary creates the monoto user table in admin view.
+ * @description creates the monoto user table (using DataTable) in admin view. Colorizes some cells under specific conditions
  * @memberof admin
  */
 function initMonotoUsersDataTable()
@@ -99,7 +101,7 @@ function initMonotoUsersDataTable()
         {
             // overall logins
             if ( data[2] === "0" ) {
-                $("td:eq(3)", row).addClass("m_redLight");
+                $("td:eq(2)", row).addClass("m_redLight");
             }
 
             // failed failed_logins_in_a_row
@@ -122,10 +124,9 @@ function initMonotoUsersDataTable()
             // is_admin
             if ( data[5] === "1" ) {
                 $("td:eq(5)", row).addClass("m_blueLight");
-                $('td:eq(5)', row).html( '&lt;i class="fas fa-clipboard-check">&lt;/i> yes' );
+                $("td:eq(5)", row).html( "&lt;i class='fas fa-clipboard-check'>&lt;/i> yes" );
             }
         }
-
     } );
 
     console.log("initMonotoUsersDataTable ::: Finished initializing Monoto Users DataTable");
@@ -136,7 +137,8 @@ function initMonotoUsersDataTable()
 
 /**
  * @name reInitMonotoUsersDataTable
- * @description destroy and re-init the monoto user DataTable in admin view (used after data changes in the table m_users).
+ * @summary Destroys and re-inits the monoto user table.
+ * @description Destroys and re-inits the monoto user table (using DataTable) in admin view. This is needed after new user accounts got created or existing accounts got unlocked or deleted.
  * @memberof admin
  */
 function reInitMonotoUsersDataTable()
@@ -159,7 +161,9 @@ function reInitMonotoUsersDataTable()
 
 /**
  * @name userAccountCreateNew
- * @description creates a new monoto user account.
+ * @summary Creates a new user account
+ * @description Creates a new monoto user account and optional sends an invite mail to the new user. Using inc/adminUserNew.php
+ * @requires inc/adminUserNew.php
  * @memberof admin
  */
 function userAccountCreateNew()
@@ -208,6 +212,12 @@ function userAccountCreateNew()
         // reload the DataTable
         reInitMonotoUsersDataTable();
 
+        // update select for Account deletion
+        updateTaskSelectorDeleteAccount();
+
+        // update select for Account unlocking
+        updateTaskSelectorUnlockAccount();
+
     })
     .fail(function(jqxhr, textStatus, errorThrown)
     {
@@ -228,8 +238,73 @@ function userAccountCreateNew()
 
 
 /**
+ * @name enableUserAccountDeleteButton
+ * @summary Enables the delete user button
+ * @description enables the user account delete button if the requirements (selected user &amp; CONFIRM text) are fulfilled
+ * @memberof admin
+ */
+function enableUserAccountDeleteButton()
+{
+    console.debug("enableUserAccountDeleteButton ::: Start.");
+
+    var existingUserID = $("#userDeleteSelector").val();
+    var confirmText = $("#confirmDeleteUser").val();
+
+    // if a user is selected and confirm is entered -> enable the button
+    if ( (confirmText === "CONFIRM") &amp;&amp; (existingUserID !== null ) )
+    {
+        // enable the user-delete button
+        $("#doDeleteUser").prop("disabled", false);
+        console.log("enableUserAccountDeleteButton ::: Enabled the user account delete button.");
+    }
+    else
+    {
+        // disable the user-delete button
+        $("#doDeleteUser").prop("disabled", false);
+        console.log("enableUserAccountDeleteButton ::: Disabled the user account delete button.");
+    }
+
+    console.debug("enableUserAccountDeleteButton ::: Stop.");
+}
+
+
+
+/**
+ * @name enableUserAccountUnlockButton
+ * @summary Unlock a locked user accounts
+ * @description enables the user account unlock button if the requirements (selected user &amp; CONFIRM text) are fulfilled
+ * @memberof admin
+ */
+function enableUserAccountUnlockButton()
+{
+    console.debug("enableUserAccountUnlockButton ::: Start.");
+
+    var existingUserID = $("#userUnlockSelector").val();
+    var confirmText = $("#confirmResetFailedLoginCount").val();
+
+    // if a user is selected and confirm is entered -> enable the button
+    if ( (confirmText === "CONFIRM") &amp;&amp; (existingUserID !== null ) )
+    {
+        // enable the user-unlock button
+        $("#doResetFailedLoginCount").prop("disabled", false);
+        console.log("enableUserAccountUnlockButton ::: Enabled the user account unlock button.");
+    }
+    else
+    {
+        // disable the user-unlock button
+        $("#doResetFailedLoginCount").prop("disabled", true);
+        console.log("enableUserAccountUnlockButton ::: Disabled the user account unlock button.");
+    }
+
+    console.debug("enableUserAccountUnlockButton ::: Stop.");
+}
+
+
+/**
  * @name userAccountDelete
- * @description deletes an existing monoto user account.
+ * @summary Deletes an existing user account
+ * @description Deletes an existing monoto user account using inc/adminUserDelete.php
+ * @requires inc/adminUserDelete.php
  * @memberof admin
  */
 function userAccountDelete()
@@ -250,6 +325,18 @@ function userAccountDelete()
         {
             console.log("userAccountDelete ::: Successfully deleted an existing user account");
             createNoty("Deleted user, his notes and the related log entries", "success");
+
+            // disable the user-delete button
+            $("#doDeleteUser").prop("disabled", true);
+
+            // re-do user-table
+            reInitMonotoUsersDataTable();
+
+            // update the &lt;select>
+            updateTaskSelectorDeleteAccount();
+
+            // disable the button
+            enableUserAccountDeleteButton();
         })
         .done(function()
         {
@@ -257,7 +344,6 @@ function userAccountDelete()
 
             // reset fields
             //
-            //$("#userDeleteSelector").val("");
             $("#userDeleteSelector").val($(this).find("option:first").val());
             $("#confirmDeleteUser").val("");
 
@@ -289,7 +375,9 @@ function userAccountDelete()
 
 /**
  * @name userAccountUnlock
- * @description unlocks an existing monoto user account (login-lock after 3 failed login attempts in a row)
+ * @summary Unlock a locked user account
+ * @description Unlocks an existing monoto user account (login-lock after 3 failed login attempts in a row) using inc/adminUserUnlock.php
+ * @requires inc/adminUserUnlock.php
  * @memberof admin
  */
 function userAccountUnlock()
@@ -304,7 +392,7 @@ function userAccountUnlock()
 
     if ( confirmText === "CONFIRM")
     {
-        console.log("userAccountUnlock ::: Trying to delete user account id: " + existingUserID);
+        console.log("userAccountUnlock ::: Trying to unlock user account id: " + existingUserID);
 
         var jqxhr = $.post( "inc/adminUserUnlock.php", { existingUserID: existingUserID }, function()
         {
@@ -315,14 +403,19 @@ function userAccountUnlock()
         {
             console.log("userAccountUnlock ::: done");
 
-            // reset fields
+            // reset unlock-ui items
             //
-            //$("#userDeleteSelector").val("");
             $("#userUnlockSelector").val($(this).find("option:first").val());
-            $("#confirmDeleteUser").val("");
+            $("#confirmResetFailedLoginCount").val("");
 
-            // reload the DataTable
+            // re-do user-table
             reInitMonotoUsersDataTable();
+
+            // update the &lt;select>
+            updateTaskSelectorUnlockAccount();
+
+            // disable the button
+            enableUserAccountUnlockButton();
         })
         .fail(function(jqxhr, textStatus, errorThrown)
         {
@@ -349,7 +442,9 @@ function userAccountUnlock()
 
 /**
  * @name optimizeDatabaseTables
- * @description runs optimize on all monoto mysql database tables.
+ * @summary Optimizes the mysql tables
+ * @description Runs optimize on all monoto mysql database tables.
+ * @requires inc/adminOptimizeDatabaseTables.php
  * @memberof admin
  */
 function optimizeDatabaseTables()
@@ -392,7 +487,9 @@ function optimizeDatabaseTables()
 
 /**
  * @name truncateAllEvents
- * @description Truncates the table m_events. This affects all accounts (useful for developers only)
+ * @summary Truncates the table m_log
+ * @description Truncates the table m_log. This affects all accounts (useful for developers only)
+ * @requires inc/adminTruncateAllEvents.php
  * @memberof admin
  */
 function truncateAllEvents()
@@ -434,7 +531,9 @@ function truncateAllEvents()
 
 /**
  * @name truncateAllNotes
+ * @summary Truncates the table m_notes
  * @description truncates the table m_notes. This affects all accounts (useful for developers only)
+ * @requires inc/adminTruncateAllNotes.php
  * @memberof admin
  */
 function truncateAllNotes()
@@ -474,10 +573,11 @@ function truncateAllNotes()
 }
 
 
-
 /**
  * @name sendMailToAllUsers
- * @description sends an email to all existing user accounts.
+ * @summary Send broadcast email to all user accounts
+ * @description Sends an email to all existing user accounts.
+ * @requires inc/adminSendMailToAllUsers.php
  * @memberof admin
  */
 function sendMailToAllUsers()
@@ -486,7 +586,7 @@ function sendMailToAllUsers()
 
     // get values
     var mailSubject = $("#broadcastSubject").val();
-    var mailText = $("#broadcastMessage").val();
+    var mailText = CKEDITOR.instances.editor1.getData();
 
     if ( mailSubject &amp;&amp; mailText ) // if both variables are set
     {
@@ -533,7 +633,6 @@ function sendMailToAllUsers()
                         {
                             // doing nothing so far
                         });
-
                     }
                 },
                 {
@@ -546,16 +645,191 @@ function sendMailToAllUsers()
                 }
             ]
         });
-
     }
     else {
         createNoty("Unable to send mails. Please fill both Subject and Message", "error");
-        console.log("sendMailToAllUsers ::: Either subject or message or both are empty.");
+        console.warn("sendMailToAllUsers ::: Either subject or message or both are empty.");
+        console.warn("Subject: " + mailSubject);
+        console.warn("Text: " + mailText);
+
     }
 
-
-
     console.debug("sendMailToAllUsers ::: Stop");
+}
+
+
+/**
+ * @name initCKEditor
+ * @summary Init CKEditor
+ * @description Initialize the textarea with CKEditor. Editor can be used to compse email messages to all existing user accounts.
+ * @memberof admin
+ */
+function initCKEditor()
+{
+    console.debug("initCKEditor ::: Start");
+
+    // START CKEDITOR
+    CKEDITOR.replace( "editor1",
+    {
+        // key press handling
+        on:
+        {
+            instanceReady: function()
+            {
+                //CKEDITOR.instances.editor1.setReadOnly(false); // set RO mode
+                CKEDITOR.config.toolbarCanCollapse = false; /* Enable collapse function for toolbar */
+                return;
+            },
+        }, // end: on
+
+        // other things
+        //
+        enterMode: CKEDITOR.ENTER_BR,
+        toolbarCanCollapse: true, // enable collapse option
+        toolbarStartupExpanded : true,  // define collapsed as default
+        //removePlugins: 'elementspath',
+        toolbar:
+        [
+            { name: "tools",       items : [ "Maximize" ] },
+            { name: "basicstyles", items : [ "Bold","Italic","Strike","RemoveFormat" ] },
+            { name: "paragraph",   items : [ "NumberedList","BulletedList","-","Outdent","Indent","Blockquote" ] },
+            { name: "insert",      items : [ "Link","Image","Table","HorizontalRule","SpecialChar" ] },
+            { name: "styles",      items : [ "Styles","Format" ] },
+            { name: "document",    items : [ "Source" ] }
+        ]
+    });
+
+    console.debug("initCKEditor ::: Stop");
+}
+
+
+/**
+ * @name updateTaskSelectorDeleteAccount
+ * @summary resets and refills the select element for the user delete function
+ * @description resets and refills the &lt;select> element which contains all existing non-admin user accounts (deletion)
+ * @requires inc/adminFillUserDeleteSelector.php
+ * @memberof admin
+ */
+function updateTaskSelectorDeleteAccount()
+{
+    console.debug("updateTaskSelectorDeleteAccount ::: Start.");
+
+    // delete all items from &lt;select>
+    $('#userDeleteSelector').children('option:not(:first)').remove();
+
+    var jqxhr = $.post( "inc/adminFillUserDeleteSelector.php", { }, function(msg)
+    {
+        console.log("updateTaskSelectorDeleteAccount ::: Successfully fetched all users for delete-selector");
+
+        // walk over the user array ...
+        var arrayLength = msg.length;
+        for (var i = 0; i &lt; arrayLength; i++)
+        {
+            userID = msg[i][0];
+            userName = msg[i][1];
+
+            // add current user to select
+            $("#userDeleteSelector").append(new Option(userName, userID));
+        }
+        console.log("updateTaskSelectorDeleteAccount ::: Finished filling the user-delete select element");
+    })
+    .done(function()
+    {
+        console.log("updateTaskSelectorDeleteAccount ::: done");
+    })
+    .fail(function(jqxhr, textStatus, errorThrown)
+    {
+        console.error("updateTaskSelectorDeleteAccount ::: $.post failed");
+        console.log(jqxhr);
+        console.log(textStatus);
+        console.log(errorThrown);
+    })
+    .always(function()
+    {
+        // doing nothing so far
+    });
+
+    console.debug("updateTaskSelectorDeleteAccount ::: Stop.");
+}
+
+
+/**
+ * @name updateTaskSelectorUnlockAccount
+ * @summary resets and refills the select element for the user unlock function
+ * @description resets and refills the &lt;select> element which contains all user accounts which are locked
+ * @requires inc/adminFillUserUnlockSelector.php
+ * @memberof admin
+ */
+function updateTaskSelectorUnlockAccount()
+{
+    console.debug("updateTaskSelectorUnlockAccount ::: Start.");
+
+    // delete all items from &lt;select>
+    $('#userUnlockSelector').children('option:not(:first)').remove();
+
+    var jqxhr = $.post( "inc/adminFillUserUnlockSelector.php", { }, function(msg)
+    {
+        console.log("updateTaskSelectorUnlockAccount ::: Successfully fetched all users for unlock-selector");
+
+        // walk over the user array ...
+        var arrayLength = msg.length;
+        for (var i = 0; i &lt; arrayLength; i++)
+        {
+            userID = msg[i][0];
+            userName = msg[i][1];
+
+            // add current user to select
+            $("#userUnlockSelector").append(new Option(userName, userID));
+        }
+        console.log("updateTaskSelectorUnlockAccount ::: Finished filling the user-unlock select element");
+
+    })
+    .done(function()
+    {
+        console.log("updateTaskSelectorUnlockAccount ::: done");
+    })
+    .fail(function(jqxhr, textStatus, errorThrown)
+    {
+        console.error("updateTaskSelectorUnlockAccount ::: $.post failed");
+        console.log(jqxhr);
+        console.log(textStatus);
+        console.log(errorThrown);
+    })
+    .always(function()
+    {
+        // doing nothing so far
+    });
+
+    console.debug("updateTaskSelectorUnlockAccount ::: Stop.");
+}
+
+
+/**
+ * @name onAdminPageReady
+ * @summary executes several init functions for the admin section
+ * @description executes several initializing functions for the admin section after loading admin.php.
+ * @memberof admin
+ */
+function onAdminPageReady()
+{
+    console.debug("onAdminPageReady ::: Start.");
+
+    // Javascript libraries
+    getJavaScriptVersions();
+
+    // Init the user table
+    initMonotoUsersDataTable();
+
+    // Init CKEditor for Broadcast mails
+    initCKEditor();
+
+    // Fill user-delete &lt;select> element
+    updateTaskSelectorDeleteAccount();
+
+    // Fill user-unlock &lt;select> element
+    updateTaskSelectorUnlockAccount();
+
+    console.debug("onAdminPageReady ::: Stop.");
 }
 </code></pre>
         </article>
@@ -567,13 +841,13 @@ function sendMailToAllUsers()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="notesKeyHandler.html#.event:KeyUp">KeyUp</a></li></ul><h3>Namespaces</h3><ul><li><a href="admin.html">admin</a></li><li><a href="generic.html">generic</a></li><li><a href="notes.html">notes</a></li><li><a href="notesKeyHandler.html">notesKeyHandler</a></li><li><a href="profile.html">profile</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="notesKeyHandler.html#.event:KeyUp">KeyUp</a></li><li><a href="profile.html#.event:onChange">onChange</a></li></ul><h3>Namespaces</h3><ul><li><a href="admin.html">admin</a></li><li><a href="generic.html">generic</a></li><li><a href="notes.html">notes</a></li><li><a href="notesKeyHandler.html">notesKeyHandler</a></li><li><a href="profile.html">profile</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Mar 13 2019 11:40:42 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Mar 15 2019 15:11:22 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

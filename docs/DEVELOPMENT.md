@@ -47,8 +47,9 @@
         * ```console.error``` for errors (red)
 
 * ```jsdoc```
+    * Online version of [current monoto jsdocs](http://yafp.github.io/monoto/docs/jsdocs/monoto/index.html)
     * Use ```jsdoc``` for function headers
-    * Generation: From main repository directory, using jsdoc v3.3.0+: ```jsdoc --configure jsdoc.json --readme README.md --package package.json --destination docs/jsdocs/```
+    * Generation: From main repository directory, using jsdoc v3.3.0+: ```jsdoc --configure jsdoc.json --readme README.md --destination docs/jsdocs/```
 
 ## PHP
 * Consider [PHP Coding conventions](https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP)
