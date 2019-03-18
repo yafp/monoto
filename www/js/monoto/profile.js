@@ -114,7 +114,7 @@ function initProfileEventsDataTable()
 
      console.log("initProfileEventsDataTable ::: Finished initializing the events DataTable");
 
-     console.debug("initProfileEventsDataTable ::: Stop");
+     console.debug("initProfileEventsDataTable ::: End");
 }
 
 
@@ -138,7 +138,7 @@ function reInitProfileEventsDataTable()
     // reload datatable
     initProfileEventsDataTable();
 
-    console.debug("reInitProfileEventsDataTable ::: Stop");
+    console.debug("reInitProfileEventsDataTable ::: End");
 }
 
 
@@ -187,7 +187,7 @@ function doChangeProfilePassword()
         // doing nothing so far
     });
 
-    console.debug("doChangeProfilePassword ::: Stop");
+    console.debug("doChangeProfilePassword ::: End");
 }
 
 
@@ -200,14 +200,14 @@ function doChangeProfilePassword()
  */
 function enableUpdateUserProfileLanguageButton()
 {
-    console.debug("enableUpdateUserProfileLanguageButton ::: Start.");
+    console.debug("enableUpdateUserProfileLanguageButton ::: Start");
 
     // enable the update profile language button
     $("#doChangeUserLanguage").prop("disabled", false);
 
     console.log("enableUpdateUserProfileLanguageButton ::: Enabled the profile language update button.");
 
-    console.debug("enableUpdateUserProfileLanguageButton ::: Stop.");
+    console.debug("enableUpdateUserProfileLanguageButton ::: End");
 }
 
 
@@ -251,7 +251,7 @@ function doChangeProfileLanguage()
         // doing nothing so far
     });
 
-    console.debug("doChangeProfileLanguage ::: Stop");
+    console.debug("doChangeProfileLanguage ::: End");
 }
 
 
@@ -269,7 +269,7 @@ function deleteAllMyUserEvents()
     console.log("deleteAllMyUserEvents ::: Ask user if he wants to delete all his events from table m_log");
 
     var x = noty({
-        text: "Really delete all your events from log?",
+        text: "Do you really want to delete all your events from log?",
         type: "confirm",
         dismissQueue: false,
         layout: "topRight",
@@ -302,7 +302,6 @@ function deleteAllMyUserEvents()
 }
 
 
-
 /**
  * @name deleteAllMyUserNotes
  * @summary Deletes all user notes
@@ -317,7 +316,7 @@ function deleteAllMyUserNotes()
     console.log("deleteAllMyUserNotes ::: Ask user if he wants to delete all his notes from table m_notes");
 
     var x = noty({
-        text: "Really delete all your notes?",
+        text: "Do you really want to delete all your notes?",
         type: "confirm",
         dismissQueue: false,
         layout: "topRight",
@@ -344,8 +343,6 @@ function deleteAllMyUserNotes()
     });
     console.debug("deleteAllMyUserNotes ::: Finished Delete-All-My-User-Notes-Dialog.");
 }
-
-
 
 
 /**
@@ -390,7 +387,6 @@ function exportAllNotesFromUserAccount()
     });
     console.debug("exportAllNotesFromUserAccount ::: Finished exporting all notes from current account.");
 }
-
 
 
 /**
@@ -443,7 +439,7 @@ function importNotesFromCSV()
             {
                 $noty.close();
                 console.log("importNotesFromCSV ::: User confirmed to import notes from csv. Starting now ...");
-
+                console.error("importNotesFromCSV ::: THIS IS A DUMMY SO FAR ...");
 
                 /*
                 var jqxhr = $.post( "inc/profileImportFromCSV.php", { importCSV: importCSV }, function()
@@ -498,119 +494,5 @@ function onProfilePageReady()
 
     console.log("onProfilePageReady ::: Profile is ready");
 
-    // prepare the csv importer
-    /*
-    $("#impFile").on("change", function (e)
-    {
-        var file = $(this)[0].files[0];
-        var upload = new Upload(file);
-
-        // maby check size or type here with upload.getSize() and upload.getType()
-        console.log("onProfilePageReady ::: Starting upload of csv file for importer");
-
-        // execute upload
-        upload.doUpload();
-
-    });
-    */
-
     console.debug("onProfilePageReady ::: End");
 }
-
-
-// https://stackoverflow.com/questions/2320069/jquery-ajax-file-upload
-
-
-
-
-var Upload = function (file) {
-    this.file = file;
-};
-
-Upload.prototype.getType = function() {
-    return this.file.type;
-};
-Upload.prototype.getSize = function() {
-    return this.file.size;
-};
-Upload.prototype.getName = function() {
-    return this.file.name;
-};
-Upload.prototype.doUpload = function () {
-    var that = this;
-    var formData = new FormData();
-
-    // add assoc key values, this will be posts values
-    formData.append("file", this.file, this.getName());
-    formData.append("upload_file", true);
-
-    $.ajax({
-        type: "POST",
-        url: "script",
-        xhr: function () {
-            var myXhr = $.ajaxSettings.xhr();
-            if (myXhr.upload)
-            {
-                myXhr.upload.addEventListener("progress", that.progressHandling, false);
-            }
-            return myXhr;
-        },
-        success: function (data)
-        {
-            console.warn("upload worked...");
-
-            // console.warn(that);
-            importCSV = that;
-
-            console.error(importCSV);
-
-            var jqxhr = $.post( "inc/profileImportFromCSV.php", { importCSV: importCSV }, function()
-            {
-                console.log("importNotesFromCSV ::: successfully imported notes from csv");
-            })
-            .done(function()
-            {
-                console.log("importNotesFromCSV ::: done");
-                createNoty("Successfully imported notes from csv","success");
-            })
-            .fail(function(jqxhr, textStatus, errorThrown)
-            {
-                console.error("importNotesFromCSV ::: $.post failed");
-                console.log(jqxhr);
-                console.log(textStatus);
-                console.log(errorThrown);
-
-                createNoty("Importing notes from csv failed", "error");
-            })
-            .always(function()
-            {
-                // doing nothing so far
-            });
-
-        },
-        error: function (error)
-        {
-            // handle error
-            console.error("upload failed...");
-        },
-        async: true,
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        timeout: 60000
-    });
-};
-
-Upload.prototype.progressHandling = function (event) {
-    var percent = 0;
-    var position = event.loaded || event.position;
-    var total = event.total;
-    var progress_bar_id = "#progress-wrp";
-    if (event.lengthComputable) {
-        percent = Math.ceil(position / total * 100);
-    }
-    // update progressbars classes so it fits your code
-    $(progress_bar_id + " .progress-bar").css("width", +percent + "%");
-    $(progress_bar_id + " .status").text(percent + "%");
-};

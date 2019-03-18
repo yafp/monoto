@@ -106,7 +106,7 @@ function translateString( $textForTranslation )
 
 /*
  * Create a new record in the log table m_log
- * Be aware: can only be used from within inc/ becasue of 'require'
+ * Be aware: can only be used from within inc/ because of 'require'
  *
  * @param {string} $eventType - The log type
  * @param {string} $eventMessage - The log message
@@ -150,6 +150,23 @@ function writeNewLogEntry( $eventType, $eventMessage )
         mysqli_query( $con, $sql );
     }
 }
+
+
+
+/*
+ * Displays an error header and redirects to error page
+ */
+function handleBadAccessToIncScripts()
+{
+    // Up to you which header to send, some prefer 404 even if
+    // the files does exist for security
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+
+    // choose the appropriate page to redirect users
+    die( header( 'location: ../error.php' ) );
+}
+
+
 
 
 /*

@@ -11,8 +11,8 @@
 
 
 <!-- # Bootstrap-select #################################################### -->
-<!-- 1.13.2 -->
-<script type="text/javascript" language="javascript" src="js/bootstrap-select/1.13.2/dist/js/bootstrap-select.min.js"></script>
+<!-- 1.13.7 -->
+<script type="text/javascript" language="javascript" src="js/bootstrap-select/1.13.7/dist/js/bootstrap-select.min.js"></script>
 
 
 <!-- # datatable ########################################################### -->

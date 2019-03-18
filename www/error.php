@@ -26,11 +26,13 @@
 
         <!-- container -->
         <div id="container">
-            <h3><i class="fas fa-exclamation-triangle"></i> <?php echo translateString("Error"); ?> 404</h3>
+            <h3><i class="fas fa-exclamation-triangle"></i> <?php echo translateString("Error"); ?></h3>
 
             <!-- error image -->
             <div class="text-center">
-                <img src="images/404/error.gif">
+                <a href="notes.php">
+                    <img src="images/error/error.gif">
+                </a>
             </div>
             <!-- /error image -->
 

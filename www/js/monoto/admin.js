@@ -1,6 +1,7 @@
 /** @namespace */
  var admin = {};
 
+
 /**
  * @name getJavaScriptVersions
  * @summary Reads the version numbers from the most relevant JS libs and displays them in admin view.
@@ -38,7 +39,7 @@ function getJavaScriptVersions()
         $("#libVersionJQuery").val(jQuery.fn.jquery);
     }
 
-    console.debug("getJavaScriptVersions ::: Stop");
+    console.debug("getJavaScriptVersions ::: End");
 }
 
 
@@ -103,7 +104,7 @@ function initMonotoUsersDataTable()
 
     console.log("initMonotoUsersDataTable ::: Finished initializing Monoto Users DataTable");
 
-    console.debug("initMonotoUsersDataTable ::: Stop");
+    console.debug("initMonotoUsersDataTable ::: End");
 }
 
 
@@ -126,9 +127,109 @@ function reInitMonotoUsersDataTable()
     // reload datatable
     initMonotoUsersDataTable();
 
-    console.debug("reInitMonotoUsersDataTable ::: Stop");
+    console.debug("reInitMonotoUsersDataTable ::: End");
 }
 
+
+/**
+ * @name updateTaskSelectorDeleteAccount
+ * @summary resets and refills the select element for the user delete function
+ * @description resets and refills the <select> element which contains all existing non-admin user accounts (deletion)
+ * @requires inc/adminFillUserDeleteSelector.php
+ * @memberof admin
+ */
+function updateTaskSelectorDeleteAccount()
+{
+    console.debug("updateTaskSelectorDeleteAccount ::: Start");
+
+    // delete all items from <select>
+    $("#userDeleteSelector").children("option:not(:first)").remove();
+
+    var jqxhr = $.post( "inc/adminFillUserDeleteSelector.php", { }, function(msg)
+    {
+        console.log("updateTaskSelectorDeleteAccount ::: Successfully fetched all users for delete-selector");
+
+        // walk over the user array ...
+        var arrayLength = msg.length;
+        for (var i = 0; i < arrayLength; i++)
+        {
+            userID = msg[i][0];
+            userName = msg[i][1];
+
+            // add current user to select
+            $("#userDeleteSelector").append(new Option(userName, userID));
+        }
+        console.log("updateTaskSelectorDeleteAccount ::: Finished filling the user-delete select element");
+    })
+    .done(function()
+    {
+        console.log("updateTaskSelectorDeleteAccount ::: done");
+    })
+    .fail(function(jqxhr, textStatus, errorThrown)
+    {
+        console.error("updateTaskSelectorDeleteAccount ::: $.post failed");
+        console.log(jqxhr);
+        console.log(textStatus);
+        console.log(errorThrown);
+    })
+    .always(function()
+    {
+        // doing nothing so far
+    });
+
+    console.debug("updateTaskSelectorDeleteAccount ::: End");
+}
+
+
+/**
+ * @name updateTaskSelectorUnlockAccount
+ * @summary resets and refills the select element for the user unlock function
+ * @description resets and refills the <select> element which contains all user accounts which are locked
+ * @requires inc/adminFillUserUnlockSelector.php
+ * @memberof admin
+ */
+function updateTaskSelectorUnlockAccount()
+{
+    console.debug("updateTaskSelectorUnlockAccount ::: Start");
+
+    // delete all items from <select>
+    $("#userUnlockSelector").children("option:not(:first)").remove();
+
+    var jqxhr = $.post( "inc/adminFillUserUnlockSelector.php", { }, function(msg)
+    {
+        console.log("updateTaskSelectorUnlockAccount ::: Successfully fetched all users for unlock-selector");
+
+        // walk over the user array ...
+        var arrayLength = msg.length;
+        for (var i = 0; i < arrayLength; i++)
+        {
+            userID = msg[i][0];
+            userName = msg[i][1];
+
+            // add current user to select
+            $("#userUnlockSelector").append(new Option(userName, userID));
+        }
+        console.log("updateTaskSelectorUnlockAccount ::: Finished filling the user-unlock select element");
+
+    })
+    .done(function()
+    {
+        console.log("updateTaskSelectorUnlockAccount ::: done");
+    })
+    .fail(function(jqxhr, textStatus, errorThrown)
+    {
+        console.error("updateTaskSelectorUnlockAccount ::: $.post failed");
+        console.log(jqxhr);
+        console.log(textStatus);
+        console.log(errorThrown);
+    })
+    .always(function()
+    {
+        // doing nothing so far
+    });
+
+    console.debug("updateTaskSelectorUnlockAccount ::: End");
+}
 
 
 /**
@@ -189,7 +290,6 @@ function userAccountCreateNew()
 
         // update select for Account unlocking
         updateTaskSelectorUnlockAccount();
-
     })
     .fail(function(jqxhr, textStatus, errorThrown)
     {
@@ -205,7 +305,7 @@ function userAccountCreateNew()
         // doing nothing so far
     });
 
-    console.debug("userAccountCreateNew ::: Stop");
+    console.debug("userAccountCreateNew ::: End");
 }
 
 
@@ -217,7 +317,7 @@ function userAccountCreateNew()
  */
 function enableUserAccountDeleteButton()
 {
-    console.debug("enableUserAccountDeleteButton ::: Start.");
+    console.debug("enableUserAccountDeleteButton ::: Start");
 
     var existingUserID = $("#userDeleteSelector").val();
     var confirmText = $("#confirmDeleteUser").val();
@@ -236,9 +336,8 @@ function enableUserAccountDeleteButton()
         console.log("enableUserAccountDeleteButton ::: Disabled the user account delete button.");
     }
 
-    console.debug("enableUserAccountDeleteButton ::: Stop.");
+    console.debug("enableUserAccountDeleteButton ::: End");
 }
-
 
 
 /**
@@ -249,7 +348,7 @@ function enableUserAccountDeleteButton()
  */
 function enableUserAccountUnlockButton()
 {
-    console.debug("enableUserAccountUnlockButton ::: Start.");
+    console.debug("enableUserAccountUnlockButton ::: Start");
 
     var existingUserID = $("#userUnlockSelector").val();
     var confirmText = $("#confirmResetFailedLoginCount").val();
@@ -268,7 +367,7 @@ function enableUserAccountUnlockButton()
         console.log("enableUserAccountUnlockButton ::: Disabled the user account unlock button.");
     }
 
-    console.debug("enableUserAccountUnlockButton ::: Stop.");
+    console.debug("enableUserAccountUnlockButton ::: End");
 }
 
 
@@ -341,7 +440,7 @@ function userAccountDelete()
         createNoty("Failed deleting account, as confirm text is not correct", "error");
     }
 
-    console.debug("userAccountDelete ::: Stop");
+    console.debug("userAccountDelete ::: End");
 }
 
 
@@ -408,7 +507,7 @@ function userAccountUnlock()
         createNoty("Failed to unlock account, as confirm text is not correct", "error");
     }
 
-    console.debug("userAccountUnlock ::: Stop");
+    console.debug("userAccountUnlock ::: End");
 }
 
 
@@ -452,9 +551,8 @@ function optimizeDatabaseTables()
         ]
     });
 
-    console.debug("optimizeDatabaseTables ::: Stop");
+    console.debug("optimizeDatabaseTables ::: End");
 }
-
 
 
 /**
@@ -497,7 +595,7 @@ function truncateAllEvents()
         ]
     });
 
-    console.debug("truncateAllEvents ::: Stop");
+    console.debug("truncateAllEvents ::: End");
 }
 
 
@@ -541,7 +639,7 @@ function truncateAllNotes()
         ]
     });
 
-    console.debug("truncateAllNotes ::: Stop");
+    console.debug("truncateAllNotes ::: End");
 }
 
 
@@ -626,7 +724,7 @@ function sendMailToAllUsers()
 
     }
 
-    console.debug("sendMailToAllUsers ::: Stop");
+    console.debug("sendMailToAllUsers ::: End");
 }
 
 
@@ -671,108 +769,7 @@ function initCKEditor()
         ]
     });
 
-    console.debug("initCKEditor ::: Stop");
-}
-
-
-/**
- * @name updateTaskSelectorDeleteAccount
- * @summary resets and refills the select element for the user delete function
- * @description resets and refills the <select> element which contains all existing non-admin user accounts (deletion)
- * @requires inc/adminFillUserDeleteSelector.php
- * @memberof admin
- */
-function updateTaskSelectorDeleteAccount()
-{
-    console.debug("updateTaskSelectorDeleteAccount ::: Start.");
-
-    // delete all items from <select>
-    $('#userDeleteSelector').children('option:not(:first)').remove();
-
-    var jqxhr = $.post( "inc/adminFillUserDeleteSelector.php", { }, function(msg)
-    {
-        console.log("updateTaskSelectorDeleteAccount ::: Successfully fetched all users for delete-selector");
-
-        // walk over the user array ...
-        var arrayLength = msg.length;
-        for (var i = 0; i < arrayLength; i++)
-        {
-            userID = msg[i][0];
-            userName = msg[i][1];
-
-            // add current user to select
-            $("#userDeleteSelector").append(new Option(userName, userID));
-        }
-        console.log("updateTaskSelectorDeleteAccount ::: Finished filling the user-delete select element");
-    })
-    .done(function()
-    {
-        console.log("updateTaskSelectorDeleteAccount ::: done");
-    })
-    .fail(function(jqxhr, textStatus, errorThrown)
-    {
-        console.error("updateTaskSelectorDeleteAccount ::: $.post failed");
-        console.log(jqxhr);
-        console.log(textStatus);
-        console.log(errorThrown);
-    })
-    .always(function()
-    {
-        // doing nothing so far
-    });
-
-    console.debug("updateTaskSelectorDeleteAccount ::: Stop.");
-}
-
-
-/**
- * @name updateTaskSelectorUnlockAccount
- * @summary resets and refills the select element for the user unlock function
- * @description resets and refills the <select> element which contains all user accounts which are locked
- * @requires inc/adminFillUserUnlockSelector.php
- * @memberof admin
- */
-function updateTaskSelectorUnlockAccount()
-{
-    console.debug("updateTaskSelectorUnlockAccount ::: Start.");
-
-    // delete all items from <select>
-    $('#userUnlockSelector').children('option:not(:first)').remove();
-
-    var jqxhr = $.post( "inc/adminFillUserUnlockSelector.php", { }, function(msg)
-    {
-        console.log("updateTaskSelectorUnlockAccount ::: Successfully fetched all users for unlock-selector");
-
-        // walk over the user array ...
-        var arrayLength = msg.length;
-        for (var i = 0; i < arrayLength; i++)
-        {
-            userID = msg[i][0];
-            userName = msg[i][1];
-
-            // add current user to select
-            $("#userUnlockSelector").append(new Option(userName, userID));
-        }
-        console.log("updateTaskSelectorUnlockAccount ::: Finished filling the user-unlock select element");
-
-    })
-    .done(function()
-    {
-        console.log("updateTaskSelectorUnlockAccount ::: done");
-    })
-    .fail(function(jqxhr, textStatus, errorThrown)
-    {
-        console.error("updateTaskSelectorUnlockAccount ::: $.post failed");
-        console.log(jqxhr);
-        console.log(textStatus);
-        console.log(errorThrown);
-    })
-    .always(function()
-    {
-        // doing nothing so far
-    });
-
-    console.debug("updateTaskSelectorUnlockAccount ::: Stop.");
+    console.debug("initCKEditor ::: End");
 }
 
 
@@ -784,7 +781,7 @@ function updateTaskSelectorUnlockAccount()
  */
 function onAdminPageReady()
 {
-    console.debug("onAdminPageReady ::: Start.");
+    console.debug("onAdminPageReady ::: Start");
 
     // Javascript libraries
     getJavaScriptVersions();
@@ -801,5 +798,5 @@ function onAdminPageReady()
     // Fill user-unlock <select> element
     updateTaskSelectorUnlockAccount();
 
-    console.debug("onAdminPageReady ::: Stop.");
+    console.debug("onAdminPageReady ::: End");
 }

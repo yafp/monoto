@@ -154,10 +154,10 @@ function initNotyDefaults()
         modal: false,
         closeWith: ["click"], // ['click', 'button', 'hover']
         callback: {
-            onShow() {},
-            afterShow() {},
-            onClose() {},
-            afterClose() {}
+            //onShow() {},
+            //afterShow() {},
+            //onClose() {},
+            //afterClose() {}
         },
         buttons: false // an array of buttons
     };

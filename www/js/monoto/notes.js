@@ -10,9 +10,13 @@
  */
 function disableNoteSavingButton()
 {
+    console.debug("disableNoteSavingButton ::: Start");
+
     console.log("disableNoteSavingButton ::: Disabling save note button");
 
     $("#bt_saveNote").prop("disabled",true);
+
+    console.debug("disableNoteSavingButton ::: End");
 }
 
 
@@ -24,6 +28,8 @@ function disableNoteSavingButton()
  */
 function enableNoteSavingButton()
 {
+    console.debug("enableNoteSavingButton ::: Start");
+
     console.log("enableNoteSavingButton ::: Enabling save note button");
 
     // check if note title length is > 0, as saving is only allowed with a title
@@ -37,6 +43,8 @@ function enableNoteSavingButton()
     {
         console.log("enableNoteSavingButton ::: Save button was already enabled, nothing to do.");
     }
+
+    console.debug("enableNoteSavingButton ::: End");
 }
 
 
@@ -48,6 +56,8 @@ function enableNoteSavingButton()
  */
 function unmarkAllDataTableRows()
 {
+    console.debug("unmarkAllDataTableRows ::: Start");
+
     console.log("unmarkAllDataTableRows ::: Removing the selected attribute from all table rows");
 
     if(initialLoad === false) // only if it isnt the initial load of the page
@@ -68,6 +78,8 @@ function unmarkAllDataTableRows()
         var table = $("#myDataTable").DataTable();
         table.rows().deselect();
     }
+
+    console.debug("unmarkAllDataTableRows ::: End");
 }
 
 
@@ -87,7 +99,7 @@ function selectSingleDataTableRow(rowNumber)
     console.log("selectSingleDataTableRow ::: Trying to click row: " + rowNumber );
     $(oTable.row(rowNumber).node()).click();
 
-    console.debug("selectSingleDataTableRow ::: Stop");
+    console.debug("selectSingleDataTableRow ::: End");
 }
 
 
@@ -102,7 +114,7 @@ function printCKEditorStatus()
 {
     console.debug("printCKEditorStatus ::: Start");
     console.log("printCKEditorStatus ::: CKEditor status is: "+CKEDITOR.status);
-    console.debug("printCKEditorStatus ::: Stop");
+    console.debug("printCKEditorStatus ::: End");
 }
 
 
@@ -115,6 +127,7 @@ function printCKEditorStatus()
 function initCKEditor()
 {
     console.debug("initCKEditor ::: Start");
+
     console.log("initCKEditor ::: Initializing the CKEditor");
 
     // Defining the editor height
@@ -233,7 +246,8 @@ function initCKEditor()
     });
 
     printCKEditorStatus();
-    console.debug("initCKEditor ::: Stop");
+
+    console.debug("initCKEditor ::: End");
 }
 
 
@@ -265,7 +279,7 @@ function saveCKEditorHeightOnChange()
 
     printCKEditorStatus();
 
-    console.debug("saveCKEditorHeightOnChange ::: Stop");
+    console.debug("saveCKEditorHeightOnChange ::: End");
 }
 
 
@@ -285,7 +299,7 @@ function enableCKEditorWriteMode()
 
     printCKEditorStatus();
 
-    console.debug("enableCKEditorWriteMode ::: Stop");
+    console.debug("enableCKEditorWriteMode ::: End");
 }
 
 
@@ -319,7 +333,7 @@ function disableCKEditorWriteMode()
 
     printCKEditorStatus();
 
-    console.debug("disableCKEditorWriteMode ::: Stop");
+    console.debug("disableCKEditorWriteMode ::: End");
 }
 
 
@@ -343,7 +357,7 @@ function resetCKEditor()
     // Enable Read-Only mode
     disableCKEditorWriteMode();
 
-    console.debug("resetCKEditor ::: Stop");
+    console.debug("resetCKEditor ::: End");
 }
 
 
@@ -366,7 +380,7 @@ function hideAllButtons()
     $("#bt_deleteNote").hide();
     $("#bt_saveNote").hide();
 
-    console.debug("hideAllButtons ::: Stop");
+    console.debug("hideAllButtons ::: End");
 }
 
 
@@ -408,7 +422,6 @@ function resetNotesUI()
     $("#noteID").val(""); // hidden ID field
     $("#noteVersion").val(""); // hidden version field
 
-
     // DataTable
     //
     // enable DataTable
@@ -438,7 +451,7 @@ function resetNotesUI()
 
     console.log("resetNotesUI ::: Finished resetting the Notes UserInterface");
 
-    console.debug("resetNotesUI ::: Stop");
+    console.debug("resetNotesUI ::: End");
 }
 
 
@@ -482,7 +495,7 @@ function prepareNewNoteCreation()
     $("#myDataTable").fadeOut(500); // hide  DataTablesearch field
     $("#myDataTable_info").fadeOut(500); // hide DataTable info about records
 
-    console.debug("prepareNewNoteCreation ::: Stop");
+    console.debug("prepareNewNoteCreation ::: End");
 }
 
 
@@ -526,7 +539,7 @@ function checkTitleWhileNewNoteCreation()
             disableCKEditorWriteMode(); // Keep CKEditor in ReadOnly mode
         }
     }
-    console.debug("checkTitleWhileNewNoteCreation ::: Stop");
+    console.debug("checkTitleWhileNewNoteCreation ::: End");
 }
 
 
@@ -604,7 +617,7 @@ function initDataTable(sessionLanguage)
     // amountOfRecordsAfterFilter should be set to count of all records, not 0
     amountOfRecordsAfterFilter = 0;
 
-    console.debug("initDataTable ::: Stop");
+    console.debug("initDataTable ::: End");
 }
 
 
@@ -629,7 +642,7 @@ function reloadAllNotesFromDB()
 
     console.log("reloadAllNotesFromDB ::: Finished loading all user notes from server");
 
-    console.debug("reloadAllNotesFromDB ::: Stop");
+    console.debug("reloadAllNotesFromDB ::: End");
 }
 
 
@@ -711,7 +724,7 @@ function createNewNote()
     {
         createNoty("Missing <b>note title</b>.", "error");
     }
-    console.debug("createNewNote ::: Stop");
+    console.debug("createNewNote ::: End");
 }
 
 
@@ -790,9 +803,8 @@ function saveNote()
             createNoty("Missing ID reference", "error");
         }
     }
-    console.debug("saveNote ::: Stop");
+    console.debug("saveNote ::: End");
 }
-
 
 
 /**
@@ -885,7 +897,7 @@ function deleteNote()
             createNoty("Unable to delete note", "error");
         }
     }
-    console.debug("deleteNote ::: Stop");
+    console.debug("deleteNote ::: End");
 }
 
 
@@ -904,7 +916,7 @@ function reloadCurrentPage()
     var loc = window.location;
     window.location = loc.protocol + "//" + loc.host + loc.pathname + loc.search;
 
-    console.debug("reloadCurrentPage ::: Stop");
+    console.debug("reloadCurrentPage ::: End");
 }
 
 
@@ -928,7 +940,7 @@ function selectAndMarkTableRow(currentRow)
     // change background as well (mark as selected)
     $("#myDataTable tbody tr:eq("+currentRow+")").addClass("row_selected");
 
-    console.debug("selectAndMarkTableRow ::: Stop");
+    console.debug("selectAndMarkTableRow ::: End");
 }
 
 
@@ -979,7 +991,7 @@ function updateCurrentSelectedRowInDataTable(valueChange)
     unmarkAllDataTableRows();
     selectAndMarkTableRow(curSelectedTableRow);
 
-    console.debug("updateCurrentSelectedRowInDataTable ::: Stop");
+    console.debug("updateCurrentSelectedRowInDataTable ::: End");
 }
 
 
@@ -996,7 +1008,7 @@ function selectNextDataTableRow()
     console.log("selectNextDataTableRow ::: Selecting next row in DataTable");
     updateCurrentSelectedRowInDataTable(1);
 
-    console.debug("selectNextDataTableRow ::: Stop");
+    console.debug("selectNextDataTableRow ::: End");
 }
 
 
@@ -1013,7 +1025,7 @@ function selectPreviousDataTableRow()
     console.log("selectPreviousDataTableRow ::: Selecting previous row in DataTable");
     updateCurrentSelectedRowInDataTable(-1);
 
-    console.debug("selectPreviousDataTableRow ::: Stop");
+    console.debug("selectPreviousDataTableRow ::: End");
 }
 
 
@@ -1147,7 +1159,7 @@ function onClickDataTableCell(data)
         return;
     }
 
-    console.debug("onClickDataTableCell ::: Stop");
+    console.debug("onClickDataTableCell ::: End");
 }
 
 
@@ -1369,5 +1381,5 @@ function onNotesPageReady()
     // reset notes UI
     resetNotesUI();
 
-    console.debug("onNotesPageReady ::: Stop");
+    console.debug("onNotesPageReady ::: End");
 }
