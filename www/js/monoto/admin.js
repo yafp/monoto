@@ -33,7 +33,7 @@ function getJavaScriptVersions()
 
     // jquery
     //
-    if (typeof jQuery != "undefined")
+    if (typeof jQuery !== "undefined")
     {
         // update gui
         $("#libVersionJQuery").val(jQuery.fn.jquery);
