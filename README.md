@@ -8,6 +8,7 @@
 ![](https://img.shields.io/github/issues-closed-raw/yafp/monoto.svg?style=flat)
 ![](https://img.shields.io/github/issues-raw/yafp/monoto.svg?style=flat)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2fd2c87f2bb429d80c7b37b707b20c8)](https://www.codacy.com/app/yafp/monoto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yafp/monoto&amp;utm_campaign=Badge_Grade)
+[![codebeat badge](https://codebeat.co/badges/09e2222c-e033-4033-96c8-074c671822ec)](https://codebeat.co/projects/github-com-yafp-monoto-master)
 [![Build Status](https://travis-ci.org/yafp/monoto.svg?branch=master)](https://travis-ci.org/yafp/monoto)
 
 ![logo](https://raw.githubusercontent.com/yafp/monoto/master/www/images/logo/monotoLogoBlack.png)

@@ -5,7 +5,7 @@
 * docs/
 > Contains the documentation
 
-* docs/jsdocs
+  * docs/jsdocs
 > Contains the jsdoc files for all monoto javascript files
 
 * tests/
@@ -14,28 +14,28 @@
 * www/
 > Contains all files needed to run monoto
 
-* www/config/
+  * config/
 > Config files for MySQL DB & monoto version informations
 
-* www/css/
+  * css/
 > All css files
 
-* www/locale/
+  * locale/
 > Translations
 
-* www/images/
+  * images/
 > All images
 
-* www/inc/
+  * inc/
 > Included php scripts
 
-* www/js/
+  * js/
 > All Javascripts (monoto and 3rd party)
 
 
 # Coding conventions
 ## General
-* If possible, use  (lower)[camelCase](https://en.wikipedia.org/wiki/Camel_case) for variables and functions.
+* If possible, use  (lower) [camelCase](https://en.wikipedia.org/wiki/Camel_case) for variables and functions.
 
 ## JavaScript
 * ```console```

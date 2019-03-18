@@ -7,7 +7,7 @@
 
 ## Bootstrap-select
 * [https://developer.snapappointments.com/bootstrap-select/](https://developer.snapappointments.com/bootstrap-select/)
-* Version: 1.13.2
+* Version: 1.13.7
 
 ## CKEditor
 * [http://ckeditor.com/](http://ckeditor.com/)
