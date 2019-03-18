@@ -1,4 +1,5 @@
 /docs/**
+/docs/jsdocs/**
 /www/js/bootstrap/**
 /www/js/bootstrap-select/**
 /www/js/ckeditor/**
