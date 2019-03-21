@@ -5,10 +5,6 @@
 * [https://getbootstrap.com/](https://getbootstrap.com/)
 * Version: 4.1.3
 
-## Bootstrap-select
-* [https://developer.snapappointments.com/bootstrap-select/](https://developer.snapappointments.com/bootstrap-select/)
-* Version: 1.13.7
-
 ## CKEditor
 * [http://ckeditor.com/](http://ckeditor.com/)
 * Version: 4.11.2 (Standard Package)
@@ -32,3 +28,7 @@
 ## Noty
 * [http://needim.github.io/noty/](http://needim.github.io/noty/)
 * Version: 2.4.1
+
+## Select2
+* [https://select2.org/](https://select2.org/)
+* Version: 4.0.5
