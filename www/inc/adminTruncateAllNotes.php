@@ -18,7 +18,7 @@ session_start();
 // check if the user-session is valid or not
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 {
-    require "../config/config.php";
+    require "../config/databaseConfig.php";
 
     // connect to mysql
     $con = new mysqli ( $databaseServer, $databaseUser, $databasePW, $databaseDB );

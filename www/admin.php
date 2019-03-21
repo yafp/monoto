@@ -172,12 +172,10 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                         <input type="text" class="form-control" id="libVersionJQuery" aria-describedby="jqueryHelp" placeholder="jquery version" disabled>
                         <small class="form-text text-muted">Required monoto-wide</small>
                     </div>
-
                     <!-- /Libraries -->
 
                 </div><!-- /tab -->
                 <!-- /Tab: general -->
-
 
                 <!-- Tab: tasks -->
                 <div role="tabpanel" class="tab-pane fade" id="tasks">
@@ -200,12 +198,12 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                         </tr>
                         <tr>
                             <td>Password</td>
-                            <td><input type="password" id="newPassword" name="newPassword" pattern=".{8,}" placeholder="Password" required="required" autocomplete="off" onkeyup="calculatePasswordStrength()" /><span id="passstrength"></span></td>
+                            <td><input type="password" id="newPassword" name="newPassword" pattern=".{8,}" placeholder="Password" required="required" autocomplete="off" onkeyup="calculatePasswordStrength()" />&nbsp;<span id="passstrength"></span></td>
                             <td><small id="passwordHelp" class="form-text text-muted">min length is 8 characters</small></td>
                         </tr>
                         <tr>
                             <td>Repeat Password</td>
-                            <td><input type="password" id="newPasswordConfirm" name="newPasswordConfirm" pattern=".{8,}" placeholder="Repeat password" required="required" autocomplete="off" />&nbsp;<span id="passwordDiff"></span></td>
+                            <td><input type="password" id="newPasswordConfirm" name="newPasswordConfirm" pattern=".{8,}" placeholder="Password" required="required" autocomplete="off" />&nbsp;<span id="passwordDiff"></span></td>
                         </tr>
                         <tr>
                             <td>Notification mail</td>
@@ -232,7 +230,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                         <tr>
                             <td width='30%'><?php echo translateString("Account"); ?></td>
                             <td>
-                                <select class="selectpicker" id="userDeleteSelector" name="userDeleteSelector" onChange="enableUserAccountDeleteButton();" required>
+                                <select id="userDeleteSelector" name="userDeleteSelector" onChange="enableUserAccountDeleteButton();" required>
                                     <option value="" disabled selected>Username</option>
                                     <!-- gets filled by inc/adminFillUserDeleteSelector -->
                                 </select>
@@ -260,7 +258,7 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                             <tr>
                                 <td width='30%'><?php echo translateString("Account"); ?></td>
                                 <td>
-                                    <select class="selectpicker" id="userUnlockSelector" name="userUnlockSelector" onChange="enableUserAccountUnlockButton();" required>
+                                    <select id="userUnlockSelector" name="userUnlockSelector" onChange="enableUserAccountUnlockButton();" required>
                                         <option value="" disabled selected>Username</option>
                                         <!-- gets filled by inc/adminFillUserUnlockSelector -->
                                     </select>
@@ -279,10 +277,8 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                             </tr>
                         </table>
 
-
                     <!-- spacer -->
                     <div class="row">&nbsp;</div>
-
 
                     <h3><i class="fas fa-envelope"></i> <?php echo translateString("Broadcast message"); ?></h3>
                     <div class="panel-body">
@@ -301,7 +297,6 @@ if ( $_SESSION[ 'monoto' ][ 'admin' ] != 1 ) // check if the user-session is val
                                 echo '<button type="submit" class="btn btn-warning" id="doTruncateEvents" name="doTruncateEvents" onClick="truncateAllEvents();" value="Truncate events" title="Deletes the entire content of the event-table. Affects all users. Be careful with that.">Truncate events</button> Warning: This will delete <b>ALL events</b> from the table: m_log. (Developers ONLY)<br><br>';
                                 echo '<button type="submit" class="btn btn-danger" id="doTruncateNotes" name="doTruncateNotes" onClick="truncateAllNotes();" value="Truncate notes" title="Deletes the entire content of the notes-table. Affects all users. Be careful with that too.">Truncate notes</button> Warning: This will delete <b>ALL notes</b> from the table: m_notes. (Developers ONLY)';
                             }
-
                         ?>
 
                 </div>

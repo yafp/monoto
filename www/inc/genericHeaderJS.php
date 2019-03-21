@@ -10,11 +10,6 @@
 <script type="text/javascript" language="javascript" src="js/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
 
 
-<!-- # Bootstrap-select #################################################### -->
-<!-- 1.13.7 -->
-<script type="text/javascript" language="javascript" src="js/bootstrap-select/1.13.7/dist/js/bootstrap-select.min.js"></script>
-
-
 <!-- # datatable ########################################################### -->
 <!-- 1.10.18 -->
 <script type="text/javascript" language="javascript" src="js/datatables/1.10.18/js/jquery.dataTables.min.js"></script>
@@ -35,6 +30,11 @@
 <script type="text/javascript" language="javascript" src="js/noty/2.4.1/jquery.noty.js"></script>
 <script type="text/javascript" language="javascript" src="js/noty/2.4.1/layouts/topRight.js"></script>
 <script type="text/javascript" language="javascript" src="js/noty/2.4.1/themes/default.js"></script>
+
+
+<!-- # select2 ############################################################# -->
+<!-- 4.0.5 -->
+<script type="text/javascript" language="javascript" src="js/select2/4.0.5/dist/js/select2.min.js"></script>
 
 
 <!-- # monoto ############################################################## -->

@@ -2,21 +2,16 @@
     // #########################################################################
     // VERSION INFORMATION - dont' touch those
     // #########################################################################
-    //
-    // version / release
-    $m_version = "4.0.0 RC1"; // version
-    $m_date = "20190318"; // build-date
 
-    $m_stableRelease = false; // true for officials builds
+    // version
+    $m_version = "4.0.0 RC1";
+
+     // build-date
+    $m_buildDate = "20190321";
+
+    // stable release or not
     // - true = official build
     // - false = warning & hidden fields displayed on notes.php. Truncate functions visible on admin.php
+    $m_stableRelease = false;
 
-    // #########################################################################
-    // Github Links
-    // #########################################################################
-    //
-    $m_githubProjectLink = "https://github.com/yafp/monoto";
-    $m_githubIssueLink = "https://github.com/yafp/monoto/issues";
-    $m_githubChangelogLink = "https://github.com/yafp/monoto/blob/master/docs/CHANGELOG.md";
-    $m_githubWikiLink = "https://github.com/yafp/monoto/wiki";
 ?>

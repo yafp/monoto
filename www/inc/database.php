@@ -8,7 +8,7 @@
  */
 function connectToDatabase()
 {
-    require 'config/config.php';
+    require 'config/databaseConfig.php';
 
     $con = new mysqli ( $databaseServer, $databaseUser, $databasePW, $databaseDB );
 

@@ -9,7 +9,7 @@ session_start();
 // check if the user-session is valid or not
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 {
-    require '../config/config.php';
+    require '../config/databaseConfig.php';
 
     $owner = $_SESSION[ 'monoto' ][ 'username' ];
 

@@ -10,7 +10,7 @@ session_start();
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
 {
     // for database informations
-    require '../config/config.php';
+    require '../config/databaseConfig.php';
 
     // for datatable server-side-processing
     require 'ssp.class.php';

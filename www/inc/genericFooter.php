@@ -16,7 +16,7 @@ require "config/build.php";
         <br>
 
         <!-- version informations -->
-        Version: <?php echo $m_version; ?> (<?php echo $m_date; ?>)
+        Version: <?php echo $m_version; ?> (<?php echo $m_buildDate; ?>)
         <br>
 
         <!-- links to docu, changelog and issue tracker -->

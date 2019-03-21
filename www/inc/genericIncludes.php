@@ -23,8 +23,9 @@ include 'inc/genericHeaderJS.php';
 
 // specials
 require 'inc/helperFunctions.php'; // logging, translation etc
-require 'inc/db.php'; // connect to db
-require 'config/config.php'; // some settings
+require 'inc/database.php'; // connect to db
+require 'config/databaseConfig.php'; // some settings
 require 'config/build.php'; // version informations
+require 'config/constants.php'; // constant strings
 
 ?>

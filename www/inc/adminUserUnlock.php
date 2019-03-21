@@ -17,7 +17,7 @@ header('Content-type: application/xml');
 session_start();
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is valid or not
 {
-    require '../config/config.php';
+    require '../config/databaseConfig.php';
 
     // post values
     $existingUserID = filter_input(INPUT_POST, "existingUserID", FILTER_SANITIZE_STRING);

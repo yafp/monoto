@@ -13,17 +13,7 @@
 
 
     // #################################################################################
-    // SECTION 2- you might mess with these
-    // #################################################################################
-    //
-    // for installation specific admin settings
-    //
-    // project name
-    $m_name = "monoto";
-
-
-    // #################################################################################
-    // SECTION 3 - Configure debug output for developers
+    // SECTION 2 - Configure debug output for developers
     // #################################################################################
     //
     if ( !defined ('DEVELOPMENT') )

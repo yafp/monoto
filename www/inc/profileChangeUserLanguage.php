@@ -18,7 +18,7 @@ header('Content-type: application/xml');
 session_start();
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is valid or not
 {
-    require '../config/config.php';
+    require '../config/databaseConfig.php';
 
     $newLanguage = filter_input(INPUT_POST, "language", FILTER_SANITIZE_STRING);
     $username = $_SESSION[ 'monoto' ][ 'username' ];

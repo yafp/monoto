@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <h2><i class="fas fa-database fa-2x"></i> Database</h2>
-                    <p class="lead">Please create a database and all related tables according to the instructions in <span class="badge badge-secondary">docs/INSTALL.md</span> and adjust the values in <span class="badge badge-secondary">config/config.php</span> according to it.</p>
+                    <p class="lead">Please create a database and all related tables according to the instructions in <span class="badge badge-secondary">docs/INSTALL.md</span> and adjust the values in <span class="badge badge-secondary">config/databaseConfig.php</span> according to it.</p>
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@ session_start();
 
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is valid or not
 {
-    require '../config/config.php';
+    require '../config/databaseConfig.php';
     require 'helperFunctions.php'; // to access writeNewLogentry
 
     // note id

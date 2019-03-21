@@ -18,7 +18,7 @@ header('Content-type: application/xml');
 session_start();
 if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is valid or not
 {
-    require '../config/config.php';
+    require '../config/databaseConfig.php';
 
     // post values
     $newUsername = filter_input(INPUT_POST, "newUsername", FILTER_SANITIZE_STRING);
@@ -62,7 +62,9 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     {
         $serverName = $_SERVER["SERVER_NAME"];
         $serverPort = $_SERVER["SERVER_PORT"];
-        $serverRequestURI = $_SERVER["REQUEST_URI"];
+        //$serverRequestURI = $_SERVER["REQUEST_URI"];
+        //$serverRequestURI = filter_input(INPUT_SERVER, 'SCRIPT_URL', FILTER_SANITIZE_URL);
+        $serverRequestURI = htmlspecialchars($_SERVER['REQUEST_URI']);
 
         // need full page url for link in the invite mail
         $pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";

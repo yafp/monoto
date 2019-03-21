@@ -115,7 +115,7 @@ function writeNewLogEntry( $eventType, $eventMessage )
 {
     if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     {
-        require '../config/config.php';
+        require '../config/databaseConfig.php';
 
         // validate $eventType
         switch ( $eventType )
@@ -163,7 +163,8 @@ function handleBadAccessToIncScripts()
     header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
 
     // choose the appropriate page to redirect users
-    die( header( 'location: ../error.php' ) );
+    //die( header( 'location: ../error.php' ) );
+    header( 'location: ../error.php' );
 }
 
 

@@ -783,6 +783,11 @@ function onAdminPageReady()
 {
     console.debug("onAdminPageReady ::: Start");
 
+    // init select2 for existing <select>'s
+    $('#userDeleteSelector').select2();
+    $('#userUnlockSelector').select2();
+
+
     // Javascript libraries
     getJavaScriptVersions();
 

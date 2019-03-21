@@ -13,6 +13,9 @@
     <script type="text/javascript" charset="utf-8">
     $(document).ready( function ()
     {
+        // select2 - activate select 2 for search language selection
+        $('#s_languageSelector').select2();
+
         initProfileEventsDataTable();
 
         // #281
@@ -161,7 +164,7 @@
 
                     <div class="row">
                         <div class="col-sm">
-                                <select class="selectpicker" name="s_languageSelector" id="s_languageSelector" onChange="enableUpdateUserProfileLanguageButton();">
+                                <select name="s_languageSelector" id="s_languageSelector" onChange="enableUpdateUserProfileLanguageButton();">
                                     <option value="de_DE.UTF-8">de_DE.UTF-8</option>
                                     <option value="en_US">en_US</option>
                                 </select>
@@ -317,7 +320,7 @@
         //
         if ( isset($_POST[ "doImport" ] ) )
         {
-            require 'config/config.php';
+            require 'config/databaseConfig.php';
 
             ?>
 

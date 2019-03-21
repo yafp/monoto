@@ -13,7 +13,7 @@ Download the latest monoto version from github
 * create user for new database
 
 ## 4. Adjust config
-* Check ```www/config/config.php``` and modify the mysql access settings to your needs
+* Check ```www/config/databaseConfig.php``` and modify the mysql access settings to your needs
 
 ## 5. Upload
 * Upload the extracted content of the ```www``` folder to your webserver
@@ -23,7 +23,7 @@ Download the latest monoto version from github
 
 ## 7. Cleanup
 * Secure your monoto install
-  * ```config/config.php``` (only webserver should be allowed to read this file)
+  * ```config/databaseConfig.php``` (only webserver should be allowed to read this file)
   * delete ```setup.php```
 
 ## 8. Apache & .htaccess (optional)
