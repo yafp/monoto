@@ -9,13 +9,13 @@
     "main": "",
     "dependencies": {
         "bootstrap": ">=4.2.1",
-        "bootstrap-select": ">=1.13.2",
         "ckeditor": ">=4.11.3",
         "DataTables": ">=1.10.18",
         "FontAwesome": ">=5.2.0",
         "jquery": ">=3.3.0",
         "mark.js": ">=9.0.0",
-        "noty": ">=2.4.1"
+        "noty": ">=2.4.1",
+        "select2": ">=4.0.5"
     },
     "author": {
         "name": "Florian Poeck",
