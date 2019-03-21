@@ -1,6 +1,7 @@
 {
     "plugins": [
-        "plugins/markdown"
+        "plugins/markdown",
+        "plugins/summarize"
     ],
     "recurseDepth": 10,
     "source": {
@@ -17,5 +18,11 @@
     "templates": {
         "cleverLinks": false,
         "monospaceLinks": false
+    },
+    "opts": {
+        "template": "templates/default",
+        "encoding": "utf8",
+        "destination": "./docs/jsdocs",
+        "recurse": true
     }
 }
