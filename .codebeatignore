@@ -1,10 +1,10 @@
 /docs/**
 /docs/jsdocs/**
 /www/js/bootstrap/**
-/www/js/bootstrap-select/**
 /www/js/ckeditor/**
 /www/js/datatables/**
 /www/js/FontAwesome/**
 /www/js/jquery/**
 /www/js/mark.js/**
 /www/js/noty/**
+/www/js/select2/**
