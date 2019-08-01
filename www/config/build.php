@@ -4,14 +4,14 @@
     // #########################################################################
 
     // version
-    $m_version = "4.0.0 RC1";
+    $m_version = "4.0.0";
 
      // build-date
-    $m_buildDate = "20190321";
+    $m_buildDate = "20190731";
 
     // stable release or not
     // - true = official build
     // - false = warning & hidden fields displayed on notes.php. Truncate functions visible on admin.php
-    $m_stableRelease = false;
+    $m_stableRelease = true;
 
 ?>
