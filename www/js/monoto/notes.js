@@ -236,12 +236,12 @@ function initCKEditor()
         //removePlugins: 'elementspath',
         toolbar:
         [
-            { name: "tools",       items : [ "Maximize" ] },
+            { name: "tools", items : [ "Maximize" ] },
             { name: "basicstyles", items : [ "Bold","Italic","Strike","RemoveFormat" ] },
-            { name: "paragraph",   items : [ "NumberedList","BulletedList","-","Outdent","Indent","Blockquote" ] },
-            { name: "insert",      items : [ "Link","Image","Table","HorizontalRule","SpecialChar" ] },
-            { name: "styles",      items : [ "Styles","Format" ] },
-            { name: "document",    items : [ "Source" ] }
+            { name: "paragraph", items : [ "NumberedList", "BulletedList", "-", "Outdent", "Indent", "Blockquote" ] },
+            { name: "insert", items : [ "Link", "Image", "Table", "HorizontalRule", "SpecialChar" ] },
+            { name: "styles", items : [ "Styles", "Format" ] },
+            { name: "document", items : [ "Source" ] }
         ]
     });
 
