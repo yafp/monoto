@@ -74,7 +74,7 @@
   * [#280] PHP/Session: Using sub-array for Session variables
   * [#284] Added .htaccess for some important folders
   * [#291] Localize datatable
-  * [#290] Bootstrap <select>
+  * [#290] Bootstrap select
   * [#296] Switch from bootstrap-select to select2
 
 ###  ```Removed```

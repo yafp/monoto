@@ -7,7 +7,7 @@
 
 ## CKEditor
 * [http://ckeditor.com/](http://ckeditor.com/)
-* Version: 4.11.2 (Standard Package)
+* Version: 4.11.3 (Standard Package)
 
 ## DataTables
 * [http://datatables.net/](http://datatables.net/)
