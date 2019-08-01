@@ -45,7 +45,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 )
     }
     else // update m_log
     {
-        writeNewLogEntry("Note delete", "Note: <b>".$deleteTitle."</b>. (ID: ".$deleteID.") deleted.");
+        writeNewLogEntry("Note delete", "Deleted note <b>".$deleteID."</b> with title <b>".$deleteTitle."</b>.");
     }
 
     // close sql connection

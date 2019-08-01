@@ -67,7 +67,7 @@ if ( $_SESSION[ 'monoto' ][ 'valid' ] == 1 ) // check if the user-session is val
     }
     else
     {
-        writeNewLogEntry("Note update", "Note: <b>".$modifiedNoteTitle."</b> saved.");
+        writeNewLogEntry("Note update", "Saved note <b>".$noteID."</b> with title <b>".$modifiedNoteTitle."</b>.");
     }
     mysqli_close( $con ); // close sql connection
 }
